@@ -1,0 +1,128 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class node : MonoBehaviour {
+
+	public GameObject inner_circle_object;
+	public GameObject outher_cirlce_object;
+	cirlce c;
+	public Vector3 v;
+	public GameObject cursor;
+
+  public Vector3 mesh_line_offset = new Vector3(0f, 1f, 0f);
+	public bool is_selected;
+	public int node_id;
+	public int prev_node;
+	public int next_node;
+	public bool is_first_inferface_connected;
+	public bool is_last_interface_connected;
+	public bool is_last_node;
+	public bool is_first_node;
+	public bool can_be_selected; //
+	public bool is_mouse_in_node_range;
+	public Vector3 curr_pos_in_circle;
+
+  public GameObject mesh_line;
+
+	public GameObject click_collider;
+
+	public Vector3 node_pos;
+
+	public bool call_const = false;
+
+	public void node_const(Vector3 _node_pos, int _node_id, int _prev_node, bool fic = true){
+	
+		is_first_inferface_connected = fic;
+		prev_node = _prev_node;
+		node_id = _node_id;
+		call_const = true;
+		node_pos = _node_pos;
+		this.transform.position = node_pos;
+		this.name = "node_" + _node_id;
+	}
+
+
+
+
+
+	public bool check_connection_state(){
+		if (is_first_inferface_connected && is_last_interface_connected) {
+			return false;
+		} else if (is_first_inferface_connected && !is_last_interface_connected) {
+			return true;
+		} else if (!is_first_inferface_connected && is_last_interface_connected) {
+			return false;
+		} else {
+			return false;		
+		}
+
+	}
+
+
+	// Use this for initialization
+	void Start () {
+		if(call_const){
+			c = new cirlce (inner_circle_object.GetComponent<LineRenderer>(), outher_cirlce_object.GetComponent<LineRenderer>(), this.transform, cursor);
+		}
+
+	
+	
+
+	}
+
+
+
+	public bool check_if_pos_in_cirlce_at_point(Vector3 _point){
+		return c.draw_point_on_circle (_point,false);
+	
+	}
+
+
+	// Update is called once per frame
+	void FixedUpdate () {
+
+			c.cirlce_offset = v;
+
+
+      if (node_id > 0)
+      {
+        Vector3 _pre_node_pos = GameObject.Find("path_manager").GetComponent<pathmanager>().get_node_pos(prev_node);
+        mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(0, _pre_node_pos + mesh_line_offset);
+        mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(1, node_pos + mesh_line_offset);
+        mesh_line.gameObject.GetComponent<LineRenderer>().SetWidth(vars.waypoint_node_connection_line_width, vars.waypoint_node_connection_line_width);
+        mesh_line.gameObject.GetComponent<LineRenderer>().material =  new Material(Shader.Find("Particles/Additive"));
+        //mesh_line.gameObject.GetComponent<LineRenderer>().material = new Material(Shader.Find("Standart"));
+        mesh_line.gameObject.GetComponent<LineRenderer>().SetColors(Color.blue, Color.blue);
+      }
+			// wenn in is_in_patheditmode dann schaue ob bereits einer selektier wurde -> wenn ja wir der selektierte deselektiert
+//		c.draw_point_on_circle (GameObject.Find("cursor").transform.position);
+
+			if (is_selected) {
+
+				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast (ray, out hit)) {
+					is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
+					curr_pos_in_circle = hit.point;
+				}
+				c.draw_circle_inline ();
+				c.draw_circle_outline ();		
+			} else {
+				c.disbale_circle ();
+			}
+
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+}
