@@ -1,9 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/node.cs">
     <Files>
-      <File FileName="../../Google Drive/Antboss/pathfinding_test_environment/Assets/wp_node.cs" Line="12" Column="1" />
-      <File FileName="Assets/script/node.cs" Line="49" Column="1" />
+      <File FileName="Assets/script/node.cs" Line="59" Column="8" />
+      <File FileName="Assets/script/pathmanager.cs" Line="31" Column="37" />
+      <File FileName="Assets/script/vars.cs" Line="16" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

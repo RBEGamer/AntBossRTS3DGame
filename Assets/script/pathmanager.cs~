@@ -28,6 +28,7 @@ public class pathmanager : MonoBehaviour {
 	public int saved_node_id;
 	// Use this for initialization
 	void Start () {
+		this.name = vars.path_manager_name;
 		saved_node_id = -1;
 		nodes = new List<GameObject> ();
 		pedit_toggle = true;
@@ -39,7 +40,8 @@ public class pathmanager : MonoBehaviour {
 		nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, tmp_id, true);
 		nodes[tmp_id].gameObject.GetComponent<node> ().is_first_node = true;
 	///	nodes[tmp_id].gameObject.GetComponent<node> ().is_first_inferface_connected = true;
-		Debug.Log("start");
+	//	Debug.Log("start");
+		nodes[tmp_id].gameObject.GetComponent<node>().calc_neighbour_distance();
 	}
 	
 	// Update is called once per frame

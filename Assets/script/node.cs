@@ -18,7 +18,7 @@ public class node : MonoBehaviour {
 		
 		node_edges.Clear ();
 		foreach (int n in neighbours) {
-			Vector3 neighbour_pos =  GameObject.Find("node_" + n).GetComponent<node>().node_pos;
+			Vector3 neighbour_pos =  GameObject.Find(vars.wp_node_name + "_" + n).GetComponent<node>().node_pos;
 			float dist = Vector3.Distance(node_pos, neighbour_pos);
 			//Debug.Log("from node " + node_id +  " to " + n + " : Distance = " + dist);
 			int edge_id = node_edges.Count;
@@ -57,8 +57,8 @@ public class node : MonoBehaviour {
 
 	public GameObject inner_circle_object;
 	public GameObject outher_cirlce_object;
-	private cirlce c;
-	private Vector3 v;
+	 cirlce c;
+	public Vector3 v;
 	public GameObject cursor;
   	public Vector3 mesh_line_offset = new Vector3(0f, 1f, 0f);
 	public bool is_selected;
@@ -81,7 +81,7 @@ public class node : MonoBehaviour {
 		call_const = true;
 		node_pos = _node_pos;
 		this.transform.position = node_pos;
-		this.name = "node_" + _node_id;
+		this.name = vars.wp_node_name + "_" + _node_id;
 	}
 
 
@@ -120,7 +120,7 @@ public class node : MonoBehaviour {
 
       if (node_id > 0)
       {
-        Vector3 _pre_node_pos = GameObject.Find("path_manager").GetComponent<pathmanager>().get_node_pos(prev_node);
+		Vector3 _pre_node_pos = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().get_node_pos(prev_node);
         mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(0, _pre_node_pos + mesh_line_offset);
         mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(1, node_pos + mesh_line_offset);
         mesh_line.gameObject.GetComponent<LineRenderer>().SetWidth(vars.waypoint_node_connection_line_width, vars.waypoint_node_connection_line_width);
