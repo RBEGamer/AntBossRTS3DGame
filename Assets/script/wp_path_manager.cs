@@ -26,7 +26,7 @@ public class wp_path_manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		nodes.Clear ();
-		nodes.AddRange(GameObject.FindGameObjectsWithTag ("wp_node"));
+		nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
 		node_count = nodes.Count;
 
 	
@@ -47,16 +47,18 @@ public class wp_path_manager : MonoBehaviour {
 
 
 
-
-
-	void compute_path(){
-
-
+	public void add_nodes(){
 		nodes.Clear ();
-
 		this.nodes = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes;
-		//nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
+		nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
 		node_count = nodes.Count;
+
+	}
+
+	public void compute_path(){
+		add_nodes();
+
+
 		
 		if (node_count > 1) {
 			

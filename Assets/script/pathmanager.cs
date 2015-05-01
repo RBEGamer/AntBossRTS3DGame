@@ -167,6 +167,13 @@ public class pathmanager : MonoBehaviour {
 			nclass.calc_neighbour_distance();
 		}
 
+
+
+	
+
+		//foreach (GameObject a in GameObject.FindGameObjectsWithTag("ant")) {
+		//	a.gameObject.GetComponent<wp_path_manager>().add_nodes();
+		//}
 	}
 
 
