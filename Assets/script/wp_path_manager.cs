@@ -41,7 +41,7 @@ public class wp_path_manager : MonoBehaviour {
 
 		}
 
-		Debug.Log (get_node_with_lowest_distance ());
+//		Debug.Log (get_node_with_lowest_distance ());
 
 	}//ende update
 
@@ -53,10 +53,12 @@ public class wp_path_manager : MonoBehaviour {
 
 
 		nodes.Clear ();
-		nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
+
+		this.nodes = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes;
+		//nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
 		node_count = nodes.Count;
 		
-		if (node_count > 0) {
+		if (node_count > 1) {
 			
 			//VORARBEIT:
 			set_all_to_unvisited (); // alle nodes auf unbesucht setzten
@@ -108,7 +110,8 @@ public class wp_path_manager : MonoBehaviour {
 					float currcw = get_node_component(currend_selected_node).distance;
 					float currew =  get_node_component(currend_selected_node).get_edge_weight(neighbour);
 
-					if(currew < 0){Debug.Log("ERR Edgeweight < 0");
+						if(currew < 0){Debug.Log("ERR Edgeweight < 0 : " +currew);
+
 						break;
 					}
 

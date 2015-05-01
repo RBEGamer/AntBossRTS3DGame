@@ -91,11 +91,11 @@ public class pathmanager : MonoBehaviour {
 				Vector3 new_pos = nodes[saved_node_id].GetComponent<node>().curr_pos_in_circle; //get current mouse pos
 				//Debug.Log(check_if_pos_inside_another_node(new_pos, saved_node_id));
 
-				Debug.Log(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id));
+//				Debug.Log(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id));
 
 				if(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id) && Input.GetMouseButtonDown(0) ){
-					Debug.Log("selected : "+get_selected_node());
-					Debug.Log("node kann hier gesetzt werden : "+ new_pos);
+//					Debug.Log("selected : "+get_selected_node());
+//					Debug.Log("node kann hier gesetzt werden : "+ new_pos);
 					add_node(new_pos, saved_node_id);
 					nodes[saved_node_id].GetComponent<node>().cursor.SetActive(false); //disable the cursor
 					nodes[saved_node_id].GetComponent<node>().cursor.transform.position = nodes[saved_node_id].GetComponent<node>().transform.position-new Vector3(0f,-1f,0f); //set the invisible cursor the node pos
@@ -140,11 +140,11 @@ public class pathmanager : MonoBehaviour {
 
 			nclass.neighbours.Clear();
 
-			if(!nclass.neighbours.Contains(nclass.node_id)){
-				nclass.neighbours.Add(nclass.node_id);
-			}
+		//	if(!nclass.neighbours.Contains(nclass.node_id)){
+		//		nclass.neighbours.Add(nclass.node_id);
+		//	}
 
-			if(!nclass.neighbours.Contains(nclass.prev_node)){
+			if(!nclass.neighbours.Contains(nclass.prev_node) && nclass.prev_node != nclass.node_id){
 				nclass.neighbours.Add(nclass.prev_node);
 			}
 
@@ -157,12 +157,15 @@ public class pathmanager : MonoBehaviour {
 				}
 			}
 
-			nclass.calc_neighbour_distance();
+		
 
 		}//ende foreach
 
 
-
+		foreach (GameObject n in nodes) {
+			node nclass = n.gameObject.GetComponent<node>();
+			nclass.calc_neighbour_distance();
+		}
 
 	}
 
