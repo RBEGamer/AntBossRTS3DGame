@@ -14,6 +14,9 @@ public class pathmanager : MonoBehaviour {
    
    
    */
+
+
+	public GameObject scout_ant_prefab;
 	public int last_added_wp;
 
 	public List<GameObject> nodes;
@@ -170,8 +173,8 @@ public class pathmanager : MonoBehaviour {
 		}
 
 
-		GameObject.Find("ant").GetComponent<ant_path_walker>().node_added();
-	
+		//GameObject.Find("ant").GetComponent<ant_path_walker>().node_added();
+
 
 		//foreach (GameObject a in GameObject.FindGameObjectsWithTag("ant")) {
 		//	a.gameObject.GetComponent<wp_path_manager>().add_nodes();
@@ -263,6 +266,10 @@ public class pathmanager : MonoBehaviour {
 			nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos, tmp_id ,prev_node_id, true);
 			//nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, get_selected_node (), true);
 			last_added_wp = tmp_id;
+
+
+
+			Instantiate(scout_ant_prefab);
 		} else {
 			Debug.LogError("NODE KONNTE NICHT ERSTELLT WERDEN KA KEINER SELEKTOER WURDE");
 		}

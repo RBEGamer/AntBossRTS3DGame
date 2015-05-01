@@ -26,20 +26,20 @@ public class wp_path_manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		nodes.Clear ();
-		nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
-		node_count = nodes.Count;
+		//nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
+		//node_count = nodes.Count;
 
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		//nodes.Clear ();
 		if (path_changed) {
+			nodes.Clear ();
 			path_changed = false;
 			compute_path ();
-
-		}
+	}
 
 //		Debug.Log (get_node_with_lowest_distance ());
 
@@ -50,7 +50,7 @@ public class wp_path_manager : MonoBehaviour {
 	public void add_nodes(){
 		nodes.Clear ();
 		this.nodes = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes;
-		nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
+		//nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
 		node_count = nodes.Count;
 
 	}

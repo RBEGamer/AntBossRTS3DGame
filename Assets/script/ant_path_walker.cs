@@ -18,11 +18,13 @@ public class ant_path_walker : MonoBehaviour {
 		ant_path = this.GetComponent<wp_path_manager>();
 		ant_path.start_node_id = 0; // der start ist immer die base also 0;
 		this.transform.position = get_wp_pos(ant_path.start_node_id);
+
+		node_added();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		if(walk_path.Count >= 2){
 		float step = speed * Time.deltaTime;
 		transform.position = Vector3.MoveTowards(transform.position, get_wp_pos(current_wp_step), step);
 
@@ -31,11 +33,29 @@ public class ant_path_walker : MonoBehaviour {
 		//if(current_wp_step == walk_path.Count &&  walk_path.Count-1 >0){
 		//	Debug.Log("count = wp");
 		//}else
+
+		//	Debug.Log(wp_counter);
+		if(wp_counter >= walk_path.Count-1 && walk_path.Count >= 2 && walk_path[wp_counter] == last_added_node){
+				if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < 0.1){
+					Destroy(this.gameObject);
+				}
+
+		}
+
+
+
+
 		if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < 0.1f && current_wp_step == wp_counter){
-			wp_counter ++;
+		
+				if(wp_counter < walk_path.Count-1){
+					wp_counter ++;
+				}
+			
 			current_wp_step = walk_path[wp_counter];
 		}
 
+
+		}//ende walk count
 	}
 
 
