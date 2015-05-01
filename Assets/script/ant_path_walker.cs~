@@ -25,9 +25,15 @@ public class ant_path_walker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(walk_path.Count >= 2){
-		float step = speed * Time.deltaTime;
-			transform.position = Vector3.MoveTowards(transform.position, get_wp_pos(walk_path[wp_counter]), step);
 
+		float step = speed * Time.deltaTime;
+
+			transform.position = Vector3.MoveTowards(transform.position, get_wp_pos(walk_path[wp_counter]), step);
+			//Quaternion rot = Quaternion.LookRotation(get_wp_pos(walk_path[wp_counter]));
+			this.transform.LookAt(get_wp_pos(walk_path[wp_counter]));
+			// slerp to the desired rotation over time
+			//this.transform.rotation = rot;
+			//this.transform.rotation = Quaternion.Lerp(this.transform.rotation, rot, 15.1f * Time.deltaTime);
 
 
 		//if(current_wp_step == walk_path.Count &&  walk_path.Count-1 >0){
