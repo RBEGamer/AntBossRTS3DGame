@@ -26,7 +26,7 @@ public class ant_path_walker : MonoBehaviour {
 	void Update () {
 		if(walk_path.Count >= 2){
 		float step = speed * Time.deltaTime;
-		transform.position = Vector3.MoveTowards(transform.position, get_wp_pos(current_wp_step), step);
+			transform.position = Vector3.MoveTowards(transform.position, get_wp_pos(walk_path[wp_counter]), step);
 
 
 
@@ -34,9 +34,9 @@ public class ant_path_walker : MonoBehaviour {
 		//	Debug.Log("count = wp");
 		//}else
 
-		//	Debug.Log(wp_counter);
+			Debug.Log(wp_counter);
 		if(wp_counter >= walk_path.Count-1 && walk_path.Count >= 2 && walk_path[wp_counter] == last_added_node){
-				if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < 0.1){
+				if(Vector3.Distance(get_wp_pos(walk_path[wp_counter]),transform.position) < 0.1f){
 					Destroy(this.gameObject);
 				}
 
@@ -45,7 +45,7 @@ public class ant_path_walker : MonoBehaviour {
 
 
 
-		if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < 0.1f && current_wp_step == wp_counter){
+		if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < 0.1f ){//&& current_wp_step == wp_counter){
 		
 				if(wp_counter < walk_path.Count-1){
 					wp_counter ++;

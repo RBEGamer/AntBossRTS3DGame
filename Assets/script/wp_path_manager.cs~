@@ -175,12 +175,11 @@ public class wp_path_manager : MonoBehaviour {
 			final_path.Add(start_node_id);
 
 
-			string tmpfp = "";
-			foreach (int dn in final_path) {
-				tmpfp += "  ->"+dn+"  ";
-				
-			}
-			Debug.Log("FINALPATH : " + tmpfp);
+		//	string tmpfp = "";
+		//	foreach (int dn in final_path) {
+		//		tmpfp += "  ->"+dn+"  ";
+		//	}
+//			Debug.Log("FINALPATH : " + tmpfp);
 			
 		}//if > 0
 		
