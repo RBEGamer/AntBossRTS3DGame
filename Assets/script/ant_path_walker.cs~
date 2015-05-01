@@ -8,7 +8,10 @@ public class ant_path_walker : MonoBehaviour {
 	public int last_added_node;
 	public List<int> walk_path;
 
-	public float speed;
+
+	public float ant_walk_path_distance;
+	private bool ant_dynamic_walk_speed = false;
+	private float ant_move_speed = 2.0f;
 	public int current_wp_step;
 	wp_path_manager ant_path;
 
@@ -26,7 +29,7 @@ public class ant_path_walker : MonoBehaviour {
 	void Update () {
 		if(walk_path.Count >= 2){
 
-		float step = speed * Time.deltaTime;
+			float step = ant_move_speed * Time.deltaTime*ant_walk_path_distance;
 
 			transform.position = Vector3.MoveTowards(transform.position, get_wp_pos(walk_path[wp_counter]), step);
 			//Quaternion rot = Quaternion.LookRotation(get_wp_pos(walk_path[wp_counter]));
@@ -76,6 +79,25 @@ public class ant_path_walker : MonoBehaviour {
 		walk_path = ant_path.final_path;
 		walk_path.Reverse();
 		current_wp_step = walk_path[wp_counter];
+
+		//Dynamic WALK SPEED CALCULATioN
+		ant_walk_path_distance = 0;
+		if(ant_dynamic_walk_speed){
+			for (int i = 0; i < walk_path.Count; i++) {
+				if(i > 0){
+					ant_walk_path_distance += Vector3.Distance(get_wp_pos(walk_path[i-1]),get_wp_pos(walk_path[i]));
+				}
+				
+			}
+		}else{
+			ant_walk_path_distance = 1.0f;
+		}
+
+
+
+
+		//pfadlänge bekommen
+
 
 
 	//	current_wp_step = ant_path.start_node_id;
