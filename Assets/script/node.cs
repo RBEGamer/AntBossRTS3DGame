@@ -3,39 +3,79 @@ using System.Collections;
 using System.Collections.Generic;
 public class node : MonoBehaviour {
 
+	public Vector3 node_pos;
+	public int node_id;
+	public List<int> neighbours;
+	public List<wp_edges> node_edges;
+	public bool visited;
+	public float distance;
+	public int ancestor;
+	public bool tagged;
+
+
+
+	public void calc_neighbour_distance(){
+		
+		node_edges.Clear ();
+		foreach (int n in neighbours) {
+			Vector3 neighbour_pos =  GameObject.Find("node_" + n).GetComponent<node>().node_pos;
+			float dist = Vector3.Distance(node_pos, neighbour_pos);
+			//Debug.Log("from node " + node_id +  " to " + n + " : Distance = " + dist);
+			int edge_id = node_edges.Count;
+			wp_edges wp_tmp = new wp_edges(edge_id  ,node_id, n, dist);
+			node_edges.Add(wp_tmp);
+			//node_edges[edge_id].debug_edge_info();
+		}
+		
+		
+	}
+	
+	
+	
+	//get edge to neigbour
+	
+	
+	public float get_edge_weight(int neig){
+		
+		bool tmp = false;
+		
+		foreach (wp_edges ed in node_edges) {
+			if(ed.dest_id == neig && ed.source_id == this.node_id){
+				tmp = true;
+				return ed.weight;
+			}
+		}
+		return -1f;
+		
+	}
+
+
+
+
+
+
+
 	public GameObject inner_circle_object;
 	public GameObject outher_cirlce_object;
-	cirlce c;
-	public Vector3 v;
+	private cirlce c;
+	private Vector3 v;
 	public GameObject cursor;
-
-  public Vector3 mesh_line_offset = new Vector3(0f, 1f, 0f);
+  	public Vector3 mesh_line_offset = new Vector3(0f, 1f, 0f);
 	public bool is_selected;
-	public int node_id;
 	public int prev_node;
-	public bool is_first_inferface_connected;
-	public bool is_last_interface_connected;
 	public bool is_last_node;
 	public bool is_first_node;
 	public bool can_be_selected; //
 	public bool is_mouse_in_node_range;
 	public Vector3 curr_pos_in_circle;
-
-
-
-	public List<int> neighbours;
-
-  public GameObject mesh_line;
-
+  	public GameObject mesh_line;
 	public GameObject click_collider;
-
-	public Vector3 node_pos;
-
 	public bool call_const = false;
+
 
 	public void node_const(Vector3 _node_pos, int _node_id, int _prev_node, bool fic = true){
 	
-		is_first_inferface_connected = fic;
+		//is_first_inferface_connected = fic;
 		prev_node = _prev_node;
 		node_id = _node_id;
 		call_const = true;
@@ -48,17 +88,8 @@ public class node : MonoBehaviour {
 
 
 
-	public bool check_connection_state(){
-		if (is_first_inferface_connected && is_last_interface_connected) {
-			return false;
-		} else if (is_first_inferface_connected && !is_last_interface_connected) {
-			return true;
-		} else if (!is_first_inferface_connected && is_last_interface_connected) {
-			return false;
-		} else {
-			return false;		
-		}
-
+	void Awake(){
+		distance = Mathf.Infinity;
 	}
 
 

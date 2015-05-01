@@ -74,6 +74,7 @@
      <Compile Include="Assets\script\node.cs" />
      <Compile Include="Assets\script\pathmanager.cs" />
      <Compile Include="Assets\script\vars.cs" />
+     <Compile Include="Assets\script\wp_edges.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

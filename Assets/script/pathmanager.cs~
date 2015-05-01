@@ -38,7 +38,7 @@ public class pathmanager : MonoBehaviour {
 		nodes.Add (tmp);
 		nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, tmp_id, true);
 		nodes[tmp_id].gameObject.GetComponent<node> ().is_first_node = true;
-		nodes[tmp_id].gameObject.GetComponent<node> ().is_first_inferface_connected = true;
+	///	nodes[tmp_id].gameObject.GetComponent<node> ().is_first_inferface_connected = true;
 		Debug.Log("start");
 	}
 	
@@ -89,9 +89,9 @@ public class pathmanager : MonoBehaviour {
 				Vector3 new_pos = nodes[saved_node_id].GetComponent<node>().curr_pos_in_circle; //get current mouse pos
 				//Debug.Log(check_if_pos_inside_another_node(new_pos, saved_node_id));
 
-				Debug.Log(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range && nodes[saved_node_id].GetComponent<node>().check_connection_state() && check_if_pos_inside_another_node(new_pos, saved_node_id));
+				Debug.Log(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id));
 
-				if(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range && nodes[saved_node_id].GetComponent<node>().check_connection_state() && check_if_pos_inside_another_node(new_pos, saved_node_id) && Input.GetMouseButtonDown(0) ){
+				if(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id) && Input.GetMouseButtonDown(0) ){
 					Debug.Log("selected : "+get_selected_node());
 					Debug.Log("node kann hier gesetzt werden : "+ new_pos);
 					add_node(new_pos, saved_node_id);
@@ -155,7 +155,7 @@ public class pathmanager : MonoBehaviour {
 				}
 			}
 
-
+			nclass.calc_neighbour_distance();
 
 		}//ende foreach
 
