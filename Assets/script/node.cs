@@ -12,7 +12,8 @@ public class node : MonoBehaviour {
 	public int ancestor;
 	public bool tagged;
 
-
+	public bool discoveres_by_scout = false;
+	public bool is_base_node;
 
 	public void calc_neighbour_distance(){
 		
@@ -52,7 +53,8 @@ public class node : MonoBehaviour {
 	}
 
 
-
+	public GameObject wp_node_tower_mesh;
+	public GameObject wp_node_base_mesh;
 
 
 
@@ -84,6 +86,7 @@ public class node : MonoBehaviour {
 		node_pos = _node_pos;
 		this.transform.position = node_pos;
 		this.name = vars.wp_node_name + "_" + _node_id;
+		discoveres_by_scout = false;
 	}
 
 
@@ -118,6 +121,23 @@ public class node : MonoBehaviour {
 	void FixedUpdate () {
 
 			c.cirlce_offset = v;
+
+
+		if(!is_base_node){
+
+
+			if(discoveres_by_scout){
+				wp_node_tower_mesh.gameObject.SetActive(true);
+				wp_node_base_mesh.gameObject.SetActive(true);
+			}else{
+				wp_node_tower_mesh.gameObject.SetActive(false);
+				wp_node_base_mesh.gameObject.SetActive(true);
+			}
+
+		}else{
+			wp_node_tower_mesh.gameObject.SetActive(false);
+			wp_node_base_mesh.gameObject.SetActive(true);
+		}
 
 
       if (node_id > 0)

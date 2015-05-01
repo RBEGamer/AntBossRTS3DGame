@@ -46,6 +46,8 @@ public class pathmanager : MonoBehaviour {
 	///	nodes[tmp_id].gameObject.GetComponent<node> ().is_first_inferface_connected = true;
 	//	Debug.Log("start");
 		nodes[tmp_id].gameObject.GetComponent<node>().calc_neighbour_distance();
+		nodes[tmp_id].gameObject.GetComponent<node>().discoveres_by_scout = true;
+		nodes[tmp_id].gameObject.GetComponent<node>().is_base_node = true;
 		last_added_wp = tmp_id;
 	}
 	
@@ -72,7 +74,7 @@ public class pathmanager : MonoBehaviour {
 				//Debug.Log(hit.collider.gameObject);
 				
 				foreach (GameObject n in nodes) {
-					if(hit.collider.gameObject == n.GetComponent<node>().click_collider.gameObject){
+					if(hit.collider.gameObject == n.GetComponent<node>().click_collider.gameObject && n.GetComponent<node>().discoveres_by_scout){
 						deselect_all_nodes ();
 						disable_node_colliders();
 						n.GetComponent<node>().is_selected = true;
@@ -264,6 +266,7 @@ public class pathmanager : MonoBehaviour {
 			GameObject tmp = (GameObject)Instantiate (node_template, pos, Quaternion.identity);
 			nodes.Add (tmp);
 			nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos, tmp_id ,prev_node_id, true);
+			nodes[tmp_id].gameObject.GetComponent<node>().is_base_node = false;
 			//nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, get_selected_node (), true);
 			last_added_wp = tmp_id;
 

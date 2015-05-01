@@ -11,7 +11,7 @@ public class ant_path_walker : MonoBehaviour {
 
 	public float ant_walk_path_distance;
 	private bool ant_dynamic_walk_speed = false;
-	private float ant_move_speed = 2.0f;
+	private float ant_move_speed = 3.0f;
 	public int current_wp_step;
 	wp_path_manager ant_path;
 
@@ -46,6 +46,12 @@ public class ant_path_walker : MonoBehaviour {
 			Debug.Log(wp_counter);
 		if(wp_counter >= walk_path.Count-1 && walk_path.Count >= 2 && walk_path[wp_counter] == last_added_node){
 				if(Vector3.Distance(get_wp_pos(walk_path[wp_counter]),transform.position) < 0.1f){
+
+
+
+
+					 GameObject.Find(vars.wp_node_name +"_" + walk_path[wp_counter]).gameObject.GetComponent<node>().discoveres_by_scout = true;
+
 					Destroy(this.gameObject);
 				}
 
@@ -86,8 +92,7 @@ public class ant_path_walker : MonoBehaviour {
 			for (int i = 0; i < walk_path.Count; i++) {
 				if(i > 0){
 					ant_walk_path_distance += Vector3.Distance(get_wp_pos(walk_path[i-1]),get_wp_pos(walk_path[i]));
-				}
-				
+				}		
 			}
 		}else{
 			ant_walk_path_distance = 1.0f;
