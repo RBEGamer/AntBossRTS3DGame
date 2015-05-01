@@ -120,9 +120,9 @@ public class wp_path_manager : MonoBehaviour {
 
 
 					float sum = currcw+currew;
-					Debug.Log("SUM : " +sum + "     node dist : " + currnw);
+					//Debug.Log("SUM : " +sum + "     node dist : " + currnw);
 					if(sum < currnw){
-							Debug.Log("set nachbar to:" + currend_selected_node);
+//							Debug.Log("set nachbar to:" + currend_selected_node);
 						get_node_component(neighbour).distance = sum;
 							get_node_component(neighbour).ancestor = currend_selected_node;
 
@@ -205,7 +205,7 @@ public class wp_path_manager : MonoBehaviour {
 			if(n.GetComponent<node>().distance < saved_dist && !n.GetComponent<node>().visited){
 				saved_dist = n.GetComponent<node>().distance;
 				saved_node_id = n.GetComponent<node>().node_id;
-				Debug.Log("the node with the lowest distance is : " + saved_node_id);
+// s				Debug.Log("the node with the lowest distance is : " + saved_node_id);
 				return saved_node_id;
 			}
 

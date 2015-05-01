@@ -44,7 +44,7 @@ public class node : MonoBehaviour {
 				tmp = true;
 				return ed.weight;
 			}
-			Debug.Log(ed.dest_id + "  ->  "+neig + "     :    " + ed.source_id + "   ->  " + this.node_id +"    W:"+ed.weight);
+		//	Debug.Log(ed.dest_id + "  ->  "+neig + "     :    " + ed.source_id + "   ->  " + this.node_id +"    W:"+ed.weight);
 		}
 
 		return -1f;

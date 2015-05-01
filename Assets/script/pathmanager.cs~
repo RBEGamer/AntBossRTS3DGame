@@ -14,7 +14,7 @@ public class pathmanager : MonoBehaviour {
    
    
    */
-
+	public int last_added_wp;
 
 	public List<GameObject> nodes;
 	public int node_index;
@@ -23,6 +23,7 @@ public class pathmanager : MonoBehaviour {
 	public bool pedit_toggle;
 
 	public bool set_new;
+
 
 
 	public int saved_node_id;
@@ -42,6 +43,7 @@ public class pathmanager : MonoBehaviour {
 	///	nodes[tmp_id].gameObject.GetComponent<node> ().is_first_inferface_connected = true;
 	//	Debug.Log("start");
 		nodes[tmp_id].gameObject.GetComponent<node>().calc_neighbour_distance();
+		last_added_wp = tmp_id;
 	}
 	
 	// Update is called once per frame
@@ -168,7 +170,7 @@ public class pathmanager : MonoBehaviour {
 		}
 
 
-
+		GameObject.Find("ant").GetComponent<ant_path_walker>().node_added();
 	
 
 		//foreach (GameObject a in GameObject.FindGameObjectsWithTag("ant")) {
@@ -260,6 +262,7 @@ public class pathmanager : MonoBehaviour {
 			nodes.Add (tmp);
 			nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos, tmp_id ,prev_node_id, true);
 			//nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, get_selected_node (), true);
+			last_added_wp = tmp_id;
 		} else {
 			Debug.LogError("NODE KONNTE NICHT ERSTELLT WERDEN KA KEINER SELEKTOER WURDE");
 		}

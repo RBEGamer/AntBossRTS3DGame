@@ -25,7 +25,7 @@ public class wp_edges : MonoBehaviour {
 		dest_id = _dest_id;
 		weight = _weight;
 		edge_id = _edge_id;
-		debug_edge_info();
+		//debug_edge_info();
 	}
 
 
