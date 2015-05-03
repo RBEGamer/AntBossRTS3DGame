@@ -283,7 +283,7 @@ public class pathmanager : MonoBehaviour {
 
 
 	public int get_selected_node(){
-		int tmp;
+		//int tmp;
 		foreach (GameObject n in nodes) {
 			if(n.gameObject.GetComponent<node>().is_selected && n.gameObject.GetComponent<node>().is_mouse_in_node_range){
 				return n.gameObject.GetComponent<node>().node_id;

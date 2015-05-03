@@ -43,7 +43,7 @@ public class ant_path_walker : MonoBehaviour {
 		//	Debug.Log("count = wp");
 		//}else
 
-			Debug.Log(wp_counter);
+			//Debug.Log(wp_counter);
 		if(wp_counter >= walk_path.Count-1 && walk_path.Count >= 2 && walk_path[wp_counter] == last_added_node){
 				if(Vector3.Distance(get_wp_pos(walk_path[wp_counter]),transform.position) < 0.1f){
 

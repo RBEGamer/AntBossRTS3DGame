@@ -38,11 +38,11 @@ public class node : MonoBehaviour {
 	
 	public float get_edge_weight(int neig){
 		
-		bool tmp = false;
+	//	bool tmp = false;
 		
 		foreach (wp_edges ed in node_edges) {
 			if(ed.dest_id == neig && ed.source_id == this.node_id){
-				tmp = true;
+			//	tmp = true;
 				return ed.weight;
 			}
 		//	Debug.Log(ed.dest_id + "  ->  "+neig + "     :    " + ed.source_id + "   ->  " + this.node_id +"    W:"+ed.weight);
