@@ -112,7 +112,7 @@ public class node : MonoBehaviour {
 
 
 	public bool check_if_pos_in_cirlce_at_point(Vector3 _point){
-		return c.draw_point_on_circle (_point,false);
+		return c.draw_point_on_circle (_point);
 	
 	}
 

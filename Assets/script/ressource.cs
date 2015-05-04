@@ -6,14 +6,24 @@ public class ressource : MonoBehaviour {
 
 
 
+
+
+
+
+
 	//ressource registreieren
 	//ressourcemanager liste
 	//name info : type, zugewiesene helfer daraus diese spawnen lassen, mesh state verwaltung,
 	// Use this for initialization
+	//-> node -> int connected to ressource id
 
 
+
+
+	public int ressource_id;
 
 	public vars.ressource_type res_type;
+
 
 
 	  struct res_info{
@@ -37,7 +47,8 @@ public class ressource : MonoBehaviour {
 		res = new res_info();
 		//res = vars.res_type_a;
 
-	
+		//hier node registeren
+		this.name = vars.res_name + "_" + ressource_id;
 		refresh_res_info();
 
 
@@ -75,8 +86,6 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_default.ant_bite_decrease;
 			break;
 		}
-
-
 	}
 	
 	// Update is called once per frame

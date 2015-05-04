@@ -30,7 +30,7 @@ public class cirlce : MonoBehaviour {
 	
 
 
-	public bool draw_point_on_circle(Vector3 ppos, bool _draw = true){
+	public bool draw_point_on_circle(Vector3 ppos){
 		bool is_inside_circle;
 		bool is_oudside_wp;
 		Vector3 op = obj_around.transform.position;
@@ -75,18 +75,19 @@ public class cirlce : MonoBehaviour {
 
 		if (is_inside_circle && is_oudside_wp) {
 
-			if(_draw){
+
+				cursor_pos.gameObject.SetActive(true);
 				cursor_pos.transform.position = p;
-				cursor_pos.gameObject.GetComponent<MeshRenderer>().enabled = true;
-			}
+
+
 
 			return true;
 
 		} else {
-			if(!_draw){
+
 			//cursor_pos.transform.position = this.transform.position;
-			cursor_pos.gameObject.GetComponent<MeshRenderer>().enabled = false;
-			}
+				cursor_pos.gameObject.SetActive(true);
+
 			return false;
 		}
 	

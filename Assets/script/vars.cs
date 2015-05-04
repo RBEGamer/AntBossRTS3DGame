@@ -55,7 +55,7 @@ public class vars : MonoBehaviour {
 	public static string wp_node_name = "node";
 	public static string wp_node_tag = "wp_node";
 
-
+	public static string res_name = "ressource";
 	//WAYPOINT VARS
 	public static bool is_in_patheditmode = true;
 	// Use this for initialization

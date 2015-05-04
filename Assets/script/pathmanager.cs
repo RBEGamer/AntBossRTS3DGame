@@ -112,6 +112,8 @@ public class pathmanager : MonoBehaviour {
 					deselect_all_nodes();
         complete_path_node_information();
 
+				}else{
+				//	nodes[saved_node_id].GetComponent<node>().is_selected = false;
 				}
 
 			
