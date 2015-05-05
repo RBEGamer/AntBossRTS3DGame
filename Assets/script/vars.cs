@@ -46,8 +46,12 @@ public class vars : MonoBehaviour {
 	public static float minimum_way_point_distance = 1.5f;
 	public static float way_point_interaction_circle_radius = 7.0f;
 	public static float waypoint_interactition_latitude = 0.1f;
+    public static float waypoint_node_connection_line_width = 0.1f;
 
-  public static float waypoint_node_connection_line_width = 0.2f;
+
+	public static float res_interaction_radius = 5.0f;
+	public static float res_interaction_circle_width = 0.1f;
+
 
 	public static int unit_scout_amount = 10;
 	public static string path_manager_name = "path_manager";
