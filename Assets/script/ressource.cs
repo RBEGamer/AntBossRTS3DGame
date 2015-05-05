@@ -24,8 +24,11 @@ public class ressource : MonoBehaviour {
 
 	public vars.ressource_type res_type;
 
+  public bool is_node_connected;
 
+  public Vector3 ressource_pos;
 
+  public GameObject circle_holder;
 	  struct res_info{
 		public float max_harvest;
 		public int max_collector_ants;
@@ -44,6 +47,7 @@ public class ressource : MonoBehaviour {
 	}
 
 	void Start () {
+    ressource_pos = this.gameObject.transform.position;
 		res = new res_info();
 		//res = vars.res_type_a;
 
@@ -90,6 +94,22 @@ public class ressource : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+
+    this.transform.position = ressource_pos;
+    circle_holder.gameObject.GetComponent<selection_circle>().cirlce_offset = ressource_pos;
+    if (!is_node_connected && vars.is_in_patheditmode && GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().count_selected_nodes() == 1)
+    {
+      circle_holder.gameObject.GetComponent<selection_circle>().circle_enabled = true;
+
+
+    
+    }
+    else
+    {
+      circle_holder.gameObject.GetComponent<selection_circle>().circle_enabled = false;
+    }
+
+
 	}
 }

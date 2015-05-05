@@ -18,18 +18,18 @@ public class pathmanager : MonoBehaviour {
 
 	public GameObject scout_ant_prefab;
 	public int last_added_wp;
-
 	public List<GameObject> nodes;
 	public int node_index;
 	public GameObject node_template;
-
 	public bool pedit_toggle;
-
 	public bool set_new;
-
-
-
 	public int saved_node_id;
+
+
+
+  public List<GameObject> ressources;
+
+
 	// Use this for initialization
 	void Start () {
 		this.name = vars.path_manager_name;
@@ -55,6 +55,9 @@ public class pathmanager : MonoBehaviour {
 	void Update () {
 
 
+    //add all ressources to list
+    ressources.Clear();
+    ressources.AddRange(GameObject.FindGameObjectsWithTag(vars.res_tag));
 
 		if (vars.is_in_patheditmode ) {
 
@@ -271,6 +274,25 @@ public class pathmanager : MonoBehaviour {
 			nodes[tmp_id].gameObject.GetComponent<node>().is_base_node = false;
 			//nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, get_selected_node (), true);
 			last_added_wp = tmp_id;
+
+
+
+      //MANAGE RES -> connect to res with node
+
+      foreach (GameObject r in ressources)
+      {
+
+        if (!r.GetComponent<ressource>().is_node_connected && r.GetComponent<ressource>().circle_holder.gameObject.GetComponent<selection_circle>().is_point_in_circle(pos) && r.GetComponent<ressource>().circle_holder.gameObject.GetComponent<selection_circle>().enabled)
+        {
+          r.gameObject.GetComponent<ressource>().is_node_connected = true;
+          nodes[tmp_id].gameObject.GetComponent<node>().connected_with_res = true;
+          nodes[tmp_id].gameObject.GetComponent<node>().connected_res_id = r.GetComponent<ressource>().ressource_id;
+          nodes[tmp_id].gameObject.GetComponent<node>().node_pos = r.gameObject.GetComponent<ressource>().ressource_pos;
+        }
+
+      }
+
+
 
 
 

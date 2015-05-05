@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 public class node : MonoBehaviour {
 
+
+
+
+  public bool connected_with_res;
+  public int connected_res_id;
+
+
 	public Vector3 node_pos;
 	public int node_id;
 	public List<int> neighbours;
@@ -78,7 +85,6 @@ public class node : MonoBehaviour {
 
 
 	public void node_const(Vector3 _node_pos, int _node_id, int _prev_node, bool fic = true){
-	
 		//is_first_inferface_connected = fic;
 		prev_node = _prev_node;
 		node_id = _node_id;
@@ -86,7 +92,10 @@ public class node : MonoBehaviour {
 		node_pos = _node_pos;
 		this.transform.position = node_pos;
 		this.name = vars.wp_node_name + "_" + _node_id;
-		discoveres_by_scout = false;
+	 discoveres_by_scout = false;
+    //res 
+    connected_with_res = false;
+    connected_res_id = -1;
 	}
 
 
@@ -119,25 +128,51 @@ public class node : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-
+    this.transform.position = node_pos;
 			c.cirlce_offset = v;
 
 
-		if(!is_base_node){
 
 
-			if(discoveres_by_scout){
-				wp_node_tower_mesh.gameObject.SetActive(true);
-				wp_node_base_mesh.gameObject.SetActive(true);
-			}else{
-				wp_node_tower_mesh.gameObject.SetActive(false);
-				wp_node_base_mesh.gameObject.SetActive(true);
-			}
+ 
+       if (!is_base_node)
+      {
 
-		}else{
-			wp_node_tower_mesh.gameObject.SetActive(false);
-			wp_node_base_mesh.gameObject.SetActive(true);
-		}
+        if (connected_with_res && connected_res_id >= 0)
+        {
+          wp_node_tower_mesh.gameObject.SetActive(false);
+          wp_node_base_mesh.gameObject.SetActive(false);
+        }
+        else
+        {
+
+
+
+          if (discoveres_by_scout)
+          {
+            wp_node_tower_mesh.gameObject.SetActive(true);
+            wp_node_base_mesh.gameObject.SetActive(true);
+          }
+          else
+          {
+            wp_node_tower_mesh.gameObject.SetActive(false);
+            wp_node_base_mesh.gameObject.SetActive(true);
+          }
+
+
+
+
+        }
+
+
+
+
+      }
+      else
+      {
+        wp_node_tower_mesh.gameObject.SetActive(false);
+        wp_node_base_mesh.gameObject.SetActive(true);
+      }
 
 
       if (node_id > 0)
