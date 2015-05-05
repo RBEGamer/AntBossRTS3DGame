@@ -230,7 +230,17 @@ public class pathmanager : MonoBehaviour {
 
 	public void enable_node_colliders(){
 		foreach (GameObject n in nodes) {
-			n.gameObject.GetComponent<node>().click_collider.SetActive(true);
+
+
+      if (n.gameObject.GetComponent<node>().connected_with_res && n.gameObject.GetComponent<node>().connected_res_id >= 0)
+      {
+        n.gameObject.GetComponent<node>().click_collider.SetActive(false);
+      }
+      else
+      {
+        n.gameObject.GetComponent<node>().click_collider.SetActive(true);
+      }
+		
 		}
 	}
 
