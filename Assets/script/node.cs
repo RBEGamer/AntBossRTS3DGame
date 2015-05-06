@@ -68,7 +68,7 @@ public class node : MonoBehaviour {
 
 	public GameObject inner_circle_object;
 	public GameObject outher_cirlce_object;
-	 cirlce c;
+
 	public Vector3 v;
 	public GameObject cursor;
   	public Vector3 mesh_line_offset = new Vector3(0f, 1f, 0f);
@@ -110,7 +110,7 @@ public class node : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if(call_const){
-			c = new cirlce (inner_circle_object.GetComponent<LineRenderer>(), outher_cirlce_object.GetComponent<LineRenderer>(), this.transform, cursor);
+			set_circle_pos(node_pos);
 		}
 
 	
@@ -120,16 +120,12 @@ public class node : MonoBehaviour {
 
 
 
-	public bool check_if_pos_in_cirlce_at_point(Vector3 _point){
-		return c.draw_point_on_circle (_point);
-	
-	}
+
 
 
 	// Update is called once per frame
 	void FixedUpdate () {
     this.transform.position = node_pos;
-			c.cirlce_offset = v;
 
 
 
@@ -177,6 +173,7 @@ public class node : MonoBehaviour {
 
       if (node_id > 0)
       {
+		//draw line to prev node
 		Vector3 _pre_node_pos = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().get_node_pos(prev_node);
         mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(0, _pre_node_pos + mesh_line_offset);
         mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(1, node_pos + mesh_line_offset);
@@ -189,17 +186,28 @@ public class node : MonoBehaviour {
 //		c.draw_point_on_circle (GameObject.Find("cursor").transform.position);
 
 			if (is_selected) {
+			enable_circle(); //enable circle
+			set_circle_pos(node_pos);
 
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;
 				if (Physics.Raycast (ray, out hit)) {
-					is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
-					curr_pos_in_circle = hit.point;
+				//	is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
+				is_mouse_in_node_range = is_mouse_in_range(hit.point);
+				Debug.Log(is_mouse_in_node_range);
+				if(is_mouse_in_node_range){
+					cursor.gameObject.SetActive(true);
+					cursor.gameObject.transform.position = hit.point;
+				}else{
+					cursor.gameObject.SetActive(false);
 				}
-				c.draw_circle_inline ();
-				c.draw_circle_outline ();		
+			
+					
+				}		
 			} else {
-				c.disbale_circle ();
+			disbale_circle();
+			//	c.disbale_circle ();
+			//if(is_circle_enabled()){disbale_circle(); Debug.Log("off");}
 			}
 
 
@@ -209,6 +217,45 @@ public class node : MonoBehaviour {
 
 
 
+	void enable_circle(){
+		inner_circle_object.gameObject.GetComponent<selection_circle> ().circle_enabled = true;
+		outher_cirlce_object.gameObject.GetComponent<selection_circle> ().circle_enabled = true;
+	}
+
+	void disbale_circle(){
+		inner_circle_object.gameObject.GetComponent<selection_circle> ().circle_enabled = false;
+		outher_cirlce_object.gameObject.GetComponent<selection_circle> ().circle_enabled = false;
+	}
+
+	bool is_mouse_in_range(Vector3 _pos){
+
+		//nicht in inner circle aber innerhalb des äusernen
+
+		if (!inner_circle_object.gameObject.GetComponent<selection_circle> ().is_point_in_circle (_pos) && outher_cirlce_object.gameObject.GetComponent<selection_circle> ().is_point_in_circle (_pos)) {
+			return true;
+		} else {
+			return false;
+		}
+
+
+
+	}
+
+	void set_circle_pos(Vector3 _pos){
+
+		inner_circle_object.gameObject.GetComponent<selection_circle> ().cirlce_offset = _pos;
+		outher_cirlce_object.gameObject.GetComponent<selection_circle> ().cirlce_offset = _pos;
+	}
+
+	bool is_circle_enabled(){
+		if (inner_circle_object.gameObject.GetComponent<selection_circle> ().enabled && outher_cirlce_object.gameObject.GetComponent<selection_circle> ().enabled) {
+			return true;
+		} else {
+			return false;
+		}
+
+
+	}
 
 
 
