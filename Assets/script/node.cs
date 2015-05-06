@@ -194,6 +194,7 @@ public class node : MonoBehaviour {
 				if (Physics.Raycast (ray, out hit)) {
 				//	is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
 				is_mouse_in_node_range = is_mouse_in_range(hit.point);
+				curr_pos_in_circle = hit.point;
 				Debug.Log(is_mouse_in_node_range);
 				if(is_mouse_in_node_range){
 					cursor.gameObject.SetActive(true);
