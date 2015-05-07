@@ -49,7 +49,7 @@ public class vars : MonoBehaviour {
     public static float waypoint_node_connection_line_width = 0.1f;
 
 
-	public static float res_interaction_radius = 5.0f;
+	public static float res_interaction_radius = 1.0f;
 	public static float res_interaction_circle_width = 0.1f;
 
 

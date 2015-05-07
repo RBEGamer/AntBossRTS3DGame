@@ -194,21 +194,17 @@ public class node : MonoBehaviour {
 				if (Physics.Raycast (ray, out hit)) {
 				//	is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
 				is_mouse_in_node_range = is_mouse_in_range(hit.point);
-				curr_pos_in_circle = hit.point;
-				Debug.Log(is_mouse_in_node_range);
+				curr_pos_in_circle = hit.point; //save the mouse pos fpr the pathmanager
+				//Debug.Log(is_mouse_in_node_range);
 				if(is_mouse_in_node_range){
-					cursor.gameObject.SetActive(true);
-					cursor.gameObject.transform.position = hit.point;
+				cursor.gameObject.SetActive(true);
+				cursor.gameObject.transform.position = hit.point;
 				}else{
-					cursor.gameObject.SetActive(false);
+				cursor.gameObject.SetActive(false);
 				}
-			
-					
 				}		
 			} else {
 			disbale_circle();
-			//	c.disbale_circle ();
-			//if(is_circle_enabled()){disbale_circle(); Debug.Log("off");}
 			}
 
 

@@ -113,7 +113,7 @@ public class pathmanager : MonoBehaviour {
 
 					enable_node_colliders();
 					deselect_all_nodes();
-        complete_path_node_information();
+        			complete_path_node_information();
 
 				}else{
 				//	nodes[saved_node_id].GetComponent<node>().is_selected = false;
