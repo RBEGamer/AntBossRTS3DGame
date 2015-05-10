@@ -79,7 +79,7 @@ public class node : MonoBehaviour {
 	public bool can_be_selected; //
 	public bool is_mouse_in_node_range;
 	public Vector3 curr_pos_in_circle;
-  	public GameObject mesh_line;
+  	public GameObject wp_way_holder;
 	public GameObject click_collider;
 	public bool call_const = false;
 
@@ -171,19 +171,17 @@ public class node : MonoBehaviour {
       }
 
 
-      if (node_id > 0)
-      {
-		//draw line to prev node
-		Vector3 _pre_node_pos = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().get_node_pos(prev_node);
-        mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(0, _pre_node_pos + mesh_line_offset);
-        mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(1, node_pos + mesh_line_offset);
-        mesh_line.gameObject.GetComponent<LineRenderer>().SetWidth(vars.waypoint_node_connection_line_width, vars.waypoint_node_connection_line_width);
-        mesh_line.gameObject.GetComponent<LineRenderer>().material =  new Material(Shader.Find("Particles/Additive"));
-        //mesh_line.gameObject.GetComponent<LineRenderer>().material = new Material(Shader.Find("Standart"));
-        mesh_line.gameObject.GetComponent<LineRenderer>().SetColors(Color.blue, Color.blue);
-      }
-			// wenn in is_in_patheditmode dann schaue ob bereits einer selektier wurde -> wenn ja wir der selektierte deselektiert
-//		c.draw_point_on_circle (GameObject.Find("cursor").transform.position);
+		if (node_id > 1 && discoveres_by_scout) {
+			Vector3 _pre_node_pos = GameObject.Find (vars.path_manager_name).GetComponent<pathmanager> ().get_node_pos (prev_node);
+			wp_way_holder.GetComponent<wp_visible_way> ().visible = true;
+			wp_way_holder.GetComponent<wp_visible_way> ().start_pos = _pre_node_pos + mesh_line_offset;
+			wp_way_holder.GetComponent<wp_visible_way> ().end_pos = node_pos;
+
+
+		} else {
+			//wp_way_holder.GetComponent<wp_visible_way>().visible = true;
+		}
+
 
 			if (is_selected) {
 			enable_circle(); //enable circle

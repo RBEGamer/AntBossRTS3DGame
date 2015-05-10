@@ -1,6 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/wp_visible_way.cs">
+    <Files>
+      <File FileName="Assets/script/selection_circle.cs" Line="27" Column="214" />
+      <File FileName="Assets/script/node.cs" Line="172" Column="1" />
+      <File FileName="Assets/script/wp_visible_way.cs" Line="14" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

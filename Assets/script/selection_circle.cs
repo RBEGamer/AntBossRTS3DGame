@@ -24,11 +24,7 @@ public class selection_circle : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//check if linerenderer exists
-		if(this.gameObject.GetComponent<LineRenderer>() == null){
-			this.gameObject.AddComponent<LineRenderer>();
-      this.gameObject.GetComponent<LineRenderer>().enabled = false;
-		}
-		ln = this.GetComponent<LineRenderer>();
+//	if(this.gameObject.GetComponent<LineRenderer>() == null){		this.gameObject.AddComponent<LineRenderer>();     this.gameObject.GetComponent<LineRenderer>().enabled = false;}ln = this.GetComponent<LineRenderer>();
 	}
 
 
@@ -66,24 +62,24 @@ public class selection_circle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-    circle_middle =   cirlce_offset + additional_circle_offset;
+		circle_middle = cirlce_offset + additional_circle_offset;
 
     /*
-    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    RaycastHit hit;
-    if (Physics.Raycast(ray, out hit))
-    {
-    Debug.Log(is_point_in_circle(hit.point));
-    }
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+		if (Physics.Raycast (ray, out hit)) {
+			Debug.Log (is_point_in_circle (hit.point));
+		}
    */
 
 		
 
-    if (circle_enabled)
-    {
-      if (this.GetComponent<LineRenderer>().enabled == false) { this.GetComponent<LineRenderer>().enabled = true; }
-      get_circle_information();
+		if (circle_enabled) {
+  
+			get_circle_information ();
+			/*
       //  circle_middle = cirlce_offset;
+			if (this.GetComponent<LineRenderer>().enabled == false) { this.GetComponent<LineRenderer>().enabled = true; }
       float size = ((2.0f * Mathf.PI) / theta_scale) + 1;
       ln.material = new Material(Shader.Find("Particles/Additive"));
       ln.SetColors(ca, cb);
@@ -105,13 +101,13 @@ public class selection_circle : MonoBehaviour {
     {
       if (this.GetComponent<LineRenderer>().enabled == true) { this.GetComponent<LineRenderer>().enabled = false; }
     }
- 
+ */
+
+
+		}
 
 
 	}
-
-
-
 	//is pos in circle
 
 	//

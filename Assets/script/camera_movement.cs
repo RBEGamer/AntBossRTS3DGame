@@ -108,7 +108,7 @@ public class camera_movement : MonoBehaviour {
           current_roation_angle += (delta_mouse_pos.x + delta_mouse_pos.y) * camera_rotation_speed_pc * Time.deltaTime;
         }
         //movement by mouse
-        if (!Input.GetMouseButton(2))
+				if (!Input.GetMouseButton(2) && !Application.isEditor)
         {
           if (current_mouse_pos.x < screen_boarder_to_move) { move_camera(3, camera_movement_speed_pc_mouse); }//left
           if (current_mouse_pos.x > Screen.width - screen_boarder_to_move) { move_camera(4, camera_movement_speed_pc_mouse); } //right

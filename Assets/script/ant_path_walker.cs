@@ -6,6 +6,7 @@ public class ant_path_walker : MonoBehaviour {
 
 	//Hier wird die ameise zum letzten hinzugefügten wp gehen und dort verscheinden
 	public int last_added_node;
+	public int prev_last_node;
 	public List<int> walk_path;
 
 
@@ -29,6 +30,12 @@ public class ant_path_walker : MonoBehaviour {
 	void Update () {
 		if(walk_path.Count >= 2){
 
+
+		
+
+
+
+
 			float step = ant_move_speed * Time.deltaTime*ant_walk_path_distance;
 
 			transform.position = Vector3.MoveTowards(transform.position, get_wp_pos(walk_path[wp_counter]), step);
@@ -42,6 +49,18 @@ public class ant_path_walker : MonoBehaviour {
 		//if(current_wp_step == walk_path.Count &&  walk_path.Count-1 >0){
 		//	Debug.Log("count = wp");
 		//}else
+
+
+
+			if(wp_counter >= walk_path.Count-1){
+				get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().visible = true;
+				get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().start_pos = 	get_wp_pos(walk_path[walk_path.Count-2]);
+				get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().end_pos = this.transform.position;
+
+			}
+
+
+
 
 			//Debug.Log(wp_counter);
 		if(wp_counter >= walk_path.Count-1 && walk_path.Count >= 2 && walk_path[wp_counter] == last_added_node){
@@ -85,7 +104,7 @@ public class ant_path_walker : MonoBehaviour {
 		walk_path = ant_path.final_path;
 		walk_path.Reverse();
 		current_wp_step = walk_path[wp_counter];
-
+		prev_last_node = get_wp_comp (last_added_node).prev_node;
 		//Dynamic WALK SPEED CALCULATioN
 		ant_walk_path_distance = 0;
 		if(ant_dynamic_walk_speed){
@@ -99,21 +118,18 @@ public class ant_path_walker : MonoBehaviour {
 		}
 
 
-
-
-		//pfadlänge bekommen
-
-
-
 	//	current_wp_step = ant_path.start_node_id;
 
 	}
 
+	public node get_wp_comp(int _id){
+		//verbessern
+		return GameObject.Find(vars.wp_node_name +"_" + _id).gameObject.GetComponent<node>();
+	}
+
+
 	public Vector3 get_wp_pos(int _id){
 		//verbessern
 		return GameObject.Find(vars.wp_node_name +"_" + _id).gameObject.GetComponent<node>().node_pos;
-
-
-
 	}
 }
