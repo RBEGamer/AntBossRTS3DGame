@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class wp_edges {
+public class wp_edges : MonoBehaviour {
 
 	// Use this for initialization
-
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
 
 
 	public int source_id;
