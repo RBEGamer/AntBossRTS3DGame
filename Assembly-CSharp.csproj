@@ -46,33 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\AI.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\GridPlayer.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\GridPlayer2D.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\Lines.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\SearchPlayerAI.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\SetGrid.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\SimpleAI.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\SimpleAI2D.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\TDEnemy.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\TDManager.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\WaypointPlayer.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\DynamicMapUpdate.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\DynamicTDGridObject.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Node.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\NodeSearch.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Pathfinder.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Pathfinder2D.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Pathfinding.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Pathfinding2D.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\QueuePath.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\WaypointListNode.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\WaypointNode.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\WaypointPathfinder.cs" />
      <Compile Include="Assets\script\ant_path_walker.cs" />
      <Compile Include="Assets\script\camera_movement.cs" />
      <Compile Include="Assets\script\cirlce.cs" />
-     <Compile Include="Assets\script\helper\fps_counter.cs" />
      <Compile Include="Assets\script\node.cs" />
      <Compile Include="Assets\script\pathmanager.cs" />
      <Compile Include="Assets\script\ressource.cs" />

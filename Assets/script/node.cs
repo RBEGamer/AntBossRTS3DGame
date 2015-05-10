@@ -13,7 +13,12 @@ public class node : MonoBehaviour {
 	public Vector3 node_pos;
 	public int node_id;
 	public List<int> neighbours;
-	public List<wp_edges> node_edges;
+	public List<wp_edges> node_edges = new List<wp_edges>();
+
+
+
+
+
 	public bool visited;
 	public float distance;
 	public int ancestor;
@@ -30,8 +35,11 @@ public class node : MonoBehaviour {
 			float dist = Vector3.Distance(node_pos, neighbour_pos);
 			//Debug.Log("from node " + node_id +  " to " + n + " : Distance = " + dist);
 			int edge_id = node_edges.Count;
-			wp_edges wp_tmp = new wp_edges(edge_id  ,node_id, n, dist);
-			node_edges.Add(wp_tmp);
+			//wp_edges wp_tmp = new wp_edges(edge_id  ,node_id, n, dist);
+
+		
+			node_edges.Add(new wp_edges(edge_id  ,node_id, n, dist));
+
 			//node_edges[edge_id].debug_edge_info();
 		}
 		

@@ -247,7 +247,7 @@ public class pathmanager : MonoBehaviour {
 
 	public void disable_node_colliders(){
 		foreach (GameObject n in nodes) {
-			n.gameObject.GetComponent<node>().click_collider.SetActive(false);
+	//		n.gameObject.GetComponent<node>().click_collider.SetActive(false);
 		}
 	}
 
