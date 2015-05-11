@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets/script/selection_circle.cs" Line="106" Column="1" />
       <File FileName="Assets/script/node.cs" Line="1" Column="1" />
-      <File FileName="Assets/script/wp_visible_way.cs" Line="102" Column="31" />
+      <File FileName="Assets/script/wp_visible_way.cs" Line="146" Column="15" />
       <File FileName="Assets/script/ant_path_walker.cs" Line="62" Column="4" />
       <File FileName="Assets/script/ressource.cs" Line="1" Column="1" />
       <File FileName="Assets/script/pathmanager.cs" Line="1" Column="1" />
