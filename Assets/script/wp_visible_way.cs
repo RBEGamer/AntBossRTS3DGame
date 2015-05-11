@@ -18,7 +18,7 @@ public class wp_visible_way : MonoBehaviour {
 	private Vector3 half_start;
 	private Vector3 half_end;
 	
-	
+	public float w = 0.7f;
 	public Vector3 normal;
 
 	// Use this for initialization
@@ -93,14 +93,30 @@ public class wp_visible_way : MonoBehaviour {
 		Mesh plane = new Mesh ();
 		mf.mesh = plane;
 		
-		float w = 1.0f;
+	
 
 
 //HIER _START_POS ANLEGEN
 
 
-		Vector3 _start_pos = end_pos;
-		Vector3 _end_pos = start_pos;
+		Vector3 _start_pos;
+		Vector3 _end_pos;
+		
+
+
+
+		if (start_pos.z >= end_pos.z) {
+
+			_start_pos = start_pos;
+			 _end_pos = end_pos*2;
+		} else {
+			 _end_pos = end_pos*2;
+			 _start_pos = start_pos;
+
+		}
+
+
+
 
 		Vector3 _offset_start = new Vector3 (offset_start.x, offset_start.y, offset_start.z+ w/2);
 		Vector3 _offset_end = new Vector3 (offset_end.x, offset_end.y, offset_end.z+ w/2);
@@ -127,7 +143,7 @@ public class wp_visible_way : MonoBehaviour {
 
 
 		Vector3[] vertices = new Vector3[4]{
-			v0,v1,v2,v3
+			v2,v3,v0,v1
 		};
 		
 		int[] triangles = new int[6];
