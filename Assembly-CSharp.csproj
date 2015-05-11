@@ -69,6 +69,7 @@
      <Compile Include="Assets\Pathfinding\Scripts\WaypointListNode.cs" />
      <Compile Include="Assets\Pathfinding\Scripts\WaypointNode.cs" />
      <Compile Include="Assets\Pathfinding\Scripts\WaypointPathfinder.cs" />
+     <Compile Include="Assets\plabe_creator.cs" />
      <Compile Include="Assets\script\ant_path_walker.cs" />
      <Compile Include="Assets\script\camera_movement.cs" />
      <Compile Include="Assets\script\helper\fps_counter.cs" />
