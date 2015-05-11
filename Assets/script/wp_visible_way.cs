@@ -12,11 +12,21 @@ public class wp_visible_way : MonoBehaviour {
 	private LineRenderer ln;
 	public Vector3 offset_start;
 	public Vector3 offen_end;
-	public Material ln_mat;
+	private Material ln_mat;
 
+	public Texture ln_text;
 
 	// Use this for initialization
 	void Start () {
+
+
+
+		ln_mat = new Material (Shader.Find("Diffuse"));
+		ln_mat.mainTexture = ln_text;
+
+		this.gameObject.GetComponent<Renderer> ().material = ln_mat;
+
+
 		if(this.gameObject.GetComponent<LineRenderer>() == null){		this.gameObject.AddComponent<LineRenderer>();     this.gameObject.GetComponent<LineRenderer>().enabled = false;}ln = this.GetComponent<LineRenderer>();
 	}
 	
@@ -26,13 +36,13 @@ public class wp_visible_way : MonoBehaviour {
 
 
 		float dist = Mathf.Abs (Vector3.Distance (start_pos, end_pos));
-		if (visible && dist > vars.minimum_way_point_distance) {
+		if (visible ) {//&& dist > vars.minimum_way_point_distance
 			ln.enabled = true;
 
 
 
-			if (dist < 1) {
-				dist = 1.0f;
+			if (dist < 0) {
+				dist = 0.0f;
 			}
 
 			ln_mat.SetTextureScale ("_MainTex", new Vector2 (dist, 1.0f));

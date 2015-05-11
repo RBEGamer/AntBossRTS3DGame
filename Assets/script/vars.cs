@@ -61,6 +61,9 @@ public class vars : MonoBehaviour {
 
 	public static string res_name = "ressource";
   public static string res_tag = "ressource";
+
+
+	public static string environment_tag = "environment";
 	//WAYPOINT VARS
 	public static bool is_in_patheditmode = true;
 	// Use this for initialization

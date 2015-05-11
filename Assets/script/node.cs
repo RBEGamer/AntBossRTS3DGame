@@ -193,6 +193,11 @@ public class node : MonoBehaviour {
 				//	is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
 				is_mouse_in_node_range = is_mouse_in_range(hit.point);
 				curr_pos_in_circle = hit.point; //save the mouse pos fpr the pathmanager
+
+				if(hit.collider.tag == vars.environment_tag || hit.collider.tag == vars.wp_node_tag){
+					is_mouse_in_node_range = false;
+				}
+
 				//Debug.Log(is_mouse_in_node_range);
 				if(is_mouse_in_node_range){
 				cursor.gameObject.SetActive(true);
