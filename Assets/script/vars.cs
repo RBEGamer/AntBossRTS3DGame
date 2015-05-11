@@ -44,7 +44,7 @@ public class vars : MonoBehaviour {
 
 
 	public static float minimum_way_point_distance = 1.5f;
-	public static float way_point_interaction_circle_radius = 10.0f;
+	public static float way_point_interaction_circle_radius = 7.0f;
 	public static float waypoint_interactition_latitude = 0.1f;
     public static float waypoint_node_connection_line_width = 0.1f;
 
