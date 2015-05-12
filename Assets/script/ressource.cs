@@ -38,6 +38,8 @@ public class ressource : MonoBehaviour {
 	}
 
 
+
+
 	private res_info res;
 
 	public void set_res_info(){
