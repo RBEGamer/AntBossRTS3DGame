@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{0C155079-14BD-F0D3-07FC-4776E3EDE48B}</ProjectGuid>
+	<ProjectGuid>{BD78A16C-6959-0BED-B3E1-F7C5918C6DF9}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -83,9 +83,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
+<<<<<<< Updated upstream
       <Project>{7F532FD1-22DD-0BF1-DB9E-600CDF2F7BBA}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript.unityproj">
       <Project>{D01C469A-2359-96D4-E9FE-03B9EDDA545D}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
+=======
+      <Project>{7535E527-D4FB-DAF0-72B4-D8FD9857255A}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-UnityScript.unityproj">
+      <Project>{8150EF3B-A224-5497-4480-5376EAD41657}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{7F532FD1-22DD-0BF1-DB9E-600CDF2F7BBA}</ProjectGuid>
+	<ProjectGuid>{7535E527-D4FB-DAF0-72B4-D8FD9857255A}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,33 +46,13 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\AI.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\GridPlayer.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\GridPlayer2D.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\Lines.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\SearchPlayerAI.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\SetGrid.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\SimpleAI.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\SimpleAI2D.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\TDEnemy.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\TDManager.cs" />
-     <Compile Include="Assets\Pathfinding\Scenes\Scripts\WaypointPlayer.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\DynamicMapUpdate.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\DynamicTDGridObject.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Node.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\NodeSearch.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Pathfinder.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Pathfinder2D.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Pathfinding.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\Pathfinding2D.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\QueuePath.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\WaypointListNode.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\WaypointNode.cs" />
-     <Compile Include="Assets\Pathfinding\Scripts\WaypointPathfinder.cs" />
      <Compile Include="Assets\script\ant_path_walker.cs" />
      <Compile Include="Assets\script\camera_movement.cs" />
+<<<<<<< Updated upstream
      <Compile Include="Assets\script\collector_ant.cs" />
      <Compile Include="Assets\script\helper\fps_counter.cs" />
+=======
+>>>>>>> Stashed changes
      <Compile Include="Assets\script\node.cs" />
      <Compile Include="Assets\script\pathmanager.cs" />
      <Compile Include="Assets\script\ressource.cs" />

@@ -56,8 +56,8 @@ public class pathmanager : MonoBehaviour {
 
 
     //add all ressources to list
-    ressources.Clear();
-    ressources.AddRange(GameObject.FindGameObjectsWithTag(vars.res_tag));
+  //  ressources.Clear();
+  //  ressources.AddRange(GameObject.FindGameObjectsWithTag(vars.res_tag));
 
 		if (vars.is_in_patheditmode ) {
 
@@ -98,17 +98,17 @@ public class pathmanager : MonoBehaviour {
 			
 				//Debug.Log (nodes[saved_node_id].GetComponent<node>().check_connection_state());
 				//Debug.Log(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range);
-				Vector3 new_pos = nodes[saved_node_id].GetComponent<node>().curr_pos_in_circle; //get current mouse pos
+				Vector3 new_pos = get_node_with_intern_node_id(saved_node_id).curr_pos_in_circle; //get current mouse pos
 				//Debug.Log(check_if_pos_inside_another_node(new_pos, saved_node_id));
 
 //				Debug.Log(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id));
 
-				if(nodes[saved_node_id].GetComponent<node>().is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id) && Input.GetMouseButtonDown(0) ){
+				if(get_node_with_intern_node_id(saved_node_id).is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id) && Input.GetMouseButtonDown(0) ){
 //					Debug.Log("selected : "+get_selected_node());
 //					Debug.Log("node kann hier gesetzt werden : "+ new_pos);
 					add_node(new_pos, saved_node_id);
-					nodes[saved_node_id].GetComponent<node>().cursor.SetActive(false); //disable the cursor
-					nodes[saved_node_id].GetComponent<node>().cursor.transform.position = nodes[saved_node_id].GetComponent<node>().transform.position-new Vector3(0f,-1f,0f); //set the invisible cursor the node pos
+					get_node_with_intern_node_id(saved_node_id).cursor.SetActive(false); //disable the cursor
+					get_node_with_intern_node_id(saved_node_id).cursor.transform.position = get_node_with_intern_node_id(saved_node_id).node_pos-new Vector3(0f,-1f,0f); //set the invisible cursor the node pos
 					//disable_node_colliders();
 
 					enable_node_colliders();
@@ -196,15 +196,23 @@ public class pathmanager : MonoBehaviour {
   {
 
 
-    return nodes[_nid].gameObject.GetComponent<node>().node_pos;
-
+    //return nodes[_nid].gameObject.GetComponent<node>().node_pos;
+		return get_node_with_intern_node_id(_nid).node_pos;
 
 
 
   }
 
 
+	public node get_node_with_intern_node_id(int _nid){
+		foreach (var n in nodes) {
+			if(n.GetComponent<node>().node_id == _nid){
 
+				return n.GetComponent<node>();
+			}
+		}
+		return null;
+	}
 
 
 
@@ -279,9 +287,10 @@ public class pathmanager : MonoBehaviour {
 		if (current_selected_node >= 0) {
 			int tmp_id = nodes.Count;
 			GameObject tmp = (GameObject)Instantiate (node_template, pos, Quaternion.identity);
+			tmp.gameObject.GetComponent<node>().node_const(pos, tmp_id ,prev_node_id, true);
+			tmp.gameObject.GetComponent<node>().is_base_node = false;
 			nodes.Add (tmp);
-			nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos, tmp_id ,prev_node_id, true);
-			nodes[tmp_id].gameObject.GetComponent<node>().is_base_node = false;
+
 			//nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, get_selected_node (), true);
 			last_added_wp = tmp_id;
 
@@ -295,9 +304,9 @@ public class pathmanager : MonoBehaviour {
         if (!r.GetComponent<ressource>().is_node_connected && r.GetComponent<ressource>().circle_holder.gameObject.GetComponent<selection_circle>().is_point_in_circle(pos) && r.GetComponent<ressource>().circle_holder.gameObject.GetComponent<selection_circle>().enabled)
         {
           r.gameObject.GetComponent<ressource>().is_node_connected = true;
-          nodes[tmp_id].gameObject.GetComponent<node>().connected_with_res = true;
-          nodes[tmp_id].gameObject.GetComponent<node>().connected_res_id = r.GetComponent<ressource>().ressource_id;
-          nodes[tmp_id].gameObject.GetComponent<node>().node_pos = r.gameObject.GetComponent<ressource>().ressource_pos;
+					get_node_with_intern_node_id(tmp_id).connected_with_res = true;
+					get_node_with_intern_node_id(tmp_id).connected_res_id = r.GetComponent<ressource>().ressource_id;
+					get_node_with_intern_node_id(tmp_id).node_pos = r.gameObject.GetComponent<ressource>().ressource_pos;
         }
 
       }

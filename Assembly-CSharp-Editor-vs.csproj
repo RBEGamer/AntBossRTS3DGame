@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{0C155079-14BD-F0D3-07FC-4776E3EDE48B}</ProjectGuid>
+	<ProjectGuid>{BD78A16C-6959-0BED-B3E1-F7C5918C6DF9}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -48,7 +48,11 @@
   <ItemGroup>
      <Compile Include="Assets\Pathfinding\Editor\WaypointEditor.cs" />
  <Reference Include="Assembly-UnityScript">
+<<<<<<< Updated upstream
  <HintPath>/Users/marcelochsendorf/Desktop/antboss/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+=======
+ <HintPath>/Users/marcelochsendorf/Desktop/antboss_git/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+>>>>>>> Stashed changes
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -86,7 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-vs.csproj">
+<<<<<<< Updated upstream
       <Project>{7F532FD1-22DD-0BF1-DB9E-600CDF2F7BBA}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
+=======
+      <Project>{7535E527-D4FB-DAF0-72B4-D8FD9857255A}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
