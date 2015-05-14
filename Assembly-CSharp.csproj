@@ -48,11 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\script\ant_path_walker.cs" />
      <Compile Include="Assets\script\camera_movement.cs" />
-<<<<<<< Updated upstream
      <Compile Include="Assets\script\collector_ant.cs" />
-     <Compile Include="Assets\script\helper\fps_counter.cs" />
-=======
->>>>>>> Stashed changes
+     <Compile Include="Assets\script\helper\follower.cs" />
      <Compile Include="Assets\script\node.cs" />
      <Compile Include="Assets\script\pathmanager.cs" />
      <Compile Include="Assets\script\ressource.cs" />
