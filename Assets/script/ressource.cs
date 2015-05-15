@@ -29,16 +29,18 @@ public class ressource : MonoBehaviour {
   public Vector3 ressource_pos;
 
   public GameObject circle_holder;
-	  struct res_info{
+
+	 public struct res_info{
 		public float max_harvest;
 		public int max_collector_ants;
 		public float interaction_circle_radius;
 		public float interactition_latitude;
 		public float ant_bite_decrease;
+		public float current_harvest_amount;
 	}
 
 
-	private res_info res;
+	public res_info res;
 
 	public void set_res_info(){
 
@@ -57,6 +59,14 @@ public class ressource : MonoBehaviour {
 
 
 	}
+
+	public void ant_bite(){
+
+		res.current_harvest_amount -= res.ant_bite_decrease;
+		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}
+		Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
+	}
+
 
 
 	public void refresh_res_info(){
@@ -90,10 +100,20 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_default.ant_bite_decrease;
 			break;
 		}
+
+
+		res.current_harvest_amount = res.max_harvest;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+
+
+		//hier schauen welcher node connected ist
+
+
+
 
 
     this.transform.position = ressource_pos;

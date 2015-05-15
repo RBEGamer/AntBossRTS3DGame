@@ -27,8 +27,6 @@ public class pathmanager : MonoBehaviour {
 
 
 
-  public List<GameObject> ressources;
-
 
 	// Use this for initialization
 	void Start () {
@@ -303,12 +301,12 @@ public class pathmanager : MonoBehaviour {
 
       //MANAGE RES -> connect to res with node
 
-      foreach (GameObject r in ressources)
+			foreach (GameObject r in GameObject.FindGameObjectsWithTag(vars.res_tag))
       {
 
         if (!r.GetComponent<ressource>().is_node_connected && r.GetComponent<ressource>().circle_holder.gameObject.GetComponent<selection_circle>().is_point_in_circle(pos) && r.GetComponent<ressource>().circle_holder.gameObject.GetComponent<selection_circle>().enabled)
         {
-          r.gameObject.GetComponent<ressource>().is_node_connected = true;
+          			r.gameObject.GetComponent<ressource>().is_node_connected = true;
 					get_node_with_intern_node_id(tmp_id).connected_with_res = true;
 					get_node_with_intern_node_id(tmp_id).connected_res_id = r.GetComponent<ressource>().ressource_id;
 					get_node_with_intern_node_id(tmp_id).node_pos = r.gameObject.GetComponent<ressource>().ressource_pos;

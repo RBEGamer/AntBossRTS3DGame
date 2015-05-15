@@ -24,18 +24,23 @@ public class ressource : MonoBehaviour {
 
 	public vars.ressource_type res_type;
 
+  public bool is_node_connected;
 
+  public Vector3 ressource_pos;
 
-	  struct res_info{
+  public GameObject circle_holder;
+
+	 public struct res_info{
 		public float max_harvest;
 		public int max_collector_ants;
 		public float interaction_circle_radius;
 		public float interactition_latitude;
 		public float ant_bite_decrease;
+		public float current_harvest_amount;
 	}
 
 
-	private res_info res;
+	public res_info res;
 
 	public void set_res_info(){
 
@@ -44,6 +49,7 @@ public class ressource : MonoBehaviour {
 	}
 
 	void Start () {
+    ressource_pos = this.gameObject.transform.position;
 		res = new res_info();
 		//res = vars.res_type_a;
 
@@ -53,6 +59,14 @@ public class ressource : MonoBehaviour {
 
 
 	}
+
+	public void ant_bite(){
+
+		res.current_harvest_amount -= res.ant_bite_decrease;
+		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}
+		Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
+	}
+
 
 
 	public void refresh_res_info(){
@@ -86,10 +100,36 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_default.ant_bite_decrease;
 			break;
 		}
+
+
+		res.current_harvest_amount = res.max_harvest;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+
+
+		//hier schauen welcher node connected ist
+
+
+
+
+
+    this.transform.position = ressource_pos;
+    circle_holder.gameObject.GetComponent<selection_circle>().cirlce_offset = ressource_pos;
+    if (!is_node_connected && vars.is_in_patheditmode && GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().count_selected_nodes() == 1)
+    {
+      circle_holder.gameObject.GetComponent<selection_circle>().circle_enabled = true;
+
+
+    
+    }
+    else
+    {
+      circle_holder.gameObject.GetComponent<selection_circle>().circle_enabled = false;
+    }
+
+
 	}
 }
