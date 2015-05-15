@@ -4,24 +4,95 @@ using System.Collections.Generic;
 
 public class collector_ant : MonoBehaviour {
 
+	
+	public int wp_start;
+	public int wp_end;
+	public bool sw;
+	public int _saved_dest;
 	wp_path_manager ant_path;
-	public List<int> wp;
+	public List<int> walk_path;
 	//-> get node id
 
+
+	private float ant_move_speed = 3.0f;
+	public int current_wp_step;
+	public float ant_walk_path_distance = 3f;
+	public int wp_counter;
 	List<GameObject> count_list;
+
+
 
 
 	// Use this for initialization
 	void Start () {
 		ant_path = this.gameObject.GetComponent<wp_path_manager>();
-	
+		sw_path();
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		calc_way();
 
+
+
+
+
+		if(walk_path.Count > 1){
+
+
+
+			float step = ant_move_speed * Time.deltaTime*ant_walk_path_distance;
+			
+			transform.position = Vector3.MoveTowards(transform.position, get_wp_pos(walk_path[wp_counter]), step);
+			//Quaternion rot = Quaternion.LookRotation(get_wp_pos(walk_path[wp_counter]));
+			this.transform.LookAt(get_wp_pos(walk_path[wp_counter]));
+
+
+
+
+
+
+			//Debug.Log(wp_counter);
+			if(wp_counter >= walk_path.Count-1 && walk_path.Count >= 2 && walk_path[wp_counter] == _saved_dest){
+				if(Vector3.Distance(get_wp_pos(walk_path[wp_counter]),transform.position) < 0.1f){
+					
+					
+					
+					
+					//GameObject.Find(vars.wp_node_name +"_" + walk_path[wp_counter]).gameObject.GetComponent<node>().discoveres_by_scout = true;
+					
+					sw_path();
+
+
+
+
+				}
+				
+			}
+			
+			
+			
+			
+			if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < 0.1f ){//&& current_wp_step == wp_counter){
+				if(wp_counter < walk_path.Count-1){
+					wp_counter ++;
+				}
+				current_wp_step = walk_path[wp_counter];
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		}
 	
 
 
@@ -58,6 +129,16 @@ public class collector_ant : MonoBehaviour {
 
 
 	
+	public void sw_path(){
+		sw = !sw;
+		if(sw){
+			calc_way(wp_start, wp_end);
+		}else{
+			calc_way( wp_end, wp_start);
+		}
+
+
+	}
 
 
 
@@ -66,27 +147,26 @@ public class collector_ant : MonoBehaviour {
 
 
 
-
-	public void calc_way(){
+	public void calc_way(int _start, int _goal){
 
 
 //		count_list.Clear();
 //		count_list.AddRange(GameObject.FindGameObjectsWithTag(vars.wp_node_tag));
 
-		if(GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes.Count >= 2){
-
-			wp.Clear();
-			ant_path.start_node_id = 0;
-			ant_path.ziel_node_id = 1;
+		if(GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes.Count >= 2 && get_wp_comp(_start).discoveres_by_scout && get_wp_comp(_goal).discoveres_by_scout){
+			wp_counter = 0;
+			walk_path.Clear();
+			ant_path.start_node_id = _start;
+			ant_path.ziel_node_id = _goal;
 			ant_path.add_nodes();
 			ant_path.compute_path();
-
-
-			wp = ant_path.final_path;
-
-
-
-
+			ant_path.final_path.Reverse(); //umdrehen denn die lsite ist immer falschrum
+			walk_path = ant_path.final_path;
+			this.transform.position = get_wp_pos(_start);
+			_saved_dest = _goal;
+		}else{
+			walk_path.Clear();
+			this.transform.position = get_wp_pos(0); //zur base setzten
 		}
 
 	}
