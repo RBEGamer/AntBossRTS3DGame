@@ -55,6 +55,7 @@
      <Compile Include="Assets\script\ressource.cs" />
      <Compile Include="Assets\script\ressource_manager.cs" />
      <Compile Include="Assets\script\selection_circle.cs" />
+     <Compile Include="Assets\script\sleep_pos_manager.cs" />
      <Compile Include="Assets\script\vars.cs" />
      <Compile Include="Assets\script\wp_edges.cs" />
      <Compile Include="Assets\script\wp_path_manager.cs" />

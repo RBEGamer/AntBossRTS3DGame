@@ -63,7 +63,7 @@ public class vars : MonoBehaviour {
 	public static float collector_ant_speed = 2.0f;
 	public static bool collector_ant_en_dyn_speed = false;
 
-
+	public static string sleep_pos_manager_name = "sleep_pos_manager";
 
 
 

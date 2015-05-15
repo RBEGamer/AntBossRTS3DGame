@@ -18,14 +18,28 @@ public class collector_ant : MonoBehaviour {
 	public int wp_counter;
 	List<GameObject> count_list;
 
+	public enum ant_activity_state
+	{
+		sleep,walking
+	}
 
-
+	public  ant_activity_state ant_state;
 
 	// Use this for initialization
 	void Start () {
 		ant_path = this.gameObject.GetComponent<wp_path_manager>();
 
-		sw_path();
+		if(ant_state == ant_activity_state.sleep){
+			//invisible schalten
+
+			this.transform.position = GameObject.Find(vars.sleep_pos_manager_name).GetComponent<sleep_pos_manager>().pos;
+		}else if(ant_state == ant_activity_state.walking){
+			sw_path();
+		}
+
+
+
+		//sw_path();
 	
 	}
 	
@@ -73,6 +87,12 @@ public class collector_ant : MonoBehaviour {
 						GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().ant_bite();
 
 					}else{
+
+
+						if(ant_state == ant_activity_state.sleep){
+
+						}
+
 
 					}
 					sw_path();

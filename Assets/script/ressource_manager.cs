@@ -17,7 +17,9 @@ public class ressource_manager : MonoBehaviour {
 	//	sel_res_text = "0";
 
 
-		//wenn ressource connected wurde oder amount geändert wurde schaue wie viele collectors zugewiesen sind wenn duviele dann anpassen bzw diese in den sleep modus schicken
-
+		//wenn ressource connected wurde oder amount geändert wurde 
+		//schaue wie viele collectors zugewiesen sind wenn duviele dann anpassen bzw diese in den sleep modus schicken
+		//per ant_sctivit state
+		//wenn auf aktive geschltet wir res updatesaufgerufen
 	}
 }

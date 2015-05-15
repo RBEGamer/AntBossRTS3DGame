@@ -1,12 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/node.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/collector_ant.cs">
     <Files>
-      <File FileName="Assets/script/collector_ant.cs" Line="69" Column="103" />
-      <File FileName="Assets/script/wp_path_manager.cs" Line="63" Column="88" />
-      <File FileName="Assets/script/ant_path_walker.cs" Line="73" Column="6" />
-      <File FileName="Assets/script/ressource.cs" Line="30" Column="2" />
-      <File FileName="Assets/script/node.cs" Line="51" Column="1" />
+      <File FileName="Assets/script/ressource_manager.cs" Line="23" Column="56" />
+      <File FileName="Assets/script/collector_ant.cs" Line="39" Column="3" />
+      <File FileName="Assets/script/vars.cs" Line="34" Column="39" />
+      <File FileName="Assets/script/ressource.cs" Line="67" Column="92" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
