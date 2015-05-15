@@ -205,13 +205,18 @@ public class pathmanager : MonoBehaviour {
 
 
 	public node get_node_with_intern_node_id(int _nid){
+		/*
 		foreach (var n in nodes) {
 			if(n.GetComponent<node>().node_id == _nid){
 
 				return n.GetComponent<node>();
 			}
 		}
-		return null;
+
+*/
+		return GameObject.Find(vars.wp_node_name + "_" + _nid).GetComponent<node>();
+
+	//	return null;
 	}
 
 

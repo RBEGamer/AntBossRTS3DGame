@@ -36,7 +36,7 @@ public class wp_path_manager : MonoBehaviour {
 	void Update () {
 		//nodes.Clear ();
 		if (path_changed) {
-			nodes.Clear ();
+			//nodes.Clear ();
 			path_changed = false;
 			compute_path ();
 	}
@@ -48,10 +48,10 @@ public class wp_path_manager : MonoBehaviour {
 
 
 	public void add_nodes(){
-		nodes.Clear ();
-		this.nodes = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes;
+	//	nodes.Clear ();
+	//	this.nodes = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes;
 		//nodes.AddRange(GameObject.FindGameObjectsWithTag (vars.wp_node_tag));
-		node_count = nodes.Count;
+	//	node_count = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes.Count;
 
 	}
 
@@ -60,7 +60,7 @@ public class wp_path_manager : MonoBehaviour {
 
 
 		
-		if (node_count > 1) {
+		if (GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes.Count > 1) {
 			
 			//VORARBEIT:
 			set_all_to_unvisited (); // alle nodes auf unbesucht setzten
@@ -199,7 +199,7 @@ public class wp_path_manager : MonoBehaviour {
 		int saved_node_id = -1;
 		float saved_dist = Mathf.Infinity;
 
-		foreach (GameObject n in nodes) {
+		foreach (GameObject n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 
 			if(n.GetComponent<node>().distance < saved_dist && !n.GetComponent<node>().visited){
 				saved_dist = n.GetComponent<node>().distance;
@@ -219,7 +219,7 @@ public class wp_path_manager : MonoBehaviour {
 
 
 	private void mark_node_as_tagged(int id){
-		foreach (GameObject n in nodes) {
+		foreach (GameObject n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			if(n.GetComponent<node>().node_id == id){
 				n.GetComponent<node>().tagged = true;
 				Debug.Log("der node "+ id + "wurde markiert");
@@ -229,7 +229,7 @@ public class wp_path_manager : MonoBehaviour {
 
 
 	private void mark_node_as_visited(int id){
-		foreach (GameObject n in nodes) {
+		foreach (GameObject n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			if(n.GetComponent<node>().node_id == id){
 				n.GetComponent<node>().visited = true;
 				Debug.Log("der node " + id + " wurde auf besucht gesetzt");
@@ -240,7 +240,7 @@ public class wp_path_manager : MonoBehaviour {
 
 	private bool check_if_all_visited(){
 		bool node_checked = true;
-		foreach (GameObject n in nodes) {
+		foreach (GameObject n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			if(!n.GetComponent<node>().visited){
 				node_checked = false;
 			}
@@ -252,7 +252,7 @@ public class wp_path_manager : MonoBehaviour {
 
 	private node get_node_component(int id){
 		node tmp;
-		foreach (GameObject n in nodes) {
+		foreach (GameObject n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			if(n.GetComponent<node>().node_id == id){
 				 tmp = n.GetComponent<node>();
 				return tmp;
@@ -263,44 +263,44 @@ public class wp_path_manager : MonoBehaviour {
 
 
 	private void set_all_to_unvisited(){
-		foreach (GameObject	 n in nodes) {
+		foreach (GameObject	 n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			n.GetComponent<node>().visited = false;
 		}
 	}
 
 	private void set_all_to_visited(){
-		foreach (GameObject	 n in nodes) {
+		foreach (GameObject	 n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			n.GetComponent<node>().visited = true;
 		}
 	}
 
 	private void set_all_untag(){
-		foreach (GameObject	 n in nodes) {
+		foreach (GameObject	 n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			n.GetComponent<node>().tagged = false;
 		}
 	}
 
 	private void set_all_tagged(){
-		foreach (GameObject	 n in nodes) {
+		foreach (GameObject	 n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			n.GetComponent<node>().tagged = true;
 		}
 	}
 
 
 	private void set_distance_to_infinite(){
-		foreach (GameObject	 n in nodes) {
+		foreach (GameObject	 n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			n.GetComponent<node>().distance = Mathf.Infinity;
 		}
 	}
 
 	private void set_distance_to_zero(){
-		foreach (GameObject	 n in nodes) {
+		foreach (GameObject	 n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			n.GetComponent<node>().distance = 0;
 		}
 	}
 
 	private void set_ancestor_to_null(){
-		foreach (GameObject	 n in nodes) {
+		foreach (GameObject	 n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
 			n.GetComponent<node>().ancestor = -1;
 		}
 	}
