@@ -8,7 +8,7 @@ public class ressource_manager : MonoBehaviour {
 
 
 	private int current_frame_count;
-	public int toggle_frame_count = 20;
+
 //	GUIText sel_res_text;
 	// Use this for initialization
 	void Start () {
@@ -21,8 +21,9 @@ public class ressource_manager : MonoBehaviour {
 	
 
 		//nur alle 10 frames oder so
-		if(current_frame_count >= toggle_frame_count){
+		if(current_frame_count >= vars.res_manager_ant_spawn_speed){
 		current_frame_count = 0;
+		//	Debug.Log("res manager tick");
 		manage_ant_amount();
 		}else{
 		current_frame_count++;
@@ -53,6 +54,7 @@ public class ressource_manager : MonoBehaviour {
 			if(check_if_any_node_connected(_res_id)){
 
 			if(_current_working_ants < _target_ants){
+				Debug.Log("spawn coll ant");
 				GameObject new_ant_instance = (GameObject)Instantiate(collection_ant_template, GameObject.Find(vars.sleep_pos_manager_name).gameObject.GetComponent<sleep_pos_manager>().get_sleeping_pos(), Quaternion.identity);
 				collector_ant coll_ant = 	new_ant_instance.gameObject.GetComponent<collector_ant>();
 				coll_ant.set_walking_state();
@@ -61,7 +63,8 @@ public class ressource_manager : MonoBehaviour {
 
 
 
-
+					new_ant_instance = null;
+					break;
 				}else if(_current_working_ants > _target_ants){
 
 					//hier ants löschen
@@ -82,10 +85,12 @@ public class ressource_manager : MonoBehaviour {
 	public bool check_if_any_node_connected(int _rid){
 		//for each node if coonected ant res_id = _rid
 
-
-
-
-		return true;
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.wp_node_tag)) {
+			if(n.gameObject.GetComponent<node>().connected_with_res && n.gameObject.GetComponent<node>().discoveres_by_scout && n.gameObject.GetComponent<node>().connected_res_id == _rid){
+				return true;
+			}
+		}
+		return false;
 	}
 
 

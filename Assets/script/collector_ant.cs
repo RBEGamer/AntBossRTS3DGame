@@ -229,7 +229,7 @@ public class collector_ant : MonoBehaviour {
 			walk_path = ant_path.final_path;
 			this.transform.position = get_wp_pos(_start);
 			_saved_dest = _goal;
-			Debug.Log("calc way complete");
+			//Debug.Log("calc way complete");
 
 
 			if(vars.collector_ant_en_dyn_speed){

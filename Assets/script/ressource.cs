@@ -76,7 +76,7 @@ public class ressource : MonoBehaviour {
 
 		res.current_harvest_amount -= res.ant_bite_decrease;
 		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}
-		Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
+	//	Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
 	}
 
 

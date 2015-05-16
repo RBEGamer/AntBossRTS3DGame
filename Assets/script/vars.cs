@@ -66,6 +66,7 @@ public class vars : MonoBehaviour {
 
 	public static string sleep_pos_manager_name = "sleep_pos_manager";
 	public static string ressource_manager_name = "ressource_manager";
+	public static int res_manager_ant_spawn_speed = 200;
 
 
 
