@@ -44,7 +44,7 @@ public class vars : MonoBehaviour {
 
 
 	public static float minimum_way_point_distance = 1.5f;
-	public static float way_point_interaction_circle_radius = 7.0f;
+	public static float way_point_interaction_circle_radius = 17.0f;
 	public static float waypoint_interactition_latitude = 0.1f;
     public static float waypoint_node_connection_line_width = 0.1f;
 	public static float res_interaction_radius = 1.0f;
@@ -59,13 +59,14 @@ public class vars : MonoBehaviour {
 	public static string scout_ant_tag = "scout_ant";
 	public static string collector_ant_tag = "collector_ant";
 	public static string collector_ant_name = "collector_ant";
-	public static float scout_ant_move_speed = 3.0f;
+	public static float scout_ant_move_speed = 8.0f;
 	public static bool scout_ant_en_dyn_speed = false;
-	public static float collector_ant_speed = 2.0f;
+	public static float collector_ant_speed = 5.0f;
 	public static bool collector_ant_en_dyn_speed = false;
 
 	public static string sleep_pos_manager_name = "sleep_pos_manager";
 	public static string ressource_manager_name = "ressource_manager";
+	public static string ui_manager_name = "ui_manager";
 	public static int res_manager_ant_spawn_speed = 200;
 
 

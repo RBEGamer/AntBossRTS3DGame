@@ -100,7 +100,7 @@ public class collector_ant : MonoBehaviour {
 
 					if(is_hinweg){
 						GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().ant_bite();
-
+						sw_path();
 					}else{
 
 						//Debug.Log("entered base");
@@ -112,6 +112,7 @@ public class collector_ant : MonoBehaviour {
 						//	Debug.Log(" destroy");
 							Destroy(this.gameObject);
 						}else if (ant_state == ant_activity_state.walking){
+						//	Debug.Log(" switch dir");
 							sw_path();
 						}
 

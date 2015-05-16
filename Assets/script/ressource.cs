@@ -59,7 +59,7 @@ public class ressource : MonoBehaviour {
     ressource_pos = this.gameObject.transform.position;
 		res = new res_info();
 		//res = vars.res_type_a;
-		res.target_collection_ants = 4;
+		res.target_collection_ants = 1;
 		//hier node registeren
 		this.name = vars.res_name + "_" + ressource_id;
 		refresh_res_info();
@@ -76,7 +76,7 @@ public class ressource : MonoBehaviour {
 
 		res.current_harvest_amount -= res.ant_bite_decrease;
 		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}
-	//	Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
+		//Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
 	}
 
 
