@@ -37,14 +37,14 @@ public class ressource : MonoBehaviour {
 		public float interactition_latitude;
 		public float ant_bite_decrease;
 		public float current_harvest_amount;
-		public int target_collection_ants = 5;
+		public int target_collection_ants;
 	}
 
 
 	public res_info res;
 
 
-	public set_target_ants(int _target){
+	public void set_target_ants(int _target){
 		res.target_collection_ants = _target;
 	}
 
@@ -59,7 +59,7 @@ public class ressource : MonoBehaviour {
     ressource_pos = this.gameObject.transform.position;
 		res = new res_info();
 		//res = vars.res_type_a;
-
+		res.target_collection_ants = 4;
 		//hier node registeren
 		this.name = vars.res_name + "_" + ressource_id;
 		refresh_res_info();

@@ -65,6 +65,7 @@ public class vars : MonoBehaviour {
 	public static bool collector_ant_en_dyn_speed = false;
 
 	public static string sleep_pos_manager_name = "sleep_pos_manager";
+	public static string ressource_manager_name = "ressource_manager";
 
 
 

@@ -5,16 +5,28 @@ public class ressource_manager : MonoBehaviour {
 
 	public GameObject collection_ant_template;
 
+
+
+	private int current_frame_count;
+	public int toggle_frame_count = 20;
 //	GUIText sel_res_text;
 	// Use this for initialization
 	void Start () {
-	
+		current_frame_count = 0;
+		this.name = vars.ressource_manager_name;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 	
 
+		//nur alle 10 frames oder so
+		if(current_frame_count >= toggle_frame_count){
+		current_frame_count = 0;
+		manage_ant_amount();
+		}else{
+		current_frame_count++;
+		}
 	//	sel_res_text = "0";
 
 
@@ -41,9 +53,9 @@ public class ressource_manager : MonoBehaviour {
 			if(check_if_any_node_connected(_res_id)){
 
 			if(_current_working_ants < _target_ants){
-				GameObject new_ant_instance = Instantiate(collection_ant_template, GameObject.Find(vars.sleep_pos_manager_name).gameObject.GetComponent<sleep_pos_manager>().get_sleeping_pos());
+				GameObject new_ant_instance = (GameObject)Instantiate(collection_ant_template, GameObject.Find(vars.sleep_pos_manager_name).gameObject.GetComponent<sleep_pos_manager>().get_sleeping_pos(), Quaternion.identity);
 				collector_ant coll_ant = 	new_ant_instance.gameObject.GetComponent<collector_ant>();
-				coll_ant.ant_state = coll_ant.ant_activity_state.walking;
+				coll_ant.set_walking_state();
 				coll_ant.connected_ressource = _res_id;
 				coll_ant.res_updated = true;
 
@@ -69,6 +81,11 @@ public class ressource_manager : MonoBehaviour {
 
 	public bool check_if_any_node_connected(int _rid){
 		//for each node if coonected ant res_id = _rid
+
+
+
+
+		return true;
 	}
 
 
