@@ -89,17 +89,21 @@ public class collector_ant : MonoBehaviour {
 
 					}else{
 
-
+						Debug.Log("entered base");
 						if(ant_state == ant_activity_state.sleep){
+							Debug.Log(" goto sleep");
 							this.transform.position = GameObject.Find(vars.sleep_pos_manager_name).GetComponent<sleep_pos_manager>().get_sleeping_pos();
 							model_holder.SetActive(false);
 						}else if(ant_state == ant_activity_state.destroy){
+							Debug.Log(" destroy");
 							Destroy(this.gameObject);
+						}else if (ant_state == ant_activity_state.walking){
+							sw_path();
 						}
 
 
 					}
-					sw_path();
+
 
 
 
