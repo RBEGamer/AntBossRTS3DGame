@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class collector_ant : MonoBehaviour {
-
+	public GameObject model_holder;
 	public int connected_ressource;
 	public int wp_start;
 	public int wp_end;
@@ -20,7 +20,7 @@ public class collector_ant : MonoBehaviour {
 
 	public enum ant_activity_state
 	{
-		sleep,walking
+		sleep,walking,destroy
 	}
 
 	public  ant_activity_state ant_state;
@@ -31,9 +31,10 @@ public class collector_ant : MonoBehaviour {
 
 		if(ant_state == ant_activity_state.sleep){
 			//invisible schalten
-
-			this.transform.position = GameObject.Find(vars.sleep_pos_manager_name).GetComponent<sleep_pos_manager>().pos;
+			model_holder.SetActive(false);
+			this.transform.position = GameObject.Find(vars.sleep_pos_manager_name).GetComponent<sleep_pos_manager>().get_sleeping_pos();
 		}else if(ant_state == ant_activity_state.walking){
+			model_holder.SetActive(true);
 			sw_path();
 		}
 
@@ -90,7 +91,10 @@ public class collector_ant : MonoBehaviour {
 
 
 						if(ant_state == ant_activity_state.sleep){
-
+							this.transform.position = GameObject.Find(vars.sleep_pos_manager_name).GetComponent<sleep_pos_manager>().get_sleeping_pos();
+							model_holder.SetActive(false);
+						}else if(ant_state == ant_activity_state.destroy){
+							Destroy(this.gameObject);
 						}
 
 
@@ -196,6 +200,7 @@ public class collector_ant : MonoBehaviour {
 
 		if(GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes.Count >= 2 && get_wp_comp(_start).discoveres_by_scout && get_wp_comp(_goal).discoveres_by_scout){
 		//	this.gameObject.GetComponent<Renderer>().enabled = true;
+			model_holder.SetActive(true);
 			wp_counter = 0;
 			walk_path.Clear();
 			ant_path.start_node_id = _start;
@@ -223,6 +228,7 @@ public class collector_ant : MonoBehaviour {
 
 		}else{
 			walk_path.Clear();
+			model_holder.SetActive(false);
 			this.transform.position = get_wp_pos(0); //zur base setzten
 		//	this.gameObject.GetComponent<Renderer>().enabled = false;
 		}
