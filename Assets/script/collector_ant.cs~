@@ -28,7 +28,7 @@ public class collector_ant : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ant_path = this.gameObject.GetComponent<wp_path_manager>();
-
+		this.name = vars.collector_ant_name;
 		if(ant_state == ant_activity_state.sleep){
 			//invisible schalten
 			model_holder.SetActive(false);
@@ -89,13 +89,13 @@ public class collector_ant : MonoBehaviour {
 
 					}else{
 
-						Debug.Log("entered base");
+						//Debug.Log("entered base");
 						if(ant_state == ant_activity_state.sleep){
-							Debug.Log(" goto sleep");
+						//	Debug.Log(" goto sleep");
 							this.transform.position = GameObject.Find(vars.sleep_pos_manager_name).GetComponent<sleep_pos_manager>().get_sleeping_pos();
 							model_holder.SetActive(false);
 						}else if(ant_state == ant_activity_state.destroy){
-							Debug.Log(" destroy");
+						//	Debug.Log(" destroy");
 							Destroy(this.gameObject);
 						}else if (ant_state == ant_activity_state.walking){
 							sw_path();

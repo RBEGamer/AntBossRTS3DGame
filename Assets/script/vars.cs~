@@ -58,6 +58,7 @@ public class vars : MonoBehaviour {
   	public static string res_tag = "ressource";
 	public static string scout_ant_tag = "scout_ant";
 	public static string collector_ant_tag = "collector_ant";
+	public static string collector_ant_name = "collector_ant";
 	public static float scout_ant_move_speed = 3.0f;
 	public static bool scout_ant_en_dyn_speed = false;
 	public static float collector_ant_speed = 2.0f;

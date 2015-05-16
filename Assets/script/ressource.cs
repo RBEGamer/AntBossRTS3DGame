@@ -37,10 +37,17 @@ public class ressource : MonoBehaviour {
 		public float interactition_latitude;
 		public float ant_bite_decrease;
 		public float current_harvest_amount;
+		public int target_collection_ants = 5;
 	}
 
 
 	public res_info res;
+
+
+	public set_target_ants(int _target){
+		res.target_collection_ants = _target;
+	}
+
 
 	public void set_res_info(){
 
@@ -59,6 +66,11 @@ public class ressource : MonoBehaviour {
 
 
 	}
+
+
+
+
+
 
 	public void ant_bite(){
 
