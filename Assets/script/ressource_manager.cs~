@@ -64,14 +64,20 @@ public class ressource_manager : MonoBehaviour {
 
 
 					new_ant_instance = null;
-					break;
+				//	break;
 				}else if(_current_working_ants > _target_ants){
-
-					//hier ants löschen
-
-				}
+					int ant_diff = _current_working_ants - _target_ants; // soviele löschen
 
 
+					foreach (GameObject nd in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
+						if(nd.gameObject.GetComponent<collector_ant>().connected_ressource == _res_id){
+							nd.gameObject.GetComponent<collector_ant>().set_destroy_state();
+						}
+					}
+				//break;
+				}else{ // if(_current_working_ants == _target_ants){
+
+					//nichts machen alles gut
 
 
 
@@ -81,6 +87,7 @@ public class ressource_manager : MonoBehaviour {
 
 
 	}
+}
 
 	public bool check_if_any_node_connected(int _rid){
 		//for each node if coonected ant res_id = _rid
@@ -104,8 +111,37 @@ public class ressource_manager : MonoBehaviour {
 		return _count;
 	}
 	
+
 	public int count_ants(){
+		int _count = 0;
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
+				_count++;
+		}
+		return _count;
+	}
+
+
+
+
+
+	//alle diese beziehen sich auf wenn man nicht im patheditmode ist
+
+	public int count_selected_ressources(){
 		return 0;
 	}
 
+	public int get_selected_ressource(){
+		return 0;
+	}
+
+	public void map_ui_to_ressource(int _resid){
+	}
+
+	public void change_res_ant_value(float value){
+
+	}
+
+	public void manage_ui(){
+//übergebe errechnete werte an den ui manager
+	}
 }

@@ -59,7 +59,7 @@ public class ressource : MonoBehaviour {
     ressource_pos = this.gameObject.transform.position;
 		res = new res_info();
 		//res = vars.res_type_a;
-		res.target_collection_ants = 1;
+		res.target_collection_ants = 5;
 		//hier node registeren
 		this.name = vars.res_name + "_" + ressource_id;
 		refresh_res_info();

@@ -25,4 +25,10 @@ public class ui_manager : MonoBehaviour {
 		//value nach int
 		//change value
 	}
+
+	public void refresh_ressource_ui(int _resid, int max_ants, int min_ants =0){
+
+	}
+
+
 }
