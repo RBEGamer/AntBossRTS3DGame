@@ -70,10 +70,9 @@ public class ressource_manager : MonoBehaviour {
 
 
 					foreach (GameObject nd in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-						Debug.Log(calc_ant_diff(_res_id));
+					//	Debug.Log(calc_ant_diff(_res_id));
 						if(nd.gameObject.GetComponent<collector_ant>().connected_ressource == _res_id && calc_ant_diff(_res_id) >= 1 && nd.gameObject.GetComponent<collector_ant>().is_walking()){
 							nd.gameObject.GetComponent<collector_ant>().set_destroy_state();
-							//hier neu die ant diff ausrechnen
 						}
 					}
 				//break;

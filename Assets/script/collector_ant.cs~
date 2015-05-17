@@ -127,7 +127,7 @@ public class collector_ant : MonoBehaviour {
 					//hier je nach richtun aktion ausführen
 
 
-					if(is_hinweg){
+					if(!is_hinweg){
 						GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().ant_bite();
 						sw_path();
 					}else{
