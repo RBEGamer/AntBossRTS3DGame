@@ -66,12 +66,14 @@ public class ressource_manager : MonoBehaviour {
 					new_ant_instance = null;
 				//	break;
 				}else if(_current_working_ants > _target_ants){
-					int ant_diff = _current_working_ants - _target_ants; // soviele löschen
+				//	int ant_diff = _current_working_ants - _target_ants; // soviele löschen
 
 
 					foreach (GameObject nd in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-						if(nd.gameObject.GetComponent<collector_ant>().connected_ressource == _res_id){
+						Debug.Log(calc_ant_diff(_res_id));
+						if(nd.gameObject.GetComponent<collector_ant>().connected_ressource == _res_id && calc_ant_diff(_res_id) >= 1 && nd.gameObject.GetComponent<collector_ant>().is_walking()){
 							nd.gameObject.GetComponent<collector_ant>().set_destroy_state();
+							//hier neu die ant diff ausrechnen
 						}
 					}
 				//break;
@@ -89,6 +91,29 @@ public class ressource_manager : MonoBehaviour {
 	}
 }
 
+
+
+
+	public int calc_ant_diff(int _resid){
+		int _current_working_ants = 0, _target_ants =0, ant_diff = 0;
+		foreach (GameObject	 n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+	
+			if(n.gameObject.GetComponent<ressource>().ressource_id == _resid){
+				_current_working_ants = count_ants_by_ressource(_resid);
+				_target_ants = n.gameObject.GetComponent<ressource>().res.target_collection_ants;
+				ant_diff = _current_working_ants - _target_ants; 
+				break;
+			}
+		}
+		return ant_diff;
+	}
+
+
+
+
+
+
+
 	public bool check_if_any_node_connected(int _rid){
 		//for each node if coonected ant res_id = _rid
 
@@ -101,12 +126,32 @@ public class ressource_manager : MonoBehaviour {
 	}
 
 
-	public int count_ants_by_ressource(int _resid){
+	public int count_ants_by_ressource(int _resid, bool with_walking_state_check = true){
 		int _count = 0;
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-			if(n.gameObject.GetComponent<collector_ant>().connected_ressource == _resid){
-				_count++;
+
+			if(with_walking_state_check){
+
+
+				if(n.gameObject.GetComponent<collector_ant>().connected_ressource == _resid && n.gameObject.GetComponent<collector_ant>().is_walking()){
+					_count++;
+				}
+
+
+			}else{
+				if(n.gameObject.GetComponent<collector_ant>().connected_ressource == _resid){
+					_count++;
+				}
 			}
+
+
+
+
+
+
+
+
+
 		}
 		return _count;
 	}

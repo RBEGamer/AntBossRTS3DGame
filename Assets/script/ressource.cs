@@ -116,12 +116,14 @@ public class ressource : MonoBehaviour {
 
 		res.current_harvest_amount = res.max_harvest;
 	}
-	
+
+
+	public int current_ants_working_on_this_res;
 	// Update is called once per frame
 	void Update () {
 
 
-
+		res.target_collection_ants = current_ants_working_on_this_res;
 		//hier schauen welcher node connected ist
 
 
@@ -135,6 +137,23 @@ public class ressource : MonoBehaviour {
       circle_holder.gameObject.GetComponent<selection_circle>().circle_enabled = true;
 
 
+
+
+		}else if(is_node_connected && !vars.is_in_patheditmode){
+
+
+			//hier schauen ob geklickt
+			/*
+			if (Physics.Raycast (ray, out hit)) {
+				//	is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
+				is_mouse_in_node_range = is_mouse_in_range(hit.point);
+				curr_pos_in_circle = hit.point; //save the mouse pos fpr the pathmanager
+				
+				if(hit.collider.tag == vars.environment_tag || hit.collider.tag == vars.wp_node_tag){
+					is_mouse_in_node_range = false;
+				}
+
+*/
     
     }
     else

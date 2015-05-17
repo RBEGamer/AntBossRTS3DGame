@@ -39,6 +39,35 @@ public class collector_ant : MonoBehaviour {
 	public void set_destroy_state(){
 		ant_state = ant_activity_state.destroy;
 	}
+
+
+
+	public bool is_walking(){
+		if(ant_state == ant_activity_state.walking){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public bool is_sleeping(){
+		if(ant_state == ant_activity_state.sleep){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+	public bool is_destroyed(){
+		if(ant_state == ant_activity_state.destroy){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
 	// Use this for initialization
 	void Start () {
 		ant_path = this.gameObject.GetComponent<wp_path_manager>();
