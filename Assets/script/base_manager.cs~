@@ -9,8 +9,13 @@ public class base_manager : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		this.name = vars.base_name;
+	}
+
+
+	void Start(){
+
 	}
 	
 	// Update is called once per frame
