@@ -6,7 +6,7 @@ public class vars : MonoBehaviour {
 	
 	public enum ressource_type
 	{
-		A,B,C
+		A,B,C, default_type
 	}
 
 	public struct res_type_default{
@@ -69,6 +69,7 @@ public class vars : MonoBehaviour {
 	public static string ui_manager_name = "ui_manager";
 	public static int res_manager_ant_spawn_speed = 100;
 
+	public static string base_name = "ant_base";
 
 
 	//WAYPOINT VARS

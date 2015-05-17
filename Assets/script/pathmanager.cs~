@@ -35,7 +35,7 @@ public class pathmanager : MonoBehaviour {
 		nodes = new List<GameObject> ();
 		pedit_toggle = true;
 		set_new = false;
-		Vector3 pos = GameObject.Find ("base").transform.position;
+		Vector3 pos = GameObject.Find (vars.base_name).transform.position;
 		int tmp_id = nodes.Count;
 		GameObject tmp = (GameObject)Instantiate (node_template, pos, Quaternion.identity);
 		nodes.Add (tmp);

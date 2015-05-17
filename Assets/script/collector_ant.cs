@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class collector_ant : MonoBehaviour {
+
+	public float ant_bite_size;
 	public GameObject model_holder;
 	public int connected_ressource;
 	public int wp_start;
@@ -70,6 +72,7 @@ public class collector_ant : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		ant_bite_size = 0.0f;
 		ant_path = this.gameObject.GetComponent<wp_path_manager>();
 		this.name = vars.collector_ant_name;
 		if(ant_state == ant_activity_state.sleep){
@@ -94,6 +97,7 @@ public class collector_ant : MonoBehaviour {
 			res_updated = false;
 			is_hinweg = true;
 			wp_counter = 0;
+			ant_bite_size = 0.0f;
 			sw_path();
 		}
 
@@ -128,7 +132,7 @@ public class collector_ant : MonoBehaviour {
 
 
 					if(!is_hinweg){
-						GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().ant_bite();
+						ant_bite_size =	GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().ant_bite();
 						sw_path();
 					}else{
 
@@ -142,6 +146,16 @@ public class collector_ant : MonoBehaviour {
 							Destroy(this.gameObject);
 						}else if (ant_state == ant_activity_state.walking){
 						//	Debug.Log(" switch dir");
+
+
+						
+
+
+
+							GameObject.Find(vars.base_name).gameObject.GetComponent<base_manager>().add_to_storage(0, ant_bite_size);
+							//base.restype_a_storage += ant_bite_size;
+								GameObject.Find(vars.base_name).GetComponent<base_manager>().add_to_storage(get_res_type_by_id(connected_ressource),ant_bite_size);
+							ant_bite_size = 0.0f;
 							sw_path();
 						}
 
@@ -190,15 +204,9 @@ public class collector_ant : MonoBehaviour {
 
 
 	private int get_node_id_by_ressource(int _rid){
-
-
-
 		foreach (GameObject n in GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().nodes) {
-		
 			if(n.gameObject.GetComponent<node>().connected_with_res && n.gameObject.GetComponent<node>().connected_res_id == _rid){
-			
 				return n.GetComponent<node>().node_id;
-
 			}
 	}
 		return -1;
@@ -206,6 +214,14 @@ public class collector_ant : MonoBehaviour {
 
 
 
+	private vars.ressource_type get_res_type_by_id(int _rid){
+								foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+									if(n.gameObject.GetComponent<ressource>().ressource_id == _rid){
+										return	n.gameObject.GetComponent<ressource>().res_type;
+									}
+								}
+								return vars.ressource_type.default_type;
+	}
 
 
 

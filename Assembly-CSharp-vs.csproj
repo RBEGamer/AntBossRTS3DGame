@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\script\ant_path_walker.cs" />
+     <Compile Include="Assets\script\base_manager.cs" />
      <Compile Include="Assets\script\camera_movement.cs" />
      <Compile Include="Assets\script\collector_ant.cs" />
      <Compile Include="Assets\script\helper\follower.cs" />

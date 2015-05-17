@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 public class ui_manager : MonoBehaviour {
@@ -24,7 +24,7 @@ public class ui_manager : MonoBehaviour {
 		//get selected
 		//value nach int
 		//change value
-		Debug.Log(value);
+//		Debug.Log(value);
 	}
 
 	public void refresh_ressource_ui(int _resid, int max_ants, int min_ants =0){
