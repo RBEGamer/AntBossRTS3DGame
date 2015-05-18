@@ -142,19 +142,14 @@ public class ressource : MonoBehaviour {
 		}else if(is_node_connected && !vars.is_in_patheditmode){
 
 
-			//hier schauen ob geklickt
-			/*
-			if (Physics.Raycast (ray, out hit)) {
-				//	is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
-				is_mouse_in_node_range = is_mouse_in_range(hit.point);
-				curr_pos_in_circle = hit.point; //save the mouse pos fpr the pathmanager
-				
-				if(hit.collider.tag == vars.environment_tag || hit.collider.tag == vars.wp_node_tag){
-					is_mouse_in_node_range = false;
-				}
-
-*/
     
+			if(is_selected_by_res_manager){
+				circle_holder.gameObject.GetComponent<selection_circle>().circle_enabled = true;
+			}else{
+				circle_holder.gameObject.GetComponent<selection_circle>().circle_enabled = false;
+			}
+
+
     }
     else
     {

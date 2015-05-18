@@ -21,9 +21,54 @@ public class ressource_manager : MonoBehaviour {
 	
 
 		//wenn nicht in patheditmode schaue ob a) 1.selectiert -> mapp ui   b) wenn mehr als 1 deselect all  c) keine schaue ob über einer geklickt wurde wenn auf keine dann deselect all
+		//wenn selektiert dann
 
 
-		//nur alle 10 frames oder so
+
+		if(!vars.is_in_patheditmode){
+			if(count_selected_ressources() > 1){deselect_all_ressources();}
+
+			if(count_selected_ressources() == 0){
+				if(Input.GetMouseButtonDown(0)){
+				if (Physics.Raycast (ray, out hit)) {
+						foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+							if(n.gameObject.GetComponent<ressource>().is_selected_by_res_manager){
+							if(n.gameObject.GetComponent<ressource>().circle_holder.GetComponent<selection_circle>().is_point_in_circle(hit.point)){
+								n.gameObject.GetComponent<ressource>().is_selected_by_res_manager = true;
+									map_ui_to_ressource(n.gameObject.GetComponent<ressource>().ressource_id);
+									//-> MAPPEN
+							}//ende is point
+							} //ende is selected
+						}//ende for each
+					}//ende raycast
+				}//ende mousbutton
+
+
+		}else{
+			if(count_selected_ressources() > 0){deselect_all_ressources();}
+		}
+	}//ende func
+
+
+		//hier schauen ob geklickt
+		/*
+			if (Physics.Raycast (ray, out hit)) {
+				//	is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
+				is_mouse_in_node_range = is_mouse_in_range(hit.point);
+				curr_pos_in_circle = hit.point; //save the mouse pos fpr the pathmanager
+				
+				if(hit.collider.tag == vars.environment_tag || hit.collider.tag == vars.wp_node_tag){
+					is_mouse_in_node_range = false;
+				}
+
+*/
+
+
+
+
+
+
+		//nur alle 100 frames oder so
 		if(current_frame_count >= vars.res_manager_ant_spawn_speed){
 		current_frame_count = 0;
 		//	Debug.Log("res manager tick");
@@ -31,31 +76,17 @@ public class ressource_manager : MonoBehaviour {
 		}else{
 		current_frame_count++;
 		}
-	//	sel_res_text = "0";
-
-
-		//wenn ressource connected wurde oder amount geändert wurde 
-		//schaue wie viele collectors zugewiesen sind wenn duviele dann anpassen bzw diese in den sleep modus schicken
-		//per ant_sctivit state
-		//wenn auf aktive geschltet wir res updatesaufgeru
 	}
 
 
 	public void manage_ant_amount(){
-
-
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
-
 			int _max_ants = n.gameObject.GetComponent<ressource>().res.max_collector_ants;
 			int _res_id = n.GetComponent<ressource>().ressource_id;
 			int _current_working_ants = count_ants_by_ressource(_res_id);
 			int _target_ants = n.gameObject.GetComponent<ressource>().res.target_collection_ants;
-
-
 			if(_target_ants >= _max_ants){_target_ants = _max_ants;}
-
 			if(check_if_any_node_connected(_res_id)){
-
 			if(_current_working_ants < _target_ants){
 				Debug.Log("spawn coll ant");
 				GameObject new_ant_instance = (GameObject)Instantiate(collection_ant_template, GameObject.Find(vars.sleep_pos_manager_name).gameObject.GetComponent<sleep_pos_manager>().get_sleeping_pos(), Quaternion.identity);
@@ -63,33 +94,19 @@ public class ressource_manager : MonoBehaviour {
 				coll_ant.set_walking_state();
 				coll_ant.connected_ressource = _res_id;
 				coll_ant.res_updated = true;
-
-
-
 					new_ant_instance = null;
-				//	break;
 				}else if(_current_working_ants > _target_ants){
-				//	int ant_diff = _current_working_ants - _target_ants; // soviele löschen
-
-
 					foreach (GameObject nd in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-					//	Debug.Log(calc_ant_diff(_res_id));
 						if(nd.gameObject.GetComponent<collector_ant>().connected_ressource == _res_id && calc_ant_diff(_res_id) >= 1 && nd.gameObject.GetComponent<collector_ant>().is_walking()){
 							nd.gameObject.GetComponent<collector_ant>().set_destroy_state();
 						}
 					}
 				//break;
 				}else{ // if(_current_working_ants == _target_ants){
-
 					//nichts machen alles gut
-
-
-
 			}//end check if res connected
 			//sonst alle ants löschen
 		}//ende foreach
-
-
 	}
 }
 
@@ -99,7 +116,6 @@ public class ressource_manager : MonoBehaviour {
 	public int calc_ant_diff(int _resid){
 		int _current_working_ants = 0, _target_ants =0, ant_diff = 0;
 		foreach (GameObject	 n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
-	
 			if(n.gameObject.GetComponent<ressource>().ressource_id == _resid){
 				_current_working_ants = count_ants_by_ressource(_resid);
 				_target_ants = n.gameObject.GetComponent<ressource>().res.target_collection_ants;
@@ -131,29 +147,15 @@ public class ressource_manager : MonoBehaviour {
 	public int count_ants_by_ressource(int _resid, bool with_walking_state_check = true){
 		int _count = 0;
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-
 			if(with_walking_state_check){
-
-
 				if(n.gameObject.GetComponent<collector_ant>().connected_ressource == _resid && n.gameObject.GetComponent<collector_ant>().is_walking()){
 					_count++;
 				}
-
-
 			}else{
 				if(n.gameObject.GetComponent<collector_ant>().connected_ressource == _resid){
 					_count++;
 				}
 			}
-
-
-
-
-
-
-
-
-
 		}
 		return _count;
 	}
@@ -209,7 +211,10 @@ public class ressource_manager : MonoBehaviour {
 
 
 
+
+
 	public void map_ui_to_ressource(int _resid){
+		//-> rid an den ui manager übergeben
 	}
 
 	public void change_res_ant_value(float value){
