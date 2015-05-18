@@ -3,11 +3,12 @@ using System.Collections;
 
 public class vars : MonoBehaviour {
 
-	
+	/* ---------BEGIN DO NOT CHNAGE-------------------- */
 	public enum ressource_type
 	{
 		A,B,C, default_type
 	}
+
 
 	public struct res_type_default{
 		public static float max_harvest = 0f;
@@ -16,12 +17,19 @@ public class vars : MonoBehaviour {
 		public static float interactition_latitude = 0f;
 		public static float ant_bite_decrease = 0;
 	}
+
+	/* ---------END DO NOT CHNAGE-------------------- */
+		
+
+
+	/* -------RESSOURCE SETTING AREA ----------------------*/
+
 	public struct res_type_a{
-		public static float max_harvest = 1000.0f;
-		public static int max_collector_ants = 5;
+		public static float max_harvest = 1000.0f; //wie viel ressourcen können abgebaut werden von dieser ressource
+		public static int max_collector_ants = 5; //wie viele Armeisen können an dieser REssource abbauen
 		public static float interaction_circle_radius = 2.0f;
 		public static float interactition_latitude = 0.1f;
-		public static float ant_bite_decrease = 10;
+		public static float ant_bite_decrease = 10; //wie viel soll eine ameise bei einem biss tragen können
 	}
 	public struct res_type_b{
 		public static float max_harvest = 2000.0f;
@@ -40,41 +48,56 @@ public class vars : MonoBehaviour {
 
 
 
-	//res activation cycle
 
 
-	public static float minimum_way_point_distance = 1.5f;
-	public static float way_point_interaction_circle_radius = 17.0f;
+	public static Color waypoint_circle_color = Color.red; //farbe des kreises für die webpunkte
+	public static Color ressource_circle_color = Color.cyan;
+	public static float minimum_way_point_distance = 1.5f; //welcher abstand muss ein wegpunkt mindestens zum nächsten haben
+	public static float way_point_interaction_circle_radius = 17.0f; //welcher ist der maximal abstand von wegpunkt zu wegpunkt
 	public static float waypoint_interactition_latitude = 0.1f;
-    public static float waypoint_node_connection_line_width = 0.1f;
-	public static float res_interaction_radius = 1.0f;
-	public static float res_interaction_circle_width = 0.1f;
-	public static string environment_tag = "environment";
-	public static int unit_scout_amount = 10;
-	public static string path_manager_name = "path_manager";
-	public static string wp_node_name = "node";
+    public static float waypoint_node_connection_line_width = 0.1f; //wie dick soll die linie des kreises sein
+	public static float res_interaction_radius = 1.0f; //wie nach muss der wegpunkt an der ressource gesetzt werden damit sich der wegpunkt mit der rressource verbindet
+	public static float res_interaction_circle_width = 0.1f; //wie dick soll die linie des kreises sein
+	public static int unit_scout_amount = 10; //ähm keine ahnugn wo die und ob die überhaupt verwendet wird............ zu faul zum suchen
+
+
+
+
+	
+	public static float scout_ant_move_speed = 8.0f; //wie schnell sollen sich die scout ameisen bewegen
+	public static bool scout_ant_en_dyn_speed = false; //wenn auf true  brauchen die Ameisen immer die selbe zeit zum node -> längere strecke = schnellere ameise
+	public static float collector_ant_speed = 5.0f;//wie schnell sollen sich die collector ameisen bewegen
+	public static bool collector_ant_en_dyn_speed = false;//wenn auf true  brauchen die Ameisen immer die selbe zeit zum node -> längere strecke = schnellere ameise
+	public static int res_manager_ant_spawn_speed = 100; //wie schnell werden neue collector ameisen erstellt
+
+
+
+
+
+
+
+
+
+	/*----------- TAGS ----------------------------------- Please define in the unity tag area */
 	public static string wp_node_tag = "wp_node";
-	public static string res_name = "ressource";
-  	public static string res_tag = "ressource";
+	public static string res_tag = "ressource";
 	public static string scout_ant_tag = "scout_ant";
 	public static string collector_ant_tag = "collector_ant";
-	public static string collector_ant_name = "collector_ant";
-	public static float scout_ant_move_speed = 8.0f;
-	public static bool scout_ant_en_dyn_speed = false;
-	public static float collector_ant_speed = 5.0f;
-	public static bool collector_ant_en_dyn_speed = false;
+	public static string environment_tag = "environment";
 
+
+	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
+	public static string path_manager_name = "path_manager";
+	public static string res_name = "ressource";
+	public static string wp_node_name = "node";
+	public static string ui_manager_name = "ui_manager";
+	public static string collector_ant_name = "collector_ant";
 	public static string sleep_pos_manager_name = "sleep_pos_manager";
 	public static string ressource_manager_name = "ressource_manager";
-	public static string ui_manager_name = "ui_manager";
-	public static int res_manager_ant_spawn_speed = 100;
-
 	public static string base_name = "ant_base";
 
-
-
-
-
+		
+	/*---------------  SCENE NAMES (please add the scene in the Unity Build settings ------------------*/
 	public static string main_menu_scene_name  = "main_menu";
 	public static string mission_selection_scene_name = "mission_selection";
 	public static string credit_scene_name = "credits";
