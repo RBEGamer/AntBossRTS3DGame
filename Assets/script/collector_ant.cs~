@@ -5,6 +5,12 @@ using System.Collections.Generic;
 public class collector_ant : MonoBehaviour {
 
 	public float ant_bite_size;
+
+
+	private Material ant_material;
+	public Texture ant_texture_normal;
+	public Texture ant_texture_loaded;
+
 	public GameObject model_holder;
 	public int connected_ressource;
 	public int wp_start;
@@ -26,6 +32,8 @@ public class collector_ant : MonoBehaviour {
 	}
 
 	public  ant_activity_state ant_state;
+
+
 
 
 
@@ -70,6 +78,16 @@ public class collector_ant : MonoBehaviour {
 	}
 
 
+
+
+	void Awake(){
+		ant_material = new Material(Shader.Find("Diffuse"));
+		if(model_holder.GetComponent<Renderer>() != null){
+		model_holder.GetComponent<Renderer>().material = ant_material;
+		}
+	//material zuweisen
+	}
+
 	// Use this for initialization
 	void Start () {
 		ant_bite_size = 0.0f;
@@ -99,6 +117,14 @@ public class collector_ant : MonoBehaviour {
 			wp_counter = 0;
 			ant_bite_size = 0.0f;
 			sw_path();
+		}
+
+
+
+		if(ant_bite_size > 0){
+			ant_material.mainTexture = ant_texture_loaded;
+		}else{
+			ant_material.mainTexture = ant_texture_normal;
 		}
 
 

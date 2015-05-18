@@ -69,15 +69,6 @@ public class ressource : MonoBehaviour {
 
 
 
-
-
-	/*
-	public void ant_bite(){
-		res.current_harvest_amount -= res.ant_bite_decrease;
-		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}
-		Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
-	}
-*/
 	public float ant_bite(){
 		res.current_harvest_amount -= res.ant_bite_decrease;
 		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}

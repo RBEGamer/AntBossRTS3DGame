@@ -51,6 +51,8 @@
      <Compile Include="Assets\script\camera_movement.cs" />
      <Compile Include="Assets\script\collector_ant.cs" />
      <Compile Include="Assets\script\helper\follower.cs" />
+     <Compile Include="Assets\script\helper\ingame_disabler.cs" />
+     <Compile Include="Assets\script\menu_scripts\menu_button_manager.cs" />
      <Compile Include="Assets\script\node.cs" />
      <Compile Include="Assets\script\pathmanager.cs" />
      <Compile Include="Assets\script\ressource.cs" />
