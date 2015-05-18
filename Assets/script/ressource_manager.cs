@@ -20,6 +20,9 @@ public class ressource_manager : MonoBehaviour {
 	void FixedUpdate () {
 	
 
+		//wenn nicht in patheditmode schaue ob a) 1.selectiert -> mapp ui   b) wenn mehr als 1 deselect all  c) keine schaue ob über einer geklickt wurde wenn auf keine dann deselect all
+
+
 		//nur alle 10 frames oder so
 		if(current_frame_count >= vars.res_manager_ant_spawn_speed){
 		current_frame_count = 0;
@@ -171,12 +174,40 @@ public class ressource_manager : MonoBehaviour {
 	//alle diese beziehen sich auf wenn man nicht im patheditmode ist
 
 	public int count_selected_ressources(){
-		return 0;
+		int _count = 0;
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+			if(n.GetComponent<ressource>().is_selected_by_res_manager){
+				_count++;
+			}
+		}
+		return _count;
 	}
 
-	public int get_selected_ressource(){
-		return 0;
+	//first selected ressource
+	public GameObject get_selected_ressource(){
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+			if(n.GetComponent<ressource>().is_selected_by_res_manager){
+				return n;
+			}
+		}
+		return null;
 	}
+
+
+	public void deselect_all_ressources(){
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+			n.GetComponent<ressource>().is_selected_by_res_manager = false;
+		}
+	}
+
+
+	public void select_all_ressources(){
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+			n.GetComponent<ressource>().is_selected_by_res_manager = true;
+		}
+	}
+
+
 
 	public void map_ui_to_ressource(int _resid){
 	}

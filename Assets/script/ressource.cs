@@ -30,6 +30,8 @@ public class ressource : MonoBehaviour {
 
   public GameObject circle_holder;
 
+
+	public bool is_selected_by_res_manager;
 	 public struct res_info{
 		public float max_harvest;
 		public int max_collector_ants;
@@ -56,6 +58,7 @@ public class ressource : MonoBehaviour {
 	}
 
 	void Start () {
+		is_selected_by_res_manager = false;
     ressource_pos = this.gameObject.transform.position;
 		res = new res_info();
 		//res = vars.res_type_a;
