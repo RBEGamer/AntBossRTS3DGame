@@ -9,6 +9,13 @@ public class vars : MonoBehaviour {
 		A,B,C, default_type
 	}
 
+	public static string ui_displayname_ressource_type_a = "Peniskopfsuppe";
+	public static string ui_displayname_ressource_type_b = "Koholkopfgehirnfleisch";
+	public static string ui_displayname_ressource_type_c = "Blutegelvermehrungsmutter";
+	public static string ui_displayname_ressource_type_default = "<no valid res type>";
+	public static string ui_displayname_no_ressource_selected_text = "SELECT RESSOURCE";
+
+
 
 	public struct res_type_default{
 		public static float max_harvest = 0f;

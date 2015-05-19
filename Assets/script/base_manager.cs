@@ -7,7 +7,8 @@ public class base_manager : MonoBehaviour {
 	public float res_b_storage;
 	public float res_c_storage;
 
-
+	public int bought_collector_ants = 7;
+	public int avariable_collector_ants;
 	// Use this for initialization
 	void Awake () {
 		this.name = vars.base_name;
@@ -19,8 +20,13 @@ public class base_manager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 	
+		avariable_collector_ants = bought_collector_ants - GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_ants();
+
+
+
+
 	}
 
 
