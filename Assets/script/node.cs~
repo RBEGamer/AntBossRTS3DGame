@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 public class node : MonoBehaviour {
 
+
+
+
+  public bool connected_with_res;
+  public int connected_res_id;
+
+
 	public Vector3 node_pos;
 	public int node_id;
 	public List<int> neighbours;
@@ -61,7 +68,7 @@ public class node : MonoBehaviour {
 
 	public GameObject inner_circle_object;
 	public GameObject outher_cirlce_object;
-	 cirlce c;
+
 	public Vector3 v;
 	public GameObject cursor;
   	public Vector3 mesh_line_offset = new Vector3(0f, 1f, 0f);
@@ -72,13 +79,12 @@ public class node : MonoBehaviour {
 	public bool can_be_selected; //
 	public bool is_mouse_in_node_range;
 	public Vector3 curr_pos_in_circle;
-  	public GameObject mesh_line;
+  	public GameObject wp_way_holder;
 	public GameObject click_collider;
 	public bool call_const = false;
 
 
 	public void node_const(Vector3 _node_pos, int _node_id, int _prev_node, bool fic = true){
-	
 		//is_first_inferface_connected = fic;
 		prev_node = _prev_node;
 		node_id = _node_id;
@@ -86,7 +92,10 @@ public class node : MonoBehaviour {
 		node_pos = _node_pos;
 		this.transform.position = node_pos;
 		this.name = vars.wp_node_name + "_" + _node_id;
-		discoveres_by_scout = false;
+	 discoveres_by_scout = false;
+    //res 
+    connected_with_res = false;
+    connected_res_id = -1;
 	}
 
 
@@ -101,7 +110,7 @@ public class node : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if(call_const){
-			c = new cirlce (inner_circle_object.GetComponent<LineRenderer>(), outher_cirlce_object.GetComponent<LineRenderer>(), this.transform, cursor);
+			set_circle_pos(node_pos);
 		}
 
 	
@@ -111,60 +120,95 @@ public class node : MonoBehaviour {
 
 
 
-	public bool check_if_pos_in_cirlce_at_point(Vector3 _point){
-		return c.draw_point_on_circle (_point);
-	
-	}
+
 
 
 	// Update is called once per frame
 	void FixedUpdate () {
-
-			c.cirlce_offset = v;
-
-
-		if(!is_base_node){
+    this.transform.position = node_pos;
 
 
-			if(discoveres_by_scout){
-				wp_node_tower_mesh.gameObject.SetActive(true);
-				wp_node_base_mesh.gameObject.SetActive(true);
-			}else{
-				wp_node_tower_mesh.gameObject.SetActive(false);
-				wp_node_base_mesh.gameObject.SetActive(true);
-			}
 
-		}else{
-			wp_node_tower_mesh.gameObject.SetActive(false);
-			wp_node_base_mesh.gameObject.SetActive(true);
+
+ 
+       if (!is_base_node)
+      {
+
+        if (connected_with_res && connected_res_id >= 0)
+        {
+          wp_node_tower_mesh.gameObject.SetActive(false);
+          wp_node_base_mesh.gameObject.SetActive(false);
+        }
+        else
+        {
+
+
+
+          if (discoveres_by_scout)
+          {
+            wp_node_tower_mesh.gameObject.SetActive(true);
+            wp_node_base_mesh.gameObject.SetActive(true);
+          }
+          else
+          {
+            wp_node_tower_mesh.gameObject.SetActive(false);
+            wp_node_base_mesh.gameObject.SetActive(true);
+          }
+
+
+
+
+        }
+
+
+
+
+      }
+      else
+      {
+        wp_node_tower_mesh.gameObject.SetActive(false);
+        wp_node_base_mesh.gameObject.SetActive(true);
+      }
+
+
+		if (node_id > 1 && discoveres_by_scout) {
+			Vector3 _pre_node_pos = GameObject.Find (vars.path_manager_name).GetComponent<pathmanager> ().get_node_pos (prev_node);
+			wp_way_holder.GetComponent<wp_visible_way> ().visible = true;
+			wp_way_holder.GetComponent<wp_visible_way> ().start_pos = _pre_node_pos + mesh_line_offset;
+			wp_way_holder.GetComponent<wp_visible_way> ().end_pos = node_pos;
+
+
+		} else {
+			//wp_way_holder.GetComponent<wp_visible_way>().visible = true;
 		}
 
 
-      if (node_id > 0)
-      {
-		Vector3 _pre_node_pos = GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().get_node_pos(prev_node);
-        mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(0, _pre_node_pos + mesh_line_offset);
-        mesh_line.gameObject.GetComponent<LineRenderer>().SetPosition(1, node_pos + mesh_line_offset);
-        mesh_line.gameObject.GetComponent<LineRenderer>().SetWidth(vars.waypoint_node_connection_line_width, vars.waypoint_node_connection_line_width);
-        mesh_line.gameObject.GetComponent<LineRenderer>().material =  new Material(Shader.Find("Particles/Additive"));
-        //mesh_line.gameObject.GetComponent<LineRenderer>().material = new Material(Shader.Find("Standart"));
-        mesh_line.gameObject.GetComponent<LineRenderer>().SetColors(Color.blue, Color.blue);
-      }
-			// wenn in is_in_patheditmode dann schaue ob bereits einer selektier wurde -> wenn ja wir der selektierte deselektiert
-//		c.draw_point_on_circle (GameObject.Find("cursor").transform.position);
-
 			if (is_selected) {
+			enable_circle(); //enable circle
+			set_circle_pos(node_pos);
 
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;
 				if (Physics.Raycast (ray, out hit)) {
-					is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
-					curr_pos_in_circle = hit.point;
+				//	is_mouse_in_node_range = c.draw_point_on_circle (hit.point);
+				is_mouse_in_node_range = is_mouse_in_range(hit.point);
+				curr_pos_in_circle = hit.point; //save the mouse pos fpr the pathmanager
+
+				if(hit.collider.tag == vars.environment_tag || hit.collider.tag == vars.wp_node_tag){
+					is_mouse_in_node_range = false;
+					is_selected = false;
 				}
-				c.draw_circle_inline ();
-				c.draw_circle_outline ();		
+
+				//Debug.Log(is_mouse_in_node_range);
+				if(is_mouse_in_node_range){
+				cursor.gameObject.SetActive(true);
+				cursor.gameObject.transform.position = hit.point;
+				}else{
+				cursor.gameObject.SetActive(false);
+				}
+				}		
 			} else {
-				c.disbale_circle ();
+			disbale_circle();
 			}
 
 
@@ -174,6 +218,45 @@ public class node : MonoBehaviour {
 
 
 
+	void enable_circle(){
+		inner_circle_object.gameObject.GetComponent<selection_circle> ().circle_enabled = true;
+		outher_cirlce_object.gameObject.GetComponent<selection_circle> ().circle_enabled = true;
+	}
+
+	void disbale_circle(){
+		inner_circle_object.gameObject.GetComponent<selection_circle> ().circle_enabled = false;
+		outher_cirlce_object.gameObject.GetComponent<selection_circle> ().circle_enabled = false;
+	}
+
+	bool is_mouse_in_range(Vector3 _pos){
+
+		//nicht in inner circle aber innerhalb des äusernen
+
+		if (!inner_circle_object.gameObject.GetComponent<selection_circle> ().is_point_in_circle (_pos) && outher_cirlce_object.gameObject.GetComponent<selection_circle> ().is_point_in_circle (_pos)) {
+			return true;
+		} else {
+			return false;
+		}
+
+
+
+	}
+
+	void set_circle_pos(Vector3 _pos){
+
+		inner_circle_object.gameObject.GetComponent<selection_circle> ().cirlce_offset = _pos;
+		outher_cirlce_object.gameObject.GetComponent<selection_circle> ().cirlce_offset = _pos;
+	}
+
+	bool is_circle_enabled(){
+		if (inner_circle_object.gameObject.GetComponent<selection_circle> ().enabled && outher_cirlce_object.gameObject.GetComponent<selection_circle> ().enabled) {
+			return true;
+		} else {
+			return false;
+		}
+
+
+	}
 
 
 

@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 public class ui_manager : MonoBehaviour {
 
+
+	public int connected_res_to_ui = -1;
+
 	// Use this for initialization
 	void Start () {
 		this.name = vars.ui_manager_name;
@@ -10,7 +13,7 @@ public class ui_manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 
@@ -24,11 +27,20 @@ public class ui_manager : MonoBehaviour {
 		//get selected
 		//value nach int
 		//change value
-//		Debug.Log(value);
+
+
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
+			Debug.Log("SET ANT RES :" + (int)value);
+		
+			GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().set_target_ants((int)value);
+			refresh_ressource_ui();
+		}
+
+
 	}
 
-	public void refresh_ressource_ui(int _resid, int max_ants, int min_ants =0){
-
+	public void refresh_ressource_ui(){
+		//int max_ants, int min_ants =0
 	}
 
 

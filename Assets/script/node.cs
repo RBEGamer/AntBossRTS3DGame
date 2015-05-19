@@ -196,6 +196,7 @@ public class node : MonoBehaviour {
 
 				if(hit.collider.tag == vars.environment_tag || hit.collider.tag == vars.wp_node_tag){
 					is_mouse_in_node_range = false;
+					//is_selected = false;
 				}
 
 				//Debug.Log(is_mouse_in_node_range);

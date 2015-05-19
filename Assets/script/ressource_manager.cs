@@ -26,26 +26,40 @@ public class ressource_manager : MonoBehaviour {
 
 
 		if(!vars.is_in_patheditmode){
-			if(count_selected_ressources() > 1){deselect_all_ressources();}
+
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+
+
+
 
 			if(count_selected_ressources() == 0){
 				if(Input.GetMouseButtonDown(0)){
+					enable_all_collider();
 				if (Physics.Raycast (ray, out hit)) {
 						foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
-							if(n.gameObject.GetComponent<ressource>().is_selected_by_res_manager){
-							if(n.gameObject.GetComponent<ressource>().circle_holder.GetComponent<selection_circle>().is_point_in_circle(hit.point)){
-								n.gameObject.GetComponent<ressource>().is_selected_by_res_manager = true;
-									map_ui_to_ressource(n.gameObject.GetComponent<ressource>().ressource_id);
-									//-> MAPPEN
-							}//ende is point
-							} //ende is selected
-						}//ende for each
+							if(hit.collider.gameObject == n.gameObject.GetComponent<ressource>().click_collider.gameObject){
+							//	n.gameObject.GetComponent<ressource>().is_selected_by_res_manager = true;
+								//-> ich würde das hier einfach nur mappen
+								map_ui_to_ressource(n.gameObject.GetComponent<ressource>().ressource_id);
+
+						}
+						}
+
+						//if(hit.collider.gameObject.tag == vars.environment_tag || hit.collider.gameObject.tag == vars.ground_tag){deselect_all_ressources();}
+
 					}//ende raycast
+					disable_all_collider();
 				}//ende mousbutton
 
 
+
+				//if(count_selected_ressources() > 1){deselect_all_ressources();}
 		}else{
-			if(count_selected_ressources() > 0){deselect_all_ressources();}
+				//if(count_selected_ressources() > 0){deselect_all_ressources();disable_all_collider();}
+				if (Physics.Raycast (ray, out hit) && count_selected_ressources() > 1) {
+					if(hit.collider.gameObject.tag == vars.environment_tag || hit.collider.gameObject.tag == vars.ground_tag){deselect_all_ressources();}
+				}
 		}
 	}//ende func
 
@@ -210,11 +224,24 @@ public class ressource_manager : MonoBehaviour {
 	}
 
 
+	public void enable_all_collider(){
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+			n.GetComponent<ressource>().click_collider.SetActive(true);
+		}
+	}
+
+	public void disable_all_collider(){
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+			n.GetComponent<ressource>().click_collider.SetActive(false);
+		}
+	}
 
 
 
 	public void map_ui_to_ressource(int _resid){
 		//-> rid an den ui manager übergeben
+		Debug.Log (" MAP RES TO UI : " + _resid);
+		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_res_to_ui = _resid;
 	}
 
 	public void change_res_ant_value(float value){

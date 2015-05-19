@@ -30,6 +30,7 @@ public class ressource : MonoBehaviour {
 
   public GameObject circle_holder;
 
+	public GameObject click_collider;
 
 	public bool is_selected_by_res_manager;
 	 public struct res_info{
@@ -47,6 +48,7 @@ public class ressource : MonoBehaviour {
 
 
 	public void set_target_ants(int _target){
+		Debug.Log("set target ants resid:" + ressource_id + "   amount:" +_target);
 		res.target_collection_ants = _target;
 	}
 
@@ -58,11 +60,12 @@ public class ressource : MonoBehaviour {
 	}
 
 	void Start () {
+		click_collider.SetActive(false);
 		is_selected_by_res_manager = false;
     ressource_pos = this.gameObject.transform.position;
 		res = new res_info();
 		//res = vars.res_type_a;
-		res.target_collection_ants = 5;
+		res.target_collection_ants = 0;
 		//hier node registeren
 		this.name = vars.res_name + "_" + ressource_id;
 		refresh_res_info();
@@ -123,7 +126,7 @@ public class ressource : MonoBehaviour {
 	void Update () {
 
 
-		res.target_collection_ants = current_ants_working_on_this_res;
+		//res.target_collection_ants = current_ants_working_on_this_res;
 		//hier schauen welcher node connected ist
 
 
@@ -158,4 +161,6 @@ public class ressource : MonoBehaviour {
 
 
 	}
+
+
 }

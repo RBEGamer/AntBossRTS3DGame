@@ -84,6 +84,7 @@ public class vars : MonoBehaviour {
 	public static string scout_ant_tag = "scout_ant";
 	public static string collector_ant_tag = "collector_ant";
 	public static string environment_tag = "environment";
+	public static string ground_tag = "ground";
 
 
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
@@ -108,7 +109,7 @@ public class vars : MonoBehaviour {
 	public static string mission_five_scene_name = "main";
 
 	//WAYPOINT VARS
-	public static bool is_in_patheditmode = true;
+	public static bool is_in_patheditmode = false;
 	// Use this for initialization
 	void Start () {
 
