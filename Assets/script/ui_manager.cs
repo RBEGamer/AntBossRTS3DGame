@@ -18,7 +18,9 @@ public class ui_manager : MonoBehaviour {
 
 
 	public GameObject slider_holder;
-
+	public GameObject min_text_holder;
+	public GameObject max_text_holder;
+	public GameObject res_name_holder;
 
 
 	public void set_ressource_ants_amounts(float value){
