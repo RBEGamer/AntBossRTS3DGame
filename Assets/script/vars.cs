@@ -67,6 +67,8 @@ public class vars : MonoBehaviour {
 	public static float res_interaction_circle_width = 0.1f; //wie dick soll die linie des kreises sein
 	public static int unit_scout_amount = 10; //ähm keine ahnugn wo die und ob die überhaupt verwendet wird............ zu faul zum suchen
 
+	public static int ui_res_ants_to_add_per_click = 1;
+	public static int ui_res_ants_to_sub_per_click = 1;
 
 
 

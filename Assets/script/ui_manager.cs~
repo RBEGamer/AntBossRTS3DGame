@@ -56,12 +56,44 @@ public class ui_manager : MonoBehaviour {
 
 
 
-	public void res_add_coll_ant(){
-
-	}
-
 	public void res_sub_coll_ant(){
+		int ants_to_sub = vars.ui_res_ants_to_add_per_click;
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
+			refresh_ressource_ui();
+			int cta = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;
+			if(cta >= ants_to_sub){
+				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().set_target_ants(cta-ants_to_sub);
+			}else{
+				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().set_target_ants(0);
+			}
+		
+		
+		
+		}
+		refresh_ressource_ui();
+	}
 
+	public void res_add_coll_ant(){
+		Debug.Log("add0");
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
+			Debug.Log("add1");
+			refresh_ressource_ui();
+			GameObject.Find(vars.base_name).GetComponent<base_manager>().calc_avariable_collecotr_ats();
+			int ants_to_add = vars.ui_res_ants_to_sub_per_click;
+			int ava = GameObject.Find(vars.base_name).GetComponent<base_manager>().avariable_collector_ants;
+			int cta = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;
+			int mta = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants;
+			if(mta >= ants_to_add){
+				Debug.Log("add2");
+			if((cta+ants_to_add) <= mta ){
+					Debug.Log("add3");
+				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().set_target_ants(cta+ants_to_add);
+			}else{
+					GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().set_target_ants(mta);
+			}
+			}
+		}//ende if connected
+		refresh_ressource_ui();
 	}
 
 
@@ -69,7 +101,7 @@ public class ui_manager : MonoBehaviour {
 
 
 
-
+	/*
 	public void set_ressource_ants_amounts(float value){
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
 		
@@ -92,7 +124,7 @@ public class ui_manager : MonoBehaviour {
 		}
 		}
 	}
-
+*/
 
 
 	public void refresh_ressource_ui(){
