@@ -129,10 +129,6 @@ public class vars : MonoBehaviour {
 
 
 
-	public void toggle_patheditmode(){
 
-		is_in_patheditmode = !is_in_patheditmode;
-
-	}
 
 }

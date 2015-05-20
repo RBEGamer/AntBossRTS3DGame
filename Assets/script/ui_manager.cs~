@@ -5,18 +5,27 @@ public class ui_manager : MonoBehaviour {
 
 
 	public int connected_res_to_ui = -1;
-
+	public int uirc = 0;
+	public int uirct = 50;
 	// Use this for initialization
 	void Start () {
 		this.name = vars.ui_manager_name;
 		refresh_ressource_ui();
 		pem_btn_text.GetComponent<Text>().text = "ENTER PATHEDITMODE";
 		vars.is_in_patheditmode = false;
+		uirc = 0;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		//refresh_ressource_ui();
+	void FixedUpdate () {
+
+		if(uirc > uirct){
+			uirc = 0;
+			refresh_ressource_ui();
+		}else{
+			uirc++;
+		}
+	
 	}
 
 
@@ -56,10 +65,17 @@ public class ui_manager : MonoBehaviour {
 
 
 	public void set_ressource_ants_amounts(float value){
-
-
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
+		
 		//hier kontrolle ob noch ants verfügbar sind
 
+		GameObject.Find(vars.base_name).GetComponent<base_manager>().calc_avariable_collecotr_ats();
+		 int ava = GameObject.Find(vars.base_name).GetComponent<base_manager>().avariable_collector_ants;
+		 int cv = GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_target_ant_amount(); //falsch!!!! eine funktion die alle arget zusammenrechnet
+		int nv = cv - GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants + (int)value;
+		//aktueller 
+			Debug.Log(nv);
+		if(nv < ava){
 
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
 			Debug.Log("SET ANT RES :" + (int)value);
@@ -68,7 +84,8 @@ public class ui_manager : MonoBehaviour {
 			refresh_ressource_ui();
 		}
 
-
+		}
+		}
 	}
 
 	public void refresh_ressource_ui_slider(){
@@ -79,6 +96,10 @@ public class ui_manager : MonoBehaviour {
 
 
 	public void refresh_ressource_ui(){
+
+		GameObject.Find(vars.base_name).GetComponent<base_manager>().calc_avariable_collecotr_ats();
+		avariable_ants_holder.GetComponent<Text>().text = " ACA :" + GameObject.Find(vars.base_name).GetComponent<base_manager>().avariable_collector_ants.ToString();
+
 		//int max_ants, int min_ants =0
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
 			current_text_holder.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants.ToString();
@@ -86,7 +107,6 @@ public class ui_manager : MonoBehaviour {
 			min_text_holder.GetComponent<Text>().text = "0";
 			slider_holder.GetComponent<Slider>().minValue = 0;
 			slider_holder.GetComponent<Slider>().maxValue = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants;
-			avariable_ants_holder.GetComponent<Text>().text = " ACA :" + GameObject.Find(vars.base_name).GetComponent<base_manager>().avariable_collector_ants.ToString();
 
 
 

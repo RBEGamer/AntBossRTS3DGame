@@ -191,9 +191,11 @@ public class ressource_manager : MonoBehaviour {
 
 	public int count_selected_ressources(){
 		int _count = 0;
+		if(GameObject.FindGameObjectsWithTag(vars.collector_ant_tag) != null){
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
 			if(n.GetComponent<ressource>().is_selected_by_res_manager){
 				_count++;
+			}
 			}
 		}
 		return _count;
@@ -248,7 +250,13 @@ public class ressource_manager : MonoBehaviour {
 	}
 
 
-	public void manage_ui(){
-//übergebe errechnete werte an den ui manager
+	public int count_target_ant_amount(){
+	int _counter = 0;
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
+			_counter += n.gameObject.GetComponent<ressource>().res.target_collection_ants;
+		}
+
+
+		return 0;
 	}
 }

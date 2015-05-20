@@ -22,14 +22,19 @@ public class base_manager : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 	
-		avariable_collector_ants = bought_collector_ants - GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_ants();
 
 
 
 
 	}
 
-
+	public void calc_avariable_collecotr_ats(){
+		if(GameObject.Find(vars.ressource_manager_name) != null){
+		avariable_collector_ants = bought_collector_ants - GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_ants();
+		}else{
+			avariable_collector_ants = 0;
+		}
+	}
 
 	public void loose_percentage_value_of_storage(vars.ressource_type _type, int percentage){
 		float npercentage = percentage/100;
