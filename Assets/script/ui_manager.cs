@@ -74,12 +74,11 @@ public class ui_manager : MonoBehaviour {
 		 int cv = GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_target_ant_amount(); //falsch!!!! eine funktion die alle arget zusammenrechnet
 		int nv = cv - GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants + (int)value;
 		//aktueller 
-			Debug.Log(nv);
+		//Debug.Log(nv);
 		if(nv < ava){
 
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
 			Debug.Log("SET ANT RES :" + (int)value);
-		
 			GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().set_target_ants((int)value);
 			refresh_ressource_ui();
 		}
@@ -111,25 +110,27 @@ public class ui_manager : MonoBehaviour {
 
 
 			//SET NAME
+			string name_pre = "";
+			string name_post = " (" + connected_res_to_ui + ")";
 			switch (GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res_type) {
 			case vars.ressource_type.A:
-				res_name_holder.GetComponent<Text>().text =  vars.ui_displayname_ressource_type_a;
+				res_name_holder.GetComponent<Text>().text =  name_pre+ vars.ui_displayname_ressource_type_a +name_post;
 				break;
 			case vars.ressource_type.B:
-				res_name_holder.GetComponent<Text>().text =  vars.ui_displayname_ressource_type_b;
+				res_name_holder.GetComponent<Text>().text =  name_pre+ vars.ui_displayname_ressource_type_b+name_post;
 				break;
 			case vars.ressource_type.C:
-				res_name_holder.GetComponent<Text>().text =  vars.ui_displayname_ressource_type_c;
+				res_name_holder.GetComponent<Text>().text =  name_pre+ vars.ui_displayname_ressource_type_c+name_post;
 				break;
 			case vars.ressource_type.default_type:
-				res_name_holder.GetComponent<Text>().text =  vars.ui_displayname_ressource_type_default;
+				res_name_holder.GetComponent<Text>().text =  name_pre+ vars.ui_displayname_ressource_type_default+name_post;
 				break;
 			default:
-				res_name_holder.GetComponent<Text>().text =  vars.ui_displayname_no_ressource_selected_text;
+				res_name_holder.GetComponent<Text>().text =  name_pre+ vars.ui_displayname_no_ressource_selected_text+name_post;
 			break;
 			}
 		}else{
-			res_name_holder.GetComponent<Text>().text =  vars.ui_displayname_no_ressource_selected_text;
+			res_name_holder.GetComponent<Text>().text =   vars.ui_displayname_no_ressource_selected_text;
 		}
 	
 

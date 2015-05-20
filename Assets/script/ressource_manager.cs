@@ -25,7 +25,7 @@ public class ressource_manager : MonoBehaviour {
 
 
 
-		if(!vars.is_in_patheditmode){
+		if(!vars.is_in_patheditmode || vars.is_in_patheditmode){
 
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
