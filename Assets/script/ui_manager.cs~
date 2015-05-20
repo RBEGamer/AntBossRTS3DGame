@@ -29,7 +29,7 @@ public class ui_manager : MonoBehaviour {
 	}
 
 
-	public GameObject slider_holder;
+
 	public GameObject min_text_holder;
 	public GameObject max_text_holder; // max 5 
 	public GameObject res_name_holder;
@@ -56,7 +56,13 @@ public class ui_manager : MonoBehaviour {
 
 
 
+	public void res_add_coll_ant(){
 
+	}
+
+	public void res_sub_coll_ant(){
+
+	}
 
 
 
@@ -87,11 +93,6 @@ public class ui_manager : MonoBehaviour {
 		}
 	}
 
-	public void refresh_ressource_ui_slider(){
-		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
-			slider_holder.GetComponent<Slider>().value = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;
-		}
-	}
 
 
 	public void refresh_ressource_ui(){
@@ -104,9 +105,7 @@ public class ui_manager : MonoBehaviour {
 			current_text_holder.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants.ToString();
 			max_text_holder.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants.ToString();
 			min_text_holder.GetComponent<Text>().text = "0";
-			slider_holder.GetComponent<Slider>().minValue = 0;
-			slider_holder.GetComponent<Slider>().maxValue = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants;
-
+		
 
 
 			//SET NAME

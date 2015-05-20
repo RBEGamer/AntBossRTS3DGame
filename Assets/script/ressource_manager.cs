@@ -245,8 +245,7 @@ public class ressource_manager : MonoBehaviour {
 		Debug.Log (" MAP RES TO UI : " + _resid);
 		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_res_to_ui = _resid;
 		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().refresh_ressource_ui();
-		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().refresh_ressource_ui_slider();
-
+	
 	}
 
 
