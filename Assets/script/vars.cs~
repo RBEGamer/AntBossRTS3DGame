@@ -81,9 +81,25 @@ public class vars : MonoBehaviour {
 
 
 
+	public static float initial_res_a_storage = 5000.0f;
+	public static float initial_res_b_storage = 5000.0f;
+	public static float initial_res_c_storage = 5000.0f;
+	public static int initial_collector_ants = 10;
+	public static int initial_attack_ants = 10;
 
 
+	public struct costs_collector_ants{
+		public static float costs_res_a = 500.0f;
+		public static float costs_res_b = 0.0f;
+		public static float costs_res_c = 0.0f;
+	}
 
+	public struct costs_attak_ants{
+		public static float costs_res_a = 700.0f;
+		public static float costs_res_b = 100.0f;
+		public static float costs_res_c = 0.0f;
+	}
+	
 
 
 

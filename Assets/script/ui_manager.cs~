@@ -74,13 +74,14 @@ public class ui_manager : MonoBehaviour {
 	}
 
 	public void res_add_coll_ant(){
-		Debug.Log("add0");
+
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
 			Debug.Log("add1");
 			refresh_ressource_ui();
 			GameObject.Find(vars.base_name).GetComponent<base_manager>().calc_avariable_collecotr_ats();
 			int ants_to_add = vars.ui_res_ants_to_sub_per_click;
-			int ava = GameObject.Find(vars.base_name).GetComponent<base_manager>().avariable_collector_ants;
+			int ava = GameObject.Find(vars.base_name).GetComponent<base_manager>().avariable_collector_ants; //count_target_ant_amount
+			//int ava = GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_target_ant_amount();
 			int cta = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;
 			int mta = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants;
 			if(mta >= ants_to_add){

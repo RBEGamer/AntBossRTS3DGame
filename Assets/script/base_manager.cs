@@ -7,11 +7,27 @@ public class base_manager : MonoBehaviour {
 	public float res_b_storage;
 	public float res_c_storage;
 
-	public int bought_collector_ants = 7;
+
+
+
+
+
+
+	public int bought_collector_ants = 0;
+	public int bought_attack_ants = 0;
+
+
+
+
 	public int avariable_collector_ants;
 	// Use this for initialization
 	void Awake () {
 		this.name = vars.base_name;
+		res_a_storage = vars.initial_res_a_storage;
+		res_b_storage = vars.initial_res_b_storage;
+		res_c_storage = vars.initial_res_c_storage;
+		bought_collector_ants = vars.initial_collector_ants;
+		bought_attack_ants = vars.initial_attack_ants;
 	}
 
 
@@ -30,7 +46,8 @@ public class base_manager : MonoBehaviour {
 
 	public void calc_avariable_collecotr_ats(){
 		if(GameObject.Find(vars.ressource_manager_name) != null){
-		avariable_collector_ants = bought_collector_ants - GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_ants();
+		//avariable_collector_ants = bought_collector_ants - GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_ants();
+			avariable_collector_ants = bought_collector_ants - GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().count_target_ant_amount();
 		}else{
 			avariable_collector_ants = 0;
 		}
