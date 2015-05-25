@@ -230,7 +230,7 @@ public class ressource_manager : MonoBehaviour {
 		//-> rid an den ui manager übergeben
 		Debug.Log (" MAP RES TO UI : " + _resid);
 		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_res_to_ui = _resid;
-		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().refresh_ressource_ui();
+	//s	GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().refresh_ressource_ui();
 	
 	}
 

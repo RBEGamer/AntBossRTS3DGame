@@ -9,12 +9,6 @@ public class vars : MonoBehaviour {
 		A,B,C, default_type
 	}
 
-	public static string ui_displayname_ressource_type_a = "Peniskopfsuppe";
-	public static string ui_displayname_ressource_type_b = "Koholkopfgehirnfleisch";
-	public static string ui_displayname_ressource_type_c = "Blutegelvermehrungsmutter";
-	public static string ui_displayname_ressource_type_default = "<no valid res type>";
-	public static string ui_displayname_no_ressource_selected_text = "SELECT RESSOURCE";
-
 
 
 	public struct res_type_default{
@@ -30,6 +24,13 @@ public class vars : MonoBehaviour {
 
 
 	/* -------RESSOURCE SETTING AREA ----------------------*/
+	public static string ui_displayname_ressource_type_a = "Peniskopfsuppe";
+	public static string ui_displayname_ressource_type_b = "Koholkopfgehirnfleisch";
+	public static string ui_displayname_ressource_type_c = "Blutegelvermehrungsmutter";
+	public static string ui_displayname_ressource_type_default = "<no valid res type>";
+	public static string ui_displayname_no_ressource_selected_text = "SELECT RESSOURCE";
+
+
 
 	public struct res_type_a{
 		public static float max_harvest = 1000.0f; //wie viel ressourcen können abgebaut werden von dieser ressource
@@ -67,8 +68,6 @@ public class vars : MonoBehaviour {
 	public static float res_interaction_circle_width = 0.1f; //wie dick soll die linie des kreises sein
 	public static int unit_scout_amount = 10; //ähm keine ahnugn wo die und ob die überhaupt verwendet wird............ zu faul zum suchen
 
-	public static int ui_res_ants_to_add_per_click = 1;
-	public static int ui_res_ants_to_sub_per_click = 1;
 
 
 
@@ -84,23 +83,37 @@ public class vars : MonoBehaviour {
 	public static float initial_res_a_storage = 5000.0f;
 	public static float initial_res_b_storage = 5000.0f;
 	public static float initial_res_c_storage = 5000.0f;
+
 	public static int initial_collector_ants = 10;
 	public static int initial_attack_ants = 10;
+	public static int initial_scout_ants = 10;
 
 
+
+	public struct costs_scout_ants{
+		public static float costs_res_a = 100.0f;
+		public static float costs_res_b = 500.0f;
+		public static float costs_res_c = 0.0f;
+	}
+	
 	public struct costs_collector_ants{
 		public static float costs_res_a = 500.0f;
 		public static float costs_res_b = 0.0f;
 		public static float costs_res_c = 0.0f;
 	}
 
-	public struct costs_attak_ants{
+	public struct costs_attack_ants{
 		public static float costs_res_a = 700.0f;
 		public static float costs_res_b = 100.0f;
 		public static float costs_res_c = 0.0f;
 	}
-	
 
+	public struct costs_nothing_ants{
+		public static float costs_res_a = 0.0f;
+		public static float costs_res_b = 0.0f;
+		public static float costs_res_c = 0.0f;
+	}
+	
 
 
 	/*----------- TAGS ----------------------------------- Please define in the unity tag area */
@@ -109,9 +122,7 @@ public class vars : MonoBehaviour {
 	public static string scout_ant_tag = "scout_ant";
 	public static string collector_ant_tag = "collector_ant";
 	public static string environment_tag = "environment";
-	public static string ground_tag = "ground";
-
-
+	public static string ground_tag = "ground";	
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
 	public static string path_manager_name = "path_manager";
 	public static string res_name = "ressource";
@@ -121,8 +132,6 @@ public class vars : MonoBehaviour {
 	public static string sleep_pos_manager_name = "sleep_pos_manager";
 	public static string ressource_manager_name = "ressource_manager";
 	public static string base_name = "ant_base";
-
-		
 	/*---------------  SCENE NAMES (please add the scene in the Unity Build settings ------------------*/
 	public static string main_menu_scene_name  = "main_menu";
 	public static string mission_selection_scene_name = "mission_selection";

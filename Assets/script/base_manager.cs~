@@ -15,7 +15,7 @@ public class base_manager : MonoBehaviour {
 
 	public int bought_collector_ants = 0;
 	public int bought_attack_ants = 0;
-
+	public int bought_scout_ants = 0;
 
 
 
@@ -23,16 +23,17 @@ public class base_manager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		this.name = vars.base_name;
+
+	}
+
+
+	void Start(){
 		res_a_storage = vars.initial_res_a_storage;
 		res_b_storage = vars.initial_res_b_storage;
 		res_c_storage = vars.initial_res_c_storage;
 		bought_collector_ants = vars.initial_collector_ants;
 		bought_attack_ants = vars.initial_attack_ants;
-	}
-
-
-	void Start(){
-
+		bought_scout_ants = vars.initial_scout_ants;
 	}
 	
 	// Update is called once per frame
