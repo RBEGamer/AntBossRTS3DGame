@@ -21,6 +21,7 @@ public class ui_manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		manage_view();
 	//	refresh_base_ui();
 	//	if(uirc > uirct){
 	//		uirc = 0;
@@ -34,20 +35,69 @@ public class ui_manager : MonoBehaviour {
 
 
 
-
-
-
-
-
-	public void toggle_patheditmode(){
-		vars.is_in_patheditmode = !vars.is_in_patheditmode;
-		if(vars.is_in_patheditmode){
-//		pem_btn_text.GetComponent<Text>().text = "LEAVE PATHEDITMODE";
-		}else{
-//		pem_btn_text.GetComponent<Text>().text = "ENTER PATHEDITMODE";
-		}
+	public enum selected_ui_in_slot_0
+	{
+		empty_ui, base_ui, ressource_ui
 	}
 
+	public selected_ui_in_slot_0 ui_view_slot_0;
+
+
+	public GameObject empty_ui_holder;
+	public GameObject base_ui_holder;
+	public GameObject ressource_ui_holder;
+
+
+	public void slot_0_set_empty(){
+		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
+		manage_view();
+	}
+
+	public void slot_0_set_base(){
+		ui_view_slot_0 = selected_ui_in_slot_0.base_ui;
+		manage_view();
+	}
+
+	public void slot_0_set_ressource(){
+		ui_view_slot_0 = selected_ui_in_slot_0.ressource_ui;
+		manage_view();
+	}
+
+
+	private void manage_view(){
+
+		switch (ui_view_slot_0) {
+
+		case selected_ui_in_slot_0.empty_ui:
+			empty_ui_holder.SetActive(true);
+			base_ui_holder.SetActive(false);
+			ressource_ui_holder.SetActive(false);
+			break;
+		case selected_ui_in_slot_0.base_ui:
+			empty_ui_holder.SetActive(false);
+			base_ui_holder.SetActive(true);
+			ressource_ui_holder.SetActive(false);
+			break;
+		case selected_ui_in_slot_0.ressource_ui:
+			empty_ui_holder.SetActive(false);
+			base_ui_holder.SetActive(false);
+			ressource_ui_holder.SetActive(true);
+			break;
+		default:
+			empty_ui_holder.SetActive(true);
+			base_ui_holder.SetActive(false);
+			ressource_ui_holder.SetActive(false);
+			break;
+		}
+
+
+	}
+
+	//------------RESSOURCE -----------------------------------------------//
+	//------------RESSOURCE -----------------------------------------------//
+	//------------RESSOURCE -----------------------------------------------//
+	//------------RESSOURCE -----------------------------------------------//
+	
 
 
 
@@ -87,6 +137,18 @@ public class ui_manager : MonoBehaviour {
 	}
 
 	public selected_ant_type curr_sel_type;
+
+
+
+	
+	public void toggle_patheditmode(){
+		vars.is_in_patheditmode = !vars.is_in_patheditmode;
+		if(vars.is_in_patheditmode){
+			//		pem_btn_text.GetComponent<Text>().text = "LEAVE PATHEDITMODE";
+		}else{
+			//		pem_btn_text.GetComponent<Text>().text = "ENTER PATHEDITMODE";
+		}
+	}
 
 
 
