@@ -17,6 +17,8 @@ public class vars : MonoBehaviour {
 		public static float interaction_circle_radius = 0f;
 		public static float interactition_latitude = 0f;
 		public static float ant_bite_decrease = 0;
+		public static int health_percentage = 0;
+		public static string ui_displayname_ressource = "<no valid res type>";
 	}
 
 	/* ---------END DO NOT CHNAGE-------------------- */
@@ -24,10 +26,10 @@ public class vars : MonoBehaviour {
 
 
 	/* -------RESSOURCE SETTING AREA ----------------------*/
-	public static string ui_displayname_ressource_type_a = "Peniskopfsuppe";
-	public static string ui_displayname_ressource_type_b = "Koholkopfgehirnfleisch";
-	public static string ui_displayname_ressource_type_c = "Blutegelvermehrungsmutter";
-	public static string ui_displayname_ressource_type_default = "<no valid res type>";
+
+
+
+
 	public static string ui_displayname_no_ressource_selected_text = "SELECT RESSOURCE";
 
 
@@ -38,6 +40,8 @@ public class vars : MonoBehaviour {
 		public static float interaction_circle_radius = 2.0f;
 		public static float interactition_latitude = 0.1f;
 		public static float ant_bite_decrease = 10; //wie viel soll eine ameise bei einem biss tragen können
+		public static int health_percentage = 100;
+		public static string ui_displayname_ressource = "Peniskopfsuppe";
 	}
 	public struct res_type_b{
 		public static float max_harvest = 2000.0f;
@@ -45,6 +49,8 @@ public class vars : MonoBehaviour {
 		public static float interaction_circle_radius = 2.0f;
 		public static float interactition_latitude = 0.1f;
 		public static float ant_bite_decrease = 25;
+		public static int health_percentage = 100;
+		public static string ui_displayname_ressource = "Koholkopfgehirnfleisch";
 	}
 	public struct res_type_c{
 		public static float max_harvest = 3000.0f;
@@ -52,6 +58,8 @@ public class vars : MonoBehaviour {
 		public static float interaction_circle_radius = 2.0f;
 		public static float interactition_latitude = 0.1f;
 		public static float ant_bite_decrease = 50;
+		public static int health_percentage = 100;
+		public static string ui_displayname_ressource = "Blutegelvermehrungsmutter";
 	}
 
 

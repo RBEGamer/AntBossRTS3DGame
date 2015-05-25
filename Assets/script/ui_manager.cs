@@ -22,6 +22,7 @@ public class ui_manager : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		manage_view();
+		refresh_ressource_ui();
 	//	refresh_base_ui();
 	//	if(uirc > uirct){
 	//		uirc = 0;
@@ -100,8 +101,28 @@ public class ui_manager : MonoBehaviour {
 	
 
 
+	public GameObject healthbar_progress_picture_holder;
+	public GameObject ressource_headline_text;
+	public float inverted_health;
 
 
+	public void refresh_ressource_ui(){
+
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
+			//HEALTHBAR
+			float inverted_health = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.health_percentage / 100.0f;
+			if(inverted_health > 1.0f){inverted_health = 1.0f;}
+			if(inverted_health < 0.0f){inverted_health = 0.0f;}
+			healthbar_progress_picture_holder.gameObject.GetComponent<Image>().fillAmount = inverted_health;
+
+
+			//HEADLINE
+			ressource_headline_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.ui_displayname_ressource + " [ID:" + connected_res_to_ui.ToString() +"]";
+
+		}
+
+
+	}
 
 	//------------BASE -----------------------------------------------//
 	//------------BASE -----------------------------------------------//
@@ -234,18 +255,7 @@ public class ui_manager : MonoBehaviour {
 		//final_costs_res_c = Mathf.Abs( costs_res_c*value);
 
 
-		/*
-		if(GameObject.Find (vars.base_name) != null){
-		if(final_costs_res_a > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage){costs_a_text.GetComponent<Text>().color = Color.red;
-		}else{costs_a_text.GetComponent<Text>().color = Color.black;}
 
-		if(final_costs_res_b > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage){costs_b_text.GetComponent<Text>().color = Color.red;
-		}else{costs_b_text.GetComponent<Text>().color = Color.black;}
-
-	//	if(final_costs_res_c > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage){costs_c_text.GetComponent<Text>().color = Color.red;
-	//	}else{costs_c_text.GetComponent<Text>().color = Color.black;}
-		}
-*/
 
 
 		curr_slider_value_text.GetComponent<Text>().text = v.ToString();

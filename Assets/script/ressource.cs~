@@ -41,6 +41,8 @@ public class ressource : MonoBehaviour {
 		public float ant_bite_decrease;
 		public float current_harvest_amount;
 		public int target_collection_ants;
+		public int health_percentage;
+		public string ui_displayname_ressource;
 	}
 
 
@@ -92,6 +94,8 @@ public class ressource : MonoBehaviour {
 			res.interaction_circle_radius = vars.res_type_a.interaction_circle_radius;
 			res.interactition_latitude= vars.res_type_a.interactition_latitude;
 			res.ant_bite_decrease = vars.res_type_a.ant_bite_decrease;
+			res.health_percentage = vars.res_type_a.health_percentage;
+			res.ui_displayname_ressource = vars.res_type_a.ui_displayname_ressource;
 			break;
 		case vars.ressource_type.B:
 			res.max_harvest = vars.res_type_b.max_harvest;
@@ -99,6 +103,8 @@ public class ressource : MonoBehaviour {
 			res.interaction_circle_radius = vars.res_type_b.interaction_circle_radius;
 			res.interactition_latitude= vars.res_type_b.interactition_latitude;
 			res.ant_bite_decrease = vars.res_type_b.ant_bite_decrease;
+			res.health_percentage = vars.res_type_b.health_percentage;
+			res.ui_displayname_ressource = vars.res_type_b.ui_displayname_ressource;
 			break;
 		case vars.ressource_type.C:
 			res.max_harvest = vars.res_type_c.max_harvest;
@@ -106,6 +112,8 @@ public class ressource : MonoBehaviour {
 			res.interaction_circle_radius = vars.res_type_c.interaction_circle_radius;
 			res.interactition_latitude= vars.res_type_c.interactition_latitude;
 			res.ant_bite_decrease = vars.res_type_c.ant_bite_decrease;
+			res.health_percentage = vars.res_type_c.health_percentage;
+			res.ui_displayname_ressource = vars.res_type_c.ui_displayname_ressource;
 			break;
 		default:
 			res.max_harvest = vars.res_type_default.max_harvest;
@@ -113,6 +121,8 @@ public class ressource : MonoBehaviour {
 			res.interaction_circle_radius = vars.res_type_default.interaction_circle_radius;
 			res.interactition_latitude= vars.res_type_default.interactition_latitude;
 			res.ant_bite_decrease = vars.res_type_default.ant_bite_decrease;
+			res.health_percentage = vars.res_type_default.health_percentage;
+			res.ui_displayname_ressource = vars.res_type_default.ui_displayname_ressource;
 			break;
 		}
 
@@ -129,6 +139,19 @@ public class ressource : MonoBehaviour {
 		//res.target_collection_ants = current_ants_working_on_this_res;
 		//hier schauen welcher node connected ist
 
+
+
+		if(	res.health_percentage <= 0){
+
+			//wp löschen -> beim vorherigen den next auf -1
+			//node diconnecteten
+			//is node connected = 0;
+
+			//enum anlegen res_state -> healthy, destoryed, attacked, nothing-> delete
+
+
+
+		}
 
 
 
