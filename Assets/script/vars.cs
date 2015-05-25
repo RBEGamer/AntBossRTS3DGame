@@ -123,6 +123,8 @@ public class vars : MonoBehaviour {
 	public static string collector_ant_tag = "collector_ant";
 	public static string environment_tag = "environment";
 	public static string ground_tag = "ground";	
+	public static string base_tag = "base";	
+
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
 	public static string path_manager_name = "path_manager";
 	public static string res_name = "ressource";

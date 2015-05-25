@@ -3,6 +3,8 @@ using System.Collections;
 
 public class base_manager : MonoBehaviour {
 
+	public GameObject click_collider;
+
 	public float res_a_storage;
 	public float res_b_storage;
 	public float res_c_storage;
@@ -16,6 +18,7 @@ public class base_manager : MonoBehaviour {
 	public int bought_collector_ants = 0;
 	public int bought_attack_ants = 0;
 	public int bought_scout_ants = 0;
+
 
 
 
@@ -40,6 +43,26 @@ public class base_manager : MonoBehaviour {
 	void FixedUpdate () {
 	
 
+		if(Input.GetMouseButtonDown(0)){
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+			//enable_all_collider();
+			if (Physics.Raycast (ray, out hit)) {
+
+				if(hit.collider.gameObject == click_collider.gameObject){
+					GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_base();
+						//	n.gameObject.GetComponent<ressource>().is_selected_by_res_manager = true;
+						//-> ich würde das hier einfach nur mappen
+						//map_ui_to_ressource(n.gameObject.GetComponent<ressource>().ressource_id);
+						
+					}
+
+				
+				//if(hit.collider.gameObject.tag == vars.environment_tag || hit.collider.gameObject.tag == vars.ground_tag){deselect_all_ressources();}
+				
+			}//ende raycast
+			//disable_all_collider();
+		}//ende mousbutton
 
 
 

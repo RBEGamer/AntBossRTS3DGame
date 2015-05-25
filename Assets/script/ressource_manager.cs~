@@ -27,14 +27,15 @@ public class ressource_manager : MonoBehaviour {
 
 		if(!vars.is_in_patheditmode || vars.is_in_patheditmode){
 
+	
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 
 
 
-
 			if(count_selected_ressources() == 0){
 				if(Input.GetMouseButtonDown(0)){
+
 					enable_all_collider();
 				if (Physics.Raycast (ray, out hit)) {
 						foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
@@ -230,6 +231,7 @@ public class ressource_manager : MonoBehaviour {
 		//-> rid an den ui manager übergeben
 		Debug.Log (" MAP RES TO UI : " + _resid);
 		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_res_to_ui = _resid;
+		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_ressource();
 	//s	GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().refresh_ressource_ui();
 	
 	}

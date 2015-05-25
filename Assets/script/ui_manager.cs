@@ -234,8 +234,8 @@ public class ui_manager : MonoBehaviour {
 		//final_costs_res_c = Mathf.Abs( costs_res_c*value);
 
 
-
-	
+		/*
+		if(GameObject.Find (vars.base_name) != null){
 		if(final_costs_res_a > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage){costs_a_text.GetComponent<Text>().color = Color.red;
 		}else{costs_a_text.GetComponent<Text>().color = Color.black;}
 
@@ -244,8 +244,8 @@ public class ui_manager : MonoBehaviour {
 
 	//	if(final_costs_res_c > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage){costs_c_text.GetComponent<Text>().color = Color.red;
 	//	}else{costs_c_text.GetComponent<Text>().color = Color.black;}
-
-
+		}
+*/
 
 
 		curr_slider_value_text.GetComponent<Text>().text = v.ToString();
@@ -256,9 +256,9 @@ public class ui_manager : MonoBehaviour {
 	public void apply_buy(){
 
 		if(ants_to_produce > 0){
-		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage > final_costs_res_a){
-			if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage > final_costs_res_b){
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage > final_costs_res_c){
+		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage >= final_costs_res_a){
+			if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage >= final_costs_res_b){
+				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage >= final_costs_res_c){
 					switch (curr_sel_type) {
 					case selected_ant_type.nothing:
 					break;
@@ -365,20 +365,60 @@ public class ui_manager : MonoBehaviour {
 			break;
 		} 	
 
-
-		costs_a_text.GetComponent<Text>().text = final_costs_res_a.ToString() + " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage.ToString();
-		costs_b_text.GetComponent<Text>().text = final_costs_res_b.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage.ToString();
-		//costs_c_text.GetComponent<Text>().text = costs_res_c.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage.ToString();
-
-
-		if(final_costs_res_a > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage){costs_a_text.GetComponent<Text>().color = Color.red;
-		}else{costs_a_text.GetComponent<Text>().color = Color.black;}
+		if(GameObject.Find (vars.base_name) == null){
+			costs_a_text.GetComponent<Text>().text = final_costs_res_a.ToString();
+			costs_b_text.GetComponent<Text>().text = final_costs_res_b.ToString();
+			//costs_c_text.GetComponent<Text>().text = final_costs_res_c.ToString();
+		}else{
 		
-		if(final_costs_res_b > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage){costs_b_text.GetComponent<Text>().color = Color.red;
-		}else{costs_b_text.GetComponent<Text>().color = Color.black;}
-		
-		//	if(final_costs_res_c > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage){costs_c_text.GetComponent<Text>().color = Color.red;
-		//	}else{costs_c_text.GetComponent<Text>().color = Color.black;}
+			if(ants_to_produce >= 0){
+
+				if(ants_to_produce > 0){
+				costs_a_text.GetComponent<Text>().text = "-" + final_costs_res_a.ToString() + " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage.ToString();
+				costs_b_text.GetComponent<Text>().text = "-" + final_costs_res_b.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage.ToString();
+				//costs_c_text.GetComponent<Text>().text = "-" + costs_res_c.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage.ToString();
+				}else{
+					costs_a_text.GetComponent<Text>().text = "" + final_costs_res_a.ToString() + " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage.ToString();
+					costs_b_text.GetComponent<Text>().text = "" + final_costs_res_b.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage.ToString();
+					//costs_c_text.GetComponent<Text>().text = "" + costs_res_c.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage.ToString();
+
+				}
+
+				if(final_costs_res_a > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage){costs_a_text.GetComponent<Text>().color = Color.red;
+				}else{costs_a_text.GetComponent<Text>().color = Color.black;}
+				if(final_costs_res_b > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage){costs_b_text.GetComponent<Text>().color = Color.red;
+				}else{costs_b_text.GetComponent<Text>().color = Color.black;}
+				//	if(final_costs_res_c > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage){costs_c_text.GetComponent<Text>().color = Color.red;
+				//	}else{costs_c_text.GetComponent<Text>().color = Color.black;}
+			}else{
+
+				costs_a_text.GetComponent<Text>().text = "+" + final_costs_res_a.ToString() + " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage.ToString();
+				costs_b_text.GetComponent<Text>().text = "+" + final_costs_res_b.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage.ToString();
+				//costs_c_text.GetComponent<Text>().text = "+" + costs_res_c.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage.ToString();
+
+
+				if(final_costs_res_a > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage){costs_a_text.GetComponent<Text>().color = Color.black;
+				}else{costs_a_text.GetComponent<Text>().color = Color.green;}
+				if(final_costs_res_b > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage){costs_a_text.GetComponent<Text>().color = Color.black;
+				}else{costs_b_text.GetComponent<Text>().color = Color.green;}
+			//	if(final_costs_res_c > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage){costs_a_text.GetComponent<Text>().color = Color.black;
+			//	}else{costs_c_text.GetComponent<Text>().color = Color.green;}
+			}
+
+
+
+
+
+
+
+
+
+
+		}
+
+
+			
+
 
 
 
