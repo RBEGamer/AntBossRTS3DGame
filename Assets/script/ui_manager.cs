@@ -108,16 +108,20 @@ public class ui_manager : MonoBehaviour {
 
 	public void refresh_ressource_ui(){
 
-		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null){
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 			//HEALTHBAR
 			float inverted_health = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.health_percentage / 100.0f;
 			if(inverted_health > 1.0f){inverted_health = 1.0f;}
 			if(inverted_health < 0.0f){inverted_health = 0.0f;}
 			healthbar_progress_picture_holder.gameObject.GetComponent<Image>().fillAmount = inverted_health;
 
-
 			//HEADLINE
 			ressource_headline_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.ui_displayname_ressource + " [ID:" + connected_res_to_ui.ToString() +"]";
+
+
+			//
+
+
 
 		}
 
