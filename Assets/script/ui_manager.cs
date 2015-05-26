@@ -113,6 +113,12 @@ public class ui_manager : MonoBehaviour {
 	//public GameObject ui_res_default_icon;
 	public GameObject ui_res_amount_text;
 	public GameObject ui_active_collector_ants;
+	public GameObject ui_assigned_ui_holder;
+
+
+	public GameObject ui_res_assign_slider;
+	public GameObject ui_res_curr_value_text;
+
 	public void refresh_ressource_ui(){
 
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
@@ -164,6 +170,15 @@ public class ui_manager : MonoBehaviour {
 
 
 			//WENN RESSOURCE NICHT CONNECTED DANN DEN SLIDER NICHT ANZEIGEN!!!!!!!!!!!
+
+			if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_node_connected && !ui_assigned_ui_holder.gameObject.activeSelf){
+				ui_assigned_ui_holder.SetActive(true);
+			}else{
+				ui_assigned_ui_holder.SetActive(false);
+			}
+
+
+
 		}
 
 
