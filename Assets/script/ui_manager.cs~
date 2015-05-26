@@ -60,7 +60,9 @@ public class ui_manager : MonoBehaviour {
 	}
 
 	public void slot_0_set_ressource(){
+		if(!vars.is_in_patheditmode){
 		ui_view_slot_0 = selected_ui_in_slot_0.ressource_ui;
+		}
 		manage_view();
 	}
 
@@ -105,7 +107,12 @@ public class ui_manager : MonoBehaviour {
 	public GameObject ressource_headline_text;
 	public float inverted_health;
 
-
+	public GameObject ui_res_a_icon;
+	public GameObject ui_res_b_icon;
+//	public GameObject ui_res_c_icon;
+	//public GameObject ui_res_default_icon;
+	public GameObject ui_res_amount_text;
+	public GameObject ui_active_collector_ants;
 	public void refresh_ressource_ui(){
 
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
@@ -119,10 +126,44 @@ public class ui_manager : MonoBehaviour {
 			ressource_headline_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.ui_displayname_ressource + " [ID:" + connected_res_to_ui.ToString() +"]";
 
 
-			//
+			//RESS TYPE ICON
+			switch (GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res_type) {
+			case vars.ressource_type.A:
+				ui_res_a_icon.SetActive(true);
+				ui_res_b_icon.SetActive(false);
+			//	ui_res_c_icon.SetActive(false);
+				break;
+			case vars.ressource_type.B:
+				ui_res_a_icon.SetActive(false);
+				ui_res_b_icon.SetActive(true);
+			//	ui_res_c_icon.SetActive(false);
+				break;
+			case vars.ressource_type.C:
+				ui_res_a_icon.SetActive(false);
+				ui_res_b_icon.SetActive(false);
+			//	ui_res_c_icon.SetActive(true);
+				break;
+			case vars.ressource_type.default_type:
+				ui_res_a_icon.SetActive(false);
+				ui_res_b_icon.SetActive(false);
+			//	ui_res_c_icon.SetActive(false);
+				break;
+			default:
+				ui_res_a_icon.SetActive(false);
+				ui_res_b_icon.SetActive(false);
+			//	ui_res_c_icon.SetActive(false);
+				break;
+			}
+
+			//RES CURRENT AVARIABLE RESSOURCE AMOUNT
+			ui_res_amount_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.current_harvest_amount.ToString() + " / " + GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_harvest.ToString();
+
+			//RES CURRENT ACTIVE COLLECTOR ANTS
+			ui_active_collector_ants.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants.ToString() + " / "+ GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants.ToString();
 
 
 
+			//WENN RESSOURCE NICHT CONNECTED DANN DEN SLIDER NICHT ANZEIGEN!!!!!!!!!!!
 		}
 
 
@@ -147,12 +188,12 @@ public class ui_manager : MonoBehaviour {
 //	public GameObject costs_c_text;
 	private  float costs_res_a;
 	private float costs_res_b;
-	private float costs_res_c;
+//	private float costs_res_c;
 	public int ants_to_produce;
 	
 	private float final_costs_res_a;
 	private float final_costs_res_b;
-	private float final_costs_res_c;
+//	private float final_costs_res_c;
 
 	public GameObject curr_slider_value_text;
 
@@ -211,7 +252,7 @@ public class ui_manager : MonoBehaviour {
 
 			costs_res_a = vars.costs_nothing_ants.costs_res_a;
 			costs_res_b = vars.costs_nothing_ants.costs_res_b;
-			costs_res_c = vars.costs_nothing_ants.costs_res_c;
+		//	costs_res_c = vars.costs_nothing_ants.costs_res_c;
 			break;
 		case selected_ant_type.scout:
 			ant_scout_selected_image.SetActive(true);
@@ -219,7 +260,7 @@ public class ui_manager : MonoBehaviour {
 			ant_attack_selected_image.SetActive(false);
 			costs_res_a = vars.costs_scout_ants.costs_res_a;
 			costs_res_b = vars.costs_scout_ants.costs_res_b;
-			costs_res_c = vars.costs_scout_ants.costs_res_c;
+		//	costs_res_c = vars.costs_scout_ants.costs_res_c;
 			break;
 		case selected_ant_type.collector:
 			ant_scout_selected_image.SetActive(false);
@@ -227,7 +268,7 @@ public class ui_manager : MonoBehaviour {
 			ant_attack_selected_image.SetActive(false);
 			costs_res_a = vars.costs_collector_ants.costs_res_a;
 			costs_res_b = vars.costs_collector_ants.costs_res_b;
-			costs_res_c = vars.costs_collector_ants.costs_res_c;
+		//	costs_res_c = vars.costs_collector_ants.costs_res_c;
 			break;
 		case selected_ant_type.attack:
 			ant_scout_selected_image.SetActive(false);
@@ -235,7 +276,7 @@ public class ui_manager : MonoBehaviour {
 			ant_attack_selected_image.SetActive(true);
 			costs_res_a = vars.costs_attack_ants.costs_res_a;
 			costs_res_b = vars.costs_attack_ants.costs_res_b;
-			costs_res_c = vars.costs_attack_ants.costs_res_c;
+		//	costs_res_c = vars.costs_attack_ants.costs_res_c;
 			break;
 		default:
 			break;
@@ -272,7 +313,7 @@ public class ui_manager : MonoBehaviour {
 		if(ants_to_produce > 0){
 		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage >= final_costs_res_a){
 			if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage >= final_costs_res_b){
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage >= final_costs_res_c){
+				//if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage >= final_costs_res_c){
 					switch (curr_sel_type) {
 					case selected_ant_type.nothing:
 					break;
@@ -280,19 +321,19 @@ public class ui_manager : MonoBehaviour {
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants += ants_to_produce;
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= final_costs_res_a;
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= final_costs_res_b;
-						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
+					//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
 						break;
 					case selected_ant_type.collector:
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += ants_to_produce;
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= final_costs_res_a;
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= final_costs_res_b;
-						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
+					//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
 						break;
 					case selected_ant_type.attack:
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += (int)ants_to_produce;
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= final_costs_res_a;
 						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= final_costs_res_b;
-						GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
+					//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
 						break;
 					default:
 					break;
@@ -300,7 +341,7 @@ public class ui_manager : MonoBehaviour {
 
 
 
-				}// ende c
+				//}// ende c
 			}//ende b
 		}//ende a
 
@@ -312,7 +353,7 @@ public class ui_manager : MonoBehaviour {
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants += ants_to_produce;
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += final_costs_res_a;
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += final_costs_res_b;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
+				//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
 				}
 				break;
 
@@ -321,7 +362,7 @@ public class ui_manager : MonoBehaviour {
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += ants_to_produce;
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += final_costs_res_a;
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += final_costs_res_b;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
+				//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
 				}
 				break;
 
@@ -331,7 +372,7 @@ public class ui_manager : MonoBehaviour {
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += ants_to_produce;
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += final_costs_res_a;
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += final_costs_res_b;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
+				//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
 				}
 				break;
 

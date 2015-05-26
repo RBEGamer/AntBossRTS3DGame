@@ -12,7 +12,7 @@ public class ant_path_walker : MonoBehaviour {
 
 	public float ant_walk_path_distance;
 
-	private float ant_move_speed = 3.0f;
+
 	public int current_wp_step;
 	wp_path_manager ant_path;
 
