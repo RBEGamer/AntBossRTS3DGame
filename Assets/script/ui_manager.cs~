@@ -186,11 +186,53 @@ public class ui_manager : MonoBehaviour {
 	}
 
 
+	public int res_ants_to_assign =0 ;
+
 	public void apply_ant_assign(){
+
+		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants += res_ants_to_assign;
+		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += res_ants_to_assign;
+
+		GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a * res_ants_to_assign;
+		GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * res_ants_to_assign;
+
+
 
 	}
 
 	public void res_calc_assign(float value){
+		res_ants_to_assign = 0;
+		int v = (int)value;
+		ui_res_curr_value_text.GetComponent<Text>().text = v.ToString();
+
+
+		int tca = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;//TARGET ANTS
+		int mca = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants;//TARGET ANTS
+
+		int caca = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants; //current avariable collection ants
+
+		if(value > 0){ //adden
+
+
+
+			//schauen ob die maximal
+			if(tca + v > mca){
+			value = mca - tca;
+			}
+
+			if(value > caca){
+				value = caca;
+			}
+
+
+			res_ants_to_assign = (int)value;
+
+		}
+
+		//-> +- current_target
+		//-> wenn grösser als max dann auf das maximum stellen sofern verfügbar
+		//-> kleiner als 0 (min) dann auf 0 stellen
+
 
 	}
 	
@@ -323,10 +365,7 @@ public class ui_manager : MonoBehaviour {
 		final_costs_res_a = Mathf.Abs( costs_res_a*value);
 		final_costs_res_b = Mathf.Abs( costs_res_b*value);
 		//final_costs_res_c = Mathf.Abs( costs_res_c*value);
-		
-		
-		
-		
+
 		
 		curr_slider_value_text.GetComponent<Text>().text = v.ToString();
 		
@@ -404,15 +443,7 @@ public class ui_manager : MonoBehaviour {
 			default:
 				break;
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			
 		}
 		
@@ -484,28 +515,10 @@ public class ui_manager : MonoBehaviour {
 				//	if(final_costs_res_c > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage){costs_a_text.GetComponent<Text>().color = Color.black;
 				//	}else{costs_c_text.GetComponent<Text>().color = Color.green;}
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+	
 		}
-		
-		
-		
-		
-		
-		
-		
+	
 	}
 	
-	
-	
-	
-	
+
 }
