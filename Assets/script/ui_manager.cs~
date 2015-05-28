@@ -190,13 +190,24 @@ public class ui_manager : MonoBehaviour {
 
 	public void apply_ant_assign(){
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+
+			if(res_ants_to_assign > 0){
 		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants += res_ants_to_assign;
 		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += res_ants_to_assign;
 		//WTF THIS CODE FOR THE BASE PART WTF
 		//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a * res_ants_to_assign;
 		//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * res_ants_to_assign;
-		}
+			}else if (res_ants_to_assign < 0){
+
+				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants += res_ants_to_assign;
+				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += res_ants_to_assign;
+
+				GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a * Mathf.Abs(res_ants_to_assign);
+				GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * Mathf.Abs(res_ants_to_assign);
+
+			}
 	}
+}
 
 	public void res_calc_assign(float value){
 		res_ants_to_assign = 0;
@@ -225,9 +236,12 @@ public class ui_manager : MonoBehaviour {
 
 			}else if(value < 0){ //sub
 
+				if(tca - Mathf.Abs(v) < 0){
+					value = tca - Mathf.Abs(v) + value;
+				}
 
 
-				res_ants_to_assign = (int)value;
+				res_ants_to_assign = (int)value*-1;
 			}
 
 		//-> +- current_target
@@ -264,7 +278,8 @@ public class ui_manager : MonoBehaviour {
 	//	private float final_costs_res_c;
 	
 	public GameObject curr_slider_value_text;
-	
+
+//	public GameObject wp_button;
 	public enum selected_ant_type
 	{
 		nothing, scout, collector, attack
@@ -277,11 +292,18 @@ public class ui_manager : MonoBehaviour {
 	
 	public void toggle_patheditmode(){
 		vars.is_in_patheditmode = !vars.is_in_patheditmode;
+
+		//Color c = wp_button.GetComponent<Button>().colors.normalColor;
+
+
 		if(vars.is_in_patheditmode){
-			//		pem_btn_text.GetComponent<Text>().text = "LEAVE PATHEDITMODE";
+				//	pem_btn_text.GetComponent<Text>().text = "LEAVE PATHEDITMODE";
+			//wp_button.GetComponent<Button>().colors.highlightedColor.r = 1.0f;
 		}else{
-			//		pem_btn_text.GetComponent<Text>().text = "ENTER PATHEDITMODE";
+				//	pem_btn_text.GetComponent<Text>().text = "ENTER PATHEDITMODE";
+//			wp_button.GetComponent<Button>().colors.normalColor = Color.blue;
 		}
+		//wp_button.GetComponent<Button>().colors = c
 	}
 	
 	
