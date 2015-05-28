@@ -189,19 +189,19 @@ public class ui_manager : MonoBehaviour {
 	public int res_ants_to_assign =0 ;
 
 	public void apply_ant_assign(){
-
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants += res_ants_to_assign;
 		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += res_ants_to_assign;
-
-		GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a * res_ants_to_assign;
-		GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * res_ants_to_assign;
-
-
-
+		//WTF THIS CODE FOR THE BASE PART WTF
+		//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a * res_ants_to_assign;
+		//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * res_ants_to_assign;
+		}
 	}
 
 	public void res_calc_assign(float value){
 		res_ants_to_assign = 0;
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+		
 		int v = (int)value;
 		ui_res_curr_value_text.GetComponent<Text>().text = v.ToString();
 
@@ -212,28 +212,29 @@ public class ui_manager : MonoBehaviour {
 		int caca = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants; //current avariable collection ants
 
 		if(value > 0){ //adden
-
-
-
-			//schauen ob die maximal
+			//schauen ob die maximale anzahl für die ameisen der ressource errreciht ist
 			if(tca + v > mca){
 			value = mca - tca;
 			}
-
+				//schauen ob die maximale anzahl die anzahl der gekaufen ameisen übersteigt
 			if(value > caca){
 				value = caca;
 			}
-
-
+				//wert zuweisen damit er abgefragt werden kann wenn der btn gedrückt wird
 			res_ants_to_assign = (int)value;
 
-		}
+			}else if(value < 0){ //sub
+
+
+
+				res_ants_to_assign = (int)value;
+			}
 
 		//-> +- current_target
 		//-> wenn grösser als max dann auf das maximum stellen sofern verfügbar
 		//-> kleiner als 0 (min) dann auf 0 stellen
 
-
+		}
 	}
 	
 	//------------BASE -----------------------------------------------//
