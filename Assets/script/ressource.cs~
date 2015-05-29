@@ -49,6 +49,15 @@ public class ressource : MonoBehaviour {
 	public res_info res;
 
 
+	public GameObject res_a_model_complete;
+	public GameObject res_a_model_bitten;
+
+	public GameObject res_b_model_complete;
+	public GameObject res_b_model_bitten;
+
+	//public GameObject res_c_model_complete;
+	//public GameObject res_c_model_bitten;
+
 	public void set_target_ants(int _target){
 		Debug.Log("set target ants resid:" + ressource_id + "   amount:" +_target);
 		res.target_collection_ants = _target;
@@ -71,16 +80,105 @@ public class ressource : MonoBehaviour {
 		//hier node registeren
 		this.name = vars.res_name + "_" + ressource_id;
 		refresh_res_info();
+		show_complete_model();
+
 
 
 	}
 
 
 
+
+	private void show_complete_model(){
+
+
+		switch (res_type) {
+		case vars.ressource_type.A:
+
+			res_a_model_complete.SetActive(true);
+			res_a_model_bitten.SetActive(false);
+			res_b_model_complete.SetActive(false);
+			res_b_model_bitten.SetActive(false);
+			//res_c_model_complete.SetActive(false);
+			//res_c_model_bitten.SetActive(false);
+			break;
+		case vars.ressource_type.B:
+			res_a_model_complete.SetActive(false);
+			res_a_model_bitten.SetActive(false);
+			res_b_model_complete.SetActive(true);
+			res_b_model_bitten.SetActive(false);
+			//res_c_model_complete.SetActive(false);
+			//res_c_model_bitten.SetActive(false);
+			break;
+		case vars.ressource_type.C:
+			res_a_model_complete.SetActive(false);
+			res_a_model_bitten.SetActive(false);
+			res_b_model_complete.SetActive(false);
+			res_b_model_bitten.SetActive(false);
+			//res_c_model_complete.SetActive(true);
+			//res_c_model_bitten.SetActive(false);
+			break;
+		default:
+			res_a_model_complete.SetActive(false);
+			res_a_model_bitten.SetActive(false);
+			res_b_model_complete.SetActive(false);
+			res_b_model_bitten.SetActive(false);
+			//res_c_model_complete.SetActive(false);
+			//res_c_model_bitten.SetActive(false);
+			break;
+		}
+
+	}
+
+	private void show_bitten_model(){
+
+
+		switch (res_type) {
+		case vars.ressource_type.A:
+			res_a_model_complete.SetActive(false);
+			res_a_model_bitten.SetActive(true);
+			res_b_model_complete.SetActive(false);
+			res_b_model_bitten.SetActive(false);
+			//res_c_model_complete.SetActive(false);
+			//res_c_model_bitten.SetActive(false);
+			break;
+		case vars.ressource_type.B:
+			res_a_model_complete.SetActive(false);
+			res_a_model_bitten.SetActive(false);
+			res_b_model_complete.SetActive(false);
+			res_b_model_bitten.SetActive(true);
+			//res_c_model_complete.SetActive(false);
+			//res_c_model_bitten.SetActive(false);
+			break;
+		case vars.ressource_type.C:
+			res_a_model_complete.SetActive(false);
+			res_a_model_bitten.SetActive(false);
+			res_b_model_complete.SetActive(false);
+			res_b_model_bitten.SetActive(false);
+			//res_c_model_complete.SetActive(false);
+			//res_c_model_bitten.SetActive(trues);
+			break;
+		default:
+			res_a_model_complete.SetActive(false);
+			res_a_model_bitten.SetActive(false);
+			res_b_model_complete.SetActive(false);
+			res_b_model_bitten.SetActive(false);
+			//res_c_model_complete.SetActive(false);
+			//res_c_model_bitten.SetActive(false);
+			break;
+		}
+
+
+	}
+
 	public float ant_bite(){
 		res.current_harvest_amount -= res.ant_bite_decrease;
 		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}
 		//Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
+
+		show_bitten_model();
+
+
 		return res.ant_bite_decrease;
 	}
 
@@ -128,6 +226,7 @@ public class ressource : MonoBehaviour {
 
 
 		res.current_harvest_amount = res.max_harvest;
+	
 	}
 
 

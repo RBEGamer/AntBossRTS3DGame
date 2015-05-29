@@ -199,8 +199,8 @@ public class ui_manager : MonoBehaviour {
 		//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * res_ants_to_assign;
 			}else if (res_ants_to_assign < 0){
 
-				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants += res_ants_to_assign;
-				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += res_ants_to_assign;
+				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= Mathf.Abs( res_ants_to_assign);
+				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += Mathf.Abs( res_ants_to_assign);
 
 				GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a * Mathf.Abs(res_ants_to_assign);
 				GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * Mathf.Abs(res_ants_to_assign);
@@ -241,7 +241,7 @@ public class ui_manager : MonoBehaviour {
 				}
 
 
-				res_ants_to_assign = (int)value*-1;
+				res_ants_to_assign = (int)value;
 			}
 
 		//-> +- current_target
