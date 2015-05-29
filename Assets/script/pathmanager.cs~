@@ -75,14 +75,33 @@ public class pathmanager : MonoBehaviour {
 				//Debug.Log(hit.collider.gameObject);
 				
 				foreach (GameObject n in nodes) {
+						//SCHAUEN OB DAS DER BASENODE IST DENN DANN WIRD DER COLLIDER DER BASE GENOMMEN ANSTATT DER DES WPs
+						if(!n.GetComponent<node>().is_base_node){
+
 					if(hit.collider.gameObject == n.GetComponent<node>().click_collider.gameObject && n.GetComponent<node>().discoveres_by_scout){
 						deselect_all_nodes ();
 						disable_node_colliders();
 						n.GetComponent<node>().is_selected = true;
-						saved_node_id = n.GetComponent<node>().node_id;
-							
-						//Debug.Log(n.name);		
+						saved_node_id = n.GetComponent<node>().node_id;							
+						//Debug.Log(n.name);	
 					}//ende hit.collider
+
+						}else{
+
+
+							if(hit.collider.gameObject == GameObject.Find(vars.base_name).gameObject && n.GetComponent<node>().discoveres_by_scout){
+								deselect_all_nodes ();
+								disable_node_colliders();
+								n.GetComponent<node>().is_selected = true;
+								saved_node_id = n.GetComponent<node>().node_id;							
+								//Debug.Log(n.name);	
+							}//ende hit.collider
+
+
+						}
+
+
+
 				}//end for ecach
 				
 			}//ende raycast

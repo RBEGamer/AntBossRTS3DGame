@@ -300,6 +300,7 @@ public class ui_manager : MonoBehaviour {
 				//	pem_btn_text.GetComponent<Text>().text = "LEAVE PATHEDITMODE";
 			//wp_button.GetComponent<Button>().colors.highlightedColor.r = 1.0f;
 		}else{
+		GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().deselect_all_nodes();
 				//	pem_btn_text.GetComponent<Text>().text = "ENTER PATHEDITMODE";
 //			wp_button.GetComponent<Button>().colors.normalColor = Color.blue;
 		}

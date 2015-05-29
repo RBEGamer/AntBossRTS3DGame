@@ -168,6 +168,9 @@ public class node : MonoBehaviour {
       {
         wp_node_tower_mesh.gameObject.SetActive(false);
         wp_node_base_mesh.gameObject.SetActive(true);
+
+			//click_collider.gameObject = GameObject.Find(vars.base_name).gameObject;
+
       }
 
 
