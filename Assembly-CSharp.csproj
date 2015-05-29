@@ -55,7 +55,6 @@
      <Compile Include="Assets\script\menu_scripts\menu_button_manager.cs" />
      <Compile Include="Assets\script\node.cs" />
      <Compile Include="Assets\script\pathmanager.cs" />
-     <Compile Include="Assets\script\ressource.cs" />
      <Compile Include="Assets\script\ressource_manager.cs" />
      <Compile Include="Assets\script\selection_circle.cs" />
      <Compile Include="Assets\script\sleep_pos_manager.cs" />
