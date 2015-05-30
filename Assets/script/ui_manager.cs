@@ -23,6 +23,7 @@ public class ui_manager : MonoBehaviour {
 	void FixedUpdate () {
 		manage_view();
 		refresh_ressource_ui();
+		manage_pause_menu();
 		//	refresh_base_ui();
 		//	if(uirc > uirct){
 		//		uirc = 0;
@@ -95,6 +96,53 @@ public class ui_manager : MonoBehaviour {
 		
 		
 	}
+
+
+	//------------PAUSE_MENU -----------------------------------------------//
+	//------------PAUSE_MENU -----------------------------------------------//
+	//------------PAUSE_MENU -----------------------------------------------//
+	//------------PAUSE_MENU -----------------------------------------------//
+
+
+	public GameObject ui_pause_menu_holder;
+
+	public void manage_pause_menu(){
+
+
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			vars.is_in_pause_menu = !vars.is_in_pause_menu;
+		}
+
+
+		if(vars.is_in_pause_menu){
+			ui_pause_menu_holder.SetActive(true);
+		}else{
+			ui_pause_menu_holder.SetActive(false);
+		}
+
+
+
+
+	}
+
+
+	public void hide_pause_menu(){
+		vars.is_in_pause_menu = false;
+		ui_pause_menu_holder.SetActive(false);
+	}
+
+	public void show_pause_menu(){
+		vars.is_in_pause_menu = true;
+		ui_pause_menu_holder.SetActive(true);
+	}
+
+	public void goto_main_menu(){
+		Application.LoadLevel(vars.main_menu_scene_name);
+	}
+
+
+
 	
 	//------------RESSOURCE -----------------------------------------------//
 	//------------RESSOURCE -----------------------------------------------//

@@ -154,6 +154,8 @@ public class vars : MonoBehaviour {
 
 	//WAYPOINT VARS
 	public static bool is_in_patheditmode = false;
+
+	public static bool is_in_pause_menu = false;
 	// Use this for initialization
 	void Start () {
 
