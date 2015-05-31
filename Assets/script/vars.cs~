@@ -41,7 +41,7 @@ public class vars : MonoBehaviour {
 		public static float interactition_latitude = 0.1f;
 		public static float ant_bite_decrease = 10; //wie viel soll eine ameise bei einem biss tragen können
 		public static int health_percentage = 100;
-		public static string ui_displayname_ressource = "Peniskopfsuppe";
+		public static string ui_displayname_ressource = "Nahrung";
 	}
 	public struct res_type_b{
 		public static float max_harvest = 2000.0f;
@@ -50,7 +50,7 @@ public class vars : MonoBehaviour {
 		public static float interactition_latitude = 0.1f;
 		public static float ant_bite_decrease = 25;
 		public static int health_percentage = 100;
-		public static string ui_displayname_ressource = "Koholkopfgehirnfleisch";
+		public static string ui_displayname_ressource = "Baumaterial";
 	}
 	public struct res_type_c{
 		public static float max_harvest = 3000.0f;
