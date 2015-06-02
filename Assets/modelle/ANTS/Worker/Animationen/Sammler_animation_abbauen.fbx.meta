@@ -1,0 +1,223 @@
+fileFormatVersion: 2
+guid: 9b199d34ba2c1bf4da6f22a50bb7c7e4
+timeCreated: 1433089845
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: back
+    100002: bottom
+    100004: Box002
+    100006: Ctrl_Fuehler_links
+    100008: Ctrl_Fuehler_rechts
+    100010: Ctrl_Hinterteil
+    100012: Ctrl_Kopf
+    100014: Ctrl_links_hinten
+    100016: Ctrl_links_mitte
+    100018: Ctrl_links_vorne
+    100020: Ctrl_rechts_hinten
+    100022: Ctrl_rechts_mitte
+    100024: Ctrl_rechts_vorne
+    100026: group
+    100028: ik_fuehler_links
+    100030: ik_fuehler_rechts
+    100032: ik_hinterteil
+    100034: ik_kopf
+    100036: ik_links_hinten
+    100038: ik_links_mitte
+    100040: ik_Links_vorne
+    100042: ik_rechts_hinten
+    100044: ik_rechts_mitte
+    100046: ik_rechts_vorne
+    100048: KneeCtrl_links_hinten
+    100050: KneeCtrl_links_mitte
+    100052: KneeCtrl_links_vorne
+    100054: KneeCtrl_rechts_hinten
+    100056: KneeCtrl_rechts_mitte
+    100058: KneeCtrl_rechts_vorne
+    100060: left
+    100062: pasted__joint10
+    100064: pasted__joint11
+    100066: pasted__joint15
+    100068: pasted__joint17
+    100070: pasted__joint3
+    100072: pasted__joint4
+    100074: pasted__joint_brustkorb
+    100076: pasted__joint_fuehler_links_ansatz
+    100078: pasted__joint_fuehler_Links_fortsatz
+    100080: pasted__joint_fuehler_rechts_ansatz
+    100082: pasted__joint_fuehler_rechts_fortsatz
+    100084: pasted__joint_fuehler_verbind_links
+    100086: pasted__joint_fuehler_verbindung_rechts
+    100088: pasted__joint_hinterteil
+    100090: pasted__joint_koerpermitte
+    100092: pasted__joint_kopf
+    100094: pasted__joint_links_hinten_oben
+    100096: pasted__joint_links_hinten_unten
+    100098: pasted__joint_links_mitte_oben
+    100100: pasted__joint_links_mitte_unten
+    100102: pasted__joint_links_vorne_oben
+    100104: pasted__joint_links_vorne_unten
+    100106: pasted__joint_nacken
+    100108: pasted__joint_rechts_hinten_oben
+    100110: pasted__joint_rechts_hinten_unten
+    100112: pasted__joint_rechts_mitte_oben
+    100114: pasted__joint_rechts_mitte_unten
+    100116: pasted__joint_rechts_vorne_oben
+    100118: pasted__joint_rechts_vorne_unten
+    100120: pasted__joint_tallie
+    100122: pasted__joint_unterkoerper
+    100124: pasted__pasted__joint18
+    100126: pasted__pasted__joint19
+    100128: pasted__pasted__joint3
+    100130: pasted__pasted__joint3 1
+    100132: pasted__pasted__joint4
+    100134: pasted__pasted__joint4 1
+    100136: pasted__pasted__joint8
+    100138: pasted__pasted__joint9
+    100140: pasted__pasted__pasted__joint18
+    100142: pasted__pasted__pasted__joint19
+    100144: pasted__pasted__pasted__joint5
+    100146: pasted__pasted__pasted__joint6
+    100148: pasted__pasted__pasted__joint7
+    100150: pasted__pasted__pasted__joint8
+    100152: //RootNode
+    400000: back
+    400002: bottom
+    400004: Box002
+    400006: Ctrl_Fuehler_links
+    400008: Ctrl_Fuehler_rechts
+    400010: Ctrl_Hinterteil
+    400012: Ctrl_Kopf
+    400014: Ctrl_links_hinten
+    400016: Ctrl_links_mitte
+    400018: Ctrl_links_vorne
+    400020: Ctrl_rechts_hinten
+    400022: Ctrl_rechts_mitte
+    400024: Ctrl_rechts_vorne
+    400026: group
+    400028: ik_fuehler_links
+    400030: ik_fuehler_rechts
+    400032: ik_hinterteil
+    400034: ik_kopf
+    400036: ik_links_hinten
+    400038: ik_links_mitte
+    400040: ik_Links_vorne
+    400042: ik_rechts_hinten
+    400044: ik_rechts_mitte
+    400046: ik_rechts_vorne
+    400048: KneeCtrl_links_hinten
+    400050: KneeCtrl_links_mitte
+    400052: KneeCtrl_links_vorne
+    400054: KneeCtrl_rechts_hinten
+    400056: KneeCtrl_rechts_mitte
+    400058: KneeCtrl_rechts_vorne
+    400060: left
+    400062: pasted__joint10
+    400064: pasted__joint11
+    400066: pasted__joint15
+    400068: pasted__joint17
+    400070: pasted__joint3
+    400072: pasted__joint4
+    400074: pasted__joint_brustkorb
+    400076: pasted__joint_fuehler_links_ansatz
+    400078: pasted__joint_fuehler_Links_fortsatz
+    400080: pasted__joint_fuehler_rechts_ansatz
+    400082: pasted__joint_fuehler_rechts_fortsatz
+    400084: pasted__joint_fuehler_verbind_links
+    400086: pasted__joint_fuehler_verbindung_rechts
+    400088: pasted__joint_hinterteil
+    400090: pasted__joint_koerpermitte
+    400092: pasted__joint_kopf
+    400094: pasted__joint_links_hinten_oben
+    400096: pasted__joint_links_hinten_unten
+    400098: pasted__joint_links_mitte_oben
+    400100: pasted__joint_links_mitte_unten
+    400102: pasted__joint_links_vorne_oben
+    400104: pasted__joint_links_vorne_unten
+    400106: pasted__joint_nacken
+    400108: pasted__joint_rechts_hinten_oben
+    400110: pasted__joint_rechts_hinten_unten
+    400112: pasted__joint_rechts_mitte_oben
+    400114: pasted__joint_rechts_mitte_unten
+    400116: pasted__joint_rechts_vorne_oben
+    400118: pasted__joint_rechts_vorne_unten
+    400120: pasted__joint_tallie
+    400122: pasted__joint_unterkoerper
+    400124: pasted__pasted__joint18
+    400126: pasted__pasted__joint19
+    400128: pasted__pasted__joint3
+    400130: pasted__pasted__joint3 1
+    400132: pasted__pasted__joint4
+    400134: pasted__pasted__joint4 1
+    400136: pasted__pasted__joint8
+    400138: pasted__pasted__joint9
+    400140: pasted__pasted__pasted__joint18
+    400142: pasted__pasted__pasted__joint19
+    400144: pasted__pasted__pasted__joint5
+    400146: pasted__pasted__pasted__joint6
+    400148: pasted__pasted__pasted__joint7
+    400150: pasted__pasted__pasted__joint8
+    400152: //RootNode
+    4300000: Box002
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Box002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
