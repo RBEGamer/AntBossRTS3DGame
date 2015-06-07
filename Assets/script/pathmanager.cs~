@@ -25,7 +25,7 @@ public class pathmanager : MonoBehaviour {
 	public bool set_new;
 	public int saved_node_id;
 
-
+	private RaycastHit hit;
 
 
 	// Use this for initialization
@@ -66,14 +66,24 @@ public class pathmanager : MonoBehaviour {
 
 			}
 
-	
-			if(count_selected_nodes() == 0 && Input.GetMouseButtonDown(0)){
-				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-				RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 
 			if (Physics.Raycast (ray, out hit)) {
 				//Debug.Log(hit.collider.gameObject);
-				
+				Debug.Log(hit.normal);
+
+			}
+			Debug.DrawLine(-20*hit.point, hit.normal*20, Color.red);
+
+
+
+			if(count_selected_nodes() == 0 && Input.GetMouseButtonDown(0)){
+
+
+
+			if (Physics.Raycast (ray, out hit)) {
+				//Debug.Log(hit.collider.gameObject);
+					Debug.Log(hit.collider.gameObject.transform.rotation);
 				foreach (GameObject n in nodes) {
 						//SCHAUEN OB DAS DER BASENODE IST DENN DANN WIRD DER COLLIDER DER BASE GENOMMEN ANSTATT DER DES WPs
 						if(!n.GetComponent<node>().is_base_node){
@@ -123,11 +133,11 @@ public class pathmanager : MonoBehaviour {
 				if(get_node_with_intern_node_id(saved_node_id).is_mouse_in_node_range  && check_if_pos_inside_another_node(new_pos, saved_node_id) && Input.GetMouseButtonDown(0) ){
 //					Debug.Log("selected : "+get_selected_node());
 //					Debug.Log("node kann hier gesetzt werden : "+ new_pos);
-					add_node(new_pos, saved_node_id);
+					add_node(new_pos, saved_node_id, hit);
 					get_node_with_intern_node_id(saved_node_id).cursor.SetActive(false); //disable the cursor
 					get_node_with_intern_node_id(saved_node_id).cursor.transform.position = get_node_with_intern_node_id(saved_node_id).node_pos-new Vector3(0f,-1f,0f); //set the invisible cursor the node pos
 					//disable_node_colliders();
-
+					get_node_with_intern_node_id(saved_node_id).cursor.transform.rotation =  hit.collider.transform.rotation;
 					enable_node_colliders();
 					deselect_all_nodes();
         			complete_path_node_information();
@@ -304,13 +314,14 @@ public class pathmanager : MonoBehaviour {
 
 
 
-	public void add_node(Vector3 pos, int prev_node_id){
+	public void add_node(Vector3 pos, int prev_node_id, RaycastHit hit){
 		int current_selected_node = get_selected_node ();
 		if (current_selected_node >= 0) {
 			int tmp_id = nodes.Count;
 			GameObject tmp = (GameObject)Instantiate (node_template, pos, Quaternion.identity);
 			tmp.gameObject.GetComponent<node>().node_const(pos, tmp_id ,prev_node_id, true);
 			tmp.gameObject.GetComponent<node>().is_base_node = false;
+			tmp.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.down, hit.normal);
 			nodes.Add (tmp);
 
 			//nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, get_selected_node (), true);
