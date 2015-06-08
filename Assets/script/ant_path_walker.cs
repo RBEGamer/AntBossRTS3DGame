@@ -58,7 +58,7 @@ public class ant_path_walker : MonoBehaviour {
 				get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().end_pos = this.transform.position;
 
 				if(wp_counter >= walk_path.Count-2 && wp_counter >= walk_path.Count-1){
-					get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().projector.GetComponent<way_projector>().draw(this.transform.position);
+					get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().projector.GetComponent<way_projector>().draw_path(this.transform.position);
 
 				}
 			}
@@ -119,7 +119,7 @@ public class ant_path_walker : MonoBehaviour {
 			ant_walk_path_distance = 1.0f;
 		}
 
-
+		get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().projector.GetComponent<way_projector>().clear_brushed_path();
 	//	current_wp_step = ant_path.start_node_id;
 
 	}

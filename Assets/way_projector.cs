@@ -38,15 +38,7 @@ public class way_projector : MonoBehaviour {
 		text_proj.material = projector_material;
 
 
-		//DAS IN DEN LADESCREEN PACKEN
-
-		for (int i = 0; i < final_text.width; i++) {
-			for (int j = 0; j < final_text.height; j++) {
-				final_text.SetPixel(i,j, new Color(way_ground_texture.GetPixel(i,j).r, way_ground_texture.GetPixel(i,j).g, way_ground_texture.GetPixel(i,j).b,min_transparenz));
-
-			}
-		}
-		final_text.Apply();
+		clear_brushed_path();
 
 	
 
@@ -62,7 +54,22 @@ public class way_projector : MonoBehaviour {
 	}
 
 
-	public void draw(Vector3 pos){
+	//clear()
+	public void clear_brushed_path(){
+
+		//DAS IN DEN LADESCREEN PACKEN
+		
+		for (int i = 0; i < final_text.width; i++) {
+			for (int j = 0; j < final_text.height; j++) {
+				final_text.SetPixel(i,j, new Color(way_ground_texture.GetPixel(i,j).r, way_ground_texture.GetPixel(i,j).g, way_ground_texture.GetPixel(i,j).b,min_transparenz));
+				
+			}
+		}
+		final_text.Apply();
+
+	}
+
+	public void draw_path(Vector3 pos){
 
 		int x = 0;
 		int y = 0;
