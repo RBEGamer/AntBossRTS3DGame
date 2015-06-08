@@ -48,14 +48,35 @@ public class way_projector : MonoBehaviour {
 		}
 		final_text.Apply();
 
+		draw(0,0)
 
+		//-> steps von s nach z ausrechnen
+
+
+	
 
 
 
 
 
 	}
-	
+
+
+	public void draw(int x, int y){
+		for (int k = 0; k < brush_texture.width; k++) {
+			for (int l = 0; l < brush_texture.height; l++) {
+				float t = brush_texture.GetPixel(k,l).r*max_transparenz;
+
+				//is innerhalb der grenzen
+				final_text.SetPixel(k+x,l+y, new Color(way_ground_texture.GetPixel(k+x,l+y).r, way_ground_texture.GetPixel(k+x,l+y).g, way_ground_texture.GetPixel(k,l).b,t));
+				
+				//brushdraufrechnen
+				
+			}
+		}	
+		
+		final_text.Apply();
+	}
 	// Update is called once per frame
 	void Update () {
 	
