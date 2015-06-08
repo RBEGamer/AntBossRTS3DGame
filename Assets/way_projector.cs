@@ -48,7 +48,7 @@ public class way_projector : MonoBehaviour {
 		}
 		final_text.Apply();
 
-		draw(0,0)
+	
 
 		//-> steps von s nach z ausrechnen
 
@@ -62,20 +62,39 @@ public class way_projector : MonoBehaviour {
 	}
 
 
-	public void draw(int x, int y){
+	public void draw(Vector3 pos){
+
+		int x = 0;
+		int y = 0;
+
+		RaycastHit hit;
+		if (Physics.Raycast(pos, -Vector3.up, out hit, 100.0F)){
+			//Debug.Log(hit.collider.name);
+		
+			x = (int)(hit.textureCoord.x * final_text.width);
+			y = (int)(hit.textureCoord.y * final_text.height);
+
+			Debug.Log(x);
 		for (int k = 0; k < brush_texture.width; k++) {
 			for (int l = 0; l < brush_texture.height; l++) {
 				float t = brush_texture.GetPixel(k,l).r*max_transparenz;
 
-				//is innerhalb der grenzen
-				final_text.SetPixel(k+x,l+y, new Color(way_ground_texture.GetPixel(k+x,l+y).r, way_ground_texture.GetPixel(k+x,l+y).g, way_ground_texture.GetPixel(k,l).b,t));
 				
+			//	if((l+y) <= 0 || (k+x) <= 0 || (l+y) >= final_text.width || (l+y) >= final_text.height){
+
+					//schauen ob da doch was ist und das nicht mit dem brus überschreiben
+					final_text.SetPixel(k+x,l+y, new Color(way_ground_texture.GetPixel(k+x,l+y).r, way_ground_texture.GetPixel(k+x,l+y).g, way_ground_texture.GetPixel(k,l).b,t));
+			//	}else{
+			//	}
+
+
 				//brushdraufrechnen
 				
 			}
 		}	
 		
 		final_text.Apply();
+		}//ende raycast
 	}
 	// Update is called once per frame
 	void Update () {

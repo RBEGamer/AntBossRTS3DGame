@@ -70,7 +70,7 @@ public class pathmanager : MonoBehaviour {
 
 			if (Physics.Raycast (ray, out hit)) {
 				//Debug.Log(hit.collider.gameObject);
-				Debug.Log(hit.normal);
+			//	Debug.Log(hit.normal);
 
 			}
 			Debug.DrawLine(-20*hit.point, hit.normal*20, Color.red);
