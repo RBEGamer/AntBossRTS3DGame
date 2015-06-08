@@ -74,7 +74,7 @@ public class way_projector : MonoBehaviour {
 			x = (int)(hit.textureCoord.x * final_text.width);
 			y = (int)(hit.textureCoord.y * final_text.height);
 
-			Debug.Log(x);
+
 		for (int k = 0; k < brush_texture.width; k++) {
 			for (int l = 0; l < brush_texture.height; l++) {
 				float t = brush_texture.GetPixel(k,l).r*max_transparenz;
@@ -83,6 +83,11 @@ public class way_projector : MonoBehaviour {
 			//	if((l+y) <= 0 || (k+x) <= 0 || (l+y) >= final_text.width || (l+y) >= final_text.height){
 
 					//schauen ob da doch was ist und das nicht mit dem brus überschreiben
+
+					if(t < final_text.GetPixel(k+x,l+y).a){
+						t = final_text.GetPixel(k+x,l+y).a;
+					}
+
 					final_text.SetPixel(k+x,l+y, new Color(way_ground_texture.GetPixel(k+x,l+y).r, way_ground_texture.GetPixel(k+x,l+y).g, way_ground_texture.GetPixel(k,l).b,t));
 			//	}else{
 			//	}
