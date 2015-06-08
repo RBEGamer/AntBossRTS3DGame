@@ -61,7 +61,7 @@ public class ant_path_walker : MonoBehaviour {
 					get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().projector.GetComponent<way_projector>().draw(this.transform.position);
 
 				}
-					}
+			}
 
 
 

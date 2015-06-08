@@ -75,6 +75,10 @@ public class way_projector : MonoBehaviour {
 			y = (int)(hit.textureCoord.y * final_text.height);
 
 
+
+			//je nach laufrichtung noch anpassen
+			x -=10; // die correction damit die ameise genua auf dm brush läuft
+
 		for (int k = 0; k < brush_texture.width; k++) {
 			for (int l = 0; l < brush_texture.height; l++) {
 				float t = brush_texture.GetPixel(k,l).r*max_transparenz;
