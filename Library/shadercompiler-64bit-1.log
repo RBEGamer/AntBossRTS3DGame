@@ -9,3 +9,19 @@ Cmd: compileSnippet
   api=0 type=0 insize=1001 outsize=541 kw= ok=1
 Cmd: compileSnippet
   api=0 type=1 insize=1001 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5974 outsize=3156 kw=LIGHTMAP_OFF DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5974 outsize=6 kw=LIGHTMAP_OFF DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=5928 outsize=2660 kw=LIGHTMAP_OFF DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=5928 outsize=6 kw=LIGHTMAP_OFF DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON HDR_LIGHT_PREPASS_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3008 outsize=2368 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=3008 outsize=6 kw= ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=6731 outsize=2208 kw=DIRECTIONAL LIGHTMAP_OFF DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=6731 outsize=6 kw=DIRECTIONAL LIGHTMAP_OFF DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON ok=1
