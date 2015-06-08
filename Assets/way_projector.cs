@@ -31,14 +31,15 @@ public class way_projector : MonoBehaviour {
 
 		final_text = new Texture2D(way_ground_texture.width, way_ground_texture.height);
 
+
 		//setup mat
-		projector_material = new Material(Shader.Find("Transparent/Diffuse"));
-		projector_material.mainTexture = final_text;
+		projector_material = new Material(Shader.Find("Transparent/Diffuse")); //we nee an akpha channel so we must use a transparent shader
+		projector_material.mainTexture = final_text; //assign the texture to the main_texture of the material
+	//	projector_material.mainTextureScale = new Vector2(20.0f, 20.0f); // set the tiling of the new created material to the thiling of the main texture
 		//assin mat to projecotr
-		text_proj.material = projector_material;
+		text_proj.material = projector_material; // assign the new material to the projector
 
-
-		clear_brushed_path();
+		clear_brushed_path(); // clear the texture...
 
 	
 
