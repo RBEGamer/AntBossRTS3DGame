@@ -144,6 +144,7 @@ public class vars : MonoBehaviour {
 	public static string base_name = "ant_base";
 	public static string walk_way_manager_name = "walk_way_manager";
 	public static string ground_terrain_name = "ground";
+	public static string sound_manager_name = "sound_manager";
 	/*---------------  SCENE NAMES (please add the scene in the Unity Build settings ------------------*/
 	public static string main_menu_scene_name  = "main_menu";
 	public static string mission_selection_scene_name = "mission_selection";
