@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\audio_clip_state.cs" />
      <Compile Include="Assets\script\HUDFPS.cs" />
      <Compile Include="Assets\script\ObjectBase.cs" />
      <Compile Include="Assets\script\Unit.cs" />
@@ -66,6 +67,7 @@
      <Compile Include="Assets\script\ressource_manager.cs" />
      <Compile Include="Assets\script\selection_circle.cs" />
      <Compile Include="Assets\script\sleep_pos_manager.cs" />
+     <Compile Include="Assets\script\sound_file_info.cs" />
      <Compile Include="Assets\script\ui_manager.cs" />
      <Compile Include="Assets\script\vars.cs" />
      <Compile Include="Assets\script\walk_way_manager.cs" />

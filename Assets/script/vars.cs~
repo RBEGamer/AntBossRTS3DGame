@@ -21,6 +21,41 @@ public class vars : MonoBehaviour {
 		public static string ui_displayname_ressource = "<no valid res type>";
 	}
 
+
+
+
+
+	public enum audio_playback_type
+	{
+		none, effect, music //is music -> looping is enabled
+	}
+
+
+	//* change the values in audio clip state.cs too
+	public enum audio_name
+	{
+		bgmusic, ui_click
+	}
+	
+
+
+	public struct audio_clip_info_bgmusic{
+		public static string audio_clip_path = "carpenter_brut_run";
+		public static audio_playback_type ptype = vars.audio_playback_type.music;
+		public static float volume = 0.1f;
+		public static int priority = 128;
+		public static float pitch = 1.0f;
+	}
+
+	public struct audio_clip_info_uiclick{
+		public static string audio_clip_path = "button-09";
+		public static audio_playback_type ptype = vars.audio_playback_type.effect;
+		public static float volume = 1.0f;
+		public static int priority = 128;
+		public static float pitch = 1.0f;
+	}
+
+
 	/* ---------END DO NOT CHNAGE-------------------- */
 		
 
@@ -132,7 +167,7 @@ public class vars : MonoBehaviour {
 	public static string environment_tag = "environment";
 	public static string ground_tag = "ground";	
 	public static string base_tag = "base";	
-
+	public static string audio_clip_tag = "audio_clip_holder";
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
 	public static string path_manager_name = "path_manager";
 	public static string res_name = "ressource";
