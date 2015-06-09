@@ -46,20 +46,11 @@ public class ant_path_walker : MonoBehaviour {
 			//this.transform.rotation = Quaternion.Lerp(this.transform.rotation, rot, 15.1f * Time.deltaTime);
 
 
-		//if(current_wp_step == walk_path.Count &&  walk_path.Count-1 >0){
-		//	Debug.Log("count = wp");
-		//}else
-
-
 			//nur für den weg
 			if(wp_counter >= walk_path.Count-1){
-				get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().visible = true;
-				get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().start_pos = 	get_wp_pos(walk_path[walk_path.Count-2]);
-				get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().end_pos = this.transform.position;
-
+				//nur den weg zeichnen vom letzten wegpunkt bis zum ziel wegpunkt
 				if(wp_counter >= walk_path.Count-2 && wp_counter >= walk_path.Count-1){
-					get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().projector.GetComponent<way_projector>().draw_path(this.transform.position);
-
+					get_wp_comp(last_added_node).wp_way_holder.GetComponent<way_projector>().draw_path(this.transform.position);
 				}
 			}
 
@@ -119,7 +110,7 @@ public class ant_path_walker : MonoBehaviour {
 			ant_walk_path_distance = 1.0f;
 		}
 
-		get_wp_comp(last_added_node).wp_way_holder.GetComponent<wp_visible_way>().projector.GetComponent<way_projector>().clear_brushed_path();
+		get_wp_comp(last_added_node).wp_way_holder.GetComponent<way_projector>().clear_brushed_path();
 	//	current_wp_step = ant_path.start_node_id;
 
 	}

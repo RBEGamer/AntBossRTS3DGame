@@ -83,7 +83,7 @@ public class pathmanager : MonoBehaviour {
 
 			if (Physics.Raycast (ray, out hit)) {
 				//Debug.Log(hit.collider.gameObject);
-					Debug.Log(hit.collider.gameObject.transform.rotation);
+				//	Debug.Log(hit.collider.gameObject.transform.rotation);
 				foreach (GameObject n in nodes) {
 						//SCHAUEN OB DAS DER BASENODE IST DENN DANN WIRD DER COLLIDER DER BASE GENOMMEN ANSTATT DER DES WPs
 						if(!n.GetComponent<node>().is_base_node){

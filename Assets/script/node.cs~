@@ -176,9 +176,9 @@ public class node : MonoBehaviour {
 
 		if (node_id > 1 && discoveres_by_scout) {
 			Vector3 _pre_node_pos = GameObject.Find (vars.path_manager_name).GetComponent<pathmanager> ().get_node_pos (prev_node);
-			wp_way_holder.GetComponent<wp_visible_way> ().visible = true;
-			wp_way_holder.GetComponent<wp_visible_way> ().start_pos = _pre_node_pos + mesh_line_offset;
-			wp_way_holder.GetComponent<wp_visible_way> ().end_pos = node_pos;
+		//	wp_way_holder.GetComponent<wp_visible_way> ().visible = true;
+		//	wp_way_holder.GetComponent<wp_visible_way> ().start_pos = _pre_node_pos + mesh_line_offset;
+		//	wp_way_holder.GetComponent<wp_visible_way> ().end_pos = node_pos;
 
 
 		} else {
