@@ -8,9 +8,7 @@ public class vars : MonoBehaviour {
 	{
 		A,B,C, default_type
 	}
-
-
-
+	
 	public struct res_type_default{
 		public static float max_harvest = 0f;
 		public static int max_collector_ants = 0;
@@ -22,7 +20,11 @@ public class vars : MonoBehaviour {
 	}
 
 
-
+	public struct costs_nothing_ants{
+		public static float costs_res_a = 0.0f;
+		public static float costs_res_b = 0.0f;
+		public static float costs_res_c = 0.0f;
+	}
 
 
 	public enum audio_playback_type
@@ -31,14 +33,26 @@ public class vars : MonoBehaviour {
 	}
 
 
+
+
+
+	/* ---------END DO NOT CHNAGE-------------------- */
+		
+
+
+
+
+
+	/* ---------AUDIO SETTINGS-------------------- */
+
 	//* change the values in audio clip state.cs too
 	public enum audio_name
 	{
 		bgmusic, ui_click
 	}
 	
-
-
+	
+	
 	public struct audio_clip_info_bgmusic{
 		public static string audio_clip_path = "carpenter_brut_run";
 		public static audio_playback_type ptype = vars.audio_playback_type.music;
@@ -46,7 +60,7 @@ public class vars : MonoBehaviour {
 		public static int priority = 128;
 		public static float pitch = 1.0f;
 	}
-
+	
 	public struct audio_clip_info_uiclick{
 		public static string audio_clip_path = "button-09";
 		public static audio_playback_type ptype = vars.audio_playback_type.effect;
@@ -55,9 +69,12 @@ public class vars : MonoBehaviour {
 		public static float pitch = 1.0f;
 	}
 
+	/* ---------END AUDIO SETTINGS-------------------- */
 
-	/* ---------END DO NOT CHNAGE-------------------- */
-		
+
+
+
+
 
 
 	/* -------RESSOURCE SETTING AREA ----------------------*/
@@ -99,8 +116,10 @@ public class vars : MonoBehaviour {
 
 
 
+	/* -------END RESSOURCE SETTING AREA ----------------------*/
 
 
+	/* -------WAYPOINT SETTING AREA ----------------------*/
 	public static Color waypoint_circle_color = Color.red; //farbe des kreises für die webpunkte
 	public static Color ressource_circle_color = Color.cyan;
 	public static float minimum_way_point_distance = 1.5f; //welcher abstand muss ein wegpunkt mindestens zum nächsten haben
@@ -112,7 +131,7 @@ public class vars : MonoBehaviour {
 	public static int unit_scout_amount = 10; //ähm keine ahnugn wo die und ob die überhaupt verwendet wird............ zu faul zum suchen
 
 
-
+	/* -------END WAYPOINT SETTING AREA ----------------------*/
 
 	
 	public static float scout_ant_move_speed = 8.0f; //wie schnell sollen sich die scout ameisen bewegen
@@ -123,11 +142,13 @@ public class vars : MonoBehaviour {
 
 
 
-	public static float initial_res_a_storage = 5000.0f;
-	public static float initial_res_b_storage = 5000.0f;
-	public static float initial_res_c_storage = 5000.0f;
+	/* -------BASE SETTINGS AREA ----------------------*/
 
-	public static int initial_collector_ants = 10;
+	public static float initial_res_a_storage = 5000.0f;
+	public static float initial_res_b_storage = 500.0f;
+	public static float initial_res_c_storage = 500.0f;
+
+	public static int initial_collector_ants = 1;
 	public static int initial_attack_ants = 10;
 	public static int initial_scout_ants = 10;
 
@@ -140,7 +161,7 @@ public class vars : MonoBehaviour {
 	}
 	
 	public struct costs_collector_ants{
-		public static float costs_res_a = 500.0f;
+		public static float costs_res_a = 2000.0f;
 		public static float costs_res_b = 0.0f;
 		public static float costs_res_c = 0.0f;
 	}
@@ -150,13 +171,8 @@ public class vars : MonoBehaviour {
 		public static float costs_res_b = 100.0f;
 		public static float costs_res_c = 0.0f;
 	}
-
-	public struct costs_nothing_ants{
-		public static float costs_res_a = 0.0f;
-		public static float costs_res_b = 0.0f;
-		public static float costs_res_c = 0.0f;
-	}
 	
+	/* -------END BASE SETTINGS AREA ----------------------*/
 
 
 	/*----------- TAGS ----------------------------------- Please define in the unity tag area */
