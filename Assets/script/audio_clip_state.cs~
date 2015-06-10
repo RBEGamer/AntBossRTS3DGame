@@ -6,7 +6,7 @@ public class audio_clip_state : MonoBehaviour {
 	public bool is_playing = false;
 	public bool is_looping = false;
 	private float saved_vol  =1.0f;
-	public bool init = false;
+
 	public vars.audio_playback_type type;
 
 	private AudioSource asc;
@@ -14,7 +14,7 @@ public class audio_clip_state : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		init = false;
+
 	//	type = vars.audio_playback_type.none;
 		DontDestroyOnLoad(this);
 
@@ -28,7 +28,7 @@ public class audio_clip_state : MonoBehaviour {
 
 	public void start(vars.audio_name audio_file){
 	
-
+		asc = this.gameObject.GetComponent<AudioSource>();
 		switch (audio_file) {
 
 		case vars.audio_name.bgmusic:
@@ -70,7 +70,7 @@ public class audio_clip_state : MonoBehaviour {
 	
 		asc.enabled = true;
 		asc.Play();
-		Debug.Log(saved_vol);
+
 	}
 
 
@@ -92,7 +92,7 @@ public class audio_clip_state : MonoBehaviour {
 		}
 
 		//Debug.Log(saved_vol);
-		asc.volume = saved_vol * master_vol;
+		asc.volume = saved_vol * master_vol * GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().master_volume;
 
 
 

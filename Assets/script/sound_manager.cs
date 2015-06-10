@@ -11,6 +11,7 @@ public	GameObject audio_player_template;
 
 	public float effect_volume = 1.0f;
 	public float music_volume = 1.0f;
+	public float master_volume = 1.0f;
 
 	AudioClip bgmusic;
 	// Use this for initialization
@@ -44,6 +45,10 @@ public	GameObject audio_player_template;
 	}
 	public void change_music_volume(float value){
 		music_volume = value;
+	}
+
+	public void change_master_volume(float value){
+		master_volume = value;
 	}
 
 	void FixedUpdate(){

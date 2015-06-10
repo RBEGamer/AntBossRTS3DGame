@@ -74,7 +74,11 @@ public class menu_button_manager : MonoBehaviour {
 
 
 
-
+	public void adjust_master_volume(float value){
+		if(GameObject.Find(vars.sound_manager_name) != null){
+			GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().change_master_volume(value);
+		}
+	}
 
 
 	public void adjust_effect_volume(float value){
