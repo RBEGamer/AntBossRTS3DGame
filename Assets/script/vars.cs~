@@ -56,7 +56,7 @@ public class vars : MonoBehaviour {
 	public struct audio_clip_info_bgmusic{
 		public static string audio_clip_path = "carpenter_brut_run";
 		public static audio_playback_type ptype = vars.audio_playback_type.music;
-		public static float volume = 0.1f;
+		public static float volume = 1.0f;
 		public static int priority = 128;
 		public static float pitch = 1.0f;
 	}
@@ -201,6 +201,7 @@ public class vars : MonoBehaviour {
 	public static string mission_selection_scene_name = "mission_selection";
 	public static string credit_scene_name = "credits";
 	public static string intro_scene_name = "intro";
+	public static string optionn_scene_name = "options";
 	public static string mission_one_scene_name = "main";
 	public static string mission_two_scene_name = "main";
 	public static string mission_three_scene_name = "main";

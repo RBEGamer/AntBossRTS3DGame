@@ -34,8 +34,11 @@ public class menu_button_manager : MonoBehaviour {
 		Application.LoadLevel(vars.mission_selection_scene_name);
 	}
 
-
-
+	public void goto_options(){
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source(vars.audio_name.ui_click);}
+		Application.LoadLevel(vars.optionn_scene_name);
+	}
+	
 
 
 
@@ -64,4 +67,32 @@ public class menu_button_manager : MonoBehaviour {
 		GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source(vars.audio_name.ui_click);
 		Application.LoadLevel(vars.mission_five_scene_name);
 	}
+
+
+
+
+
+
+
+
+
+
+	public void adjust_effect_volume(float value){
+		if(GameObject.Find(vars.sound_manager_name) != null){
+			GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().change_effect_volume(value);
+		}
+	}
+
+
+
+
+	public void adjust_music_volume(float value){
+		if(GameObject.Find(vars.sound_manager_name) != null){
+			GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().change_music_volume(value);
+		}
+	}
+
+
+
+
 }
