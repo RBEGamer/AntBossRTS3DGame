@@ -200,6 +200,7 @@ public class vars : MonoBehaviour {
 	public static string main_menu_scene_name  = "main_menu";
 	public static string mission_selection_scene_name = "mission_selection";
 	public static string credit_scene_name = "credits";
+	public static string intro_scene_name = "intro";
 	public static string mission_one_scene_name = "main";
 	public static string mission_two_scene_name = "main";
 	public static string mission_three_scene_name = "main";
