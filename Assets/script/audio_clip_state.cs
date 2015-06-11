@@ -110,7 +110,7 @@ public class audio_clip_state : MonoBehaviour {
 		manage_vol();
 		
 			if((!asc.isPlaying && type == vars.audio_playback_type.effect) || type == vars.audio_playback_type.none){
-			//	Destroy(this);
+				Destroy(this);
 			}
 
 	}

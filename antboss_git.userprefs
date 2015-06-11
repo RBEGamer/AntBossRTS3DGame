@@ -1,12 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/sound_manager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/audio_clip_state.cs">
     <Files>
-      <File FileName="Assets/script/vars.cs" Line="59" Column="35" />
-      <File FileName="Assets/script/menu_scripts/menu_button_manager.cs" Line="82" Column="103" />
-      <File FileName="Assets/script/sound_manager.cs" Line="62" Column="6" />
-      <File FileName="Assets/script/audio_clip_state.cs" Line="96" Column="3" />
-      <File FileName="Assets/script/node.cs" Line="178" Column="1" />
+      <File FileName="Assets/script/sound_manager.cs" Line="51" Column="25" />
+      <File FileName="Assets/script/audio_clip_state.cs" Line="113" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
