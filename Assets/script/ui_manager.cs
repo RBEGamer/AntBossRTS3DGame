@@ -186,6 +186,11 @@ public class ui_manager : MonoBehaviour {
 	}
 
 
+
+
+
+
+
 	public int res_ants_to_assign =0 ;
 
 	public void apply_ant_assign(){
@@ -248,6 +253,29 @@ public class ui_manager : MonoBehaviour {
 		//-> wenn grösser als max dann auf das maximum stellen sofern verfügbar
 		//-> kleiner als 0 (min) dann auf 0 stellen
 
+		}
+	}
+
+
+
+	public void clear_full_ants(){
+	foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
+			if(n.GetComponent<collector_ant>().ant_bite_size > 0 && n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui){
+				n.GetComponent<collector_ant>().ant_state = collector_ant.ant_activity_state.destroy;
+			}
+		}
+	}
+
+	public void clear_all_ants(){
+
+
+		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants +=GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;
+		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants = 0;
+
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
+			if( n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui){
+				n.GetComponent<collector_ant>().ant_state = collector_ant.ant_activity_state.destroy;
+			}
 		}
 	}
 	
