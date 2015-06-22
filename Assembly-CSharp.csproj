@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\res_selection_ui_manager.cs" />
      <Compile Include="Assets\script\HUDFPS.cs" />
      <Compile Include="Assets\script\ObjectBase.cs" />
      <Compile Include="Assets\script\Unit.cs" />
