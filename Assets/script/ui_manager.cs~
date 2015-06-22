@@ -118,9 +118,31 @@ public class ui_manager : MonoBehaviour {
 	
 	public GameObject ui_res_assign_slider;
 	public GameObject ui_res_curr_value_text;
-	
+
+
+
+	public Sprite ant_icon_loaded;
+	public Sprite ant_icon_unloaded;
 	public void refresh_ressource_ui(){
+
+
+		int counter =0 ;
+	foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
+
+			counter++;
+
+			if(n.GetComponent<collector_ant>().ant_bite_size > 0){
+				GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_loaded;
+			}else{
+				GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_unloaded;
+			}
 		
+		}
+
+
+
+
+
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 			//HEALTHBAR
 			float inverted_health = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.health_percentage / 100.0f;
@@ -129,7 +151,7 @@ public class ui_manager : MonoBehaviour {
 			healthbar_progress_picture_holder.gameObject.GetComponent<Image>().fillAmount = inverted_health;
 			
 			//HEADLINE
-			ressource_headline_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.ui_displayname_ressource + " [ID:" + connected_res_to_ui.ToString() +"]";
+			//ressource_headline_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.ui_displayname_ressource + " [ID:" + connected_res_to_ui.ToString() +"]";
 			
 			
 			//RESS TYPE ICON
