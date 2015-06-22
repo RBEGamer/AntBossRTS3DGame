@@ -123,21 +123,28 @@ public class ui_manager : MonoBehaviour {
 
 	public Sprite ant_icon_loaded;
 	public Sprite ant_icon_unloaded;
+	public Sprite ant_icon_none;
+
 	public void refresh_ressource_ui(){
 
 
+		//clear all button images
+		for (int i = 0; i < 10; i++) {
+			GameObject.Find("ant_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = ant_icon_none;
+		}
+
+		//show ant ichons on buttons
 		int counter =0 ;
 	foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-
 			counter++;
-
 			if(n.GetComponent<collector_ant>().ant_bite_size > 0){
 				GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_loaded;
 			}else{
 				GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_unloaded;
 			}
-		
 		}
+
+	
 
 
 
