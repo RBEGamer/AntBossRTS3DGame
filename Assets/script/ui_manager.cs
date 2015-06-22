@@ -260,10 +260,28 @@ public class ui_manager : MonoBehaviour {
 
 	public void clear_full_ants(){
 	foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
+
 			if(n.GetComponent<collector_ant>().ant_bite_size > 0 && n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui){
+
+
+				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += 1;
+				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= 1;
+
+
+
 				n.GetComponent<collector_ant>().ant_state = collector_ant.ant_activity_state.destroy;
 			}
 		}
+	}
+
+
+
+	public void clear_selected_ant(int ant_count){
+
+		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += 1;
+		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= 1;
+
+
 	}
 
 	public void clear_all_ants(){
