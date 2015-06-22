@@ -18,7 +18,8 @@ public class res_selection_ui_manager : MonoBehaviour {
 	
 	for (int i = 0; i < 18; i++) {
 			GameObject.Find("res_selection_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = res_icon_ui_none;
-		}
+	}
+
 		int counter = 0;
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
 			counter++;	
@@ -26,9 +27,9 @@ public class res_selection_ui_manager : MonoBehaviour {
 
 
 			if(n.GetComponent<ressource>().res_type == vars.ressource_type.A){
-			GameObject.Find("res_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = res_icon_ui_type_a;
+				GameObject.Find("res_selection_btn_" + (n.GetComponent<ressource>().ressource_id+1).ToString()).GetComponent<Image>().sprite = res_icon_ui_type_a;
 			}else if(n.GetComponent<ressource>().res_type == vars.ressource_type.B){
-				GameObject.Find("res_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = res_icon_ui_type_b;
+				GameObject.Find("res_selection_btn_" + (n.GetComponent<ressource>().ressource_id+1).ToString()).GetComponent<Image>().sprite = res_icon_ui_type_b;
 		//	}else if(n.GetComponent<ressource>().res_type == vars.ressource_type.C){
 		//		GameObject.Find("res_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = res_icon_ui_type_c;
 			}
@@ -45,6 +46,10 @@ public class res_selection_ui_manager : MonoBehaviour {
 
 	public void select_res(int count){
 
+		if(GameObject.Find(vars.res_name + "_" + (count-1)) != null){
+
+		GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().map_ui_to_ressource(count-1);
+		}
 	}
 
 
