@@ -9,7 +9,7 @@ public class base_manager : MonoBehaviour {
 	public float res_b_storage;
 	public float res_c_storage;
 
-
+	public int base_health_percentage = 0;
 
 
 
@@ -37,6 +37,7 @@ public class base_manager : MonoBehaviour {
 		bought_collector_ants = vars.initial_collector_ants;
 		bought_attack_ants = vars.initial_attack_ants;
 		bought_scout_ants = vars.initial_scout_ants;
+		base_health_percentage = vars.base_start_health_percentage;
 	}
 	
 	// Update is called once per frame

@@ -48,7 +48,7 @@ public class vars : MonoBehaviour {
 	//* change the values in audio clip state.cs too
 	public enum audio_name
 	{
-		bgmusic, ui_click
+		bgmusic, ui_click, audio_clip_info_ingame_uiclick
 	}
 	
 	
@@ -68,6 +68,8 @@ public class vars : MonoBehaviour {
 		public static int priority = 128;
 		public static float pitch = 1.0f;
 	}
+
+
 
 	/* ---------END AUDIO SETTINGS-------------------- */
 
@@ -152,7 +154,7 @@ public class vars : MonoBehaviour {
 	public static int initial_attack_ants = 10;
 	public static int initial_scout_ants = 10;
 
-
+	public static int base_start_health_percentage = 100;
 
 	public struct costs_scout_ants{
 		public static float costs_res_a = 100.0f;
@@ -196,6 +198,7 @@ public class vars : MonoBehaviour {
 	public static string walk_way_manager_name = "walk_way_manager";
 	public static string ground_terrain_name = "ground";
 	public static string sound_manager_name = "sound_manager";
+	public static string main_camera_script_holder_name = "camera_controller";
 	/*---------------  SCENE NAMES (please add the scene in the Unity Build settings ------------------*/
 	public static string main_menu_scene_name  = "main_menu";
 	public static string mission_selection_scene_name = "mission_selection";

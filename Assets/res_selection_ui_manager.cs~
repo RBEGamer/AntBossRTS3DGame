@@ -48,7 +48,15 @@ public class res_selection_ui_manager : MonoBehaviour {
 
 		if(GameObject.Find(vars.res_name + "_" + (count-1)) != null){
 
+
+			float x = GameObject.Find(vars.res_name + "_" + (count-1)).transform.position.x;
+			float z = GameObject.Find(vars.res_name + "_" + (count-1)).transform.position.z;
 		GameObject.Find(vars.ressource_manager_name).GetComponent<ressource_manager>().map_ui_to_ressource(count-1);
+
+			GameObject.Find(vars.main_camera_script_holder_name).GetComponent<camera_movement>().camera_offset = new Vector3(x,GameObject.Find(vars.main_camera_script_holder_name).GetComponent<camera_movement>().camera_offset.y,z);
+
+
+
 		}
 	}
 

@@ -60,7 +60,7 @@ public class camera_movement : MonoBehaviour {
   // Use this for initialization
   void Start()
   {
-    this.name = "camera_controller";
+	this.name = vars.main_camera_script_holder_name;
     can_zoom_in = true;
     can_zoom_out = true;
     current_height = circle_height;
