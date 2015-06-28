@@ -10,7 +10,7 @@ public class base_manager : MonoBehaviour {
 	public float res_c_storage;
 
 	public int base_health_percentage = 0;
-
+	public int health = 50;
 
 
 
@@ -29,7 +29,13 @@ public class base_manager : MonoBehaviour {
 
 	}
 
+	public void receiveDamage(int damage) {
+		health -= damage;
+		if(health <= 0) {
+			Destroy(gameObject);
 
+		}
+	}
 	void Start(){
 		res_a_storage = vars.initial_res_a_storage;
 		res_b_storage = vars.initial_res_b_storage;

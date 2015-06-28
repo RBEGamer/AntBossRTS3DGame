@@ -26,6 +26,16 @@ public class collector_ant : MonoBehaviour {
 	public int wp_counter;
 	List<GameObject> count_list;
 
+	public int health = 10;
+
+	public void receiveDamage(int damage) {
+		health -= damage;
+		if(health <= 0) {
+			Destroy(gameObject);
+			
+		}
+	}
+
 	public enum ant_activity_state
 	{
 		sleep,walking,destroy

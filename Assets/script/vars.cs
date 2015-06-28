@@ -186,6 +186,15 @@ public class vars : MonoBehaviour {
 	public static string ground_tag = "ground";	
 	public static string base_tag = "base";	
 	public static string audio_clip_tag = "audio_clip_holder";
+
+
+	public static string enemy_tag = "Ene";
+	public static string unit_tag = "Uni";
+	public static string friendly_tag = "Fri";
+	public static string attackable_tag = "Att";
+	public static string unitgroup_tag = "UnG";
+	public static string selectable_tag = "Sel";
+	public static string unitgroup_manager_tag = "Man";
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
 	public static string path_manager_name = "path_manager";
 	public static string res_name = "ressource";
