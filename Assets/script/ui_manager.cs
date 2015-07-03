@@ -775,7 +775,7 @@ public class ui_manager : MonoBehaviour {
 			foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
 			
 				if(item.isSelected()){
-
+					//UPDATE TEXT
 					group_health_text.GetComponent<Text>().text = item.health.ToString();
 					group_attack_text.GetComponent<Text>().text = item.attackrange.ToString();
 					group_speed_text.GetComponent<Text>().text = item.attackspeed.ToString();
@@ -784,16 +784,31 @@ public class ui_manager : MonoBehaviour {
 
 
 				}
-
-
 			}
-
-
-
-
 		}
 
 	}
 
+
+	public void add_fighter_to_group(int amount = 1){
+
+	}
+
+	public void fill_group_with_fighters(){
+
+	}
+
+	public void remove_any_fighter_from_group(int amount = 1){
+
+	}
+
+	public void remove_specific_fighter_from_group(int fighter_id){
+
+
+	}
+
+	public void remove_group(){
+
+	}
 
 }
