@@ -11,6 +11,17 @@ public class unit_selection_manager : MonoBehaviour {
 
 	public Sprite empty_group_holder;
 
+	public void map_group_to_slot_0(int group_id){
+
+
+	}
+
+
+	public void create_new_group(){
+
+	}
+
+
 
 	public Sprite[] group_icons;
 	// Update is called once per frame
