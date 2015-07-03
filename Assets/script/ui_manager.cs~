@@ -340,10 +340,7 @@ public class ui_manager : MonoBehaviour {
 	
 	
 	
-	
-	public GameObject ant_scout_selected_image;
-	public GameObject ant_collector_selected_image;
-	public GameObject ant_attack_selected_image;
+
 	public GameObject curr_ants;
 	public GameObject costs_a_text;
 	public GameObject costs_b_text;
@@ -418,34 +415,25 @@ public class ui_manager : MonoBehaviour {
 	public void init_base_ui_with_new_selection(){
 		switch (curr_sel_type) {
 		case selected_ant_type.nothing:
-			ant_scout_selected_image.SetActive(false);
-			ant_collector_selected_image.SetActive(false);
-			ant_attack_selected_image.SetActive(false);
-			
+	
 			costs_res_a = vars.costs_nothing_ants.costs_res_a;
 			costs_res_b = vars.costs_nothing_ants.costs_res_b;
 			//	costs_res_c = vars.costs_nothing_ants.costs_res_c;
 			break;
 		case selected_ant_type.scout:
-			ant_scout_selected_image.SetActive(true);
-			ant_collector_selected_image.SetActive(false);
-			ant_attack_selected_image.SetActive(false);
+
 			costs_res_a = vars.costs_scout_ants.costs_res_a;
 			costs_res_b = vars.costs_scout_ants.costs_res_b;
 			//	costs_res_c = vars.costs_scout_ants.costs_res_c;
 			break;
 		case selected_ant_type.collector:
-			ant_scout_selected_image.SetActive(false);
-			ant_collector_selected_image.SetActive(true);
-			ant_attack_selected_image.SetActive(false);
+
 			costs_res_a = vars.costs_collector_ants.costs_res_a;
 			costs_res_b = vars.costs_collector_ants.costs_res_b;
 			//	costs_res_c = vars.costs_collector_ants.costs_res_c;
 			break;
 		case selected_ant_type.attack:
-			ant_scout_selected_image.SetActive(false);
-			ant_collector_selected_image.SetActive(false);
-			ant_attack_selected_image.SetActive(true);
+
 			costs_res_a = vars.costs_attack_ants.costs_res_a;
 			costs_res_b = vars.costs_attack_ants.costs_res_b;
 			//	costs_res_c = vars.costs_attack_ants.costs_res_c;
