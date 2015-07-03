@@ -345,7 +345,7 @@ public class ui_manager : MonoBehaviour {
 	public GameObject curr_ants;
 	public GameObject costs_a_text;
 	public GameObject costs_b_text;
-	public GameObject prod_slider;
+
 	//	public GameObject costs_c_text;
 	private  float costs_res_a;
 	private float costs_res_b;
@@ -356,7 +356,7 @@ public class ui_manager : MonoBehaviour {
 	private float final_costs_res_b;
 	//	private float final_costs_res_c;
 	
-	public GameObject curr_slider_value_text;
+
 
 //	public GameObject wp_button;
 	public enum selected_ant_type
@@ -443,7 +443,7 @@ public class ui_manager : MonoBehaviour {
 			break;
 		}
 		
-		base_ui_calc_costs(prod_slider.GetComponent<Slider>().value);
+
 		refresh_base_ui();
 	}
 	
@@ -461,7 +461,7 @@ public class ui_manager : MonoBehaviour {
 		//final_costs_res_c = Mathf.Abs( costs_res_c*value);
 
 		
-		curr_slider_value_text.GetComponent<Text>().text = v.ToString();
+
 		
 		refresh_base_ui();
 	}
