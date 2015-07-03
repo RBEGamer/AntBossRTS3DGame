@@ -3,8 +3,9 @@
 // Holds unitgroups & issues commands from UI
 //
 //
-// last change:  2015/05/31
+// last change:  2015/07/05
 //               first iteration - Kevin 
+//				myText removes - Marcel
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -52,11 +53,11 @@ public class UnitGroupUIManager : MonoBehaviour {
         // update selected group name
 		if (selectedUnitGroupBase != null)
         {
-			myText.text = selectedUnitGroupBase.unitGroupName;
+			//myText.text = selectedUnitGroupBase.unitGroupName;
         }
         else
         {
-            myText.text = "Keine Gruppe";
+       //     myText.text = "Keine Gruppe";
         }
 	}
 

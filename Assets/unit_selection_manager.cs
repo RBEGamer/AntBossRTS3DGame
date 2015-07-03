@@ -12,8 +12,24 @@ public class unit_selection_manager : MonoBehaviour {
 	public Sprite empty_group_holder;
 
 	public void map_group_to_slot_0(int group_id){
-		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id;
-		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_unit();
+
+
+		if(GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count >= group_id-1){
+			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id;
+			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_unit();
+
+			int counter = 0;
+			foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
+
+				if(counter == group_id-1){
+				item.OnSelected();
+					break;
+				}
+				counter++;
+
+			}
+
+		}
 
 	}
 

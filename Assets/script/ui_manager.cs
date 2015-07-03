@@ -33,6 +33,7 @@ public class ui_manager : MonoBehaviour {
 		//		uirc++;
 		//	}
 		ant_produce_query_task();
+		manage_unit_view();
 	}
 	
 	
@@ -763,10 +764,36 @@ public class ui_manager : MonoBehaviour {
 	//------------UNIT -----------------------------------------------//
 	//------------UNIT -----------------------------------------------//
 
-
+	public GameObject group_health_text;
+	public GameObject group_attack_text;
+	public GameObject group_speed_text;
 
 	//connected_unit_to_ui;
+	public void manage_unit_view(){
+		if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui && connected_unit_to_ui >= 0){
 
+			foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
+			
+				if(item.isSelected()){
+
+					group_health_text.GetComponent<Text>().text = item.health.ToString();
+					group_attack_text.GetComponent<Text>().text = item.attackrange.ToString();
+					group_speed_text.GetComponent<Text>().text = item.attackspeed.ToString();
+
+
+
+
+				}
+
+
+			}
+
+
+
+
+		}
+
+	}
 
 
 }
