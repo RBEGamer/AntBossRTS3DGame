@@ -116,8 +116,7 @@ public class ui_manager : MonoBehaviour {
 	public GameObject ui_assigned_ui_holder;
 	
 	
-	public GameObject ui_res_assign_slider;
-	public GameObject ui_res_curr_value_text;
+
 
 
 
@@ -256,8 +255,7 @@ public class ui_manager : MonoBehaviour {
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 		
 		int v = (int)value;
-		ui_res_curr_value_text.GetComponent<Text>().text = v.ToString();
-
+		
 
 		int tca = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;//TARGET ANTS
 		int mca = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants;//TARGET ANTS

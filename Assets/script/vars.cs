@@ -90,7 +90,7 @@ public class vars : MonoBehaviour {
 
 	public struct res_type_a{
 		public static float max_harvest = 1000.0f; //wie viel ressourcen können abgebaut werden von dieser ressource
-		public static int max_collector_ants = 5; //wie viele Armeisen können an dieser REssource abbauen
+		public static int max_collector_ants = 10; //wie viele Armeisen können an dieser REssource abbauen
 		public static float interaction_circle_radius = 2.0f;
 		public static float interactition_latitude = 0.1f;
 		public static float ant_bite_decrease = 10; //wie viel soll eine ameise bei einem biss tragen können
@@ -108,12 +108,12 @@ public class vars : MonoBehaviour {
 	}
 	public struct res_type_c{
 		public static float max_harvest = 3000.0f;
-		public static int max_collector_ants = 15;
+		public static int max_collector_ants = 10;
 		public static float interaction_circle_radius = 2.0f;
 		public static float interactition_latitude = 0.1f;
 		public static float ant_bite_decrease = 50;
 		public static int health_percentage = 100;
-		public static string ui_displayname_ressource = "Blutegelvermehrungsmutter";
+		public static string ui_displayname_ressource = "Energie";
 	}
 
 
