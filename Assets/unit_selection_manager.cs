@@ -12,7 +12,8 @@ public class unit_selection_manager : MonoBehaviour {
 	public Sprite empty_group_holder;
 
 	public void map_group_to_slot_0(int group_id){
-
+		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id;
+		GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_unit();
 
 	}
 
