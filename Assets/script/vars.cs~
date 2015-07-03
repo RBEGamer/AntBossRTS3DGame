@@ -160,20 +160,27 @@ public class vars : MonoBehaviour {
 		public static float costs_res_a = 100.0f;
 		public static float costs_res_b = 500.0f;
 		public static float costs_res_c = 0.0f;
+		public static float ant_query_waittime = 10.0f;
 	}
 	
 	public struct costs_collector_ants{
 		public static float costs_res_a = 2000.0f;
 		public static float costs_res_b = 0.0f;
 		public static float costs_res_c = 0.0f;
+		public static float ant_query_waittime = 10.0f;
 	}
 
 	public struct costs_attack_ants{
 		public static float costs_res_a = 700.0f;
 		public static float costs_res_b = 100.0f;
 		public static float costs_res_c = 0.0f;
+		public static float ant_query_waittime = 10.0f;
 	}
-	
+
+
+
+
+
 	/* -------END BASE SETTINGS AREA ----------------------*/
 
 
