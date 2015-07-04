@@ -6,10 +6,12 @@ public class UnitGroupFriendly : UnitGroupBase {
 	public static UnitGroupUIManager myUnitGroupManager;
 
 	public List<GameObject> baseList;
+	public GameObject nearestBase;
 	public Vector3 nearestBasePosition;
 
 	private bool isGroupSelected = false;
 	private bool inPanic = false;
+
 
 
 	// Use this for initialization
@@ -38,6 +40,19 @@ public class UnitGroupFriendly : UnitGroupBase {
 		cleanUp();
 	}
 
+	public void setAttributes(string name, float atkspeed, float damage, float health, float movementspeed, float attackrange, float visionrange) {
+		unitGroupName = name;
+		attackspeed = atkspeed;
+		
+		damage = damage;
+		health = health;
+		movementspeed = movementspeed;
+		
+		attackrange = attackrange;
+		visionRange = visionrange;
+		
+	}
+
 	// issues retreat command
 	public void setPanic()
 	{
@@ -48,7 +63,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 			t.isInPanic = true;
 			t.unitMovementTarget = nearestBasePosition;
 		}
-		transform.position = nearestBasePosition;
+		transform.position = nearestBasePosition + Vector3.up *5;
 	}
 
 
@@ -127,21 +142,27 @@ public class UnitGroupFriendly : UnitGroupBase {
 	// helper function
 	public void findNearestBasePosition()
 	{
+		baseList = myUnitGroupManager.baseList;
 		nearestBasePosition = baseList[0].transform.position;
 		foreach (GameObject t in baseList)
 		{
 			if (Vector3.Distance(transform.position, nearestBasePosition) > Vector3.Distance(t.transform.position, nearestBasePosition))
 			{
 				nearestBasePosition = t.transform.position;
+				nearestBase = t;
 			}
 		}
 	}
+	
+
 
 	public void cleanUp() {
+
 		for(int i = myUnitList.Count - 1; i >= 0; i--) {
 			if (myUnitList[i] == null)
 			{
 				myUnitList.RemoveAt(i);
+				numUnitsInGroup--;
 			}
 		}
 		
@@ -154,6 +175,10 @@ public class UnitGroupFriendly : UnitGroupBase {
 		}
 		if (myUnitList.Count == 0)
 		{
+			if(inPanic) {
+				Debug.Log("HEY!");
+				nearestBase.GetComponent<UnitGroupCache>().addUnitGroup(this);
+			}
 			myUnitGroupManager.unitGroupList.Remove(this);
 			Destroy(gameObject);
 		}

@@ -36,7 +36,7 @@ public class UnitRangeScript : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter (Collider other)
+	void OnCollisionEnter (Collision other)
 	{
 		if(other.gameObject.tag.Contains(vars.attackable_tag)) {
 			if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){
@@ -78,7 +78,7 @@ public class UnitRangeScript : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionExit (Collider other)
+	void OnCollisionExit (Collision other)
 	{
 		if(other.gameObject.tag.Contains(vars.attackable_tag)) {
 			if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){

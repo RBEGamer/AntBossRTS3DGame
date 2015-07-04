@@ -94,10 +94,39 @@ public abstract class UnitBase : MonoBehaviour
 
 	// Use this for initialization
 	public void Awake () {
-		isUnitDisabled = false;
 		unitNavMeshAgent = GetComponent<NavMeshAgent>();
 		unitAnimator = GetComponent<Animator>();
+		if(unitGroup != null) {
+			unitCurrentAttackspeed = unitGroup.attackspeed;
+			unitCurrentMovementspeed = unitGroup.movementspeed;
+			unitNavMeshAgent.speed = unitCurrentMovementspeed;
+			
+			unitCurrentDamage = unitGroup.damage;
+			unitCurrentHealth = unitGroup.health;
+			
+			unitCurrentAttackRange = unitGroup.attackrange;
+			unitCurrentVisionrange = unitGroup.visionRange;
+			unitGroup.addUnit(this);
+		}
 
+		isUnitDisabled = false;
+	
+
+		
+		if(unitRange.myCollider != null) {
+			unitRange.myCollider.radius = unitCurrentVisionrange;
+		}
+
+
+
+	}
+
+	public void setUnitGroup(UnitGroupBase newUnitGroup) {
+		unitGroup = newUnitGroup;
+	}
+
+	public void setAttributesFromGroup() {
+		// combat attributes
 		unitCurrentAttackspeed = unitGroup.attackspeed;
 		unitCurrentMovementspeed = unitGroup.movementspeed;
 		unitNavMeshAgent.speed = unitCurrentMovementspeed;
@@ -108,18 +137,24 @@ public abstract class UnitBase : MonoBehaviour
 		unitCurrentAttackRange = unitGroup.attackrange;
 		unitCurrentVisionrange = unitGroup.visionRange;
 
-		if (!unitGroup.myUnitList.Contains(GetComponent<UnitBase>()))
-		{
-			unitGroup.myUnitList.Add(GetComponent<UnitBase>());
-		}
+		unitBaseAttackspeed = unitGroup.attackspeed;
+		unitBaseMovementspeed = unitGroup.movementspeed;
+
+		unitBaseDamage = unitGroup.damage;
+		unitBaseHealth = unitGroup.health;
+		
+		unitBaseAttackRange = unitGroup.attackrange;
+		unitBaseVisionRange = unitGroup.visionRange;
 
 		if(unitRange.myCollider != null) {
 			unitRange.myCollider.radius = unitCurrentVisionrange;
 		}
 
+		if(unitGroup != null) {
+			unitGroup.addUnit(this);
+		}
 
 	}
-
 
 	public void Update() {
 		// update destination if changed

@@ -17,10 +17,24 @@ public class UnitFighter : UnitBase, ISelectableBase {
 	public float lowerIdleTime = 6.0f;
 
 	private bool isNearDefensePoint = false;
-	
+
+
+	void Start() {
+		setAttributesFromGroup();
+	}
+		
 	// Update is called once per frame
 	void Update () {
+
+		checkInRange();
+
 		if(isInPanic) {
+			// update destination if changed
+			if (unitNavMeshAgent.destination != unitMovementTarget && !isUnitDisabled)
+			{
+				unitNavMeshAgent.SetDestination(unitMovementTarget);
+			}
+
 			if (!unitNavMeshAgent.pathPending)
 			{
 				if (unitNavMeshAgent.remainingDistance <= unitNavMeshAgent.stoppingDistance)
@@ -33,6 +47,8 @@ public class UnitFighter : UnitBase, ISelectableBase {
 						{
 							GameObject.Destroy(child.gameObject);
 						}
+
+						unitGroup.removeUnit(this);
 						Destroy(gameObject);
 						isUnitDisabled = true;
 					}
@@ -140,6 +156,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 			unitNavMeshAgent.SetDestination(unitMovementTarget);
 		}
 	}
+
 
 	// helper functions
 	public void getNewIdlePosition(Vector3 pivot, float distance)

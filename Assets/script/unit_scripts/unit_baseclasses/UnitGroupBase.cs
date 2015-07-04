@@ -52,6 +52,8 @@ public class UnitGroupBase : MonoBehaviour {
 	public float attackrange = 1.4f;
 	public float visionRange = 5.0f;
 
+	public int numUnitsInGroup = 0;
+
 	// ---------------------------
 	// Enemy stuff
 	//---------------------------
@@ -91,24 +93,19 @@ public class UnitGroupBase : MonoBehaviour {
 			enemiesInGroupRange.Remove(enemy);
 		}
 	}
-	/*
-	public void addUnitToRange(UnitBase unit) {
-		if(!unitInGroupRange.Contains(unit)) {
-			unitInGroupRange.Add (unit);
-		}
+
+	public void setAttributes(string name, float atkspeed, float newdamage, float newhealth, float movementspeed, float newattackrange, float newvisionrange) {
+		unitGroupName = name;
+
+		attackspeed = atkspeed;
+		
+		damage = newdamage;
+		health = newhealth;
+		movementspeed = movementspeed;
+		
+		attackrange = newattackrange;
+		visionRange = newvisionrange;
 	}
-	
-	public void removeUnitFromRange(UnitBase unit) {
-		bool last = true;
-		foreach(UnitBase t in myUnitList) {
-			if(t.unitsInRange.Contains(unit)) {
-				last = false;
-			}
-		}
-		if(last) {
-			unitInGroupRange.Remove(unit);
-		}
-	}*/
 	
 	public void setTargetEnemy(GameObject enemy) {
 		transform.position = enemy.transform.position;
@@ -132,6 +129,20 @@ public class UnitGroupBase : MonoBehaviour {
 		
 		return nearestUnit;
 	}
+
+	public void addUnit(UnitBase unit) {
+		if (!myUnitList.Contains(unit)) {
+			myUnitList.Add(unit);
+			numUnitsInGroup++;
+		}
+		
+	}
+	
+	public void removeUnit(UnitBase unit) {
+		if (myUnitList.Contains(unit)) {
+			myUnitList.Remove(unit);
+		}
+	}
 	
 	// keep order in list
 	public void cleanUp()
@@ -142,14 +153,6 @@ public class UnitGroupBase : MonoBehaviour {
 				myUnitList.RemoveAt(i);
 			}
 		}
-
-		/*
-		for(int i = unitInGroupRange.Count - 1; i >= 0; i--) {
-			if (unitInGroupRange[i] == null)
-			{
-				unitInGroupRange.RemoveAt(i);
-			}
-		}*/
 
 		for(int i = enemiesInGroupRange.Count - 1; i >= 0; i--) {
 			if (enemiesInGroupRange[i] == null)

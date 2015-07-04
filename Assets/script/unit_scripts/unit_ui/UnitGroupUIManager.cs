@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class UnitGroupUIManager : MonoBehaviour {
-	
+	public List<GameObject> baseList;
 	public List<UnitGroupFriendly> unitGroupList;
 	public UnitGroupFriendly selectedUnitGroupBase;
 
