@@ -768,9 +768,18 @@ public class ui_manager : MonoBehaviour {
 	public GameObject group_attack_text;
 	public GameObject group_speed_text;
 
+
+	public Sprite fighter_icon;
+	public Sprite empty_fighter_icon;
 	//connected_unit_to_ui;
 	public void manage_unit_view(){
 		if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui && connected_unit_to_ui >= 0){
+
+			for (int i = 1; i < 11; i++) {
+				if(GameObject.Find ("fighter_destroy_btn_" + i.ToString()) != null){
+					GameObject.Find("fighter_destroy_btn_" + i.ToString ()).GetComponent<Image>().sprite = empty_fighter_icon;
+				}
+			}
 
 			foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
 			
@@ -781,34 +790,56 @@ public class ui_manager : MonoBehaviour {
 					group_speed_text.GetComponent<Text>().text = item.attackspeed.ToString();
 
 
+					//FILL GRID 
+					int counter = 0;
+					foreach (GameObject n in GameObject.FindGameObjectsWithTag("FriAttSellUni")) {
+						if(n.gameObject.GetComponent<UnitFighter>().unitGroup == item){
 
+							counter++;
+							if(GameObject.Find ("fighter_destroy_btn_" + counter.ToString()) != null){
+								GameObject.Find("fighter_destroy_btn_" + counter.ToString ()).GetComponent<Image>().sprite = fighter_icon;
+							}
+							if(counter >= 10){break;}
+						}
+					}
 
 				}
 			}
 		}
 
+
+
+
 	}
 
 
 	public void add_fighter_to_group(int amount = 1){
-
+		//schauen ob noch platz ist
+		//schauen ob noch mind ein fighter im lager ist
+		//objete erstellen tag setzten und gruppe setzten
 	}
 
 	public void fill_group_with_fighters(){
-
+		//schauen wie viel platz noch bis 10 ist
+		//schauen wie viel fighte gekuaft wurden
+		//objete erstellen tag setzten und gruppe setzten
 	}
 
 	public void remove_any_fighter_from_group(int amount = 1){
-
+		//obj löschen und gutschreiben
 	}
 
 	public void remove_specific_fighter_from_group(int fighter_id){
-
+		//obj löschen und gutschreiben
 
 	}
 
 	public void remove_group(){
 
+		//allen fighter löschen und gutschreiben
+		//objekte löschen
+		connected_unit_to_ui = -1;
+		slot_0_set_empty();
 	}
 
 }
