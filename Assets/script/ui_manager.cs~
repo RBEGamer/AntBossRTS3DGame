@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 public class ui_manager : MonoBehaviour {
 	
-	
+	public int connected_unit_to_ui = -1;
 	public int connected_res_to_ui = -1;
 	public int uirc = 0;
 	public int uirct = 50;
@@ -32,6 +32,7 @@ public class ui_manager : MonoBehaviour {
 		//		uirc++;
 		//	}
 		ant_produce_query_task();
+		manage_unit_ui();
 	}
 	
 	
@@ -39,7 +40,7 @@ public class ui_manager : MonoBehaviour {
 	
 	public enum selected_ui_in_slot_0
 	{
-		empty_ui, base_ui, ressource_ui
+		empty_ui, base_ui, ressource_ui, unit_ui
 	}
 	
 	public selected_ui_in_slot_0 ui_view_slot_0;
@@ -48,6 +49,8 @@ public class ui_manager : MonoBehaviour {
 	public GameObject empty_ui_holder;
 	public GameObject base_ui_holder;
 	public GameObject ressource_ui_holder;
+	public GameObject unit_ui_holder;
+
 	
 	
 	public void slot_0_set_empty(){
@@ -66,7 +69,10 @@ public class ui_manager : MonoBehaviour {
 		}
 		manage_view();
 	}
-	
+
+	public void slot_0_set_unit(){
+		ui_view_slot_0 = selected_ui_in_slot_0.unit_ui;
+	}
 	
 	private void manage_view(){
 		
@@ -76,21 +82,31 @@ public class ui_manager : MonoBehaviour {
 			empty_ui_holder.SetActive(true);
 			base_ui_holder.SetActive(false);
 			ressource_ui_holder.SetActive(false);
+			unit_ui_holder.SetActive(false);
 			break;
 		case selected_ui_in_slot_0.base_ui:
 			empty_ui_holder.SetActive(false);
 			base_ui_holder.SetActive(true);
 			ressource_ui_holder.SetActive(false);
+			unit_ui_holder.SetActive(false);
 			break;
 		case selected_ui_in_slot_0.ressource_ui:
 			empty_ui_holder.SetActive(false);
 			base_ui_holder.SetActive(false);
 			ressource_ui_holder.SetActive(true);
+			unit_ui_holder.SetActive(false);
+			break;
+		case selected_ui_in_slot_0.unit_ui:
+			empty_ui_holder.SetActive(false);
+			base_ui_holder.SetActive(false);
+			ressource_ui_holder.SetActive(false);
+			unit_ui_holder.SetActive(true);
 			break;
 		default:
 			empty_ui_holder.SetActive(true);
 			base_ui_holder.SetActive(false);
 			ressource_ui_holder.SetActive(false);
+			unit_ui_holder.SetActive(false);
 			break;
 		}
 		
@@ -739,6 +755,49 @@ public class ui_manager : MonoBehaviour {
 		}
 	
 	}
+
+
+
+
+
+	//------------UNIT -----------------------------------------------//
+	//------------UNIT -----------------------------------------------//
+	//------------UNIT -----------------------------------------------//
+	//------------UNIT -----------------------------------------------//
+
+
+	public SavedUnitGroup sug;
+
+
+
+	public GameObject unit_group_info_health_text;
+	public GameObject unit_group_info_attackrange_text;
+	public GameObject unit_group_info_attackspeed_text;
+
+	public void manage_unit_ui(){
+
+		if( ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
+
+
+			unit_group_info_health_text.GetComponent<Text>().text = sug.health.ToString();
+			unit_group_info_attackrange_text.GetComponent<Text>().text = sug.attackrange.ToString();
+			unit_group_info_attackspeed_text.GetComponent<Text>().text = sug.attackspeed.ToString();
+
+		}
+
+
 	
+
+
+
+
+
+
+	}
+
+
+
+
+	//connected_unit_to_ui
 
 }
