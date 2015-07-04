@@ -827,12 +827,36 @@ public class ui_manager : MonoBehaviour {
 
 	public void remove_any_fighter_from_group(int amount = 1){
 		//obj löschen und gutschreiben
-	}
+		foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {	
+			if(item.isSelected()){
+				foreach (GameObject n in GameObject.FindGameObjectsWithTag("FriAttSellUni")) {
+					if(n.gameObject.GetComponent<UnitFighter>().unitGroup == item){
+						Destroy(n);
+						GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
+						break;
 
+					}
+				}
+			}
+	}
+}
 	public void remove_specific_fighter_from_group(int fighter_id){
 		//obj löschen und gutschreiben
-
+			foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {	
+				if(item.isSelected()){
+					int counter = 0;
+					foreach (GameObject n in GameObject.FindGameObjectsWithTag("FriAttSellUni")) {
+						if(n.gameObject.GetComponent<UnitFighter>().unitGroup == item){
+							if(counter == fighter_id-1){
+							Destroy(n);
+							GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
+							break;
+							}
+						}
+					}
+				}
 	}
+}
 
 	public void remove_group(){
 
