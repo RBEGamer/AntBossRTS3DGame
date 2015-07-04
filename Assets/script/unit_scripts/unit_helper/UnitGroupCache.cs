@@ -47,9 +47,9 @@ public class UnitGroupCache : MonoBehaviour {
 	void Start () {
 		// TEST 
 		unitGroupsSaved = new List<SavedUnitGroup>();
-		SavedUnitGroup newUnitGroup = createNewGroup();
-		newUnitGroup.numUnits = 2;
-		spawnUnitgroup(newUnitGroup);
+		//SavedUnitGroup newUnitGroup = createNewGroup();
+		//newUnitGroup.numUnits = 2;
+		//spawnUnitgroup(newUnitGroup);
 		// TEST
 	}
 
