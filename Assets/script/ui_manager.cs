@@ -771,6 +771,8 @@ public class ui_manager : MonoBehaviour {
 
 	public Sprite fighter_icon;
 	public Sprite empty_fighter_icon;
+
+	public GameObject fighter_prefab;
 	//connected_unit_to_ui;
 	public void manage_unit_view(){
 		if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui && connected_unit_to_ui >= 0){
@@ -817,6 +819,7 @@ public class ui_manager : MonoBehaviour {
 		//schauen ob noch platz ist
 		//schauen ob noch mind ein fighter im lager ist
 		//objete erstellen tag setzten und gruppe setzten
+		//fighter_prefab
 	}
 
 	public void fill_group_with_fighters(){
@@ -862,6 +865,19 @@ public class ui_manager : MonoBehaviour {
 
 		//allen fighter löschen und gutschreiben
 		//objekte löschen
+		foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {	
+			if(item.isSelected()){
+				foreach (GameObject n in GameObject.FindGameObjectsWithTag("FriAttSellUni")) {
+					if(n.gameObject.GetComponent<UnitFighter>().unitGroup == item){
+							Destroy(n);
+							GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
+
+
+					}
+				}
+				Destroy(item.gameObject);
+			}
+		}
 		connected_unit_to_ui = -1;
 		slot_0_set_empty();
 	}
