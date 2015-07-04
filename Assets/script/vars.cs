@@ -215,6 +215,8 @@ public class vars : MonoBehaviour {
 	public static string ground_terrain_name = "ground";
 	public static string sound_manager_name = "sound_manager";
 	public static string main_camera_script_holder_name = "camera_controller";
+
+	public static string UnitGroupUIManager = "UnitGroupUIManager";
 	/*---------------  SCENE NAMES (please add the scene in the Unity Build settings ------------------*/
 	public static string main_menu_scene_name  = "main_menu";
 	public static string mission_selection_scene_name = "mission_selection";
