@@ -23,8 +23,7 @@ public class UnitGroupUIManager : MonoBehaviour {
 
 		this.name = vars.UnitGroupUIManager;
 	}
-    // Test UI object
-    public Text myText;
+ 
 
 	
 	// Update is called once per frame
