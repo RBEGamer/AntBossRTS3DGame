@@ -40,7 +40,7 @@ public class ant_path_walker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(walk_path.Count >= 2){
+		if(walk_path.Count >= 2 && !GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_in_menu){
 
 
 		

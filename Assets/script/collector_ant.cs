@@ -139,7 +139,7 @@ public class collector_ant : MonoBehaviour {
 
 
 
-		if(walk_path.Count > 1){
+		if(walk_path.Count > 1 && !GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_in_menu){
 
 
 

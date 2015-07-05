@@ -13,10 +13,22 @@ public class ant_path_walker : MonoBehaviour {
 	public float ant_walk_path_distance;
 
 
+
 	public int current_wp_step;
 	wp_path_manager ant_path;
 
 	public int wp_counter;
+
+	int health = 50;
+
+	public void receiveDamage(int damage) {
+		health -= damage;
+		if(health <= 0) {
+			Destroy(gameObject);
+			
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		ant_path = this.GetComponent<wp_path_manager>();
@@ -28,7 +40,7 @@ public class ant_path_walker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(walk_path.Count >= 2){
+		if(walk_path.Count >= 2 && !GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_in_menu){
 
 
 		

@@ -53,10 +53,10 @@
      <Compile Include="Assets\script\base_manager.cs" />
      <Compile Include="Assets\script\camera_movement.cs" />
      <Compile Include="Assets\script\collector_ant.cs" />
-     <Compile Include="Assets\script\gui_scaler.cs" />
      <Compile Include="Assets\script\helper\DisableRenderer.cs" />
      <Compile Include="Assets\script\helper\HUDFPS.cs" />
      <Compile Include="Assets\script\helper\follower.cs" />
+     <Compile Include="Assets\script\helper\gui_scaler.cs" />
      <Compile Include="Assets\script\helper\ingame_disabler.cs" />
      <Compile Include="Assets\script\helper\origin_pos_setter.cs" />
      <Compile Include="Assets\script\helper\scene_forwarder.cs" />
