@@ -12,15 +12,18 @@ public class unit_selection_manager : MonoBehaviour {
 	public Sprite empty_group_holder;
 	public Sprite[] group_icons;
 	public Sprite tmp_group_icon;
-	public bool[] group_states = new bool[18];
+	private bool[] group_states = new bool[18];
 
 
 	public void map_group_to_slot_0(int group_id){
 
 
-		if(GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count >= group_id-1){
+		//if(GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count >= group_id-1){
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id;
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_unit();
+
+			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_saved_group = group_states[group_id-1];
+
 
 			int counter = 0;
 			foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
@@ -33,7 +36,7 @@ public class unit_selection_manager : MonoBehaviour {
 
 			}
 
-		}
+		//}
 
 	}
 
@@ -61,17 +64,20 @@ public class unit_selection_manager : MonoBehaviour {
 		}
 
 
-
+		int counter =0 ;
+		foreach (UnitGroupFriendly group in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList){
+			group_states[counter] = false;
+			counter++;
+			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = group_icons[counter-1];
+		}
 
 
 		//
-		int counter =0 ;
-		foreach (SavedUnitGroup group in GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved){
+		//int counter =0 ;
+		foreach (SavedUnitGroup tgroup in GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved){
 			group_states[counter] = true;
 			counter++;
 			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = tmp_group_icon;
-
-
 		}
 
 

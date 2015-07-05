@@ -833,7 +833,7 @@ public class ui_manager : MonoBehaviour {
 	}
 
 	public void spawn_unit_group(){
-		if(is_saved_group){
+		if(is_saved_group && sug.numUnits > 0){
 			GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().spawnUnitgroup(sug);
 		}
 	}
