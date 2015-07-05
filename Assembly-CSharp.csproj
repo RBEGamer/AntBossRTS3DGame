@@ -46,15 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\audio_playback_manager.cs" />
-     <Compile Include="Assets\base_info_ui_manager.cs" />
-     <Compile Include="Assets\gui_scaler.cs" />
-     <Compile Include="Assets\res_selection_ui_manager.cs" />
      <Compile Include="Assets\script\ant_path_walker.cs" />
      <Compile Include="Assets\script\audio_clip_state.cs" />
+     <Compile Include="Assets\script\audio_playback_manager.cs" />
+     <Compile Include="Assets\script\base_info_ui_manager.cs" />
      <Compile Include="Assets\script\base_manager.cs" />
      <Compile Include="Assets\script\camera_movement.cs" />
      <Compile Include="Assets\script\collector_ant.cs" />
+     <Compile Include="Assets\script\gui_scaler.cs" />
      <Compile Include="Assets\script\helper\DisableRenderer.cs" />
      <Compile Include="Assets\script\helper\HUDFPS.cs" />
      <Compile Include="Assets\script\helper\follower.cs" />
@@ -65,6 +64,7 @@
      <Compile Include="Assets\script\menu_scripts\options_screen_value_updater.cs" />
      <Compile Include="Assets\script\node.cs" />
      <Compile Include="Assets\script\pathmanager.cs" />
+     <Compile Include="Assets\script\res_selection_ui_manager.cs" />
      <Compile Include="Assets\script\ressource.cs" />
      <Compile Include="Assets\script\ressource_manager.cs" />
      <Compile Include="Assets\script\selection_circle.cs" />
@@ -88,12 +88,12 @@
      <Compile Include="Assets\script\unit_scripts\unit_types\UnitFighterTypeC.cs" />
      <Compile Include="Assets\script\unit_scripts\unit_ui\UnitGroupUIManager.cs" />
      <Compile Include="Assets\script\unit_scripts\unit_ui\UnitSelectionManager.cs" />
+     <Compile Include="Assets\script\unit_selection_manager.cs" />
      <Compile Include="Assets\script\vars.cs" />
      <Compile Include="Assets\script\walk_way_manager.cs" />
      <Compile Include="Assets\script\way_projector.cs" />
      <Compile Include="Assets\script\wp_edges.cs" />
      <Compile Include="Assets\script\wp_path_manager.cs" />
-     <Compile Include="Assets\unit_selection_manager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

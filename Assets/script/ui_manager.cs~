@@ -3,7 +3,45 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 public class ui_manager : MonoBehaviour {
+
+
+	//------------MENU -----------------------------------------------//
+	//------------MENU -----------------------------------------------//
+	//------------MENU -----------------------------------------------//
+	//------------MENU -----------------------------------------------//
+
+	public bool is_in_menu = false;
+	public GameObject pause_menu_holder;
+
+	public void toggle_menu(){
+		is_in_menu = !is_in_menu;
+		pause_menu_holder.SetActive(is_in_menu);
+	}
+
+	public void goto_main_menu(){
+		Application.LoadLevel(vars.main_menu_scene_name);
+	}
+
+	public void goto_level_selection(){
+		Application.LoadLevel(vars.mission_selection_scene_name);
+	}
+
+
+	public void manage_menu(){
+
+
+
+	}
+
+
+
+	//------------VARS -----------------------------------------------//
+	//------------VARS -----------------------------------------------//
+	//------------VARS -----------------------------------------------//
+	//------------VARS -----------------------------------------------//
 	
+
+
 	public int connected_unit_to_ui = -1;
 	public int connected_res_to_ui = -1;
 	public int uirc = 0;
@@ -18,10 +56,13 @@ public class ui_manager : MonoBehaviour {
 		
 		curr_sel_type = selected_ant_type.nothing;
 		clear_base_ui_values();
+		pause_menu_holder.SetActive(false);
+		is_in_menu = false;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		manage_menu();
 		manage_view();
 		refresh_ressource_ui();
 		//	refresh_base_ui();
@@ -858,7 +899,9 @@ public class ui_manager : MonoBehaviour {
 	public void spawn_unit_group(){
 		if(is_saved_group && sug.numUnits > 0){
 			GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().spawnUnitgroup(sug);
+			is_saved_group = false;
 		}
+		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
 	}
 
 

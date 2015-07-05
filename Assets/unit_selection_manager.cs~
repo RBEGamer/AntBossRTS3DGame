@@ -47,7 +47,7 @@ public class unit_selection_manager : MonoBehaviour {
 
 			
 
-
+		/*
 			int counter = 0;
 			foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
 
@@ -58,7 +58,7 @@ public class unit_selection_manager : MonoBehaviour {
 				counter++;
 
 			}
-
+*/
 		//}
 
 	}
