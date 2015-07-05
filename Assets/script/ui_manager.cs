@@ -777,31 +777,54 @@ public class ui_manager : MonoBehaviour {
 
 	public Sprite empty_unit_ui_slot;
 	public Sprite filled_unit_ui_slot;
-	public GameObject unit_action_button_holder;
 
+
+	public GameObject unit_action_button_holder;
+	public GameObject unit_command_button_holder;
 
 	public void manage_unit_ui(){
 
 		if(is_saved_group){
 			unit_action_button_holder.SetActive(true);
+			unit_command_button_holder.SetActive(false);
 		}else{
 			unit_action_button_holder.SetActive(false);
+			unit_command_button_holder.SetActive(true);
 		}
 
 
 		if( ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
 
 
+			for (int i = 0; i < 10; i++) {
+				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = empty_unit_ui_slot;
+			}
+
+
+			if(is_saved_group){
 			unit_group_info_health_text.GetComponent<Text>().text = sug.health.ToString();
 			unit_group_info_attackrange_text.GetComponent<Text>().text = sug.attackrange.ToString();
 			unit_group_info_attackspeed_text.GetComponent<Text>().text = sug.attackspeed.ToString();
 
-			for (int i = 0; i < 10; i++) {
-				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = empty_unit_ui_slot;
-			}
 			for (int i = 0; i < sug.numUnits; i++) {
 				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = filled_unit_ui_slot;
 			}
+			}else{
+
+				unit_group_info_health_text.GetComponent<Text>().text = GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.health.ToString();
+				unit_group_info_attackrange_text.GetComponent<Text>().text =  GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.attackrange.ToString();
+				unit_group_info_attackspeed_text.GetComponent<Text>().text =  GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.attackspeed.ToString();
+				
+				for (int i = 0; i < GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.myUnitList.Count; i++) {
+					GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = filled_unit_ui_slot;
+				}
+
+
+			}
+
+
+
+
 
 
 		}

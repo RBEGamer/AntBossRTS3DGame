@@ -9,6 +9,8 @@ public class unit_selection_manager : MonoBehaviour {
 	}
 
 
+
+
 	public Sprite empty_group_holder;
 	public Sprite[] group_icons;
 	public Sprite tmp_group_icon;
@@ -18,11 +20,32 @@ public class unit_selection_manager : MonoBehaviour {
 	public void map_group_to_slot_0(int group_id){
 
 
+		foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
+			item.OnUnselected();
+		}
+
+
+
+		if(group_states[group_id-1]){
+			// TMP GROUP
+			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_saved_group = true;
+			int offset = GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count;
+
+			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().sug = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved[group_id-offset-1];
+		}else{
+			//NICHT TMP GROUP
+			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_saved_group = false;
+			GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList[group_id-1].OnSelected();
+		}
+
+
+
+
 		//if(GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count >= group_id-1){
-			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id;
+			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id-1;
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_unit();
 
-			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_saved_group = group_states[group_id-1];
+			
 
 
 			int counter = 0;
@@ -42,6 +65,9 @@ public class unit_selection_manager : MonoBehaviour {
 
 
 	public void create_new_group(){
+		foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
+			item.OnUnselected();
+		}
 		if((GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved.Count+GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count) < 18){
 			SavedUnitGroup svg = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().createNewGroup();
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().sug = svg;
