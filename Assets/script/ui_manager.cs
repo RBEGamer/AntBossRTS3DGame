@@ -767,7 +767,7 @@ public class ui_manager : MonoBehaviour {
 
 
 	public SavedUnitGroup sug;
-
+	public bool is_saved_group = false;
 
 
 	public GameObject unit_group_info_health_text;
@@ -777,7 +777,17 @@ public class ui_manager : MonoBehaviour {
 
 	public Sprite empty_unit_ui_slot;
 	public Sprite filled_unit_ui_slot;
+	public GameObject unit_action_button_holder;
+
+
 	public void manage_unit_ui(){
+
+		if(is_saved_group){
+			unit_action_button_holder.SetActive(true);
+		}else{
+			unit_action_button_holder.SetActive(false);
+		}
+
 
 		if( ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
 
@@ -789,6 +799,10 @@ public class ui_manager : MonoBehaviour {
 			for (int i = 0; i < 10; i++) {
 				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = empty_unit_ui_slot;
 			}
+			for (int i = 0; i < sug.numUnits; i++) {
+				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = filled_unit_ui_slot;
+			}
+
 
 		}
 
@@ -796,57 +810,51 @@ public class ui_manager : MonoBehaviour {
 
 
 	public void remove_selected_unit_from_group(int id){
-		if(sug.numUnits > 0){
-		GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().deleteUnitFromGroup(sug);
+		if(sug.numUnits > 0 && is_saved_group){
+			sug.numUnits--;
 			GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
 		}else{
 		}
 	}
 
 	public void remove_unit_group(){
+		if(is_saved_group){
 		int aig = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().deleteUnitGroup(sug);
 		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += aig;
 		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
+		}
 	}
 
 	public void add_units_to_group(){
-		if(sug.numUnits < 18 && GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants > 0){
-		//GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().addUnitGroup(sug);
+		if(sug.numUnits < 18 && GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants > 0 && is_saved_group){
 			sug.numUnits++;
-			GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().spawnUnitgroup(sug);
 			GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants -= 1;
 		}
 	}
 
-
+	public void spawn_unit_group(){
+		if(is_saved_group){
+			GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().spawnUnitgroup(sug);
+		}
+	}
 
 
 	public void fill_group_with_units(){
-
+		if(is_saved_group){
 		int amount_to_add = 18 - sug.numUnits;
 		if(amount_to_add > 0){
-
-		
 			int bought_ants = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants;
-
-
 			if( (bought_ants - amount_to_add) >= 0){
 				for (int i = 0; i < amount_to_add; i++) {
 					add_units_to_group();
 				}
 			}else{
-
 				for (int i = 0; i < bought_ants; i++) {
 					add_units_to_group();
 				}
 			}
-
-
-
 		}
-
-
-
 	}
+}
 
 }
