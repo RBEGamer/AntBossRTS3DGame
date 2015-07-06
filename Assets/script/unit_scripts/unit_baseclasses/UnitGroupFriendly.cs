@@ -19,13 +19,13 @@ public class UnitGroupFriendly : UnitGroupBase {
 		myCollider = GetComponent<CapsuleCollider>();
 		myRenderer = gameObject.GetComponent<Renderer>();
 		
-		myUnitGroupManager = GameObject.FindGameObjectWithTag(vars.unitgroup_manager_tag).GetComponent<UnitGroupUIManager>();
+		myUnitGroupManager = GameObject.FindGameObjectWithTag(vars.unitgroup_tag+""+vars.unitgroup_manager_tag).GetComponent<UnitGroupUIManager>();
 		myUnitGroupManager.unitGroupList.Add(this);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.R) && isSelected())
+		if (Input.GetKeyDown(vars.key_panic) && isSelected())
 		{
 			setPanic();
 		}

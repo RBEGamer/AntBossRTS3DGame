@@ -223,6 +223,9 @@ public class vars : MonoBehaviour {
 	public static bool is_in_patheditmode = false;
 
 
+	// CONTROLS
+
+	public static KeyCode key_panic = KeyCode.R;
 
 
 
