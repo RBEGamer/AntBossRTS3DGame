@@ -26,11 +26,16 @@ public class UnitFighterTypeC : UnitBase {
 	}
 	
 	void Update () {
+		/*
 		if(uiManager.is_in_menu) {
 			unitNavMeshAgent.velocity = Vector3.zero;
 			unitNavMeshAgent.ResetPath();
-			
+			unitAnimator.speed = 0;
 			return;
+		}*/
+
+		if(!unitCombatTarget) {
+			unitTargetPriority = 0;
 		}
 
 		cleanUp();

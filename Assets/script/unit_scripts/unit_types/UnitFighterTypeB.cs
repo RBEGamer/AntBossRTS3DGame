@@ -27,14 +27,17 @@ public class UnitFighterTypeB : UnitBase {
 	
 	void Update () {
 		analyseUnitsInRange();
-
+		/*
 		if(uiManager.is_in_menu) {
 			unitNavMeshAgent.velocity = Vector3.zero;
 			unitNavMeshAgent.ResetPath();
-			
+			unitAnimator.speed = 0;
 			return;
-		}
+		}*/
 
+		if(!unitCombatTarget) {
+			unitTargetPriority = 0;
+		}
 		cleanUp();
 		if(unitCurrentCombatCooldown > 0) {
 			unitCurrentCombatCooldown -= Time.deltaTime;
@@ -48,13 +51,15 @@ public class UnitFighterTypeB : UnitBase {
 			if(Vector3.Distance(this.transform.position, unitCombatTarget.transform.position) <= unitCurrentAttackRange) {
 				unitMovementTarget = this.transform.position;
 				if(unitCurrentCombatCooldown <= 0) {
+					unitAnimator.speed = 1/unitCurrentAttackspeed;
 					unitAnimator.SetTrigger("doattack");
 					unitCurrentCombatCooldown = unitCurrentAttackspeed;
 				}
 			}
 		}
 		else if(unitMovementTarget != null && currentRoute != null){
-			unitTargetPriority = 0;
+			unitAnimator.speed = 1;
+
 			unitAnimator.SetBool("isrunning", true);
 			if(unitMovementTarget != currentRoute.wayPointObjects[currentWayPoint].transform.position) {
 				unitMovementTarget = currentRoute.wayPointObjects[currentWayPoint].transform.position;

@@ -25,14 +25,19 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		
 	// Update is called once per frame
 	void Update () {
-
+		/*
 		if(uiManager.is_in_menu) {
 			unitNavMeshAgent.velocity = Vector3.zero;
 			unitNavMeshAgent.ResetPath();
-			
+			unitAnimator.speed = 0;
 			return;
-		}
+		}*/
+
 		checkInRange();
+
+		if(!unitCombatTarget) {
+			unitTargetPriority = 0;
+		}
 
 		if(isInPanic) {
 			// update destination if changed
@@ -90,7 +95,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		// attack target directly
 		if (unitCommand == 2) {
 			analyseUnitsInRange();
-			unitAnimator.SetBool("isrunning", false);
+			unitAnimator.SetBool("isrunning", true);
 			if(unitCombatTarget != null) {
 				unitMovementTarget = unitCombatTarget.transform.position;
 				
@@ -103,6 +108,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 							if(Vector3.Distance(this.transform.position, unitCombatTarget.transform.position) <= unitCurrentAttackRange) {
 								unitMovementTarget = this.transform.position;
 								if(unitCurrentCombatCooldown <= 0) {
+									unitAnimator.speed = 1/unitCurrentAttackspeed;
 									unitAnimator.SetTrigger("doattack");
 									unitCurrentCombatCooldown = unitCurrentAttackspeed;
 								}
@@ -122,6 +128,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		// idle
 		if (unitCommand == 0)
 		{
+			unitAnimator.speed = 1;
 			unitAnimator.SetBool("isrunning", true);
 			analyseUnitsInRange();
 			if (!unitNavMeshAgent.pathPending)

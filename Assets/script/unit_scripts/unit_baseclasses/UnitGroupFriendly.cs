@@ -85,6 +85,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 				{
 					if (hit.collider.gameObject.tag.Contains(vars.enemy_tag) && hit.collider.gameObject.tag.Contains(vars.attackable_tag))
 					{
+						Debug.Log("hit: " + hit.collider.name);
 						setTargetEnemy(hit.collider.gameObject);
 						return;
 					}
@@ -112,6 +113,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 			{
 				t.followTarget = nearestUnit;
 			}
+
 			t.unitCommand = -1;
 		}
 		myRenderer.material.color = Color.white;

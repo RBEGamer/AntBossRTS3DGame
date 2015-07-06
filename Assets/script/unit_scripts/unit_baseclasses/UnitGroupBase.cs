@@ -112,7 +112,7 @@ public class UnitGroupBase : MonoBehaviour {
 		unitGroupTarget = enemy;
 		foreach (UnitBase t in myUnitList)
 		{
-			t.setTarget(enemy, 100);
+			t.setTarget(enemy, 1000);
 		}
 	}
 	

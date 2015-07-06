@@ -202,9 +202,9 @@ public abstract class UnitBase : MonoBehaviour
 
 			List<GameObject> enemyUnitsInRange = new List<GameObject>();
 			foreach(GameObject enemy in enemiesInRange) {
-				if(enemy.tag != gameObject.tag && enemy.tag != "NeutralFaction") {
+				//if(enemy.tag != gameObject.tag && enemy.tag != "NeutralFaction") {
 					enemyUnitsInRange.Add(enemy);
-				}
+				//}
 			}
 
 			if(enemyUnitsInRange.Count > 0) {
@@ -213,10 +213,8 @@ public abstract class UnitBase : MonoBehaviour
 					UnitBase enemyUnitScript = enemy.GetComponent<UnitBase>();
 					if(enemyUnitScript) {
 						if(enemyUnitScript.unitCombatTarget == this) {
-							//if(unitTargetPriority < 80) {
 								setTarget(closest, 100);
 								return;
-							//}
 						}
 					}
 					if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
@@ -224,17 +222,14 @@ public abstract class UnitBase : MonoBehaviour
 						closest = enemy;
 					}
 				}
-				//if(unitTargetPriority < 60) {
 					setTarget(closest, 90);
-					//return;
-				//}
 			}
 			
 			List<GameObject> enemyUnitsInGroupRange = new List<GameObject>();
 			foreach(GameObject enemy in unitGroup.enemiesInGroupRange) {
-				if(enemy.tag != gameObject.tag && enemy.tag != "NeutralFaction") {
+				//if(enemy.tag != gameObject.tag) {
 					enemyUnitsInRange.Add(enemy);
-				}
+				//}
 			}
 			if(enemyUnitsInGroupRange.Count > 0) {
 				GameObject closestInGroup = enemyUnitsInGroupRange[0];
@@ -266,15 +261,16 @@ public abstract class UnitBase : MonoBehaviour
 		}
 		CancelInvoke("attackTarget");
 
-		if(unitTargetPriority < priority) {
-
+		if(target == null) {
+			unitTargetPriority = priority;
+			unitCombatTarget = null;
+		}
+		else if(priority > unitTargetPriority) {
 			unitTargetPriority = priority;
 			unitCombatTarget = target;
 			unitCommand = 2;
-			if(target != null) {
-				Debug.Log(gameObject.name + " changes target to " + target.name + " priority " + priority);
-				unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
-			}
+			Debug.Log(gameObject.name + " changes target to " + target.name + " priority " + priority);
+			unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
 		}
 	}
 
