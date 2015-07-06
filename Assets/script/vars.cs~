@@ -85,7 +85,7 @@ public class vars : MonoBehaviour {
 	public enum objective_comparison_mode
 	{
 
-		equals, bigger, smaller
+		none, equals, bigger, smaller, not
 	}
 
 
