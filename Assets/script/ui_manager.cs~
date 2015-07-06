@@ -902,9 +902,12 @@ public class ui_manager : MonoBehaviour {
 	public void spawn_unit_group(){
 		if(is_saved_group && sug.numUnits > 0){
 			GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().spawnUnitgroup(sug);
+			GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().deleteUnitGroup(sug);
+
 			is_saved_group = false;
+			ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
 		}
-		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
+
 	}
 
 
