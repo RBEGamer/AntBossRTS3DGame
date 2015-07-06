@@ -210,6 +210,7 @@ public class vars : MonoBehaviour {
 	public static string sound_manager_name = "sound_manager";
 	public static string main_camera_script_holder_name = "camera_controller";
 	public static string objective_manager_name = "objective_manager";
+	public static string upgrade_manager_name = "upgrade_manager";
 	public static string UnitGroupUIManager = "UnitGroupUIManager";
 	/*---------------  SCENE NAMES (please add the scene in the Unity Build settings ------------------*/
 	public static string main_menu_scene_name  = "main_menu";

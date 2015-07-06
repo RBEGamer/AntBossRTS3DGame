@@ -758,35 +758,26 @@ public class ui_manager : MonoBehaviour {
 	
 	public void refresh_base_ui(){
 		
-		//schauen was selectiert ist und dann die btn highlighten
-		
-		//curr ants setzten
-		
-		//neue sliderwerte setzten
+	
+
 
 		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_0 != null){
-			upgrade_base_button_0.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_0.GetComponent<upgrade_description>().upgrade_icon;
+			upgrade_base_button_0.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_0.upgrade_icon;
 		}else{
 			upgrade_base_button_0.GetComponent<Image>().sprite = empty_upgrad_ui_icon;
 		}
-
+		
 		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_1 != null){
-			upgrade_base_button_1.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_1.GetComponent<upgrade_description>().upgrade_icon;
+			upgrade_base_button_1.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_1.upgrade_icon;
 		}else{
 			upgrade_base_button_1.GetComponent<Image>().sprite = empty_upgrad_ui_icon;
 		}
-
 		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_2 != null){
-			upgrade_base_button_2.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_2.GetComponent<upgrade_description>().upgrade_icon;
+			upgrade_base_button_2.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_2.upgrade_icon;
 		}else{
 			upgrade_base_button_2.GetComponent<Image>().sprite = empty_upgrad_ui_icon;
 		}
-
-		//if(GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_3 != null){
-		//	upgrade_base_button_3.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_3.GetComponent<upgrade_description>().upgrade_icon;
-		//}else{
-		//upgrade_base_button_3.GetComponent<Image>().sprite = empty_upgrad_ui_icon;
-		//}
+	
 
 		if(GameObject.Find (vars.base_name) == null){
 			costs_a_text.GetComponent<Text>().text = final_costs_res_a.ToString();
@@ -975,8 +966,9 @@ public class ui_manager : MonoBehaviour {
 
 	public GameObject upgrade_ui_headline_text;
 	public GameObject upgrade_ui_description_text;
-	private GameObject[] view_specific_upgrades = new GameObject[9];
-	private GameObject selected_upgrade = null;
+
+	private upgrade_description[] view_specific_upgrades = new upgrade_description[9];
+	private upgrade_description selected_upgrade = null;
 
 	public void manage_upgrade_ui(){
 		if(show_upgrade_ui){
@@ -990,31 +982,23 @@ public class ui_manager : MonoBehaviour {
 		if(show_upgrade_ui){
 
 		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-
-
+	
 				for (int i = 0; i < 9; i++) {
 					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
 					view_specific_upgrades[i] = null;
 				}
 
-				int counter = 0 ;
-				foreach (GameObject goupgrade in GameObject.FindGameObjectsWithTag(vars.upgrade_tag_name)) {
-					upgrade_description uogo = goupgrade.GetComponent<upgrade_description>();
-					if(!uogo.taken && uogo.upgrade_type == vars.upgrade_type.ant_base){
-
-					
-
-
-						GameObject.Find("select_upgrade_slot_btn_" + counter.ToString()).GetComponent<Image>().sprite = uogo.upgrade_icon;
-						view_specific_upgrades[counter] = goupgrade;
-						counter++;
-
+				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
+					if(!GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].taken && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ant_base){
+						GameObject.Find("select_upgrade_slot_btn_" + i).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
+						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
 					}
-
-
 				}
 
 
+
+
+			
 			
 		}
 
@@ -1038,19 +1022,17 @@ public class ui_manager : MonoBehaviour {
 
 	public void buy_selected_upgrade(){
 		Debug.Log("buy btn");
-		Debug.Log(selected_upgrade.GetComponent<upgrade_description>().upgrade_headline);
+
 		//if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
 			if(selected_upgrade.gameObject != null){
 			Debug.Log("selected not empty");
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(selected_upgrade)){
+				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(ref selected_upgrade)){
 				show_upgrade_ui = false;
-
-					//foreach (GameObject goupgrade in GameObject.FindGameObjectsWithTag(vars.upgrade_tag_name)) {
-					//	if(goupgrade == select_upgrade){
-					//		goupgrade.GetComponent<upgrade_description>().taken = true;
-					//	}
-					//}
+				upgrade_base_button_0.GetComponent<Image>().sprite = selected_upgrade.upgrade_icon;
+			
 				selected_upgrade = null;
+				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
+				upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
 			}else{
 				Debug.Log("add failed");
 			}
@@ -1073,9 +1055,10 @@ public class ui_manager : MonoBehaviour {
 		if(view_specific_upgrades[btn_id] != null){
 
 
-			upgrade_ui_headline_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].GetComponent<upgrade_description>().upgrade_headline;
-			upgrade_ui_description_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].GetComponent<upgrade_description>().upgrade_desc;
+			upgrade_ui_headline_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].upgrade_headline;
+			upgrade_ui_description_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].upgrade_desc;
 			selected_upgrade = view_specific_upgrades[btn_id];
+
 		}
 
 

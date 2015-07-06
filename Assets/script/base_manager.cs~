@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class base_manager : MonoBehaviour {
 
 	public GameObject click_collider;
@@ -17,57 +17,70 @@ public class base_manager : MonoBehaviour {
 	public int bought_attack_ants = 0;
 	public int bought_scout_ants = 0;
 
-	public GameObject upgrade_slot_0;
-	public GameObject upgrade_slot_1;
-	public GameObject upgrade_slot_2;
-	public GameObject upgrade_slot_3;
+	public upgrade_description upgrade_slot_0;
+	public upgrade_description upgrade_slot_1;
+	public upgrade_description upgrade_slot_2;
+	public upgrade_description upgrade_slot_3;
 
 
+	public Sprite get_upgrade_icon_0(){
+		if(upgrade_slot_0.upgrade_icon){
+			return upgrade_slot_0.upgrade_icon;
+		}else{
+			return null;
+		}
 
+	}
 
-	public bool add_upgrade(GameObject upgrade){
+	public bool add_upgrade(ref upgrade_description upgrade){
 		Debug.Log("call add");
-		if(upgrade.GetComponent<upgrade_description>() != null && !upgrade.GetComponent<upgrade_description>().taken && upgrade.GetComponent<upgrade_description>().active & upgrade.GetComponent<upgrade_description>().upgrade_type == vars.upgrade_type.ant_base){
-			if(res_a_storage >= upgrade.GetComponent<upgrade_description>().costs_res_a && res_b_storage >= upgrade.GetComponent<upgrade_description>().costs_res_b && res_c_storage >= upgrade.GetComponent<upgrade_description>().costs_res_c){
-
-				if(upgrade_slot_0 != null || upgrade_slot_0 != null || upgrade_slot_0 != null || upgrade_slot_0 != null){
-
+		if(upgrade != null && !upgrade.taken && upgrade.active & upgrade.upgrade_type == vars.upgrade_type.ant_base){
+			Debug.Log("upgrade check");
+			if(res_a_storage >= upgrade.costs_res_a && res_b_storage >= upgrade.costs_res_b && res_c_storage >= upgrade.costs_res_c){
+				Debug.Log("costs check");
+				if(upgrade_slot_0 == null || upgrade_slot_1 == null || upgrade_slot_2 == null || upgrade_slot_3 == null){
+					Debug.Log("slot check");
 					upgrade.GetComponent<upgrade_description>().taken = true;
-					res_a_storage -= upgrade.GetComponent<upgrade_description>().costs_res_a;
-					res_b_storage -= upgrade.GetComponent<upgrade_description>().costs_res_b;
-					res_c_storage -= upgrade.GetComponent<upgrade_description>().costs_res_c;
+					res_a_storage -= upgrade.costs_res_a;
+					res_b_storage -= upgrade.costs_res_b;
+					res_c_storage -= upgrade.costs_res_c;
 
-
+					Debug.Log("costs sub");
 					switch (upgrade.GetComponent<upgrade_description>().upgrade_add_to_value) {
 					case vars.upgrade_values.lagerplatz_res_all:
-						vars.max_storage_res_a += (int)upgrade.GetComponent<upgrade_description>().increase_value;
-						vars.max_storage_res_b += (int)upgrade.GetComponent<upgrade_description>().increase_value;
-						vars.max_storage_res_c += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						vars.max_storage_res_a += (int)upgrade.increase_value;
+						vars.max_storage_res_b += (int)upgrade.increase_value;
+						vars.max_storage_res_c += (int)upgrade.increase_value;
 						break;
 					case vars.upgrade_values.lagerplatz_res_a:
-						vars.max_storage_res_a += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						vars.max_storage_res_a += (int)upgrade.increase_value;
 						break;
 					case vars.upgrade_values.lagerplatz_res_b:
-						vars.max_storage_res_b += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						vars.max_storage_res_b += (int)upgrade.increase_value;
 						break;
 					case vars.upgrade_values.lagerplatz_res_c:
-						vars.max_storage_res_c += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						vars.max_storage_res_c += (int)upgrade.increase_value;
 						break;
 					case vars.upgrade_values.leben:
-						health += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						health += (int)upgrade.increase_value;
 						break;
 					default:
 					break;
 					}
+					Debug.Log("add values");
 
-				if(upgrade_slot_0 != null){
+				if(upgrade_slot_0 == null){
 					upgrade_slot_0 = upgrade;
-				}else 	if(upgrade_slot_1 != null){
+						Debug.Log("set upgrade to slot 0");
+				}else 	if(upgrade_slot_1 == null){
 					upgrade_slot_1 = upgrade;
-				}else 	if(upgrade_slot_2 != null){
+						Debug.Log("set upgrade to slot 1");
+				}else 	if(upgrade_slot_2 == null){
 					upgrade_slot_2 = upgrade;
-				}else 	if(upgrade_slot_3 != null){
+						Debug.Log("set upgrade to slot 2");
+				}else 	if(upgrade_slot_3 == null){
 					upgrade_slot_3 = upgrade;
+						Debug.Log("set upgrade to slot 3");
 				}
 				
 
