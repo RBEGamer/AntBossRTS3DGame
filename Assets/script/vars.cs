@@ -64,7 +64,7 @@ public class vars : MonoBehaviour {
 	/* -------OBJECTIVES AREA ----------------------*/
 	public enum objective_toggle_vars
 	{
-		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout, unitgroups
+		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout, unitgroups, base_health
 	}
 	public enum objective_comparison_mode
 	{
@@ -222,7 +222,7 @@ public class vars : MonoBehaviour {
 	public static string mission_four_scene_name = "main";
 	public static string mission_five_scene_name = "main";
 	public static string level_won_scene_name = "mission_won";
-
+	public static string level_fail_scene_name = "mission_lose";
 
 	//WAYPOINT VARS
 	public static bool is_in_patheditmode = false;

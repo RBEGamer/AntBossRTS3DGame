@@ -99,6 +99,7 @@ public class ui_manager : MonoBehaviour {
 	
 	public void slot_0_set_empty(){
 		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
+		show_upgrade_ui = false;
 		manage_view();
 	}
 	
@@ -932,12 +933,20 @@ public class ui_manager : MonoBehaviour {
 
 
 
+	//------------UPGRADE -----------------------------------------------//
+	//------------UPGRADE -----------------------------------------------//
+	//------------UPGRADE -----------------------------------------------//
+	//------------UPGRADE -----------------------------------------------//
 
-
-
+	public bool show_upgrade_ui = false;
+	public GameObject upgrad_ui_holder;
 
 	public void manage_upgrade_ui(){
-
+		if(show_upgrade_ui){
+			upgrad_ui_holder.SetActive(true);
+		}else{
+			upgrad_ui_holder.SetActive(false);
+		}
 
 	}
 

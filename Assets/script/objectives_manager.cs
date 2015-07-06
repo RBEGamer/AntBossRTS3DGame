@@ -15,18 +15,23 @@ public class objectives_manager : MonoBehaviour {
 
 	public bool objectives_visible;
 
+
+
 	public GameObject objectives_btn_text;
 	public List<objective_desc> objectives = new List<objective_desc>();
 
-
+	public List<objective_desc> negative_objectives = new List<objective_desc>();
 
 	//public SortedList<objective_desc> sorted_objectives;
 	// Use this for initialization
 	void Start () {
 		this.name = vars.objective_manager_name;
 		objectives_visible = true;
-		refresh_obj_list();
 
+		objectives.Clear();
+		negative_objectives.Clear();
+
+		refresh_obj_list();
 		}
 
 		//LISTE MIT ALLEN OBJECTIVE MIT DIESEM LEVEL ANLEGEN AUF REIHEN FLOGE SORTIEREN
@@ -34,7 +39,11 @@ public class objectives_manager : MonoBehaviour {
 
 	public void add_objective(objective_desc desc){
 		if(!objectives.Contains(desc)){
-		objectives.Add(desc);
+			if(desc.is_positive_objective){
+				objectives.Add(desc);
+			}else{
+				negative_objectives.Add(desc);
+			}
 	}
 	}
 
@@ -45,8 +54,12 @@ public class objectives_manager : MonoBehaviour {
 		foreach (GameObject godesc in GameObject.FindGameObjectsWithTag(vars.objective_tag_name)) {
 			desc = godesc.GetComponent<objective_desc>();
 			if(!desc.finished && !objectives.Contains(desc)){
+				if(desc.is_positive_objective){
+					objectives.Add(desc);
+				}else{
+					negative_objectives.Add(desc);
+				}
 
-				objectives.Add(desc);
 			}
 			
 		}
@@ -81,6 +94,113 @@ public class objectives_manager : MonoBehaviour {
 			obejctives_text_holder.SetActive(true);
 			title_background_holder.SetActive(false);
 
+
+
+			for (int j = 0; j < negative_objectives.Count; j++) {
+
+
+
+
+				if(negative_objectives[j].active){
+					
+					
+					//CHECK HERE FOR WARS
+					float value_to_check = 0.0f;
+					
+					switch (negative_objectives[j].variable_to_toggle) {
+						
+					case vars.objective_toggle_vars.none:
+						value_to_check = -1.0f;
+						break;
+					case vars.objective_toggle_vars.ressource_a:
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage;
+						break;
+					case vars.objective_toggle_vars.ressource_b:
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage;
+						break;
+					case vars.objective_toggle_vars.ressource_c:
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage;
+						break;
+					case vars.objective_toggle_vars.amount_ans_scout:
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants;
+						break;
+					case vars.objective_toggle_vars.amount_ants_attack:
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants;
+						break;
+					case vars.objective_toggle_vars.amount_ants_collector:
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants;
+						break;
+					case vars.objective_toggle_vars.base_health:
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().health;
+					break;
+
+
+
+
+					case vars.objective_toggle_vars.amount_waypoints:
+						value_to_check = 0.0f;
+						foreach (GameObject item in GameObject.FindGameObjectsWithTag(vars.wp_node_tag)) {
+							value_to_check += 1.0f;
+						}
+						break;
+					case vars.objective_toggle_vars.unitgroups:
+						value_to_check = GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count;
+						break;
+						
+					default:
+						value_to_check = -1.0f;
+						break;
+					}
+					
+					
+					
+					
+					
+					
+					//operator check
+
+					switch (negative_objectives[j].value_comp_mode) {
+					case vars.objective_comparison_mode.equals:
+						if(value_to_check == negative_objectives[j].value_to_toggle){
+							Application.LoadLevel(vars.level_fail_scene_name);
+						}
+						break;
+						
+					case vars.objective_comparison_mode.bigger:
+						if(value_to_check > negative_objectives[j].value_to_toggle){
+							Application.LoadLevel(vars.level_fail_scene_name);
+						}
+						break;
+						
+					case vars.objective_comparison_mode.biggerequals:
+						if(value_to_check >= negative_objectives[j].value_to_toggle){
+							Application.LoadLevel(vars.level_fail_scene_name);
+						}
+						break;
+
+					case vars.objective_comparison_mode.smaller:
+						if(value_to_check < negative_objectives[j].value_to_toggle){
+							Application.LoadLevel(vars.level_fail_scene_name);
+						}
+						break;
+						
+						
+					case vars.objective_comparison_mode.smallerequals:
+						if(value_to_check <= negative_objectives[j].value_to_toggle){
+							Application.LoadLevel(vars.level_fail_scene_name);
+						}
+						break;
+						
+					case vars.objective_comparison_mode.not:
+						if(value_to_check != negative_objectives[j].value_to_toggle){
+							Application.LoadLevel(vars.level_fail_scene_name);
+						}
+						break;
+					default:
+						break;
+					}
+				}
+			}
 
 
 
@@ -166,6 +286,9 @@ public class objectives_manager : MonoBehaviour {
 				case vars.objective_toggle_vars.amount_ants_collector:
 					value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants;
 					break;
+					case vars.objective_toggle_vars.base_health:
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().health;
+						break;
 				case vars.objective_toggle_vars.amount_waypoints:
 					value_to_check = 0.0f;
 					foreach (GameObject item in GameObject.FindGameObjectsWithTag(vars.wp_node_tag)) {
