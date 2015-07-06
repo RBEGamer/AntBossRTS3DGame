@@ -929,4 +929,32 @@ public class ui_manager : MonoBehaviour {
 	}
 }
 
+
+
+
+
+
+
+
+
+
+	public void toggle_upgrade_window(int mapped_upgrade_slot){
+
+	}
+
+	public void buy_selected_upgrade(){
+
+	}
+
+
+	//0-8
+	public void select_upgrade(int btn_id){
+
+	}
+
+
+
+
+
+
 }
