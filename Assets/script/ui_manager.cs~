@@ -977,6 +977,7 @@ public class ui_manager : MonoBehaviour {
 	public GameObject upgrade_ui_description_text;
 	private GameObject[] view_specific_upgrades = new GameObject[9];
 	private GameObject selected_upgrade = null;
+
 	public void manage_upgrade_ui(){
 		if(show_upgrade_ui){
 			upgrad_ui_holder.SetActive(true);
@@ -989,14 +990,14 @@ public class ui_manager : MonoBehaviour {
 		if(show_upgrade_ui){
 
 		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-				int counter = 0 ;
+
 
 				for (int i = 0; i < 9; i++) {
 					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
 					view_specific_upgrades[i] = null;
 				}
 
-
+				int counter = 0 ;
 				foreach (GameObject goupgrade in GameObject.FindGameObjectsWithTag(vars.upgrade_tag_name)) {
 					upgrade_description uogo = goupgrade.GetComponent<upgrade_description>();
 					if(!uogo.taken && uogo.upgrade_type == vars.upgrade_type.ant_base){
@@ -1036,16 +1037,28 @@ public class ui_manager : MonoBehaviour {
 	}
 
 	public void buy_selected_upgrade(){
-
-		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-			if(selected_upgrade != null){
+		Debug.Log("buy btn");
+		Debug.Log(selected_upgrade.GetComponent<upgrade_description>().upgrade_headline);
+		//if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
+			if(selected_upgrade.gameObject != null){
+			Debug.Log("selected not empty");
 				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(selected_upgrade)){
 				show_upgrade_ui = false;
+
+					//foreach (GameObject goupgrade in GameObject.FindGameObjectsWithTag(vars.upgrade_tag_name)) {
+					//	if(goupgrade == select_upgrade){
+					//		goupgrade.GetComponent<upgrade_description>().taken = true;
+					//	}
+					//}
 				selected_upgrade = null;
+			}else{
+				Debug.Log("add failed");
 			}
+			}else{
+				Debug.Log("selected empty");
 			}
 
-		}
+		//}
 
 
 

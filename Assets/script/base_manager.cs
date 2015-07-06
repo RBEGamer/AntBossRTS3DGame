@@ -26,6 +26,7 @@ public class base_manager : MonoBehaviour {
 
 
 	public bool add_upgrade(GameObject upgrade){
+		Debug.Log("call add");
 		if(upgrade.GetComponent<upgrade_description>() != null && !upgrade.GetComponent<upgrade_description>().taken && upgrade.GetComponent<upgrade_description>().active & upgrade.GetComponent<upgrade_description>().upgrade_type == vars.upgrade_type.ant_base){
 			if(res_a_storage >= upgrade.GetComponent<upgrade_description>().costs_res_a && res_b_storage >= upgrade.GetComponent<upgrade_description>().costs_res_b && res_c_storage >= upgrade.GetComponent<upgrade_description>().costs_res_c){
 
@@ -76,8 +77,13 @@ public class base_manager : MonoBehaviour {
 					Debug.Log("upgrade taken");
 					return true;
 			}
+			}else{
+				Debug.Log("err 2");
+			}
+
+		}else{
+			Debug.Log("err 1");
 		}
-	}
 		return false;
 }
 
