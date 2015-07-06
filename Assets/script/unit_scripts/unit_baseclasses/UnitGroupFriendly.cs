@@ -17,12 +17,9 @@ public class UnitGroupFriendly : UnitGroupBase {
 	// Use this for initialization
 	void Start () {
 		myCollider = GetComponent<CapsuleCollider>();
-		myUnitGroupManager = GameObject.FindGameObjectWithTag("UnGMan").GetComponent<UnitGroupUIManager>();
-		myUnitGroupManager.unitGroupList.Add(this);
 		myRenderer = gameObject.GetComponent<Renderer>();
-
-
-		myUnitGroupManager = GameObject.FindGameObjectWithTag("UnGMan").GetComponent<UnitGroupUIManager>();
+		
+		myUnitGroupManager = GameObject.FindGameObjectWithTag(vars.unitgroup_manager_tag).GetComponent<UnitGroupUIManager>();
 		myUnitGroupManager.unitGroupList.Add(this);
 	}
 	

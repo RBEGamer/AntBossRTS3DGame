@@ -31,6 +31,13 @@ public class UnitFighterTypeA : UnitBase {
 	}
 	
 	void Update () {
+		if(uiManager.is_in_menu) {
+			unitNavMeshAgent.velocity = Vector3.zero;
+			unitNavMeshAgent.ResetPath();
+			
+			return;
+		}
+
 		cleanUp();
 		if(unitCurrentCombatCooldown > 0) {
 			unitCurrentCombatCooldown -= Time.deltaTime;

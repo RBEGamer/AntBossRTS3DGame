@@ -12,10 +12,13 @@ public enum UnitFaction
 
 public abstract class UnitBase : MonoBehaviour
 {
-	
+
 	// ---------------------------
 	// General unit objects
 	// ---------------------------
+
+	public static ui_manager uiManager;
+
 	public UnitRangeScript unitRange;
 	protected NavMeshAgent unitNavMeshAgent;
 	public UnitGroupBase unitGroup;
@@ -23,7 +26,6 @@ public abstract class UnitBase : MonoBehaviour
 
 	// Tracks whether or not unit is going to be destroyed
 	protected bool isUnitDisabled;
-	
 	// ---------------------------
 	// Unit parameters
 	// - to be adjusted via script/editor
@@ -94,6 +96,7 @@ public abstract class UnitBase : MonoBehaviour
 
 	// Use this for initialization
 	public void Awake () {
+		uiManager = GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>();
 		unitNavMeshAgent = GetComponent<NavMeshAgent>();
 		unitAnimator = GetComponent<Animator>();
 		if(unitGroup != null) {

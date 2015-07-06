@@ -9,7 +9,8 @@ public class objectives_manager : MonoBehaviour {
 	public GameObject objective_holder_1;
 	public GameObject objective_holder_2;
 
-	public List<objective_desct> objectives = new List<objective_desc>();
+	public List<objective_desc> objectives = new List<objective_desc>();
+
 	//public SortedList<objective_desc> sorted_objectives;
 	// Use this for initialization
 	void Start () {
