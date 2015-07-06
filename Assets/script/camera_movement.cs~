@@ -72,7 +72,7 @@ public class camera_movement : MonoBehaviour {
   void FixedUpdate()
   {
 
-    if ((Application.isEditor || !Application.isMobilePlatform) && enable_all_camera_interations)
+    if ((Application.isEditor || !Application.isMobilePlatform) && enable_all_camera_interations && !GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_in_menu)
     {
 
       if (enable_keyboard)
