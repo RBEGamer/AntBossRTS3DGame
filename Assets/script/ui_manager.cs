@@ -76,6 +76,7 @@ public class ui_manager : MonoBehaviour {
 		//	}
 		ant_produce_query_task();
 		manage_unit_ui();
+		manage_upgrade_ui();
 	}
 	
 	
@@ -935,7 +936,10 @@ public class ui_manager : MonoBehaviour {
 
 
 
+	public void manage_upgrade_ui(){
 
+
+	}
 
 
 	public void toggle_upgrade_window(int mapped_upgrade_slot){
