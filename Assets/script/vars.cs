@@ -249,6 +249,7 @@ public class vars : MonoBehaviour {
 	public static string mission_three_scene_name = "main";
 	public static string mission_four_scene_name = "main";
 	public static string mission_five_scene_name = "main";
+	public static string level_won_scene_name = "mission_won";
 
 
 	//WAYPOINT VARS

@@ -10,6 +10,12 @@ public class objectives_manager : MonoBehaviour {
 	public GameObject objective_holder_1;
 	public GameObject objective_holder_2;
 
+	public GameObject obejctives_text_holder;
+	public GameObject title_background_holder;
+
+	public bool objectives_visible;
+
+	public GameObject objectives_btn_text;
 	public List<objective_desc> objectives = new List<objective_desc>();
 
 
@@ -60,10 +66,24 @@ public class objectives_manager : MonoBehaviour {
 
 
 	}
+
+	public void toggle_objective_view(){
+
+		objectives_visible = !objectives_visible;
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 	
+		objectives_btn_text.GetComponent<Text>().text = "OBJECTIVES (" + objectives.Count + ")";
+
+		if(objectives_visible){
+			obejctives_text_holder.SetActive(true);
+			title_background_holder.SetActive(false);
+
+
+
+
 		//ALLE FERTGEN OBJ LÖSCHEN und das nächste auf active setzten
 		//das aktuelle überwachen
 		//die nächsten 3  in die liste eintragen
@@ -73,6 +93,7 @@ public class objectives_manager : MonoBehaviour {
 
 			if(i == 0){
 				objective_holder_0.transform.FindChild("objective_text").GetComponent<Text>().text = objectives[i].objective_description;
+				objective_holder_0.transform.FindChild("objective_headline").GetComponent<Text>().text = objectives[i].objective_headline;
 
 				if(objectives[i].active && !objectives[i].finished){
 					objective_holder_0.transform.FindChild("objective_background").GetComponent<Image>().color = Color.yellow;
@@ -84,6 +105,7 @@ public class objectives_manager : MonoBehaviour {
 
 			}else if(i == 1){
 				objective_holder_1.transform.FindChild("objective_text").GetComponent<Text>().text = objectives[i].objective_description;
+				objective_holder_1.transform.FindChild("objective_headline").GetComponent<Text>().text = objectives[i].objective_headline;
 
 				if(objectives[i].active && !objectives[i].finished){
 					objective_holder_1.transform.FindChild("objective_background").GetComponent<Image>().color = Color.yellow;
@@ -96,6 +118,7 @@ public class objectives_manager : MonoBehaviour {
 
 			}else if(i == 2){
 				objective_holder_2.transform.FindChild("objective_text").GetComponent<Text>().text = objectives[i].objective_description;
+				objective_holder_2.transform.FindChild("objective_headline").GetComponent<Text>().text = objectives[i].objective_headline;
 
 				if(objectives[i].active && !objectives[i].finished){
 					objective_holder_2.transform.FindChild("objective_background").GetComponent<Image>().color = Color.yellow;
@@ -209,7 +232,7 @@ public class objectives_manager : MonoBehaviour {
 					objectives[i+1].finished = false;
 				}else{
 					//GAME FINISHED
-					GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().goto_level_selection();
+					Application.LoadLevel(vars.level_won_scene_name);
 					Debug.Log("GAME FINISHED");
 				}
 			}
@@ -221,6 +244,11 @@ public class objectives_manager : MonoBehaviour {
 
 
 
+
+		}else{
+			obejctives_text_holder.SetActive(false);
+			title_background_holder.SetActive(true);
+		}
 
 
 
