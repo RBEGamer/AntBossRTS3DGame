@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 public class UnitGroupFriendly : UnitGroupBase {
 	public static UnitGroupUIManager myUnitGroupManager;
-
+	
 	public List<GameObject> baseList;
 	public GameObject nearestBase;
 	public Vector3 nearestBasePosition;
-
+	
 	private bool isGroupSelected = false;
 	private bool inPanic = false;
-
-
-
+	
+	
+	
 	// Use this for initialization
 	void Start () {
 		myCollider = GetComponent<CapsuleCollider>();
@@ -29,14 +29,17 @@ public class UnitGroupFriendly : UnitGroupBase {
 		{
 			setPanic();
 		}
-
+		
 		if(unitGroupTarget != null) {
-			transform.position = unitGroupTarget.gameObject.transform.position;
+			transform.position = new Vector3(unitGroupTarget.transform.position.x, unitGroupTarget.transform.position.y + 5.0f, unitGroupTarget.transform.position.z);
 		}
-
+		else {
+			transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
+		}
+		
 		cleanUp();
 	}
-
+	
 	public void setAttributes(string name, float atkspeed, float damage, float health, float movementspeed, float attackrange, float visionrange) {
 		unitGroupName = name;
 		attackspeed = atkspeed;
@@ -49,7 +52,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 		visionRange = visionrange;
 		
 	}
-
+	
 	// issues retreat command
 	public void setPanic()
 	{
@@ -62,8 +65,8 @@ public class UnitGroupFriendly : UnitGroupBase {
 		}
 		transform.position = nearestBasePosition + Vector3.up *5;
 	}
-
-
+	
+	
 	// rightclick(when selected)
 	public void OnRightclick(Vector3 destination) {
 		unitGroupTarget = null;
@@ -80,10 +83,9 @@ public class UnitGroupFriendly : UnitGroupBase {
 				RaycastHit hit;
 				if (Physics.Raycast(ray, out hit))
 				{
-					if (hit.transform.gameObject.tag == "Enemy")
+					if (hit.collider.gameObject.tag.Contains(vars.enemy_tag) && hit.collider.gameObject.tag.Contains(vars.attackable_tag))
 					{
-						Debug.Log("Setting target to " + hit.transform.gameObject.name);
-						setTargetEnemy(hit.transform.gameObject);
+						setTargetEnemy(hit.collider.gameObject);
 						return;
 					}
 				} 
@@ -91,7 +93,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 			}
 		}
 	}
-
+	
 	// a-move / standard right click
 	public void placeNewDefensePoint(Vector3 destination)
 	{
@@ -135,7 +137,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 			t.unitCommand = 1;
 		}
 	}
-
+	
 	// helper function
 	public void findNearestBasePosition()
 	{
@@ -151,10 +153,10 @@ public class UnitGroupFriendly : UnitGroupBase {
 		}
 	}
 	
-
-
+	
+	
 	public void cleanUp() {
-
+		
 		for(int i = myUnitList.Count - 1; i >= 0; i--) {
 			if (myUnitList[i] == null)
 			{
@@ -173,14 +175,13 @@ public class UnitGroupFriendly : UnitGroupBase {
 		if (myUnitList.Count == 0)
 		{
 			if(inPanic) {
-				Debug.Log("HEY!");
 				nearestBase.GetComponent<UnitGroupCache>().addUnitGroup(this);
 			}
 			myUnitGroupManager.unitGroupList.Remove(this);
 			Destroy(gameObject);
 		}
 	}
-
+	
 	public void OnSelected()
 	{
 		isGroupSelected = true;
@@ -195,9 +196,9 @@ public class UnitGroupFriendly : UnitGroupBase {
 			isGroupSelected = false;
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_empty();
 			myUnitGroupManager.selectedUnitGroupBase = null;
-
+			
 		}
-
+		
 	}
 	
 	public bool isSelected() { return isGroupSelected;}

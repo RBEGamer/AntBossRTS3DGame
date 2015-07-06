@@ -115,7 +115,8 @@ public abstract class UnitBase : MonoBehaviour
 		isUnitDisabled = false;
 	
 
-		
+
+		unitCombatTarget = null;
 		if(unitRange.myCollider != null) {
 			unitRange.myCollider.radius = unitCurrentVisionrange;
 		}
@@ -178,6 +179,7 @@ public abstract class UnitBase : MonoBehaviour
 		if(unitCurrentHealth <= 0 && isUnitDisabled == false) {
 			foreach(UnitBase t in unitsTargetingMe) {
 				t.unitCombatTarget = null;
+				t.unitTargetPriority = 0;
 			}
 			Destroy(gameObject);
 			isUnitDisabled = true;
@@ -211,10 +213,10 @@ public abstract class UnitBase : MonoBehaviour
 					UnitBase enemyUnitScript = enemy.GetComponent<UnitBase>();
 					if(enemyUnitScript) {
 						if(enemyUnitScript.unitCombatTarget == this) {
-							if(unitTargetPriority < 80) {
-								setTarget(closest, 80);
+							//if(unitTargetPriority < 80) {
+								setTarget(closest, 100);
 								return;
-							}
+							//}
 						}
 					}
 					if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
@@ -222,10 +224,10 @@ public abstract class UnitBase : MonoBehaviour
 						closest = enemy;
 					}
 				}
-				if(unitTargetPriority < 60) {
-					setTarget(closest, 60);
-					return;
-				}
+				//if(unitTargetPriority < 60) {
+					setTarget(closest, 90);
+					//return;
+				//}
 			}
 			
 			List<GameObject> enemyUnitsInGroupRange = new List<GameObject>();
@@ -241,7 +243,7 @@ public abstract class UnitBase : MonoBehaviour
 						UnitBase enemyUnitScript = enemy.GetComponent<UnitBase>();
 						if(enemyUnitScript) {
 							if(enemyUnitScript.unitCombatTarget== this) {
-								setTarget(enemy, 60);
+								setTarget(enemy, 80);
 								return;
 							}
 						}
@@ -252,27 +254,28 @@ public abstract class UnitBase : MonoBehaviour
 						}
 					}
 				}
-				if(unitTargetPriority < 40) {
-					setTarget(closestInGroup, 40);
-					return;
-				}
-				
+				setTarget(closestInGroup, 70);
+				return;
 			}
 		}
 	}
 
 	virtual public void setTarget(GameObject target, int priority) {
-		if(target != null && unitCombatTarget != null) {
+		if(unitCombatTarget != null) {
 			unitCombatTarget.SendMessage("removeUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
-			CancelInvoke("attackTarget");
 		}
-		unitTargetPriority = priority;
-		unitCombatTarget = target;
-		unitCommand = 2;
-		if(target != null) {
-			unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
+		CancelInvoke("attackTarget");
+
+		if(unitTargetPriority < priority) {
+
+			unitTargetPriority = priority;
+			unitCombatTarget = target;
+			unitCommand = 2;
+			if(target != null) {
+				Debug.Log(gameObject.name + " changes target to " + target.name + " priority " + priority);
+				unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
+			}
 		}
-		
 	}
 
 	virtual public void onDisable() {
@@ -282,7 +285,7 @@ public abstract class UnitBase : MonoBehaviour
 	virtual public void addEnemyInRange(GameObject enemy) {
 		enemiesInRange.Add(enemy.gameObject);
 		if(unitGroup != null) {
-			Debug.Log(gameObject.tag + " adds " + enemy.gameObject.tag + " to group " + unitGroup.tag);
+			//Debug.Log(gameObject.tag + " adds " + enemy.gameObject.tag + " to group " + unitGroup.tag);
 
 			unitGroup.addEnemyToRange(enemy.gameObject);
 		}
@@ -291,7 +294,7 @@ public abstract class UnitBase : MonoBehaviour
 	virtual public void removeEnemyInRange(GameObject enemy) {
 		enemiesInRange.Remove(enemy);
 		if(unitGroup != null) {
-			Debug.Log(gameObject.tag + " removes " + enemy.gameObject.tag);
+			//Debug.Log(gameObject.tag + " removes " + enemy.gameObject.tag);
 			if(enemiesInRange.Contains(enemy)) {
 
 				unitGroup.removeEnemyFromRange(enemy);
@@ -316,6 +319,13 @@ public abstract class UnitBase : MonoBehaviour
 			if (enemiesInRange[i] == null)
 			{
 				enemiesInRange.RemoveAt(i);
+			}
+		}
+
+		for(int i = unitsTargetingMe.Count - 1; i >= 0; i--) {
+			if (unitsTargetingMe[i] == null)
+			{
+				unitsTargetingMe.RemoveAt(i);
 			}
 		}
 	}

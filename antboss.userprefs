@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\unit_scripts\unit_baseclasses\UnitGroupFriendly.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\unit_scripts\unit_types\UnitFighterTypeB.cs">
     <Files>
-      <File FileName="Assets\script\vars.cs" Line="189" Column="40" />
+      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeB.cs" Line="228" Column="4" />
+      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeA.cs" Line="173" Column="25" />
+      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeC.cs" Line="223" Column="25" />
+      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitBase.cs" Line="182" Column="5" />
       <File FileName="Assets\script\unit_scripts\unit_types\UnitFighter.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeA.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeB.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeC.cs" Line="35" Column="3" />
-      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitGroupFriendly.cs" Line="22" Column="79" />
+      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitGroupFriendly.cs" Line="106" Column="15" />
+      <File FileName="Assets\script\unit_scripts\unit_helper\UnitGroupCache.cs" Line="52" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

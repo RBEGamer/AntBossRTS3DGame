@@ -134,52 +134,36 @@ public class UnitFighterTypeC : UnitBase {
 				foreach(GameObject enemy in enemyFighterInRange) {
 					UnitBase enemyUnitScript = enemy.GetComponent<UnitBase>();
 					if(enemyUnitScript.unitCombatTarget == this) {
-						UnitBase currentUnitscript = unitCombatTarget.GetComponent<UnitBase>();
-						
-						if(currentUnitscript != null && currentUnitscript.unitCombatTarget != this) {
-							setTarget(enemy, 80);
-							return;
-						} else if(currentUnitscript == null){
-							setTarget(enemy, 80);
-							return;
-						}
+						setTarget(enemy, 100);
+						return;
 					}
 				}
 			}
 
 			// CHECK RESSOURCES
 			if(enemyRessourcesInRange.Count > 0) {
-				if(unitCombatTarget != null) {
-					if(!unitCombatTarget.tag.Contains(vars.res_tag)) {
-						GameObject closest = enemyRessourcesInRange[0];
-						foreach(GameObject enemy in enemyRessourcesInRange) {
-							if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
-							   Vector3.Distance(this.transform.position, closest.transform.position)) {
-								closest = enemy;
-							}
-						}
-						setTarget(closest, 60);
-						return;
+				GameObject closest = enemyRessourcesInRange[0];
+				foreach(GameObject enemy in enemyRessourcesInRange) {
+					if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
+					   Vector3.Distance(this.transform.position, closest.transform.position)) {
+						closest = enemy;
 					}
 				}
+				setTarget(closest, 90);
 			}
 
 
 			// CHECK FIGHTERS
 			if(enemyFighterInRange.Count > 0) {
-				if(unitCombatTarget != null) {
-					if(!unitCombatTarget.tag.Contains(vars.unit_tag)) {
-						GameObject closest = enemyFighterInRange[0];
-						foreach(GameObject enemy in enemyFighterInRange) {
-							if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
-							   Vector3.Distance(this.transform.position, closest.transform.position)) {
-								closest = enemy;
-							}
-						}
-						setTarget(closest, 60);
-						return;
+				GameObject closest = enemyFighterInRange[0];
+				foreach(GameObject enemy in enemyFighterInRange) {
+					if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
+					   Vector3.Distance(this.transform.position, closest.transform.position)) {
+						closest = enemy;
 					}
 				}
+				setTarget(closest, 80);
+				return;
 			}
 
 			// CHECK WAYPOINTS
@@ -188,36 +172,28 @@ public class UnitFighterTypeC : UnitBase {
 			
 			// CHECK SCOUTS
 			if(enemyScoutsInRange.Count > 0) {
-				if(unitCombatTarget != null) {
-					if(!unitCombatTarget.tag.Contains(vars.scout_ant_tag)) {
-						GameObject closest = enemyScoutsInRange[0];
-						foreach(GameObject enemy in enemyScoutsInRange) {
-							if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
-							   Vector3.Distance(this.transform.position, closest.transform.position)) {
-								closest = enemy;
-							}
-						}
-						setTarget(closest, 60);
-						return;
+				GameObject closest = enemyScoutsInRange[0];
+				foreach(GameObject enemy in enemyScoutsInRange) {
+					if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
+					   Vector3.Distance(this.transform.position, closest.transform.position)) {
+						closest = enemy;
 					}
 				}
+				setTarget(closest, 70);
+				return;
 			}
 			
 			// CHECK WORKERS
 			if(enemyWorkerInRange.Count > 0) {
-				if(unitCombatTarget != null) {
-					if(!unitCombatTarget.tag.Contains(vars.collector_ant_tag)) {
-						GameObject closest = enemyWorkerInRange[0];
-						foreach(GameObject enemy in enemyWorkerInRange) {
-							if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
-							   Vector3.Distance(this.transform.position, closest.transform.position)) {
-								closest = enemy;
-							}
-						}
-						setTarget(closest, 60);
-						return;
+				GameObject closest = enemyWorkerInRange[0];
+				foreach(GameObject enemy in enemyWorkerInRange) {
+					if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
+					   Vector3.Distance(this.transform.position, closest.transform.position)) {
+						closest = enemy;
 					}
 				}
+				setTarget(closest, 60);
+				return;
 			}
 			
 
@@ -233,27 +209,23 @@ public class UnitFighterTypeC : UnitBase {
 						}
 					}
 				}
-				if(unitTargetPriority < 40) {
-					setTarget(closestInGroup, 40);
-					return;
-				}
+
+				setTarget(closestInGroup, 50);
+				return;
+
 			}
 			
 			// CHECK BASES
 			if(enemyBasesInRange.Count > 0) {
-				if(unitCombatTarget != null) {
-					if(!unitCombatTarget.tag.Contains(vars.base_tag)) {
-						GameObject closest = enemyBasesInRange[0];
-						foreach(GameObject enemy in enemyBasesInRange) {
-							if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
-							   Vector3.Distance(this.transform.position, closest.transform.position)) {
-								closest = enemy;
-							}
-						}
-						setTarget(closest, 60);
-						return;
+				GameObject closest = enemyBasesInRange[0];
+				foreach(GameObject enemy in enemyBasesInRange) {
+					if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
+					   Vector3.Distance(this.transform.position, closest.transform.position)) {
+						closest = enemy;
 					}
 				}
+				setTarget(closest, 40);
+				return;
 			}
 			
 		}

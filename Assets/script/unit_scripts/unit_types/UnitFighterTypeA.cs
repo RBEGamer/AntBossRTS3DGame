@@ -133,7 +133,7 @@ public class UnitFighterTypeA : UnitBase {
 						closest = enemy;
 					}
 				}
-				setTarget(closest, 60);
+				setTarget(closest, 100);
 				return;
 			}
 
@@ -142,7 +142,7 @@ public class UnitFighterTypeA : UnitBase {
 				foreach(GameObject enemy in enemyFighterInRange) {
 					UnitBase enemyUnitScript = enemy.GetComponent<UnitBase>();
 					if(enemyUnitScript.unitCombatTarget == this) {
-						setTarget(enemy, 80);
+						setTarget(enemy, 90);
 						return;
 					}
 				}
@@ -157,7 +157,7 @@ public class UnitFighterTypeA : UnitBase {
 						closest = enemy;
 					}
 				}
-				setTarget(closest, 60);
+				setTarget(closest, 80);
 				return;
 			}
 
@@ -170,7 +170,7 @@ public class UnitFighterTypeA : UnitBase {
 						closest = enemy;
 					}
 				}
-				setTarget(closest, 60);
+				setTarget(closest, 70);
 				return;
 			}
 
