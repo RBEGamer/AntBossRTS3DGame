@@ -84,7 +84,7 @@ public class vars : MonoBehaviour {
 
 	public enum upgrade_values 
 	{
-		schaden, leben, speed, size, regeneration, lagerplatz
+		schaden, leben, speed, size, regeneration, lagerplatz_res_a, lagerplatz_res_b, lagerplatz_res_c, lagerplatz_res_all
 	}
 
 	/* -------END UPGRADE AREA ----------------------*/
@@ -151,6 +151,11 @@ public class vars : MonoBehaviour {
 	public static int initial_attack_ants = 10;
 	public static int initial_scout_ants = 10;
 	public static int base_start_health_percentage = 100;
+
+	public static int max_storage_res_a = 10000;
+	public static int max_storage_res_b = 10000;
+	public static int max_storage_res_c = 10000;
+
 
 	public struct costs_scout_ants{
 		public static float costs_res_a = 100.0f;

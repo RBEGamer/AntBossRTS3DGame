@@ -10,14 +10,76 @@ public class base_manager : MonoBehaviour {
 	public float res_c_storage;
 
 	public int base_health_percentage = 0;
-	public int health = 50;
-
-
-
+	public int health = 0;
+	
 
 	public int bought_collector_ants = 0;
 	public int bought_attack_ants = 0;
 	public int bought_scout_ants = 0;
+
+	public GameObject upgrade_slot_0;
+	public GameObject upgrade_slot_1;
+	public GameObject upgrade_slot_2;
+	public GameObject upgrade_slot_3;
+
+
+
+
+	public void add_upgrade(GameObject upgrade){
+		if(upgrade.GetComponent<upgrade_description>() != null && !upgrade.GetComponent<upgrade_description>().taken && upgrade.GetComponent<upgrade_description>().active & upgrade.GetComponent<upgrade_description>().upgrade_type == vars.upgrade_type.ant_base){
+			if(res_a_storage >= upgrade.GetComponent<upgrade_description>().costs_res_a && res_b_storage >= upgrade.GetComponent<upgrade_description>().costs_res_b && res_c_storage >= upgrade.GetComponent<upgrade_description>().costs_res_c){
+
+				if(upgrade_slot_0 != null || upgrade_slot_0 != null || upgrade_slot_0 != null || upgrade_slot_0 != null){
+
+					upgrade.GetComponent<upgrade_description>().taken = true;
+					res_a_storage -= upgrade.GetComponent<upgrade_description>().costs_res_a;
+					res_b_storage -= upgrade.GetComponent<upgrade_description>().costs_res_b;
+					res_c_storage -= upgrade.GetComponent<upgrade_description>().costs_res_c;
+
+
+					switch (upgrade.GetComponent<upgrade_description>().upgrade_add_to_value) {
+					case vars.upgrade_values.lagerplatz_res_all:
+						vars.max_storage_res_a += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						vars.max_storage_res_b += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						vars.max_storage_res_c += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						break;
+					case vars.upgrade_values.lagerplatz_res_a:
+						vars.max_storage_res_a += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						break;
+					case vars.upgrade_values.lagerplatz_res_b:
+						vars.max_storage_res_b += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						break;
+					case vars.upgrade_values.lagerplatz_res_c:
+						vars.max_storage_res_c += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						break;
+					case vars.upgrade_values.leben:
+						health += (int)upgrade.GetComponent<upgrade_description>().increase_value;
+						break;
+					default:
+					break;
+					}
+
+				if(upgrade_slot_0 != null){
+					upgrade_slot_0 = upgrade;
+				}else 	if(upgrade_slot_1 != null){
+					upgrade_slot_1 = upgrade;
+				}else 	if(upgrade_slot_2 != null){
+					upgrade_slot_2 = upgrade;
+				}else 	if(upgrade_slot_3 != null){
+					upgrade_slot_3 = upgrade;
+				}
+				
+
+
+
+
+					Debug.Log("upgrade taken");
+			}
+		}
+	}
+}
+
+
 
 
 
@@ -109,14 +171,17 @@ public class base_manager : MonoBehaviour {
 		switch (_type) {
 			case vars.ressource_type.A:
 			res_a_storage += _amount;
+			if(res_a_storage > vars.max_storage_res_a){res_a_storage = vars.max_storage_res_a;}
 			break;
 
 		case vars.ressource_type.B:
 			res_b_storage += _amount;
+			if(res_b_storage > vars.max_storage_res_b){res_b_storage = vars.max_storage_res_b;}
 			break;
 
 		case vars.ressource_type.C:
 			res_c_storage += _amount;
+			if(res_c_storage > vars.max_storage_res_c){res_c_storage = vars.max_storage_res_c;}
 			break;
 		default:
 			break;

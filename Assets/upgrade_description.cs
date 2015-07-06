@@ -14,7 +14,7 @@ public class upgrade_description : MonoBehaviour {
 	public int costs_res_b = 0;
 	public int costs_res_c = 0;
 	public bool taken = false;
-
+	public float increase_value = 0.0f;
 
 	// Use this for initialization
 	void Start () {
