@@ -8,7 +8,6 @@ public class vars : MonoBehaviour {
 	{
 		A,B,C, default_type
 	}
-	
 	public struct res_type_default{
 		public static float max_harvest = 0f;
 		public static int max_collector_ants = 0;
@@ -18,23 +17,11 @@ public class vars : MonoBehaviour {
 		public static int health_percentage = 0;
 		public static string ui_displayname_ressource = "<no valid res type>";
 	}
-
-
 	public struct costs_nothing_ants{
 		public static float costs_res_a = 0.0f;
 		public static float costs_res_b = 0.0f;
 		public static float costs_res_c = 0.0f;
 	}
-
-
-	public enum audio_playback_type
-	{
-		none, effect, music //is music -> looping is enabled
-	}
-
-
-
-
 
 	/* ---------END DO NOT CHNAGE-------------------- */
 		
@@ -50,7 +37,10 @@ public class vars : MonoBehaviour {
 	{
 		bgmusic, ui_click, audio_clip_info_ingame_uiclick
 	}
-	
+	public enum audio_playback_type
+	{
+		none, effect, music //is music -> looping is enabled
+	}
 	
 	
 	public struct audio_clip_info_bgmusic{
@@ -68,46 +58,43 @@ public class vars : MonoBehaviour {
 		public static int priority = 128;
 		public static float pitch = 1.0f;
 	}
-
-
-
 	/* ---------END AUDIO SETTINGS-------------------- */
 
 
 	/* -------OBJECTIVES AREA ----------------------*/
-
-
 	public enum objective_toggle_vars
 	{
-		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout
+		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout, unitgroups
 	}
-
 	public enum objective_comparison_mode
 	{
+		none, equals, bigger, smaller, not, biggerequals, smallerequals
+	}
+	/* -------END OBJECTIVES AREA ----------------------*/
 
-		none, equals, bigger, smaller, not
+
+
+	/* -------UPGRADE AREA ----------------------*/
+
+	public enum upgrade_type
+	{
+		none, ant_base, units, ressources, waypoints
 	}
 
 
+	public enum upgrade_values 
+	{
+		schaden, leben, speed, size, regeneration, lagerplatz
+	}
+
+	/* -------END UPGRADE AREA ----------------------*/
 
 
-
-
-
-	/* -------END OBJECTIVES AREA ----------------------*/
 
 
 
 
 	/* -------RESSOURCE SETTING AREA ----------------------*/
-
-
-
-
-	public static string ui_displayname_no_ressource_selected_text = "SELECT RESSOURCE";
-
-
-
 	public struct res_type_a{
 		public static float max_harvest = 1000.0f; //wie viel ressourcen können abgebaut werden von dieser ressource
 		public static int max_collector_ants = 10; //wie viele Armeisen können an dieser REssource abbauen
@@ -135,9 +122,6 @@ public class vars : MonoBehaviour {
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Energie";
 	}
-
-
-
 	/* -------END RESSOURCE SETTING AREA ----------------------*/
 
 
@@ -154,26 +138,18 @@ public class vars : MonoBehaviour {
 
 
 	/* -------END WAYPOINT SETTING AREA ----------------------*/
-
-	
 	public static float scout_ant_move_speed = 8.0f; //wie schnell sollen sich die scout ameisen bewegen
 	public static bool scout_ant_en_dyn_speed = false; //wenn auf true  brauchen die Ameisen immer die selbe zeit zum node -> längere strecke = schnellere ameise
 	public static float collector_ant_speed = 5.0f;//wie schnell sollen sich die collector ameisen bewegen
 	public static bool collector_ant_en_dyn_speed = false;//wenn auf true  brauchen die Ameisen immer die selbe zeit zum node -> längere strecke = schnellere ameise
 	public static int res_manager_ant_spawn_speed = 100; //wie schnell werden neue collector ameisen erstellt
-
-
-
 	/* -------BASE SETTINGS AREA ----------------------*/
-
 	public static float initial_res_a_storage = 5000.0f;
 	public static float initial_res_b_storage = 500.0f;
 	public static float initial_res_c_storage = 500.0f;
-
 	public static int initial_collector_ants = 1;
 	public static int initial_attack_ants = 10;
 	public static int initial_scout_ants = 10;
-
 	public static int base_start_health_percentage = 100;
 
 	public struct costs_scout_ants{
@@ -182,25 +158,18 @@ public class vars : MonoBehaviour {
 		public static float costs_res_c = 0.0f;
 		public static float ant_query_waittime = 10.0f;
 	}
-	
 	public struct costs_collector_ants{
 		public static float costs_res_a = 2000.0f;
 		public static float costs_res_b = 0.0f;
 		public static float costs_res_c = 0.0f;
 		public static float ant_query_waittime = 10.0f;
 	}
-
 	public struct costs_attack_ants{
 		public static float costs_res_a = 700.0f;
 		public static float costs_res_b = 100.0f;
 		public static float costs_res_c = 0.0f;
 		public static float ant_query_waittime = 10.0f;
 	}
-
-
-
-
-
 	/* -------END BASE SETTINGS AREA ----------------------*/
 
 
@@ -213,8 +182,6 @@ public class vars : MonoBehaviour {
 	public static string ground_tag = "ground";	
 	public static string base_tag = "base";	
 	public static string audio_clip_tag = "audio_clip_holder";
-
-
 	public static string enemy_tag = "Ene";
 	public static string unit_tag = "Uni";
 	public static string friendly_tag = "Fri";

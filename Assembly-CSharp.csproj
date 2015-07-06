@@ -46,8 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\objective_desc.cs" />
-     <Compile Include="Assets\objectives_manager.cs" />
      <Compile Include="Assets\script\ant_path_walker.cs" />
      <Compile Include="Assets\script\audio_clip_state.cs" />
      <Compile Include="Assets\script\audio_playback_manager.cs" />
@@ -65,6 +63,8 @@
      <Compile Include="Assets\script\menu_scripts\menu_button_manager.cs" />
      <Compile Include="Assets\script\menu_scripts\options_screen_value_updater.cs" />
      <Compile Include="Assets\script\node.cs" />
+     <Compile Include="Assets\script\objective_desc.cs" />
+     <Compile Include="Assets\script\objectives_manager.cs" />
      <Compile Include="Assets\script\pathmanager.cs" />
      <Compile Include="Assets\script\res_selection_ui_manager.cs" />
      <Compile Include="Assets\script\ressource.cs" />
@@ -96,6 +96,7 @@
      <Compile Include="Assets\script\way_projector.cs" />
      <Compile Include="Assets\script\wp_edges.cs" />
      <Compile Include="Assets\script\wp_path_manager.cs" />
+     <Compile Include="Assets\upgrade_description.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

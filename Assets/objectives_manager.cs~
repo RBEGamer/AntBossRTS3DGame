@@ -172,6 +172,10 @@ public class objectives_manager : MonoBehaviour {
 						value_to_check += 1.0f;
 					}
 					break;
+					case vars.objective_toggle_vars.unitgroups:
+						value_to_check = GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count;
+						break;
+
 				default:
 					value_to_check = -1.0f;
 				break;
@@ -199,12 +203,27 @@ public class objectives_manager : MonoBehaviour {
 					}
 					break;
 
+					case vars.objective_comparison_mode.biggerequals:
+						if(value_to_check >= objectives[i].value_to_toggle){
+							objectives[i].finished = true;
+							objectives[i].active = false;
+						}
+						break;
+
 				case vars.objective_comparison_mode.smaller:
 					if(value_to_check < objectives[i].value_to_toggle){
 						objectives[i].finished = true;
 						objectives[i].active = false;
 					}
 					break;
+
+				
+					case vars.objective_comparison_mode.smallerequals:
+						if(value_to_check <= objectives[i].value_to_toggle){
+							objectives[i].finished = true;
+							objectives[i].active = false;
+						}
+						break;
 
 				case vars.objective_comparison_mode.not:
 					if(value_to_check != objectives[i].value_to_toggle){
