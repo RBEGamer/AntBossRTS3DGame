@@ -226,6 +226,7 @@ public class vars : MonoBehaviour {
 	// CONTROLS
 
 	public static KeyCode key_panic = KeyCode.R;
+	public static KeyCode key_pause_menu = KeyCode.Escape;
 
 
 

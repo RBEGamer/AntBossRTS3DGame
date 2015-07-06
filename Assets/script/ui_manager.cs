@@ -29,7 +29,9 @@ public class ui_manager : MonoBehaviour {
 
 	public void manage_menu(){
 
-
+		if(Input.GetKeyDown(vars.key_pause_menu)){
+			toggle_menu();
+		}
 
 	}
 
@@ -852,6 +854,7 @@ public class ui_manager : MonoBehaviour {
 			}
 			}else{
 
+				if(GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.isSelected()){
 				unit_group_info_health_text.GetComponent<Text>().text = GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.health.ToString();
 				unit_group_info_attackrange_text.GetComponent<Text>().text =  GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.attackrange.ToString();
 				unit_group_info_attackspeed_text.GetComponent<Text>().text =  GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.attackspeed.ToString();
@@ -860,7 +863,7 @@ public class ui_manager : MonoBehaviour {
 					GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = filled_unit_ui_slot;
 				}
 
-
+				}
 			}
 
 
