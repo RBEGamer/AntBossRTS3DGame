@@ -16,6 +16,8 @@ public class objective_desc : MonoBehaviour {
 
 	void Start () {
 		this.tag = vars.objective_tag_name;
+		finished = false;
+		active = false;
 	}
 	
 	// Update is called once per frame
