@@ -74,7 +74,27 @@ public class vars : MonoBehaviour {
 	/* ---------END AUDIO SETTINGS-------------------- */
 
 
+	/* -------OBJECTIVES AREA ----------------------*/
 
+
+	public enum objective_toggle_vars
+	{
+		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout
+	}
+
+	public enum objective_comparison_mode
+	{
+
+		equals, bigger, smaller
+	}
+
+
+
+
+
+
+
+	/* -------END OBJECTIVES AREA ----------------------*/
 
 
 
@@ -202,6 +222,7 @@ public class vars : MonoBehaviour {
 	public static string unitgroup_tag = "UnG";
 	public static string selectable_tag = "Sel";
 	public static string unitgroup_manager_tag = "Man";
+	public static string objective_tag_name = "objective_desc";
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
 	public static string path_manager_name = "path_manager";
 	public static string res_name = "ressource";
@@ -215,7 +236,7 @@ public class vars : MonoBehaviour {
 	public static string ground_terrain_name = "ground";
 	public static string sound_manager_name = "sound_manager";
 	public static string main_camera_script_holder_name = "camera_controller";
-
+	public static string objective_manager_name = "objective_manager";
 	public static string UnitGroupUIManager = "UnitGroupUIManager";
 	/*---------------  SCENE NAMES (please add the scene in the Unity Build settings ------------------*/
 	public static string main_menu_scene_name  = "main_menu";
