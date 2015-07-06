@@ -100,7 +100,9 @@ public class ui_manager : MonoBehaviour {
 	public void slot_0_set_empty(){
 		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
 		show_upgrade_ui = false;
+		vars.is_in_patheditmode = false;
 		manage_view();
+	
 	}
 	
 	public void slot_0_set_base(){
@@ -109,6 +111,7 @@ public class ui_manager : MonoBehaviour {
 	}
 	
 	public void slot_0_set_ressource(){
+
 		if(!vars.is_in_patheditmode){
 			ui_view_slot_0 = selected_ui_in_slot_0.ressource_ui;
 		}
@@ -117,6 +120,7 @@ public class ui_manager : MonoBehaviour {
 
 	public void slot_0_set_unit(){
 		ui_view_slot_0 = selected_ui_in_slot_0.unit_ui;
+		vars.is_in_patheditmode = false;
 	}
 	
 	private void manage_view(){
@@ -940,6 +944,10 @@ public class ui_manager : MonoBehaviour {
 
 	public bool show_upgrade_ui = false;
 	public GameObject upgrad_ui_holder;
+	public Sprite empty_upgrad_ui_icon;
+
+
+	private GameObject[] view_specific_upgrades = new GameObject[9];
 
 	public void manage_upgrade_ui(){
 		if(show_upgrade_ui){
@@ -948,21 +956,72 @@ public class ui_manager : MonoBehaviour {
 			upgrad_ui_holder.SetActive(false);
 		}
 
+
+
+		if(show_upgrade_ui){
+
+		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
+				int counter = 0 ;
+
+				for (int i = 0; i < 9; i++) {
+					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
+					view_specific_upgrades[i] = null;
+				}
+
+
+				foreach (GameObject goupgrade in GameObject.FindGameObjectsWithTag(vars.upgrade_tag_name)) {
+					upgrade_description uogo = goupgrade.GetComponent<upgrade_description>();
+					if(!uogo.taken && uogo.upgrade_type == vars.upgrade_type.ant_base){
+
+					
+
+
+						GameObject.Find("select_upgrade_slot_btn_" + counter.ToString()).GetComponent<Image>().sprite = uogo.upgrade_icon;
+						view_specific_upgrades[counter] = goupgrade;
+						counter++;
+
+					}
+
+
+				}
+
+
+			
+		}
+
+
+
+
+
+		}//ende if
 	}
 
-
+	//0-3
 	public void toggle_upgrade_window(int mapped_upgrade_slot){
+
+		//GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(null);
+		show_upgrade_ui = !show_upgrade_ui;
+
+
+
 
 	}
 
 	public void buy_selected_upgrade(){
+
+		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
+
+
+		}
+
+
 
 	}
 
 
 	//0-8
 	public void select_upgrade(int btn_id){
-
+		//if array an pos i = 0
 	}
 
 
