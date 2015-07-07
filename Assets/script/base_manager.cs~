@@ -23,14 +23,7 @@ public class base_manager : MonoBehaviour {
 	public upgrade_description upgrade_slot_3;
 
 
-	public Sprite get_upgrade_icon_0(){
-		if(upgrade_slot_0.upgrade_icon){
-			return upgrade_slot_0.upgrade_icon;
-		}else{
-			return null;
-		}
 
-	}
 
 	public bool add_upgrade(ref upgrade_description upgrade){
 		Debug.Log("call add");
@@ -64,6 +57,14 @@ public class base_manager : MonoBehaviour {
 					case vars.upgrade_values.leben:
 						health += (int)upgrade.increase_value;
 						break;
+					case vars.upgrade_values.ant_query_waittime:
+						vars.costs_scout_ants.ant_query_waittime -= upgrade.increase_value;
+						break;
+
+
+
+
+
 					default:
 					break;
 					}
@@ -72,15 +73,19 @@ public class base_manager : MonoBehaviour {
 				if(upgrade_slot_0 == null){
 					upgrade_slot_0 = upgrade;
 						Debug.Log("set upgrade to slot 0");
+						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_base_button_0.GetComponent<Image>().sprite = upgrade_slot_0.upgrade_icon;
 				}else 	if(upgrade_slot_1 == null){
 					upgrade_slot_1 = upgrade;
 						Debug.Log("set upgrade to slot 1");
+						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_base_button_1.GetComponent<Image>().sprite = upgrade_slot_1.upgrade_icon;
 				}else 	if(upgrade_slot_2 == null){
 					upgrade_slot_2 = upgrade;
 						Debug.Log("set upgrade to slot 2");
+						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_base_button_2.GetComponent<Image>().sprite = upgrade_slot_2.upgrade_icon;
 				}else 	if(upgrade_slot_3 == null){
 					upgrade_slot_3 = upgrade;
 						Debug.Log("set upgrade to slot 3");
+						//GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_base_button_0.GetComponent<Image>().sprite = upgrade_slot_0.upgrade_icon;
 				}
 				
 

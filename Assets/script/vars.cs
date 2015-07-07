@@ -16,6 +16,7 @@ public class vars : MonoBehaviour {
 		public static float ant_bite_decrease = 0;
 		public static int health_percentage = 0;
 		public static string ui_displayname_ressource = "<no valid res type>";
+		public static float effiency = 1.0f;
 	}
 	public struct costs_nothing_ants{
 		public static float costs_res_a = 0.0f;
@@ -84,7 +85,7 @@ public class vars : MonoBehaviour {
 
 	public enum upgrade_values 
 	{
-		schaden, leben, speed, size, regeneration, lagerplatz_res_a, lagerplatz_res_b, lagerplatz_res_c, lagerplatz_res_all
+		schaden, leben, speed, size, regeneration, lagerplatz_res_a, lagerplatz_res_b, lagerplatz_res_c, lagerplatz_res_all, ant_query_waittime, antbitedescrease,productioneffiency
 	}
 
 	/* -------END UPGRADE AREA ----------------------*/
@@ -103,6 +104,7 @@ public class vars : MonoBehaviour {
 		public static float ant_bite_decrease = 10; //wie viel soll eine ameise bei einem biss tragen können
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Nahrung";
+		public static float effiency = 1.0f;
 	}
 	public struct res_type_b{
 		public static float max_harvest = 2000.0f;
@@ -112,6 +114,7 @@ public class vars : MonoBehaviour {
 		public static float ant_bite_decrease = 25;
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Baumaterial";
+		public static float effiency = 1.0f;
 	}
 	public struct res_type_c{
 		public static float max_harvest = 3000.0f;
@@ -121,6 +124,7 @@ public class vars : MonoBehaviour {
 		public static float ant_bite_decrease = 50;
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Energie";
+		public static float effiency = 1.0f;
 	}
 	/* -------END RESSOURCE SETTING AREA ----------------------*/
 

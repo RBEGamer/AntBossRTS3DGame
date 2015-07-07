@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class ressource : MonoBehaviour {
 
 
@@ -17,7 +17,10 @@ public class ressource : MonoBehaviour {
 	// Use this for initialization
 	//-> node -> int connected to ressource id
 
-
+	public upgrade_description upgrade_slot_0;
+	public upgrade_description upgrade_slot_1;
+	public upgrade_description upgrade_slot_2;
+	public upgrade_description upgrade_slot_3;
 
 
 	public int ressource_id;
@@ -43,6 +46,8 @@ public class ressource : MonoBehaviour {
 		public int target_collection_ants;
 		public int health_percentage;
 		public string ui_displayname_ressource;
+		public float effiency;
+
 	}
 
 
@@ -172,7 +177,7 @@ public class ressource : MonoBehaviour {
 	}
 
 	public float ant_bite(){
-		res.current_harvest_amount -= res.ant_bite_decrease;
+		res.current_harvest_amount -= res.ant_bite_decrease * res.effiency;
 		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}
 		//Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
 
@@ -194,6 +199,7 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_a.ant_bite_decrease;
 			res.health_percentage = vars.res_type_a.health_percentage;
 			res.ui_displayname_ressource = vars.res_type_a.ui_displayname_ressource;
+			res.effiency = vars.res_type_a.effiency;
 			break;
 		case vars.ressource_type.B:
 			res.max_harvest = vars.res_type_b.max_harvest;
@@ -203,6 +209,7 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_b.ant_bite_decrease;
 			res.health_percentage = vars.res_type_b.health_percentage;
 			res.ui_displayname_ressource = vars.res_type_b.ui_displayname_ressource;
+			res.effiency = vars.res_type_b.effiency;
 			break;
 		case vars.ressource_type.C:
 			res.max_harvest = vars.res_type_c.max_harvest;
@@ -212,6 +219,7 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_c.ant_bite_decrease;
 			res.health_percentage = vars.res_type_c.health_percentage;
 			res.ui_displayname_ressource = vars.res_type_c.ui_displayname_ressource;
+			res.effiency = vars.res_type_c.effiency;
 			break;
 		default:
 			res.max_harvest = vars.res_type_default.max_harvest;
@@ -221,6 +229,7 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_default.ant_bite_decrease;
 			res.health_percentage = vars.res_type_default.health_percentage;
 			res.ui_displayname_ressource = vars.res_type_default.ui_displayname_ressource;
+			res.effiency = vars.res_type_default.effiency;
 			break;
 		}
 
@@ -237,7 +246,16 @@ public class ressource : MonoBehaviour {
 
 		//res.target_collection_ants = current_ants_working_on_this_res;
 		//hier schauen welcher node connected ist
+		if(GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui == ressource_id && GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().ui_view_slot_0 == ui_manager.selected_ui_in_slot_0.ressource_ui){
 
+
+
+
+
+			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_res_button_0.GetComponent<Image>().sprite = upgrade_slot_0.upgrade_icon;
+		
+		
+		}
 
 
 		if(	res.health_percentage <= 0){
@@ -284,5 +302,103 @@ public class ressource : MonoBehaviour {
 
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	public bool add_upgrade(ref upgrade_description upgrade){
+		Debug.Log("call add");
+		if(upgrade != null && !upgrade.taken && upgrade.active & upgrade.upgrade_type == vars.upgrade_type.ressources){
+			Debug.Log("upgrade check");
+			if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage >= upgrade.costs_res_a && GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage >= upgrade.costs_res_b && GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage >= upgrade.costs_res_c){
+				Debug.Log("costs check");
+				if(upgrade_slot_0 == null || upgrade_slot_1 == null || upgrade_slot_2 == null || upgrade_slot_3 == null){
+					Debug.Log("slot check");
+					upgrade.GetComponent<upgrade_description>().taken = true;
+					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= upgrade.costs_res_a;
+					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= upgrade.costs_res_b;
+					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= upgrade.costs_res_c;
+					
+					Debug.Log("costs sub");
+					switch (upgrade.GetComponent<upgrade_description>().upgrade_add_to_value) {
+					case vars.upgrade_values.antbitedescrease:
+					res.ant_bite_decrease += upgrade.increase_value;
+					break;
+					case vars.upgrade_values.productioneffiency:
+					res.effiency -= upgrade.increase_value;
+					break;
+					case vars.upgrade_values.leben:
+					res.health_percentage += (int)upgrade.increase_value;
+					break;
+						
+						
+						
+						
+						
+					default:
+						break;
+					}
+					Debug.Log("add values");
+					
+					if(upgrade_slot_0 == null){
+						upgrade_slot_0 = upgrade;
+						Debug.Log("set upgrade to slot 0");
+
+					}else 	if(upgrade_slot_1 == null){
+						upgrade_slot_1 = upgrade;
+						Debug.Log("set upgrade to slot 1");
+
+					}else 	if(upgrade_slot_2 == null){
+						upgrade_slot_2 = upgrade;
+						Debug.Log("set upgrade to slot 2");
+
+					}else 	if(upgrade_slot_3 == null){
+						upgrade_slot_3 = upgrade;
+						Debug.Log("set upgrade to slot 3");
+						//GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_base_button_0.GetComponent<Image>().sprite = upgrade_slot_0.upgrade_icon;
+					}
+					
+					
+					
+					
+					
+					Debug.Log("upgrade taken");
+					return true;
+				}
+			}else{
+				Debug.Log("err 2");
+			}
+			
+		}else{
+			Debug.Log("err 1");
+		}
+		return false;
+	}
 
 }

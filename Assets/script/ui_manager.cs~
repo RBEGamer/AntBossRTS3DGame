@@ -16,6 +16,13 @@ public class ui_manager : MonoBehaviour {
 	public void toggle_menu(){
 		is_in_menu = !is_in_menu;
 		pause_menu_holder.SetActive(is_in_menu);
+
+		if(is_in_menu){
+			Time.timeScale = 0.0f;
+		}else{
+			Time.timeScale = 1.0f;
+		}
+
 	}
 
 	public void goto_main_menu(){
@@ -51,6 +58,7 @@ public class ui_manager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.name = vars.ui_manager_name;
+		Time.timeScale = 1.0f;
 		//	refresh_ressource_ui();
 		//	pem_btn_text.GetComponent<Text>().text = "ENTER PATHEDITMODE";
 		vars.is_in_patheditmode = false;
@@ -101,24 +109,28 @@ public class ui_manager : MonoBehaviour {
 		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
 		show_upgrade_ui = false;
 		vars.is_in_patheditmode = false;
+		show_upgrade_ui = false;
 		manage_view();
 	
 	}
 	
 	public void slot_0_set_base(){
 		ui_view_slot_0 = selected_ui_in_slot_0.base_ui;
+		show_upgrade_ui = false;
 		manage_view();
 	}
 	
 	public void slot_0_set_ressource(){
-
+		show_upgrade_ui = false;
 		if(!vars.is_in_patheditmode){
 			ui_view_slot_0 = selected_ui_in_slot_0.ressource_ui;
+
 		}
 		manage_view();
 	}
 
 	public void slot_0_set_unit(){
+		show_upgrade_ui = false;
 		ui_view_slot_0 = selected_ui_in_slot_0.unit_ui;
 		vars.is_in_patheditmode = false;
 	}
@@ -183,7 +195,9 @@ public class ui_manager : MonoBehaviour {
 	
 	
 
-
+	public GameObject upgrade_res_button_0;
+	public GameObject upgrade_res_button_1;
+	public GameObject upgrade_res_button_2;
 
 
 	public Sprite ant_icon_loaded;
@@ -202,6 +216,8 @@ public class ui_manager : MonoBehaviour {
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 		
 
+
+			GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_selected_by_res_manager = true;
 
 			//clear all button images
 			for (int i = 0; i < 10; i++) {
@@ -758,26 +774,6 @@ public class ui_manager : MonoBehaviour {
 	
 	public void refresh_base_ui(){
 		
-	
-
-
-		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_0 != null){
-			upgrade_base_button_0.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_0.upgrade_icon;
-		}else{
-			upgrade_base_button_0.GetComponent<Image>().sprite = empty_upgrad_ui_icon;
-		}
-		
-		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_1 != null){
-			upgrade_base_button_1.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_1.upgrade_icon;
-		}else{
-			upgrade_base_button_1.GetComponent<Image>().sprite = empty_upgrad_ui_icon;
-		}
-		if(GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_2 != null){
-			upgrade_base_button_2.GetComponent<Image>().sprite = GameObject.Find(vars.base_name).GetComponent<base_manager>().upgrade_slot_2.upgrade_icon;
-		}else{
-			upgrade_base_button_2.GetComponent<Image>().sprite = empty_upgrad_ui_icon;
-		}
-	
 
 		if(GameObject.Find (vars.base_name) == null){
 			costs_a_text.GetComponent<Text>().text = final_costs_res_a.ToString();
@@ -982,14 +978,30 @@ public class ui_manager : MonoBehaviour {
 		if(show_upgrade_ui){
 
 		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-	
+				for (int i = 0; i < 9; i++) {
+					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
+					view_specific_upgrades[i] = null;
+				}
+				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
+					if(!GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].taken && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ant_base){
+						GameObject.Find("select_upgrade_slot_btn_" + i).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
+						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
+					}
+				}
+		}
+
+
+
+
+			if(ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 				for (int i = 0; i < 9; i++) {
 					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
 					view_specific_upgrades[i] = null;
 				}
 
+
 				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
-					if(!GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].taken && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ant_base){
+					if(GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ressources){
 						GameObject.Find("select_upgrade_slot_btn_" + i).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
 						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
 					}
@@ -997,10 +1009,9 @@ public class ui_manager : MonoBehaviour {
 
 
 
+			}
 
-			
-			
-		}
+
 
 
 
@@ -1026,16 +1037,31 @@ public class ui_manager : MonoBehaviour {
 		//if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
 			if(selected_upgrade.gameObject != null){
 			Debug.Log("selected not empty");
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(ref selected_upgrade)){
+
+
+			if(GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(ref selected_upgrade) && ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
 				show_upgrade_ui = false;
-				upgrade_base_button_0.GetComponent<Image>().sprite = selected_upgrade.upgrade_icon;
+				selected_upgrade = null;
+				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
+				upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
+				}else{
+				Debug.Log("add failed");
+				}
+
+
 			
+			if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().add_upgrade(ref selected_upgrade) && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+				show_upgrade_ui = false;
 				selected_upgrade = null;
 				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
 				upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
 			}else{
 				Debug.Log("add failed");
 			}
+
+
+
+
 			}else{
 				Debug.Log("selected empty");
 			}
@@ -1051,18 +1077,11 @@ public class ui_manager : MonoBehaviour {
 	//0-8
 	public void select_upgrade(int btn_id){
 		//if array an pos i = 0
-
 		if(view_specific_upgrades[btn_id] != null){
-
-
 			upgrade_ui_headline_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].upgrade_headline;
 			upgrade_ui_description_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].upgrade_desc;
 			selected_upgrade = view_specific_upgrades[btn_id];
-
 		}
-
-
-
 	}
 
 
