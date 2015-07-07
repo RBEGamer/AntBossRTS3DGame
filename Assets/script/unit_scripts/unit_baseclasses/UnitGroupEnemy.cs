@@ -31,6 +31,10 @@ public class UnitGroupEnemy : UnitGroupBase {
 	// Update is called once per frame
 	void Update () {
 		cleanUp();
+
+		foreach(UnitBase unit in myUnitList) {
+			unit.currentRoute = myRoute;
+		}
 	}
 	
 	public void cleanUp() {

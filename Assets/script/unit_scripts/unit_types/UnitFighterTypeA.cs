@@ -23,10 +23,12 @@ public class UnitFighterTypeA : UnitBase {
 		if(unitRange.myCollider != null) {
 			unitRange.myCollider.radius = unitCurrentVisionrange;
 		}
-		
-		if (!unitGroup.myUnitList.Contains(GetComponent<UnitBase>()))
-		{
-			unitGroup.myUnitList.Add(GetComponent<UnitBase>());
+
+		if(unitGroup != null) {
+			if (!unitGroup.myUnitList.Contains(GetComponent<UnitBase>()))
+			{
+				unitGroup.myUnitList.Add(GetComponent<UnitBase>());
+			}
 		}
 	}
 	
@@ -86,7 +88,9 @@ public class UnitFighterTypeA : UnitBase {
 	}
 	public void analyseUnitsInRange() {
 		cleanUp();
-		unitGroup.cleanUp();
+		if(unitGroup != null) {
+			unitGroup.cleanUp();
+		}
 		
 		
 		if(unitCurrentCombatCooldown <= 0 && unitCombatTarget == null) {
