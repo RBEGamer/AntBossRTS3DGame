@@ -44,6 +44,9 @@ public abstract class UnitBase : MonoBehaviour
 	public float unitBaseHealth;
 	public float unitCurrentHealth;
 
+	public float unitBaseRegeneration;
+	protected float unitCurrentRegeneration;
+
 	public float unitBaseMovementspeed;
 	protected float unitCurrentMovementspeed;
 
@@ -102,6 +105,7 @@ public abstract class UnitBase : MonoBehaviour
 		if(unitGroup != null) {
 			unitCurrentAttackspeed = unitGroup.attackspeed;
 			unitCurrentMovementspeed = unitGroup.movementspeed;
+			unitCurrentRegeneration = unitGroup.regeneration;
 			unitNavMeshAgent.speed = unitCurrentMovementspeed;
 			
 			unitCurrentDamage = unitGroup.damage;
@@ -137,7 +141,8 @@ public abstract class UnitBase : MonoBehaviour
 		
 		unitCurrentDamage = unitGroup.damage;
 		unitCurrentHealth = unitGroup.health;
-		
+		unitCurrentRegeneration = unitGroup.regeneration;
+
 		unitCurrentAttackRange = unitGroup.attackrange;
 		unitCurrentVisionrange = unitGroup.visionRange;
 
@@ -150,6 +155,7 @@ public abstract class UnitBase : MonoBehaviour
 		unitBaseAttackRange = unitGroup.attackrange;
 		unitBaseVisionRange = unitGroup.visionRange;
 
+		unitBaseRegeneration = unitGroup.regeneration;
 		if(unitRange.myCollider != null) {
 			unitRange.myCollider.radius = unitCurrentVisionrange;
 		}

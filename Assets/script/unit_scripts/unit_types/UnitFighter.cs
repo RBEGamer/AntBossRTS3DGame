@@ -38,6 +38,9 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		if(!unitCombatTarget) {
 			unitTargetPriority = 0;
 		}
+		if(unitCurrentHealth < unitBaseHealth) {
+			unitCurrentHealth += Time.deltaTime * unitCurrentRegeneration;
+		}
 
 		if(isInPanic) {
 			// update destination if changed

@@ -48,6 +48,7 @@ public class UnitGroupBase : MonoBehaviour {
 	public float damage = 10;
 	public float health = 100;
 	public float movementspeed = 70;
+	public float regeneration = 0;
 
 	public float attackrange = 1.4f;
 	public float visionRange = 5.0f;
