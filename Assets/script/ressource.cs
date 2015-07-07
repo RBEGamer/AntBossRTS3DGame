@@ -246,14 +246,29 @@ public class ressource : MonoBehaviour {
 
 		//res.target_collection_ants = current_ants_working_on_this_res;
 		//hier schauen welcher node connected ist
-		if(GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui == ressource_id && GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().ui_view_slot_0 == ui_manager.selected_ui_in_slot_0.ressource_ui){
+
+		if(GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_res_to_ui == ressource_id ){
 
 
+			//&& GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().ui_view_slot_0 == ui_manager.selected_ui_in_slot_0.ressource_ui
 
+			if(upgrade_slot_0 != null){
+				GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_res_button_0.GetComponent<Image>().sprite  = upgrade_slot_0.upgrade_icon;
+			}else{
+				GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_res_button_0.GetComponent<Image>().sprite = GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().empty_upgrad_ui_icon;
+			}
 
+			if(upgrade_slot_1 != null){
+				GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_res_button_1.GetComponent<Image>().sprite  = upgrade_slot_1.upgrade_icon;
+			}else{
+				GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_res_button_1.GetComponent<Image>().sprite  = GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().empty_upgrad_ui_icon;
+			}
 
-			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_res_button_0.GetComponent<Image>().sprite = upgrade_slot_0.upgrade_icon;
-		
+			if(upgrade_slot_2 != null){
+				GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_res_button_2.GetComponent<Image>().sprite  = upgrade_slot_2.upgrade_icon;
+			}else{
+				GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_res_button_2.GetComponent<Image>().sprite  = GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().empty_upgrad_ui_icon;
+			}
 		
 		}
 

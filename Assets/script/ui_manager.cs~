@@ -88,8 +88,7 @@ public class ui_manager : MonoBehaviour {
 	}
 	
 	
-	
-	
+
 	public enum selected_ui_in_slot_0
 	{
 		empty_ui, base_ui, ressource_ui, unit_ui
