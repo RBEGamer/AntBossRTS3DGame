@@ -18,17 +18,17 @@ public struct SavedUnitGroup {
 	public float attackrange;
 	public float visionRange;
 	
-	public void initialize() {
+	public void initialize(float _attackspeed, float _movementspeed, float _damage, float _health, float _attackrange, float _visionrange) {
 		position = Vector3.zero;
 		
-		attackspeed = 1;
-		movementspeed = 5;
+		attackspeed = _attackspeed;
+		movementspeed = _movementspeed;
 		
-		damage = 10;
-		health = 100;
+		damage = _damage;
+		health = _health;
 		
-		attackrange = 5;
-		visionRange = 5;
+		attackrange = _attackrange;
+		visionRange = _visionrange;
 		
 		numUnits = 0;
 	}
@@ -42,10 +42,29 @@ public class UnitGroupCache : MonoBehaviour {
 	
 	public List<SavedUnitGroup> unitGroupsSaved;
 	public static int unitGroupCounter = 1;
+
+	public float standardAttackspeed;
 	
+	public float standardDamage;
+	public float standardHealth;
+	public float standardMovementspeed;
+	
+	public float standardAttackrange;
+	public float standardVisionRange;
+
 	// Use this for initialization
 	void Start () {
 		unitGroupsSaved = new List<SavedUnitGroup>();
+
+		UnitGroupBase t = unitGroupPrefab.GetComponent<UnitGroupBase>();
+		standardAttackspeed = t.attackspeed;
+		
+		standardDamage = t.damage;
+		standardHealth = t.health;
+		standardMovementspeed = t.movementspeed;
+		
+		standardAttackrange = t.attackrange;
+		standardVisionRange = t.visionRange;
 	}
 	
 	
@@ -62,7 +81,7 @@ public class UnitGroupCache : MonoBehaviour {
 	// creates new(empty) group
 	public SavedUnitGroup createNewGroup() {
 		SavedUnitGroup newUnitGroup = new SavedUnitGroup();
-		newUnitGroup.initialize();
+		newUnitGroup.initialize(standardAttackspeed, standardMovementspeed, standardDamage, standardHealth, standardAttackrange, standardVisionRange);
 		newUnitGroup.unitGroupName = "Standard Ants " + unitGroupCounter.ToString();
 		newUnitGroup.position = new Vector3(transform.position.x + 5, transform.position.y, transform.position.z);
 		unitGroupCounter++;
