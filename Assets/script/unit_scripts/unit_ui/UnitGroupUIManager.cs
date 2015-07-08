@@ -15,6 +15,7 @@ public class UnitGroupUIManager : MonoBehaviour {
 	public List<UnitGroupFriendly> unitGroupList;
 	public UnitGroupFriendly selectedUnitGroupBase;
 
+	public UnitSelectionManager selectionManager;
     public bool isAmove = false;
     private static List<string> passables = new List<string>() { "ground" };
 
@@ -25,6 +26,8 @@ public class UnitGroupUIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		selectionManager.SelectedUnitGroup = selectedUnitGroupBase;
         // wait for proper command
         if (isAmove)
         {
