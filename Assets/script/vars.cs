@@ -85,7 +85,8 @@ public class vars : MonoBehaviour {
 
 	public enum upgrade_values 
 	{
-		schaden, leben, speed, size, regeneration, lagerplatz_res_a, lagerplatz_res_b, lagerplatz_res_c, lagerplatz_res_all, ant_query_waittime, antbitedescrease,productioneffiency
+		schaden, leben, speed, size, regeneration, lagerplatz_res_a, lagerplatz_res_b, lagerplatz_res_c, lagerplatz_res_all, ant_query_waittime, antbitedescrease, productioneffiency,
+		ant_life, ant_damage, ant_speed, ant_regeneration,
 	}
 
 	/* -------END UPGRADE AREA ----------------------*/

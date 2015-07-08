@@ -30,7 +30,6 @@ public class SpawnerScript : MonoBehaviour {
 		foreach(RouteScript route in spawnerRoutes) {
 
 			if(route.isOccupied == false) {
-				Debug.Log("Looking at route " + route.name);
 				List<UnitGroupEnemy> listAvailableGroups = new List<UnitGroupEnemy>();
 				foreach(GameObject group in unitGroupList) {
 					UnitGroupEnemy temp = group.GetComponent<UnitGroupEnemy>();
@@ -39,20 +38,16 @@ public class SpawnerScript : MonoBehaviour {
 					}
 				}
 
-				Debug.Log("found available units for route " + route.name);
 
 				int x = Random.Range (0, listAvailableGroups.Count);
 
 				while(TotalSpawnTime < listAvailableGroups[x].spawnTimeLimit) {
 					x = Random.Range (0, listAvailableGroups.Count);
 				}
-				Debug.Log("picked "+ listAvailableGroups[x].gameObject.name + " for route " + route.name);
 
 				GameObject newgroup = Instantiate(listAvailableGroups[x].gameObject, transform.position, Quaternion.identity) as GameObject;
 				newgroup.GetComponent<UnitGroupEnemy>().setRoute(route);
 				route.isOccupied = true;
-
-				Debug.Log("spawned  units for route " + route.name);
 			}
 		}
 	}

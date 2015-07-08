@@ -97,6 +97,12 @@ public abstract class UnitBase : MonoBehaviour
 	public RouteScript currentRoute;
 	public int currentWayPoint = 1;
 
+
+	// Upgrade logic(friendly units only)
+	public upgrade_description upgrade_slot_0;
+	public upgrade_description upgrade_slot_1;
+	public upgrade_description upgrade_slot_2;
+
 	// Use this for initialization
 	public void Awake () {
 		uiManager = GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>();
@@ -279,6 +285,9 @@ public abstract class UnitBase : MonoBehaviour
 			unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
 		}
 	}
+
+
+
 
 	virtual public void onDisable() {
 		isUnitDisabled = true;

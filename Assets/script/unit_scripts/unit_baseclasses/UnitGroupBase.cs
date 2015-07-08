@@ -95,7 +95,7 @@ public class UnitGroupBase : MonoBehaviour {
 		}
 	}
 
-	public void setAttributes(string name, float atkspeed, float newdamage, float newhealth, float movementspeed, float newattackrange, float newvisionrange) {
+	public void setAttributes(string name, float atkspeed, float newdamage, float newhealth, float movementspeed, float newattackrange, float newvisionrange, float newregeneration) {
 		unitGroupName = name;
 
 		attackspeed = atkspeed;
@@ -106,6 +106,8 @@ public class UnitGroupBase : MonoBehaviour {
 		
 		attackrange = newattackrange;
 		visionRange = newvisionrange;
+
+		regeneration = newregeneration;
 	}
 	
 	public void setTargetEnemy(GameObject enemy) {

@@ -83,6 +83,7 @@
      <Compile Include="Assets\script\unit_scripts\unit_helper\ISelectableBase.cs" />
      <Compile Include="Assets\script\unit_scripts\unit_helper\ObjectBase.cs" />
      <Compile Include="Assets\script\unit_scripts\unit_helper\UnitGroupCache.cs" />
+     <Compile Include="Assets\script\unit_scripts\unit_helper\UnitPlaceHolder.cs" />
      <Compile Include="Assets\script\unit_scripts\unit_helper\UnitRangeScript.cs" />
      <Compile Include="Assets\script\unit_scripts\unit_types\UnitFighter.cs" />
      <Compile Include="Assets\script\unit_scripts\unit_types\UnitFighterTypeA.cs" />
