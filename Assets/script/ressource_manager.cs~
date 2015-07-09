@@ -33,7 +33,7 @@ public class ressource_manager : MonoBehaviour {
 
 
 
-			if(count_selected_ressources() == 0){
+			if(count_selected_ressources() == 0 || count_selected_ressources() == 1){
 				if(Input.GetMouseButtonDown(0)){
 
 					enable_all_collider();

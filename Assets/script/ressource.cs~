@@ -297,8 +297,11 @@ public class ressource : MonoBehaviour {
 
 
 
-		}else if(is_node_connected && !vars.is_in_patheditmode){
+		}else if(!vars.is_in_patheditmode){
 
+
+
+			//circle_holder.gameObject.GetComponent<selection_circle>().circle_enabled = true;
 
     
 			if(is_selected_by_res_manager){
