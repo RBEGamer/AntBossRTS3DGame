@@ -16,8 +16,8 @@ public class UnitFighter : UnitBase, ISelectableBase {
 	public float upperIdleTime = 10.0f;
 	public float lowerIdleTime = 6.0f;
 
-	private bool isNearDefensePoint = false;
 
+	public bool isNearDefensePoint = false;
 
 	void Start() {
 		setAttributesFromGroup();
@@ -33,7 +33,9 @@ public class UnitFighter : UnitBase, ISelectableBase {
 			return;
 		}*/
 
-		checkInRange();
+		if(!retreatToBase) {
+			checkInRange();
+		}
 
 		if(!unitCombatTarget) {
 			unitTargetPriority = 0;
@@ -77,6 +79,29 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		// -1: attack move to defense point
 		if (unitCommand == -1)
 		{
+			if(retreatToBase) {
+				if (!unitNavMeshAgent.pathPending)
+				{
+					if (unitNavMeshAgent.remainingDistance <= unitNavMeshAgent.stoppingDistance)
+					{
+						if (!unitNavMeshAgent.hasPath || unitNavMeshAgent.velocity.sqrMagnitude == 0f)
+						{
+							// Done 
+							
+							foreach (Transform child in transform)
+							{
+								GameObject.Destroy(child.gameObject);
+							}
+							
+							unitGroup.removeUnit(this);
+							Destroy(gameObject);
+							isUnitDisabled = true;
+						}
+					}
+				}
+			
+			}
+
 			unitAnimator.SetBool("isrunning", true);
 			analyseUnitsInRange();
 			if (followTarget != null)
@@ -88,6 +113,28 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		// move to defense point, ignore enemies
 		if (unitCommand == 1)
 		{
+			if(retreatToBase) {
+				if (!unitNavMeshAgent.pathPending)
+				{
+					if (unitNavMeshAgent.remainingDistance <= unitNavMeshAgent.stoppingDistance)
+					{
+						if (!unitNavMeshAgent.hasPath || unitNavMeshAgent.velocity.sqrMagnitude == 0f)
+						{
+							// Done 
+							
+							foreach (Transform child in transform)
+							{
+								GameObject.Destroy(child.gameObject);
+							}
+							
+							unitGroup.removeUnit(this);
+							Destroy(gameObject);
+							isUnitDisabled = true;
+						}
+					}
+				}
+
+			}
 			unitAnimator.SetBool("isrunning", true);
 			if (followTarget != null)
 			{	
@@ -183,12 +230,17 @@ public class UnitFighter : UnitBase, ISelectableBase {
 	}
 
 	bool checkInRange() {
-		if(Vector3.Distance(this.transform.position, unitGroup.transform.position) < spreadDistanceInGroup && isNearDefensePoint == false) {
-			isNearDefensePoint = true;
+		if(Vector3.Distance(this.transform.position, unitGroup.transform.position) < spreadDistanceInGroup) {
 			if(unitCommand != 2) {
-				followTarget = null;
-				getNewIdlePosition(unitGroup.transform.position, spreadDistanceInGroup);
 				unitCommand = 0;
+			}
+			if(!isNearDefensePoint) {
+				isNearDefensePoint = true;
+				//if(unitCommand != 2) {
+					followTarget = null;
+					getNewIdlePosition(unitGroup.transform.position, spreadDistanceInGroup);
+
+				//}
 			}
 		} else if(isNearDefensePoint == true && Vector3.Distance(this.transform.position, unitGroup.transform.position) > spreadDistanceInGroup){
 			isNearDefensePoint = false;

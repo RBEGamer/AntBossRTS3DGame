@@ -11,8 +11,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 	
 	private bool isGroupSelected = false;
 	private bool inPanic = false;
-	
-	
+
 	
 	// Use this for initialization
 	void Start () {
@@ -70,7 +69,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 	// rightclick(when selected)
 	public void OnRightclick(Vector3 destination) {
 		unitGroupTarget = null;
-		if (!inPanic)
+		if (!inPanic && !startedLeaving)
 		{
 			if (myCollider.bounds.Contains(destination))
 			{
@@ -87,6 +86,12 @@ public class UnitGroupFriendly : UnitGroupBase {
 					{
 						Debug.Log("hit: " + hit.collider.name);
 						setTargetEnemy(hit.collider.gameObject);
+						return;
+					}
+
+					if(hit.collider.gameObject.tag.Contains (vars.base_tag)) {
+						findNearestBasePosition();
+						moveToBase(baseList[0]);
 						return;
 					}
 				} 
@@ -115,10 +120,44 @@ public class UnitGroupFriendly : UnitGroupBase {
 			}
 
 			t.unitCommand = -1;
+			t.retreatToBase = false;
+			//t.isNearDefensePoint = false;
 		}
 		myRenderer.material.color = Color.white;
 	}
 	
+	// retreat to defense point / double right click
+	public void moveToBase(GameObject targetbase)
+	{
+		if(targetbase == unitGroupTarget) {
+			foreach (UnitBase t in myUnitList)
+			{
+				t.unitCommand = 1;
+				t.retreatToBase = true;
+			}
+		} else {
+			UnitBase nearestUnit = findNearestUnit(targetbase.transform.position);
+			myRenderer.material.color = Color.white;
+			transform.position = targetbase.transform.position;
+			unitGroupTarget = targetbase;
+			foreach (UnitBase t in myUnitList)
+			{
+				t.setTarget(null, 0);
+				t.followTarget = null;
+				if (t == nearestUnit)
+				{
+					t.unitMovementTarget = targetbase.transform.position;
+				}
+				else
+				{
+					t.followTarget = nearestUnit;
+				}
+				t.unitCommand = -1;
+				t.retreatToBase = true;
+			}
+		}
+	}
+
 	// retreat to defense point / double right click
 	public void moveToDefensePoint(Vector3 destination)
 	{
@@ -137,7 +176,10 @@ public class UnitGroupFriendly : UnitGroupBase {
 				t.followTarget = nearestUnit;
 			}
 			t.unitCommand = 1;
+			t.retreatToBase = false;
+			//t.isNearDefensePoint = false;
 		}
+
 	}
 	
 	// helper function

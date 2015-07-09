@@ -76,6 +76,7 @@ public class UnitFighterTypeA : UnitBase {
 					if(unitGroup.isPatrol && currentWayPoint == currentRoute.wayPointObjects.Count -1) {
 						currentWayPoint = 0;
 					}
+					unitAnimator.SetBool("isrunning", false);
 				}
 				
 			}

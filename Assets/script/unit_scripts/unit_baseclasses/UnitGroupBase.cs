@@ -39,6 +39,8 @@ public class UnitGroupBase : MonoBehaviour {
 	//public List<UnitBase> unitInGroupRange;
 	public List<GameObject> enemiesInGroupRange;
 
+	
+	public bool startedLeaving = false;
 	// ---------------------------
 	// UnitGroup attributes
 	// ---------------------------

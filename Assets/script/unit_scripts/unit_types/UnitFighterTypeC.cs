@@ -23,6 +23,13 @@ public class UnitFighterTypeC : UnitBase {
 		if(unitRange.myCollider != null) {
 			unitRange.myCollider.radius = unitCurrentVisionrange;
 		}
+
+		if(unitGroup != null) {
+			if (!unitGroup.myUnitList.Contains(GetComponent<UnitBase>()))
+			{
+				unitGroup.myUnitList.Add(GetComponent<UnitBase>());
+			}
+		}
 	}
 	
 	void Update () {
@@ -70,6 +77,7 @@ public class UnitFighterTypeC : UnitBase {
 					if(unitGroup.isPatrol && currentWayPoint == currentRoute.wayPointObjects.Count -1) {
 						currentWayPoint = 0;
 					}
+					unitAnimator.SetBool("isrunning", false);
 				}
 				
 			}

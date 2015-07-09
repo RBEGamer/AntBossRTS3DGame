@@ -61,15 +61,17 @@ public abstract class UnitBase : MonoBehaviour
 	public float unitCostMaterials;
 	
 	// ---------------------------
-	// Logic variablescv 
+	// Logic variables
 	// - influenced by unit logic
 	// ---------------------------
-	
+
+
 	// Tracks current cooldown
 	public float unitCurrentCombatCooldown;
 
 	// Panic = no commands acceptable
 	public bool isInPanic = false;
+	public bool retreatToBase = false;
 
 	// Unit behaviour based on command
 	public int unitCommand;
@@ -123,8 +125,6 @@ public abstract class UnitBase : MonoBehaviour
 		}
 
 		isUnitDisabled = false;
-	
-
 
 		unitCombatTarget = null;
 		if(unitRange.myCollider != null) {
