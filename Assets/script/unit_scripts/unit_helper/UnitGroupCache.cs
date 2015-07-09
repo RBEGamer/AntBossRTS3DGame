@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
 public struct SavedUnitGroup {
 	public Vector3 position;
 	public string unitGroupName;
@@ -200,15 +200,15 @@ public class UnitGroupCache : MonoBehaviour {
 					if(group.upgrade_slot_0 == null){
 						group.upgrade_slot_0 = upgrade;
 						Debug.Log("set upgrade to slot 0");
-						//GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_0.GetComponent<Image>().sprite = group.upgrade_slot_0.upgrade_icon;
+						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_0.GetComponent<Image>().sprite = group.upgrade_slot_0.upgrade_icon;
 					}else 	if(group.upgrade_slot_1 == null){
 						group.upgrade_slot_1 = upgrade;
 						Debug.Log("set upgrade to slot 1");
-						//GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_base_button_1.GetComponent<Image>().sprite = group.upgrade_slot_1.upgrade_icon;
+						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_1.GetComponent<Image>().sprite = group.upgrade_slot_1.upgrade_icon;
 					}else 	if(group.upgrade_slot_2 == null){
 						group.upgrade_slot_2 = upgrade;
 						Debug.Log("set upgrade to slot 2");
-						//GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_base_button_2.GetComponent<Image>().sprite = group.upgrade_slot_2.upgrade_icon;
+						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_2.GetComponent<Image>().sprite = group.upgrade_slot_2.upgrade_icon;
 					}
 
 					return true;

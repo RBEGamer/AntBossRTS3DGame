@@ -838,6 +838,10 @@ public class ui_manager : MonoBehaviour {
 	public GameObject unit_group_info_attackrange_text;
 	public GameObject unit_group_info_attackspeed_text;
 
+	public GameObject upgrade_unit_button_0;
+	public GameObject upgrade_unit_button_1;
+	public GameObject upgrade_unit_button_2;
+
 
 	public Sprite empty_unit_ui_slot;
 	public Sprite filled_unit_ui_slot;
@@ -889,14 +893,7 @@ public class ui_manager : MonoBehaviour {
 
 				}
 			}
-
-
-
-
-
-
 		}
-
 	}
 
 
@@ -1055,35 +1052,42 @@ public class ui_manager : MonoBehaviour {
 		//if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
 			if(selected_upgrade.gameObject != null){
 			Debug.Log("selected not empty");
-
-
-			if(GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(ref selected_upgrade) && ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-				show_upgrade_ui = false;
-				selected_upgrade = null;
-				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
-				upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
-				}else if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().add_upgrade(ref selected_upgrade) && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
-				show_upgrade_ui = false;
-				selected_upgrade = null;
-				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
-				upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
-			}else if(GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().add_upgrade(ref selected_upgrade, sug) && ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
-				show_upgrade_ui = false;
-				selected_upgrade = null;
-				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
-				upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
-			}else{
-				Debug.Log("add failed");
-			}
-
-
 		
+
+
+
+			switch (ui_view_slot_0) {
+			case selected_ui_in_slot_0.base_ui:
+				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(ref selected_upgrade)){
+					show_upgrade_ui = false;
+					selected_upgrade = null;
+					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
+					upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
+				}
+				break;
+			case selected_ui_in_slot_0.ressource_ui:
+				if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().add_upgrade(ref selected_upgrade)){
+					show_upgrade_ui = false;
+					selected_upgrade = null;
+					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
+					upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
+				}
+				break;
+			case selected_ui_in_slot_0.unit_ui:
+				if(is_saved_group && GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().add_upgrade(ref selected_upgrade, sug) && ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
+					show_upgrade_ui = false;
+					selected_upgrade = null;
+					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
+					upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
+				}
+				break;
+
+			default:
+			break;
+			}
 			}else{
 				Debug.Log("selected empty");
 			}
-
-		//}
-
 
 
 
