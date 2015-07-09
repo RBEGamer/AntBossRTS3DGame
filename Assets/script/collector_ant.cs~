@@ -189,6 +189,13 @@ public class collector_ant : MonoBehaviour {
 			//Debug.Log(wp_counter);
 			if(wp_counter >= walk_path.Count-1 && walk_path.Count >= 2 && walk_path[wp_counter] == _saved_dest){
 
+				if(is_hinweg){
+					toggle_distance_b = 1f;
+				}else{
+					toggle_distance_b = 2f;
+				}
+
+
 				if(Vector3.Distance(get_wp_pos(walk_path[wp_counter]),transform.position) < toggle_distance_b){
 					
 					
@@ -240,7 +247,7 @@ public class collector_ant : MonoBehaviour {
 
 
 
-							GameObject.Find(vars.base_name).gameObject.GetComponent<base_manager>().add_to_storage(0, ant_bite_size);
+					//		GameObject.Find(vars.base_name).gameObject.GetComponent<base_manager>().add_to_storage(vars.ressource_type.A, ant_bite_size);
 							//base.restype_a_storage += ant_bite_size;
 								GameObject.Find(vars.base_name).GetComponent<base_manager>().add_to_storage(get_res_type_by_id(connected_ressource),ant_bite_size);
 							ant_bite_size = 0.0f;
@@ -260,14 +267,12 @@ public class collector_ant : MonoBehaviour {
 			
 
 
-	
 
 			
-			if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < toggle_distance_a && wp_counter < walk_path.Count-1){//&& current_wp_step == wp_counter){
+			 if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < toggle_distance_a && wp_counter < walk_path.Count-1){//&& current_wp_step == wp_counter){
 				wp_counter++;
 				current_wp_step = walk_path[wp_counter];
 			}
-
 
 
 

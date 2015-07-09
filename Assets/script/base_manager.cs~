@@ -11,6 +11,10 @@ public class base_manager : MonoBehaviour {
 	
 	public int health = 0;
 	
+	public GameObject storage_of_res_a_text;
+	public GameObject storage_of_res_b_text;
+	//public GameObject storage_of_res_c_text;
+
 
 	public int bought_collector_ants = 0;
 	public int bought_attack_ants = 0;
@@ -135,7 +139,9 @@ public class base_manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-	
+		storage_of_res_a_text.GetComponent<Text>().text = res_a_storage.ToString();
+		storage_of_res_b_text.GetComponent<Text>().text = res_b_storage.ToString();
+		//storage_of_res_c_text.GetComponent<Text>().text = res_c_storage.ToString();
 
 		if(Input.GetMouseButtonDown(0)){
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
