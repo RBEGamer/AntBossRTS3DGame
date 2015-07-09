@@ -113,7 +113,7 @@ public class objectives_manager : MonoBehaviour {
 					switch (negative_objectives[j].variable_to_toggle) {
 						
 					case vars.objective_toggle_vars.none:
-						value_to_check = -1.0f;
+						value_to_check = Mathf.Infinity;
 						break;
 					case vars.objective_toggle_vars.ressource_a:
 						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage;
@@ -136,7 +136,9 @@ public class objectives_manager : MonoBehaviour {
 					case vars.objective_toggle_vars.base_health:
 						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().health;
 					break;
-
+					case vars.objective_toggle_vars.elapsed_game_time:
+						value_to_check = GameTimer.curr_time;
+						break;
 
 
 

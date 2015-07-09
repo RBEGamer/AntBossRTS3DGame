@@ -65,7 +65,7 @@ public class vars : MonoBehaviour {
 	/* -------OBJECTIVES AREA ----------------------*/
 	public enum objective_toggle_vars
 	{
-		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout, unitgroups, base_health
+		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout, unitgroups, base_health, elapsed_game_time
 	}
 	public enum objective_comparison_mode
 	{
@@ -85,7 +85,8 @@ public class vars : MonoBehaviour {
 
 	public enum upgrade_values 
 	{
-		schaden, leben, speed, size, regeneration, lagerplatz_res_a, lagerplatz_res_b, lagerplatz_res_c, lagerplatz_res_all, ant_query_waittime, antbitedescrease,productioneffiency
+		schaden, leben, speed, size, regeneration, lagerplatz_res_a, lagerplatz_res_b, lagerplatz_res_c, lagerplatz_res_all, ant_query_waittime, antbitedescrease, productioneffiency,
+		ant_life, ant_damage, ant_speed, ant_regeneration,
 	}
 
 	/* -------END UPGRADE AREA ----------------------*/

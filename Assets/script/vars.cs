@@ -65,7 +65,7 @@ public class vars : MonoBehaviour {
 	/* -------OBJECTIVES AREA ----------------------*/
 	public enum objective_toggle_vars
 	{
-		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout, unitgroups, base_health
+		none, ressource_a, ressource_b, ressource_c, amount_waypoints, amount_ants_collector, amount_ants_attack, amount_ans_scout, unitgroups, base_health, elapsed_game_time
 	}
 	public enum objective_comparison_mode
 	{
