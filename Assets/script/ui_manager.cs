@@ -470,7 +470,8 @@ public class ui_manager : MonoBehaviour {
 			for (int i = 0; i < 12; i++) {
 
 				if(i > ant_produce_query.Count){
-			GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = false;
 				}
 			GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
 
@@ -490,6 +491,7 @@ public class ui_manager : MonoBehaviour {
 			ant_time_tmp.waititme -= Time.deltaTime;
 			ant_produce_query[i] = ant_time_tmp;
 		
+			GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = true;
 
 			//SHOW Produce state
 			if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
@@ -860,6 +862,7 @@ public class ui_manager : MonoBehaviour {
 
 			for (int i = 0; i < 10; i++) {
 				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = empty_unit_ui_slot;
+				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Button>().interactable = false;
 			}
 
 
@@ -870,6 +873,7 @@ public class ui_manager : MonoBehaviour {
 
 			for (int i = 0; i < sug.numUnits; i++) {
 				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = filled_unit_ui_slot;
+					GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Button>().interactable = true;
 			}
 			}else{
 
@@ -880,6 +884,7 @@ public class ui_manager : MonoBehaviour {
 				
 				for (int i = 0; i < GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().selectedUnitGroupBase.myUnitList.Count; i++) {
 					GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = filled_unit_ui_slot;
+						GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Button>().interactable = true;
 				}
 
 				}
@@ -979,11 +984,13 @@ public class ui_manager : MonoBehaviour {
 		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
 				for (int i = 0; i < 9; i++) {
 					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
+					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
 					view_specific_upgrades[i] = null;
 				}
 				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
-					if(!GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].taken && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ant_base){
+					if(i < 9 && !GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].taken && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ant_base){
 						GameObject.Find("select_upgrade_slot_btn_" + i).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
+						GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = true;
 						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
 					}
 				}
@@ -995,23 +1002,35 @@ public class ui_manager : MonoBehaviour {
 			if(ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 				for (int i = 0; i < 9; i++) {
 					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
+					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
 					view_specific_upgrades[i] = null;
 				}
 
-
 				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
-					if(GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ressources){
-						GameObject.Find("select_upgrade_slot_btn_" + i).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
+					if(i < 9 && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ressources){
+						GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = true;
+						GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
 						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
 					}
 				}
-
-
-
 			}
 
 
-
+			if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui && is_saved_group){
+				for (int i = 0; i < 9; i++) {
+					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
+					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
+					view_specific_upgrades[i] = null;
+				}
+				
+				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
+					if(i < 9 && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.units){
+						GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = true;
+						GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
+						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
+					}
+				}
+			}
 
 
 
@@ -1043,13 +1062,12 @@ public class ui_manager : MonoBehaviour {
 				selected_upgrade = null;
 				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
 				upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
-				}else{
-				Debug.Log("add failed");
-				}
-
-
-			
-			if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().add_upgrade(ref selected_upgrade) && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+				}else if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().add_upgrade(ref selected_upgrade) && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+				show_upgrade_ui = false;
+				selected_upgrade = null;
+				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
+				upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
+			}else if(GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().add_upgrade(ref selected_upgrade, sug) && ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
 				show_upgrade_ui = false;
 				selected_upgrade = null;
 				upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
@@ -1059,8 +1077,7 @@ public class ui_manager : MonoBehaviour {
 			}
 
 
-
-
+		
 			}else{
 				Debug.Log("selected empty");
 			}

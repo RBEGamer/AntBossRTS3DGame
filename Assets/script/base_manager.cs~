@@ -8,8 +8,7 @@ public class base_manager : MonoBehaviour {
 	public float res_a_storage;
 	public float res_b_storage;
 	public float res_c_storage;
-
-	public int base_health_percentage = 0;
+	
 	public int health = 0;
 	
 
@@ -131,7 +130,7 @@ public class base_manager : MonoBehaviour {
 		bought_collector_ants = vars.initial_collector_ants;
 		bought_attack_ants = vars.initial_attack_ants;
 		bought_scout_ants = vars.initial_scout_ants;
-		base_health_percentage = vars.base_start_health_percentage;
+		health = vars.base_start_health_percentage;
 	}
 	
 	// Update is called once per frame
@@ -151,10 +150,6 @@ public class base_manager : MonoBehaviour {
 						//map_ui_to_ressource(n.gameObject.GetComponent<ressource>().ressource_id);
 						
 					}
-
-				
-				//if(hit.collider.gameObject.tag == vars.environment_tag || hit.collider.gameObject.tag == vars.ground_tag){deselect_all_ressources();}
-				
 			}//ende raycast
 			//disable_all_collider();
 		}//ende mousbutton

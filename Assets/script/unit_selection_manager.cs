@@ -76,6 +76,7 @@ public class unit_selection_manager : MonoBehaviour {
 		for (int i = 1; i < 19; i++) {
 			group_states[i-1] = false;
 			GameObject.Find("unit_selection_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_group_holder;
+			GameObject.Find("unit_selection_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
 		}
 
 
@@ -84,6 +85,7 @@ public class unit_selection_manager : MonoBehaviour {
 			group_states[counter] = false;
 			counter++;
 			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = group_icons[counter-1];
+			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Button>().interactable = true;
 		}
 
 		//Debug.Log(GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved.Count);
@@ -93,6 +95,7 @@ public class unit_selection_manager : MonoBehaviour {
 			group_states[counter] = true;
 			counter++;
 			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = tmp_group_icon;
+			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Button>().interactable = true;
 		}
 
 

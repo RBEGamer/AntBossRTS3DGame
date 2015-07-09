@@ -64,14 +64,17 @@ public class objectives_manager : MonoBehaviour {
 			
 		}
 
-
+		//ENABLE POSITIVE OBJECTIVES
 		for (int i = 0; i < objectives.Count; i++) {
 			objectives[i].active = false;
 			objectives[i].finished = false;
 		}
 		objectives[0].active = true;
 
-
+		//ENABLE ALL NEGATIVE OBJECTIVES
+		for (int i = 0; i < negative_objectives.Count; i++) {
+			negative_objectives[i].active = true;
+		}
 
 
 
