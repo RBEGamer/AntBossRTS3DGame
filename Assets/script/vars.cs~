@@ -223,7 +223,7 @@ public class vars : MonoBehaviour {
 	public static string credit_scene_name = "credits";
 	public static string intro_scene_name = "intro";
 	public static string optionn_scene_name = "options";
-	public static string mission_one_scene_name = "main";
+	public static string mission_one_scene_name = "mission_01";
 	public static string mission_two_scene_name = "main";
 	public static string mission_three_scene_name = "main";
 	public static string mission_four_scene_name = "main";
