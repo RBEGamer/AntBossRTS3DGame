@@ -12,7 +12,8 @@ public class ui_manager : MonoBehaviour {
 
 	public bool is_in_menu = false;
 	public GameObject pause_menu_holder;
-
+	public GameObject toggle_waypoint_mode_button_holder;
+	public GameObject toggle_waypoint_mode_button_text_holder;
 	public void toggle_menu(){
 		is_in_menu = !is_in_menu;
 		pause_menu_holder.SetActive(is_in_menu);
@@ -34,7 +35,21 @@ public class ui_manager : MonoBehaviour {
 	}
 
 
+
+
+
 	public void manage_menu(){
+
+		if(vars.is_in_patheditmode){
+			toggle_waypoint_mode_button_holder.GetComponent<Image>().color = Color.green;
+		//	toggle_waypoint_mode_button_holder.transform.GetComponentInChildren<Text>().text = "LEAVE WAYPOINT MODE";
+			toggle_waypoint_mode_button_text_holder.GetComponent<Text>().text = "LEAVE WAYPOINT MODE";
+
+		}else{
+			toggle_waypoint_mode_button_holder.GetComponent<Image>().color = Color.white;
+			//toggle_waypoint_mode_button_holder.transform.GetComponentInChildren<Text>().text = "ENTER WAYPOINT MODE";
+			toggle_waypoint_mode_button_text_holder.GetComponent<Text>().text = "ENTER WAYPOINT MODE";
+		}
 
 		if(Input.GetKeyDown(vars.key_pause_menu)){
 			toggle_menu();
@@ -580,19 +595,10 @@ public class ui_manager : MonoBehaviour {
 	
 	public void toggle_patheditmode(){
 		vars.is_in_patheditmode = !vars.is_in_patheditmode;
-
-		//Color c = wp_button.GetComponent<Button>().colors.normalColor;
-
-
 		if(vars.is_in_patheditmode){
-				//	pem_btn_text.GetComponent<Text>().text = "LEAVE PATHEDITMODE";
-			//wp_button.GetComponent<Button>().colors.highlightedColor.r = 1.0f;
 		}else{
 		GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().deselect_all_nodes();
-				//	pem_btn_text.GetComponent<Text>().text = "ENTER PATHEDITMODE";
-//			wp_button.GetComponent<Button>().colors.normalColor = Color.blue;
 		}
-		//wp_button.GetComponent<Button>().colors = c
 	}
 	
 	

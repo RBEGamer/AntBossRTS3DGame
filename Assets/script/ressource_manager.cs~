@@ -149,7 +149,7 @@ public class ressource_manager : MonoBehaviour {
 		int _count = 0;
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
 			if(with_walking_state_check){
-				if(n.gameObject.GetComponent<collector_ant>().connected_ressource == _resid && n.gameObject.GetComponent<collector_ant>().is_walking()){
+				if(n.gameObject.GetComponent<collector_ant>().connected_ressource == _resid && (n.gameObject.GetComponent<collector_ant>().is_walking() || n.gameObject.GetComponent<collector_ant>().is_collectiong())){
 					_count++;
 				}
 			}else{

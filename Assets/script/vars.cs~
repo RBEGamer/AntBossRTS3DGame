@@ -4,25 +4,8 @@ using System.Collections;
 public class vars : MonoBehaviour {
 
 	/* ---------BEGIN DO NOT CHNAGE-------------------- */
-	public enum ressource_type
-	{
-		A,B,C, default_type
-	}
-	public struct res_type_default{
-		public static float max_harvest = 0f;
-		public static int max_collector_ants = 0;
-		public static float interaction_circle_radius = 0f;
-		public static float interactition_latitude = 0f;
-		public static float ant_bite_decrease = 0;
-		public static int health_percentage = 0;
-		public static string ui_displayname_ressource = "<no valid res type>";
-		public static float effiency = 1.0f;
-	}
-	public struct costs_nothing_ants{
-		public static float costs_res_a = 0.0f;
-		public static float costs_res_b = 0.0f;
-		public static float costs_res_c = 0.0f;
-	}
+
+
 
 	/* ---------END DO NOT CHNAGE-------------------- */
 		
@@ -97,6 +80,23 @@ public class vars : MonoBehaviour {
 
 
 	/* -------RESSOURCE SETTING AREA ----------------------*/
+
+	public enum ressource_type
+	{
+		A,B,C, default_type
+	}
+	public struct res_type_default{
+		public static float max_harvest = 0f;
+		public static int max_collector_ants = 0;
+		public static float interaction_circle_radius = 0f;
+		public static float interactition_latitude = 0f;
+		public static float ant_bite_decrease = 0;
+		public static int health_percentage = 0;
+		public static string ui_displayname_ressource = "<no valid res type>";
+		public static float effiency = 1.0f;
+		public static float harwesting_time = 0.0f; //ONLY FROM COLLECTOR ANT USED
+	}
+
 	public struct res_type_a{
 		public static float max_harvest = 1000.0f; //wie viel ressourcen können abgebaut werden von dieser ressource
 		public static int max_collector_ants = 10; //wie viele Armeisen können an dieser REssource abbauen
@@ -106,6 +106,7 @@ public class vars : MonoBehaviour {
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Nahrung";
 		public static float effiency = 1.0f;
+		public static float harwesting_time = 5.0f; //ONLY FROM COLLECTOR ANT USED
 	}
 	public struct res_type_b{
 		public static float max_harvest = 2000.0f;
@@ -116,6 +117,7 @@ public class vars : MonoBehaviour {
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Baumaterial";
 		public static float effiency = 1.0f;
+		public static float harwesting_time = 10.0f; //ONLY FROM COLLECTOR ANT USED
 	}
 	public struct res_type_c{
 		public static float max_harvest = 3000.0f;
@@ -126,6 +128,7 @@ public class vars : MonoBehaviour {
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Energie";
 		public static float effiency = 1.0f;
+		public static float harwesting_time = 15.0f; //ONLY FROM COLLECTOR ANT USED
 	}
 	/* -------END RESSOURCE SETTING AREA ----------------------*/
 
@@ -152,7 +155,7 @@ public class vars : MonoBehaviour {
 	public static float initial_res_a_storage = 5000.0f;
 	public static float initial_res_b_storage = 500.0f;
 	public static float initial_res_c_storage = 500.0f;
-	public static int initial_collector_ants = 1;
+	public static int initial_collector_ants = 10;
 	public static int initial_attack_ants = 10;
 	public static int initial_scout_ants = 10;
 	public static int base_start_health_percentage = 100;
@@ -161,12 +164,17 @@ public class vars : MonoBehaviour {
 	public static int max_storage_res_b = 10000;
 	public static int max_storage_res_c = 10000;
 
+	public struct costs_nothing_ants{
+		public static float costs_res_a = 0.0f;
+		public static float costs_res_b = 0.0f;
+		public static float costs_res_c = 0.0f;
+	}
 
 	public struct costs_scout_ants{
 		public static float costs_res_a = 100.0f;
 		public static float costs_res_b = 500.0f;
 		public static float costs_res_c = 0.0f;
-		public static float ant_query_waittime = 10.0f;
+		public static float ant_query_waittime = 20.0f;
 	}
 	public struct costs_collector_ants{
 		public static float costs_res_a = 2000.0f;

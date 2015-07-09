@@ -7,6 +7,8 @@ public class collector_ant : MonoBehaviour {
 	public float ant_bite_size;
 
 
+	public float collectiong_counter;
+
 	private Material ant_material;
 	public Texture ant_texture_normal;
 	public Texture ant_texture_loaded;
@@ -26,19 +28,25 @@ public class collector_ant : MonoBehaviour {
 	public int wp_counter;
 	List<GameObject> count_list;
 
+
+	public float toggle_distance_a = 0.1f;
+	public float toggle_distance_b = 0.1f;
+
 	public int health = 10;
 
 	public void receiveDamage(int damage) {
 		health -= damage;
 		if(health <= 0) {
+			GameObject.Find(vars.base_tag).GetComponent<base_manager>().bought_collector_ants -=1;
+			GameObject.Find(vars.res_tag + "_" + connected_ressource).GetComponent<ressource>().res.target_collection_ants -= 1;
 			Destroy(gameObject);
-			
+
 		}
 	}
 
 	public enum ant_activity_state
 	{
-		sleep,walking,destroy
+		sleep,walking,destroy, collecting
 	}
 
 	public  ant_activity_state ant_state;
@@ -59,7 +67,9 @@ public class collector_ant : MonoBehaviour {
 	public void set_destroy_state(){
 		ant_state = ant_activity_state.destroy;
 	}
-
+	public void set_collection_state(){
+		ant_state = ant_activity_state.collecting;
+	}
 
 
 	public bool is_walking(){
@@ -86,6 +96,15 @@ public class collector_ant : MonoBehaviour {
 			return false;
 		}
 	}
+
+	public bool is_collectiong(){
+		if(ant_state == ant_activity_state.collecting){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 
 
@@ -139,7 +158,7 @@ public class collector_ant : MonoBehaviour {
 
 
 
-		if(walk_path.Count > 1 && !GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_in_menu){
+		if(walk_path.Count > 1 ){
 
 
 
@@ -150,13 +169,27 @@ public class collector_ant : MonoBehaviour {
 			this.transform.LookAt(get_wp_pos(walk_path[wp_counter]));
 
 
+			if(is_collectiong() ){
+
+				collectiong_counter -= Time.deltaTime;
+				if(collectiong_counter <= 0.0f){
+				ant_bite_size =	GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().ant_bite();
+				sw_path();
+				set_walking_state();
+				}
+			}
+
+
+
+		
 
 
 
 
 			//Debug.Log(wp_counter);
 			if(wp_counter >= walk_path.Count-1 && walk_path.Count >= 2 && walk_path[wp_counter] == _saved_dest){
-				if(Vector3.Distance(get_wp_pos(walk_path[wp_counter]),transform.position) < 0.1f){
+
+				if(Vector3.Distance(get_wp_pos(walk_path[wp_counter]),transform.position) < toggle_distance_b){
 					
 					
 					
@@ -167,9 +200,28 @@ public class collector_ant : MonoBehaviour {
 					//hier je nach richtun aktion ausführen
 
 
-					if(!is_hinweg){
-						ant_bite_size =	GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().ant_bite();
-						sw_path();
+					if(!is_hinweg && is_walking()){
+
+						switch (GameObject.Find(vars.res_name + "_" + connected_ressource.ToString()).GetComponent<ressource>().res_type) {
+						case vars.ressource_type.A:
+						collectiong_counter = vars.res_type_a.harwesting_time;
+						break;
+						case vars.ressource_type.B:
+							collectiong_counter = vars.res_type_b.harwesting_time;
+							break;
+						case vars.ressource_type.C:
+							collectiong_counter = vars.res_type_c.harwesting_time;
+							break;
+						case vars.ressource_type.default_type:
+							collectiong_counter = vars.res_type_default.harwesting_time;
+							break;
+
+						default:
+						break;
+						}
+
+						set_collection_state();
+
 					}else{
 
 						//Debug.Log("entered base");
@@ -206,13 +258,13 @@ public class collector_ant : MonoBehaviour {
 				
 			}
 			
+
+
+	
+
 			
-			
-			
-			if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < 0.1f ){//&& current_wp_step == wp_counter){
-				if(wp_counter < walk_path.Count-1){
-					wp_counter ++;
-				}
+			if(Vector3.Distance(get_wp_pos(current_wp_step),transform.position) < toggle_distance_a && wp_counter < walk_path.Count-1){//&& current_wp_step == wp_counter){
+				wp_counter++;
 				current_wp_step = walk_path[wp_counter];
 			}
 
