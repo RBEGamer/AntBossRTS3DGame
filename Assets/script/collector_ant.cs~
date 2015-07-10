@@ -58,17 +58,21 @@ public class collector_ant : MonoBehaviour {
 
 	public void set_walking_state(){
 		ant_state = ant_activity_state.walking;
+		model_holder.SetActive(true);
 	}
 
 	public void set_sleep_state(){
 		ant_state = ant_activity_state.sleep;
+		model_holder.SetActive(false);
 	}
 
 	public void set_destroy_state(){
 		ant_state = ant_activity_state.destroy;
+		model_holder.SetActive(false);
 	}
 	public void set_collection_state(){
 		ant_state = ant_activity_state.collecting;
+		model_holder.SetActive(true);
 	}
 
 

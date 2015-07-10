@@ -80,12 +80,7 @@ public class UnitGroupCache : MonoBehaviour {
 	void Update() {
 
 		
-		// TEST
-		if(Input.GetKeyDown(KeyCode.H)) {
-			spawnUnitgroup(unitGroupsSaved[unitGroupsSaved.Count-1]);
-		}
-		//
-
+	
 
 
 
@@ -143,6 +138,7 @@ public class UnitGroupCache : MonoBehaviour {
 		
 		newUnitGroup.numUnits = group.numUnitsInGroup;
 		unitGroupsSaved.Add (newUnitGroup);
+	
 	}
 	
 	// spawns a waiting unit group
@@ -161,6 +157,7 @@ public class UnitGroupCache : MonoBehaviour {
 		
 		
 		deleteUnitGroup(group);
+
 	}
 
 

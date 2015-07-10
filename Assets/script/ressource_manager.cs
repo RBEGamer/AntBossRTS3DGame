@@ -92,6 +92,7 @@ public class ressource_manager : MonoBehaviour {
 				Debug.Log("spawn coll ant");
 				GameObject new_ant_instance = (GameObject)Instantiate(collection_ant_template, GameObject.Find(vars.sleep_pos_manager_name).gameObject.GetComponent<sleep_pos_manager>().get_sleeping_pos(), Quaternion.identity);
 				collector_ant coll_ant = 	new_ant_instance.gameObject.GetComponent<collector_ant>();
+					GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().refresh_ressource_ui_slots();
 				coll_ant.set_walking_state();
 				coll_ant.connected_ressource = _res_id;
 				coll_ant.res_updated = true;

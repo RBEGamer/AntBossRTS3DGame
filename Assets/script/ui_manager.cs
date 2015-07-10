@@ -4,16 +4,25 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 public class ui_manager : MonoBehaviour {
 
+	//CACHE
+
+
+
+	private base_manager base_manager_cache;
+	private UnitGroupCache unit_group_chache_cache;
+	private upgrade_manager upgrade_manager_cache;
 
 	//------------MENU -----------------------------------------------//
 	//------------MENU -----------------------------------------------//
 	//------------MENU -----------------------------------------------//
 	//------------MENU -----------------------------------------------//
+
 
 	public bool is_in_menu = false;
 	public GameObject pause_menu_holder;
 	public GameObject toggle_waypoint_mode_button_holder;
 	public GameObject toggle_waypoint_mode_button_text_holder;
+
 	public void toggle_menu(){
 		is_in_menu = !is_in_menu;
 		pause_menu_holder.SetActive(is_in_menu);
@@ -42,9 +51,9 @@ public class ui_manager : MonoBehaviour {
 
 		if(vars.is_in_patheditmode){
 			toggle_waypoint_mode_button_holder.GetComponent<Image>().color = Color.green;
-		//	toggle_waypoint_mode_button_holder.transform.GetComponentInChildren<Text>().text = "LEAVE WAYPOINT MODE";
+			//	toggle_waypoint_mode_button_holder.transform.GetComponentInChildren<Text>().text = "LEAVE WAYPOINT MODE";
 			toggle_waypoint_mode_button_text_holder.GetComponent<Text>().text = "LEAVE WAYPOINT MODE";
-
+			
 		}else{
 			toggle_waypoint_mode_button_holder.GetComponent<Image>().color = Color.white;
 			//toggle_waypoint_mode_button_holder.transform.GetComponentInChildren<Text>().text = "ENTER WAYPOINT MODE";
@@ -71,7 +80,13 @@ public class ui_manager : MonoBehaviour {
 	public int uirc = 0;
 	public int uirct = 50;
 	// Use this for initialization
+
+
+
 	void Start () {
+		base_manager_cache = GameObject.Find(vars.base_name).GetComponent<base_manager>();
+		unit_group_chache_cache = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>();
+		upgrade_manager_cache = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>();
 		this.name = vars.ui_manager_name;
 		Time.timeScale = 1.0f;
 		//	refresh_ressource_ui();
@@ -87,7 +102,7 @@ public class ui_manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		manage_menu();
+	//	manage_menu();
 		manage_view();
 		refresh_ressource_ui();
 		//	refresh_base_ui();
@@ -138,9 +153,9 @@ public class ui_manager : MonoBehaviour {
 		show_upgrade_ui = false;
 		if(!vars.is_in_patheditmode){
 			ui_view_slot_0 = selected_ui_in_slot_0.ressource_ui;
-
 		}
 		manage_view();
+		switched_view_to_ressource_ui();
 	}
 
 	public void slot_0_set_unit(){
@@ -218,6 +233,69 @@ public class ui_manager : MonoBehaviour {
 	public Sprite ant_icon_unloaded;
 	public Sprite ant_icon_none;
 
+
+	public void refresh_ressource_ui_slots(){
+		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+		
+			GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_selected_by_res_manager = true;
+
+
+
+		for (int i = 0; i < 10; i++) {
+			GameObject.Find("ant_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = ant_icon_none;
+		}
+
+		//show ant ichons on buttons
+		int counter =0 ;
+		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
+			if(n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui){
+				counter++;
+				if(n.GetComponent<collector_ant>().ant_bite_size > 0){
+					GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_loaded;
+				}else{
+					GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_unloaded;
+				}
+			}
+		}
+	}
+}
+
+
+	public void switched_view_to_ressource_ui(){
+
+		//RESS TYPE ICON
+		switch (GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res_type) {
+		case vars.ressource_type.A:
+			ui_res_a_icon.SetActive(true);
+			ui_res_b_icon.SetActive(false);
+			//	ui_res_c_icon.SetActive(false);
+			break;
+		case vars.ressource_type.B:
+			ui_res_a_icon.SetActive(false);
+			ui_res_b_icon.SetActive(true);
+			//	ui_res_c_icon.SetActive(false);
+			break;
+		case vars.ressource_type.C:
+			ui_res_a_icon.SetActive(false);
+			ui_res_b_icon.SetActive(false);
+			//	ui_res_c_icon.SetActive(true);
+			break;
+		case vars.ressource_type.default_type:
+			ui_res_a_icon.SetActive(false);
+			ui_res_b_icon.SetActive(false);
+			//	ui_res_c_icon.SetActive(false);
+			break;
+		default:
+			ui_res_a_icon.SetActive(false);
+			ui_res_b_icon.SetActive(false);
+			//	ui_res_c_icon.SetActive(false);
+			break;
+		}
+
+		refresh_ressource_ui_slots();
+
+	}
+
 	public void refresh_ressource_ui(){
 
 
@@ -228,74 +306,15 @@ public class ui_manager : MonoBehaviour {
 
 
 		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
-		
-
-
-			GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_selected_by_res_manager = true;
-
-			//clear all button images
-			for (int i = 0; i < 10; i++) {
-				GameObject.Find("ant_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = ant_icon_none;
-			}
-			
-			//show ant ichons on buttons
-			int counter =0 ;
-			foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-				if(n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui){
-				counter++;
-				if(n.GetComponent<collector_ant>().ant_bite_size > 0){
-					GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_loaded;
-				}else{
-					GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_unloaded;
-				}
-			}
-			}
-
-
-
 
 			//HEALTHBAR
 			float inverted_health = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.health_percentage / 100.0f;
 			if(inverted_health > 1.0f){inverted_health = 1.0f;}
 			if(inverted_health < 0.0f){inverted_health = 0.0f;}
 			healthbar_progress_picture_holder.gameObject.GetComponent<Image>().fillAmount = inverted_health;
-			
-			//HEADLINE
-			//ressource_headline_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.ui_displayname_ressource + " [ID:" + connected_res_to_ui.ToString() +"]";
-			
-			
-			//RESS TYPE ICON
-			switch (GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res_type) {
-			case vars.ressource_type.A:
-				ui_res_a_icon.SetActive(true);
-				ui_res_b_icon.SetActive(false);
-				//	ui_res_c_icon.SetActive(false);
-				break;
-			case vars.ressource_type.B:
-				ui_res_a_icon.SetActive(false);
-				ui_res_b_icon.SetActive(true);
-				//	ui_res_c_icon.SetActive(false);
-				break;
-			case vars.ressource_type.C:
-				ui_res_a_icon.SetActive(false);
-				ui_res_b_icon.SetActive(false);
-				//	ui_res_c_icon.SetActive(true);
-				break;
-			case vars.ressource_type.default_type:
-				ui_res_a_icon.SetActive(false);
-				ui_res_b_icon.SetActive(false);
-				//	ui_res_c_icon.SetActive(false);
-				break;
-			default:
-				ui_res_a_icon.SetActive(false);
-				ui_res_b_icon.SetActive(false);
-				//	ui_res_c_icon.SetActive(false);
-				break;
-			}
-			
+
 			//RES CURRENT AVARIABLE RESSOURCE AMOUNT
 			ui_res_amount_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.current_harvest_amount.ToString() + " / " + GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_harvest.ToString();
-			
 			//RES CURRENT ACTIVE COLLECTOR ANTS
 			ui_active_collector_ants.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants.ToString() + " / "+ GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants.ToString();
 			
@@ -313,8 +332,6 @@ public class ui_manager : MonoBehaviour {
 			
 			
 		}
-		
-		
 	}
 
 
@@ -330,17 +347,17 @@ public class ui_manager : MonoBehaviour {
 
 			if(res_ants_to_assign > 0){
 		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants += res_ants_to_assign;
-		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants -= res_ants_to_assign;
+				base_manager_cache.bought_collector_ants -= res_ants_to_assign;
 		//WTF THIS CODE FOR THE BASE PART WTF
-		//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a * res_ants_to_assign;
-		//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * res_ants_to_assign;
+				//base_manager_cache.res_a_storage += vars.costs_collector_ants.costs_res_a * res_ants_to_assign;
+				//base_manager_cache.res_b_storage += vars.costs_collector_ants.costs_res_b * res_ants_to_assign;
 			}else if (res_ants_to_assign < 0){
 
 				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= Mathf.Abs( res_ants_to_assign);
-				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += Mathf.Abs( res_ants_to_assign);
+				base_manager_cache.bought_collector_ants += Mathf.Abs( res_ants_to_assign);
 
-				GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a * Mathf.Abs(res_ants_to_assign);
-				GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b * Mathf.Abs(res_ants_to_assign);
+				base_manager_cache.res_a_storage += vars.costs_collector_ants.costs_res_a * Mathf.Abs(res_ants_to_assign);
+				base_manager_cache.res_b_storage += vars.costs_collector_ants.costs_res_b * Mathf.Abs(res_ants_to_assign);
 
 			}
 	}
@@ -356,7 +373,7 @@ public class ui_manager : MonoBehaviour {
 		int tca = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;//TARGET ANTS
 		int mca = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants;//TARGET ANTS
 
-		int caca = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants; //current avariable collection ants
+			int caca = base_manager_cache.bought_collector_ants; //current avariable collection ants
 
 		if(value > 0){ //adden
 			//schauen ob die maximale anzahl für die ameisen der ressource errreciht ist
@@ -395,7 +412,7 @@ public class ui_manager : MonoBehaviour {
 			if(n.GetComponent<collector_ant>().ant_bite_size > 0 && n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui && GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants >= 1){
 
 
-				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += 1;
+				base_manager_cache.bought_collector_ants += 1;
 				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= 1;
 
 
@@ -410,7 +427,7 @@ public class ui_manager : MonoBehaviour {
 	public void clear_selected_ant(int ant_count){
 
 		if( GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants >= 1){
-		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += 1;
+			base_manager_cache.bought_collector_ants += 1;
 		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= 1;
 		}
 
@@ -419,7 +436,7 @@ public class ui_manager : MonoBehaviour {
 	public void clear_all_ants(){
 
 
-		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants +=GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;
+		base_manager_cache.bought_collector_ants +=GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;
 		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants = 0;
 
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
@@ -462,102 +479,98 @@ public class ui_manager : MonoBehaviour {
 		//schauen welcher typ -> ressourcen wieder drauf -> aus der liste entferenn
 
 		if(ant_produce_query[queray_pos].type == ant_types.scout){
-			GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_scout_ants.costs_res_a;
-			GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_scout_ants.costs_res_b;
-			//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += vars.costs_scout_ants.costs_res_c;
+			base_manager_cache.res_a_storage += vars.costs_scout_ants.costs_res_a;
+			base_manager_cache.res_b_storage += vars.costs_scout_ants.costs_res_b;
+			//base_manager_cache.res_c_storage += vars.costs_scout_ants.costs_res_c;
 		}else if(ant_produce_query[queray_pos].type == ant_types.collector){
-			GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_collector_ants.costs_res_a;
-			GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_collector_ants.costs_res_b;
-			//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += vars.costs_collector_ants.costs_res_c;
+			base_manager_cache.res_a_storage += vars.costs_collector_ants.costs_res_a;
+			base_manager_cache.res_b_storage += vars.costs_collector_ants.costs_res_b;
+			//base_manager_cache.res_c_storage += vars.costs_collector_ants.costs_res_c;
 		}else if(ant_produce_query[queray_pos].type == ant_types.attack){
-			GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += vars.costs_attack_ants.costs_res_a;
-			GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += vars.costs_attack_ants.costs_res_b;
-			//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += vars.costs_attack_ants.costs_res_c;
+			base_manager_cache.res_a_storage += vars.costs_attack_ants.costs_res_a;
+			base_manager_cache.res_b_storage += vars.costs_attack_ants.costs_res_b;
+			//base_manager_cache.res_c_storage += vars.costs_attack_ants.costs_res_c;
 		}
 
 		ant_produce_query.RemoveAt(queray_pos);
 	}
 
+
+
+
 	void ant_produce_query_task(){
-
-		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-		//alle btns weiss
+		
+		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui && ant_produce_query.Count > 0){
+			//alle btns weiss
 			for (int i = 0; i < 12; i++) {
+				
+				if(i >= ant_produce_query.Count){
+					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = false;
+				}else{
+				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
+				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = true;
+				
 
-				if(i > ant_produce_query.Count){
-				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
-				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = false;
+						GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = ant_produce_query[i].waititme / ant_produce_query[i].max_waittime;
+						switch (ant_produce_query[i].type) {
+						case ant_types.scout:
+							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = scout_ant_icon;
+							break;
+						case ant_types.collector:
+							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = collector_ant_icon;
+							break;
+						case ant_types.attack:
+							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = attack_ant_icon;
+							break;
+						default:
+							break;
+						}
+					
+
+
+
 				}
-			GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
-
+			}
 		}
-		}
-
-	
-
-
-
-
+		
+		
+		
+		
+		
+		
 		for (int i = 0; i < ant_produce_query.Count; i++)
 		{
-		
+			
 			//Update time
 			ant_query_info ant_time_tmp = ant_produce_query[i];
 			ant_time_tmp.waititme -= Time.deltaTime;
 			ant_produce_query[i] = ant_time_tmp;
-		
-			GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = true;
-
-			//SHOW Produce state
-			if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = ant_produce_query[i].waititme / ant_produce_query[i].max_waittime;
-			}
-
-
-			if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-				switch (ant_produce_query[i].type) {
-				case ant_types.scout:
-				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = scout_ant_icon;
-				break;
-				case ant_types.collector:
-					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = collector_ant_icon;
-					break;
-				case ant_types.attack:
-					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = attack_ant_icon;
-					break;
-				default:
-				break;
-				}
-					}
-
 
 			if(ant_produce_query[i].waititme <= 0.0f){
 				switch (ant_produce_query[i].type) {
 				case ant_types.scout:
-				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants += 1;
-				break;
+					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants += 1;
+					break;
 				case ant_types.collector:
-				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += 1;
-				break;
+					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += 1;
+					break;
 				case ant_types.attack:
-				GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
-				break;
+					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
+					break;
 				default:
-				//	GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
-				break;
+					//	GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+					break;
 				}
 				ant_produce_query.RemoveAt(i);
 			}
+			
+			
+
+			
 
 		}
-
-
-	
-
 	}
-
-
-
 
 
 
@@ -627,7 +640,8 @@ public class ui_manager : MonoBehaviour {
 		init_base_ui_with_new_selection();
 		refresh_base_ui();
 	}
-	
+
+
 	public void init_base_ui_with_new_selection(){
 		switch (curr_sel_type) {
 		case selected_ant_type.nothing:
@@ -684,14 +698,14 @@ public class ui_manager : MonoBehaviour {
 	public void apply_buy(){
 		
 		if(ants_to_produce > 0){
-			if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage >= final_costs_res_a){
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage >= final_costs_res_b){
-					//if(GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage >= final_costs_res_c){
+			if(base_manager_cache.res_a_storage >= final_costs_res_a){
+				if(base_manager_cache.res_b_storage >= final_costs_res_b){
+					//if(base_manager_cache.res_c_storage >= final_costs_res_c){
 					switch (curr_sel_type) {
 					case selected_ant_type.nothing:
 						break;
 					case selected_ant_type.scout:
-						//GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants += ants_to_produce;
+						//base_manager_cache.bought_scout_ants += ants_to_produce;
 
 						if(ant_produce_query.Count < 12){
 							ant_query_info tmp_prid_ant;
@@ -699,10 +713,10 @@ public class ui_manager : MonoBehaviour {
 							tmp_prid_ant.max_waittime = vars.costs_scout_ants.ant_query_waittime;
 							tmp_prid_ant.waititme = vars.costs_scout_ants.ant_query_waittime;
 							ant_produce_query.Add (tmp_prid_ant);
-							GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= final_costs_res_a;
-							GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= final_costs_res_b;
+							base_manager_cache.res_a_storage -= final_costs_res_a;
+							base_manager_cache.res_b_storage -= final_costs_res_b;
 						}
-						//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
+						//	base_manager_cache.res_c_storage -= final_costs_res_c;
 						break;
 					case selected_ant_type.collector:
 
@@ -711,10 +725,10 @@ public class ui_manager : MonoBehaviour {
 							tmp_prid_ant.type = ant_types.collector;
 							tmp_prid_ant.max_waittime = vars.costs_collector_ants.ant_query_waittime;
 							tmp_prid_ant.waititme = vars.costs_scout_ants.ant_query_waittime;
-							GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= final_costs_res_a;
-							GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= final_costs_res_b;
+							base_manager_cache.res_a_storage -= final_costs_res_a;
+							base_manager_cache.res_b_storage -= final_costs_res_b;
 						}
-						//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
+						//	base_manager_cache.res_c_storage -= final_costs_res_c;
 						break;
 					case selected_ant_type.attack:
 						if(ant_produce_query.Count < 12){
@@ -722,10 +736,10 @@ public class ui_manager : MonoBehaviour {
 							tmp_prid_ant.type = ant_types.scout;
 							tmp_prid_ant.max_waittime = vars.costs_attack_ants.ant_query_waittime;
 							tmp_prid_ant.waititme = vars.costs_scout_ants.ant_query_waittime;
-							GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= final_costs_res_a;
-							GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= final_costs_res_b;
+							base_manager_cache.res_a_storage -= final_costs_res_a;
+							base_manager_cache.res_b_storage -= final_costs_res_b;
 						}
-						//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage -= final_costs_res_c;
+						//	base_manager_cache.res_c_storage -= final_costs_res_c;
 						break;
 					default:
 						break;
@@ -740,31 +754,31 @@ public class ui_manager : MonoBehaviour {
 		}else if(ants_to_produce < 0){
 			switch (curr_sel_type) {
 			case selected_ant_type.scout:
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants >= Mathf.Abs(ants_to_produce)){
+				if(base_manager_cache.bought_scout_ants >= Mathf.Abs(ants_to_produce)){
 					
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants += ants_to_produce;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += final_costs_res_a;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += final_costs_res_b;
-					//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
+					base_manager_cache.bought_scout_ants += ants_to_produce;
+					base_manager_cache.res_a_storage += final_costs_res_a;
+					base_manager_cache.res_b_storage += final_costs_res_b;
+					//	base_manager_cache.res_c_storage += final_costs_res_c;
 				}
 				break;
 				
 			case selected_ant_type.collector:
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants >= Mathf.Abs(ants_to_produce)){
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += ants_to_produce;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += final_costs_res_a;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += final_costs_res_b;
-					//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
+				if(base_manager_cache.bought_collector_ants >= Mathf.Abs(ants_to_produce)){
+					base_manager_cache.bought_collector_ants += ants_to_produce;
+					base_manager_cache.res_a_storage += final_costs_res_a;
+					base_manager_cache.res_b_storage += final_costs_res_b;
+					//	base_manager_cache.res_c_storage += final_costs_res_c;
 				}
 				break;
 				
 				
 			case selected_ant_type.attack:
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants >= Mathf.Abs(ants_to_produce)){
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += ants_to_produce;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += final_costs_res_a;
-					GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += final_costs_res_b;
-					//	GameObject.Find(vars.base_name).GetComponent<base_manager>().res_c_storage += final_costs_res_c;
+				if(base_manager_cache.bought_attack_ants >= Mathf.Abs(ants_to_produce)){
+					base_manager_cache.bought_attack_ants += ants_to_produce;
+					base_manager_cache.res_a_storage += final_costs_res_a;
+					base_manager_cache.res_b_storage += final_costs_res_b;
+					//	base_manager_cache.res_c_storage += final_costs_res_c;
 				}
 				break;
 				
@@ -782,47 +796,6 @@ public class ui_manager : MonoBehaviour {
 	public void refresh_base_ui(){
 		
 
-		if(GameObject.Find (vars.base_name) == null){
-			costs_a_text.GetComponent<Text>().text = final_costs_res_a.ToString();
-			costs_b_text.GetComponent<Text>().text = final_costs_res_b.ToString();
-			//costs_c_text.GetComponent<Text>().text = final_costs_res_c.ToString();
-		}else{
-			
-			if(ants_to_produce >= 0){
-				
-				if(ants_to_produce > 0){
-					costs_a_text.GetComponent<Text>().text = "-" + final_costs_res_a.ToString() + " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage.ToString();
-					costs_b_text.GetComponent<Text>().text = "-" + final_costs_res_b.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage.ToString();
-					//costs_c_text.GetComponent<Text>().text = "-" + costs_res_c.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage.ToString();
-				}else{
-					costs_a_text.GetComponent<Text>().text = "" + final_costs_res_a.ToString() + " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage.ToString();
-					costs_b_text.GetComponent<Text>().text = "" + final_costs_res_b.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage.ToString();
-					//costs_c_text.GetComponent<Text>().text = "" + costs_res_c.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage.ToString();
-					
-				}
-				
-				if(final_costs_res_a > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage){costs_a_text.GetComponent<Text>().color = Color.red;
-				}else{costs_a_text.GetComponent<Text>().color = Color.black;}
-				if(final_costs_res_b > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage){costs_b_text.GetComponent<Text>().color = Color.red;
-				}else{costs_b_text.GetComponent<Text>().color = Color.black;}
-				//	if(final_costs_res_c > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage){costs_c_text.GetComponent<Text>().color = Color.red;
-				//	}else{costs_c_text.GetComponent<Text>().color = Color.black;}
-			}else{
-				
-				costs_a_text.GetComponent<Text>().text = "+" + final_costs_res_a.ToString() + " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage.ToString();
-				costs_b_text.GetComponent<Text>().text = "+" + final_costs_res_b.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage.ToString();
-				//costs_c_text.GetComponent<Text>().text = "+" + costs_res_c.ToString()+ " / " + GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage.ToString();
-				
-				
-				if(final_costs_res_a > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_a_storage){costs_a_text.GetComponent<Text>().color = Color.black;
-				}else{costs_a_text.GetComponent<Text>().color = Color.green;}
-				if(final_costs_res_b > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_b_storage){costs_a_text.GetComponent<Text>().color = Color.black;
-				}else{costs_b_text.GetComponent<Text>().color = Color.green;}
-				//	if(final_costs_res_c > GameObject.Find (vars.base_name).GetComponent<base_manager>().res_c_storage){costs_a_text.GetComponent<Text>().color = Color.black;
-				//	}else{costs_c_text.GetComponent<Text>().color = Color.green;}
-			}
-	
-		}
 	
 	}
 
@@ -856,6 +829,8 @@ public class ui_manager : MonoBehaviour {
 	public GameObject unit_action_button_holder;
 	public GameObject unit_command_button_holder;
 
+	private bool update_unit_ui_grid_images = false;
+
 	public void manage_unit_ui(){
 
 		if(is_saved_group){
@@ -867,7 +842,7 @@ public class ui_manager : MonoBehaviour {
 		}
 
 
-		if( ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
+		if( ui_view_slot_0 == selected_ui_in_slot_0.unit_ui && update_unit_ui_grid_images){
 
 
 			for (int i = 0; i < 10; i++) {
@@ -899,6 +874,8 @@ public class ui_manager : MonoBehaviour {
 
 				}
 			}
+		
+			update_unit_ui_grid_images = false;
 		}
 	}
 
@@ -906,29 +883,31 @@ public class ui_manager : MonoBehaviour {
 	public void remove_selected_unit_from_group(int id){
 		if(sug.numUnits > 0 && is_saved_group){
 			sug.numUnits--;
-			GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
+			base_manager_cache.bought_attack_ants += 1;
+			update_unit_ui_grid_images = true;
 		}else{
 		}
 	}
 
 	public void remove_unit_group(){
 		if(is_saved_group){
-		int aig = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().deleteUnitGroup(sug);
-		GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += aig;
+			int aig = unit_group_chache_cache.deleteUnitGroup(sug);
+			base_manager_cache.bought_attack_ants += aig;
 		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
 		}
 	}
 
 	public void add_units_to_group(){
-		if(sug.numUnits < 18 && GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants > 0 && is_saved_group){
+		if(sug.numUnits < 18 && base_manager_cache.bought_attack_ants > 0 && is_saved_group){
 			sug.numUnits++;
-			GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants -= 1;
+			base_manager_cache.bought_attack_ants -= 1;
+			update_unit_ui_grid_images = true;
 		}
 	}
 
 	public void spawn_unit_group(){
 		if(is_saved_group && sug.numUnits > 0){
-			GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().spawnUnitgroup(sug);
+			unit_group_chache_cache.spawnUnitgroup(sug);
 			GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().deleteUnitGroup(sug);
 
 			is_saved_group = false;
@@ -942,7 +921,7 @@ public class ui_manager : MonoBehaviour {
 		if(is_saved_group){
 		int amount_to_add = 18 - sug.numUnits;
 		if(amount_to_add > 0){
-			int bought_ants = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants;
+				int bought_ants = base_manager_cache.bought_attack_ants;
 			if( (bought_ants - amount_to_add) >= 0){
 				for (int i = 0; i < amount_to_add; i++) {
 					add_units_to_group();
@@ -973,7 +952,7 @@ public class ui_manager : MonoBehaviour {
 	private upgrade_description[] view_specific_upgrades = new upgrade_description[9];
 	private upgrade_description selected_upgrade = null;
 
-
+	private bool update_upgrade_ui = false;
 
 
 	int btn_fill_counter = 0;
@@ -986,7 +965,7 @@ public class ui_manager : MonoBehaviour {
 
 
 
-		if(show_upgrade_ui){
+		if(show_upgrade_ui && update_upgrade_ui){
 
 		
 
@@ -997,11 +976,11 @@ public class ui_manager : MonoBehaviour {
 					view_specific_upgrades[i] = null;
 					btn_fill_counter = 0;
 				}
-				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
-					if(i < 9 && !GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].taken && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ant_base){
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
+				for (int i = 0; i < upgrade_manager_cache.upgrade_list.Count; i++) {
+					if(i < 9 && !upgrade_manager_cache.upgrade_list[i].taken && upgrade_manager_cache.upgrade_list[i].upgrade_type == vars.upgrade_type.ant_base){
+						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter).GetComponent<Image>().sprite = upgrade_manager_cache.upgrade_list[i].upgrade_icon;
 						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Button>().interactable = true;
-						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
+						view_specific_upgrades[btn_fill_counter] = upgrade_manager_cache.upgrade_list[btn_fill_counter];
 						btn_fill_counter++;
 					}
 				}
@@ -1018,11 +997,11 @@ public class ui_manager : MonoBehaviour {
 					btn_fill_counter = 0;
 				}
 
-				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
-					if(i < 9 && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.ressources){
+				for (int i = 0; i < upgrade_manager_cache.upgrade_list.Count; i++) {
+					if(i < 9 && upgrade_manager_cache.upgrade_list[i].upgrade_type == vars.upgrade_type.ressources){
 						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Button>().interactable = true;
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
-						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
+						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Image>().sprite = upgrade_manager_cache.upgrade_list[i].upgrade_icon;
+						view_specific_upgrades[btn_fill_counter] = upgrade_manager_cache.upgrade_list[btn_fill_counter];
 						btn_fill_counter = 0; 
 					}
 				}
@@ -1037,32 +1016,29 @@ public class ui_manager : MonoBehaviour {
 					btn_fill_counter = 0;
 				}
 				
-				for (int i = 0; i < GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list.Count; i++) {
-					if(i < 9 && GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_type == vars.upgrade_type.units){
+				for (int i = 0; i < upgrade_manager_cache.upgrade_list.Count; i++) {
+					if(i < 9 && upgrade_manager_cache.upgrade_list[i].upgrade_type == vars.upgrade_type.units){
 
 						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Button>().interactable = true;
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Image>().sprite = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i].upgrade_icon;
-						view_specific_upgrades[i] = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>().upgrade_list[i];
+						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Image>().sprite = upgrade_manager_cache.upgrade_list[i].upgrade_icon;
+						view_specific_upgrades[btn_fill_counter] = upgrade_manager_cache.upgrade_list[btn_fill_counter];
 						btn_fill_counter = 0;
 					}
 				}
 			}
 
 
-
+			update_upgrade_ui = false;
 
 		}//ende if
 	}
 
 	//0-3
 	public void toggle_upgrade_window(int mapped_upgrade_slot){
-
-		//GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(null);
 		show_upgrade_ui = !show_upgrade_ui;
-
-
-
-
+		if(show_upgrade_ui){
+		update_upgrade_ui = true;
+		}
 	}
 
 	public void buy_selected_upgrade(){
@@ -1077,7 +1053,7 @@ public class ui_manager : MonoBehaviour {
 
 			switch (ui_view_slot_0) {
 			case selected_ui_in_slot_0.base_ui:
-				if(GameObject.Find(vars.base_name).GetComponent<base_manager>().add_upgrade(ref selected_upgrade)){
+				if(base_manager_cache.add_upgrade(ref selected_upgrade)){
 					show_upgrade_ui = false;
 					selected_upgrade = null;
 					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
@@ -1093,7 +1069,7 @@ public class ui_manager : MonoBehaviour {
 				}
 				break;
 			case selected_ui_in_slot_0.unit_ui:
-				if(is_saved_group && GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().add_upgrade(ref selected_upgrade, sug) && ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
+				if(is_saved_group && unit_group_chache_cache.add_upgrade(ref selected_upgrade, sug) && ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
 					show_upgrade_ui = false;
 					selected_upgrade = null;
 					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
@@ -1108,7 +1084,7 @@ public class ui_manager : MonoBehaviour {
 				Debug.Log("selected empty");
 			}
 
-
+		update_upgrade_ui = true;
 
 	}
 
@@ -1121,6 +1097,7 @@ public class ui_manager : MonoBehaviour {
 			upgrade_ui_description_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].upgrade_desc;
 			selected_upgrade = view_specific_upgrades[btn_id];
 		}
+		//update_upgrade_ui = true;
 	}
 
 

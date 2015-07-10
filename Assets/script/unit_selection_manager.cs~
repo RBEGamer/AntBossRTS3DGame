@@ -5,7 +5,7 @@ public class unit_selection_manager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		//refresh_unit_group_selection_ui();
 	}
 
 
@@ -38,7 +38,7 @@ public class unit_selection_manager : MonoBehaviour {
 			GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList[group_id-1].OnSelected();
 		}
 
-
+		refresh_unit_group_selection_ui();
 
 
 		//if(GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count >= group_id-1){
@@ -64,22 +64,22 @@ public class unit_selection_manager : MonoBehaviour {
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_unit();
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_saved_group = true;
 			Debug.Log("group added");
+		refresh_unit_group_selection_ui();
 		}
 	}
 
 
 
 
-	// Update is called once per frame
-	void Update () {
-	
+	public  void refresh_unit_group_selection_ui(){
+
 		for (int i = 1; i < 19; i++) {
 			group_states[i-1] = false;
 			GameObject.Find("unit_selection_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_group_holder;
 			GameObject.Find("unit_selection_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
 		}
-
-
+		
+		
 		int counter =0 ;
 		foreach (UnitGroupFriendly group in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList){
 			group_states[counter] = false;
@@ -87,7 +87,7 @@ public class unit_selection_manager : MonoBehaviour {
 			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = group_icons[counter-1];
 			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Button>().interactable = true;
 		}
-
+		
 		//Debug.Log(GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved.Count);
 		//
 		//int counter =0 ;
@@ -98,6 +98,12 @@ public class unit_selection_manager : MonoBehaviour {
 			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Button>().interactable = true;
 		}
 
+	}
+
+	// Update is called once per frame
+	void Update () {
+	
+		refresh_unit_group_selection_ui();
 
 	}
 }

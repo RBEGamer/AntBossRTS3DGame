@@ -174,19 +174,19 @@ public class vars : MonoBehaviour {
 		public static float costs_res_a = 100.0f;
 		public static float costs_res_b = 500.0f;
 		public static float costs_res_c = 0.0f;
-		public static float ant_query_waittime = 20.0f;
+		public static float ant_query_waittime = 3.0f;
 	}
 	public struct costs_collector_ants{
 		public static float costs_res_a = 2000.0f;
 		public static float costs_res_b = 0.0f;
 		public static float costs_res_c = 0.0f;
-		public static float ant_query_waittime = 10.0f;
+		public static float ant_query_waittime = 2.0f;
 	}
 	public struct costs_attack_ants{
 		public static float costs_res_a = 700.0f;
 		public static float costs_res_b = 100.0f;
 		public static float costs_res_c = 0.0f;
-		public static float ant_query_waittime = 10.0f;
+		public static float ant_query_waittime = 1.0f;
 	}
 	/* -------END BASE SETTINGS AREA ----------------------*/
 
@@ -231,7 +231,7 @@ public class vars : MonoBehaviour {
 	public static string credit_scene_name = "credits";
 	public static string intro_scene_name = "intro";
 	public static string optionn_scene_name = "options";
-	public static string mission_one_scene_name = "mission_01";
+	public static string mission_one_scene_name = "misson_01";
 	public static string mission_two_scene_name = "main";
 	public static string mission_three_scene_name = "main";
 	public static string mission_four_scene_name = "main";
