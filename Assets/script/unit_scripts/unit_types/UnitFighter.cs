@@ -31,6 +31,12 @@ public class UnitFighter : UnitBase, ISelectableBase {
 	
 	// Update is called once per frame
 		void Update () {
+		// update destination if changed
+		if (unitNavMeshAgent.destination != unitMovementTarget && !isUnitDisabled)
+		{
+			unitNavMeshAgent.SetDestination(unitMovementTarget);
+			
+		}
 
 		setHealthVisual(unitCurrentHealth / unitBaseHealth);
 
@@ -79,7 +85,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 			return;
 		}
 		// -1: attack move to defense point
-		if (unitCommand == -1)
+		if (unitCommand == UnitCommand.AttackMove)
 		{
 			if(retreatToBase) {
 				if (!unitNavMeshAgent.pathPending)
@@ -94,7 +100,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 							{
 								GameObject.Destroy(child.gameObject);
 							}
-							
+							unitGroup.startedLeaving = true;
 							unitGroup.removeUnit(this);
 							Destroy(gameObject);
 							isUnitDisabled = true;
@@ -113,7 +119,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		}
 		
 		// move to defense point, ignore enemies
-		if (unitCommand == 1)
+		if (unitCommand == UnitCommand.Move)
 		{
 			if(retreatToBase) {
 				if (!unitNavMeshAgent.pathPending)
@@ -123,15 +129,16 @@ public class UnitFighter : UnitBase, ISelectableBase {
 						if (!unitNavMeshAgent.hasPath || unitNavMeshAgent.velocity.sqrMagnitude == 0f)
 						{
 							// Done 
-							
 							foreach (Transform child in transform)
 							{
 								GameObject.Destroy(child.gameObject);
 							}
-							
+
+							unitGroup.startedLeaving = true;
 							unitGroup.removeUnit(this);
 							Destroy(gameObject);
 							isUnitDisabled = true;
+
 						}
 					}
 				}
@@ -145,7 +152,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		}
 		
 		// attack target directly
-		if (unitCommand == 2) {
+		if (unitCommand == UnitCommand.AttackDirectly) {
 			analyseUnitsInRange();
 			unitAnimator.SetBool("isrunning", true);
 			if(unitCombatTarget != null) {
@@ -180,7 +187,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		}
 		
 		// idle
-		if (unitCommand == 0)
+		if (unitCommand == UnitCommand.Idle)
 		{
 			unitAnimator.speed = 1;
 			unitAnimator.SetBool("isrunning", true);
@@ -217,12 +224,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 			}
 		}
 
-		// update destination if changed
-		if (unitNavMeshAgent.destination != unitMovementTarget && !isUnitDisabled)
-		{
-			unitNavMeshAgent.SetDestination(unitMovementTarget);
 
-		}
 	}
 
 	// Health between [0.0f,1.0f] == (currentHealth / totalHealth)
@@ -267,8 +269,8 @@ public class UnitFighter : UnitBase, ISelectableBase {
 
 	bool checkInRange() {
 		if(Vector3.Distance(this.transform.position, unitGroup.transform.position) < spreadDistanceInGroup) {
-			if(unitCommand != 2) {
-				unitCommand = 0;
+			if(unitCommand != UnitCommand.AttackDirectly) {
+				unitCommand = UnitCommand.Idle;
 			}
 			if(!isNearDefensePoint) {
 				isNearDefensePoint = true;

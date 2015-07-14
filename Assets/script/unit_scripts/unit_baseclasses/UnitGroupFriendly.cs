@@ -11,6 +11,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 	
 	private bool isGroupSelected = false;
 	private bool inPanic = false;
+	private bool retreatToBase = false;
 
 	
 	// Use this for initialization
@@ -122,21 +123,23 @@ public class UnitGroupFriendly : UnitGroupBase {
 				t.followTarget = nearestUnit;
 			}
 
-			t.unitCommand = -1;
+			t.unitCommand = UnitCommand.AttackMove;
 			t.retreatToBase = false;
+			retreatToBase = false;
 			//t.isNearDefensePoint = false;
 		}
 		myRenderer.material.color = Color.white;
 	}
 	
-	// retreat to defense point / double right click
+	// retreat to base / double right click
 	public void moveToBase(GameObject targetbase)
 	{
 		if(targetbase == unitGroupTarget) {
 			foreach (UnitBase t in myUnitList)
 			{
-				t.unitCommand = 1;
+				t.unitCommand = UnitCommand.Move;
 				t.retreatToBase = true;
+				retreatToBase = true;
 			}
 		} else {
 			UnitBase nearestUnit = findNearestUnit(targetbase.transform.position);
@@ -155,8 +158,9 @@ public class UnitGroupFriendly : UnitGroupBase {
 				{
 					t.followTarget = nearestUnit;
 				}
-				t.unitCommand = -1;
+				t.unitCommand = UnitCommand.AttackMove;
 				t.retreatToBase = true;
+				retreatToBase = true;
 			}
 		}
 	}
@@ -178,9 +182,9 @@ public class UnitGroupFriendly : UnitGroupBase {
 			{
 				t.followTarget = nearestUnit;
 			}
-			t.unitCommand = 1;
+			t.unitCommand = UnitCommand.Move;
 			t.retreatToBase = false;
-			//t.isNearDefensePoint = false;
+			retreatToBase = false;
 		}
 
 	}
@@ -221,7 +225,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 		}
 		if (myUnitList.Count == 0)
 		{
-			if(inPanic) {
+			if(inPanic || retreatToBase) {
 				nearestBase.GetComponent<UnitGroupCache>().addUnitGroup(this);
 			}
 			myUnitGroupManager.unitGroupList.Remove(this);

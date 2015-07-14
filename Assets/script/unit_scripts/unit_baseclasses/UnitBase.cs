@@ -10,6 +10,13 @@ public enum UnitFaction
 	NoFaction
 }
 
+public enum UnitCommand {
+	AttackMove,
+	Move,
+	AttackDirectly,
+	Idle
+}
+
 public abstract class UnitBase : MonoBehaviour
 {
 
@@ -75,7 +82,7 @@ public abstract class UnitBase : MonoBehaviour
 	public bool retreatToBase = false;
 
 	// Unit behaviour based on command
-	public int unitCommand;
+	public UnitCommand unitCommand;
 
 	// Follow target(in group)
 	public UnitBase followTarget;
@@ -248,11 +255,11 @@ public abstract class UnitBase : MonoBehaviour
 			foreach(GameObject enemy in unitGroup.enemiesInGroupRange) {
 				//if(enemy.tag != gameObject.tag) {
 				enemyUnitsInGroupRange.Add(enemy);
-				Debug.Log ("ADDING UNIT");
+				//Debug.Log ("ADDING UNIT");
 				//}
 			}
 			if(enemyUnitsInGroupRange.Count > 0) {
-				Debug.Log ("CHECKING UNITS IN GROUP RANGE)");
+				//Debug.Log ("CHECKING UNITS IN GROUP RANGE)");
 				GameObject closestInGroup = enemyUnitsInGroupRange[0];
 				foreach(GameObject enemy in enemyUnitsInGroupRange) {
 					if(enemy != null) {
@@ -289,7 +296,7 @@ public abstract class UnitBase : MonoBehaviour
 		else if(priority > unitTargetPriority) {
 			unitTargetPriority = priority;
 			unitCombatTarget = target;
-			unitCommand = 2;
+			unitCommand = UnitCommand.AttackDirectly;
 			//Debug.Log(gameObject.name + " changes target to " + target.name + " priority " + priority);
 			unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
 			if(unitCombatTarget.tag.Contains(vars.unit_tag)) {
