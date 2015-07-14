@@ -15,16 +15,20 @@ public class UnitFighter : UnitBase, ISelectableBase {
 	public float currentIdleTime = 0.0f;
 	public float upperIdleTime = 10.0f;
 	public float lowerIdleTime = 6.0f;
-
+	public GameObject healthBar;
+	
 
 	public bool isNearDefensePoint = false;
 
 	void Start() {
 		setAttributesFromGroup();
 	}
-		
+	
 	// Update is called once per frame
-	void Update () {
+		void Update () {
+
+		SetHealthVisual(unitCurrentHealth / unitBaseHealth);
+
 		/*
 		if(uiManager.is_in_menu) {
 			unitNavMeshAgent.velocity = Vector3.zero;
@@ -218,6 +222,13 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		{
 			unitNavMeshAgent.SetDestination(unitMovementTarget);
 		}
+	}
+
+	// Health between [0.0f,1.0f] == (currentHealth / totalHealth)
+	public void SetHealthVisual(float healthNormalized){
+		healthBar.transform.localScale = new Vector3( healthNormalized,
+		                                             healthBar.transform.localScale.y,
+		                                             healthBar.transform.localScale.z);
 	}
 
 
