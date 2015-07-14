@@ -29,6 +29,7 @@ public abstract class UnitBase : MonoBehaviour
 	public UnitRangeScript unitRange;
 	protected NavMeshAgent unitNavMeshAgent;
 	public UnitGroupBase unitGroup;
+	public Renderer[] unitRenderer;
 	protected Animator unitAnimator;
 	protected Transform unitTransform;
 
@@ -121,6 +122,11 @@ public abstract class UnitBase : MonoBehaviour
 
 	// Use this for initialization
 	public void Awake () {
+		unitRenderer = GetComponentsInChildren<Renderer>();
+		if(gameObject.tag.Contains(vars.enemy_tag)) {
+			setRenderer(false);
+		}
+
 		uiManager = GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>();
 		unitNavMeshAgent = GetComponent<NavMeshAgent>();
 		unitAnimator = GetComponent<Animator>();
@@ -153,6 +159,18 @@ public abstract class UnitBase : MonoBehaviour
 		unitGroup = newUnitGroup;
 	}
 
+	public void setRenderer(bool status) {
+		if(unitRenderer[0].enabled != status) {
+			foreach(Renderer r in unitRenderer) {
+				r.enabled = status;
+			}
+		}
+	}
+
+	public bool getRenderer() {
+		return unitRenderer[0].enabled;
+	}
+	
 	public void setAttributesFromGroup() {
 		// combat attributes
 		unitCurrentAttackspeed = unitGroup.attackspeed;

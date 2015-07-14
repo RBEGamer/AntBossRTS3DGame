@@ -46,6 +46,7 @@ public class UnitRangeScript : MonoBehaviour {
 				if(other.gameObject != null) {
 					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
+					other.gameObject.SendMessage("setRenderer", true, SendMessageOptions.DontRequireReceiver);
 				}
 			}
 
@@ -70,6 +71,7 @@ public class UnitRangeScript : MonoBehaviour {
 				if(other.gameObject != null) {
 					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
+					other.gameObject.SendMessage("setRenderer", true, SendMessageOptions.DontRequireReceiver);
 				}
 			}
 			
@@ -84,6 +86,15 @@ public class UnitRangeScript : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other) {
+		if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){
+			other.gameObject.SendMessage("setRenderer", true, SendMessageOptions.DontRequireReceiver);
+		}
+	}
+
+	void OnCollisionStay(Collision other) {
+		if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){
+			other.gameObject.SendMessage("setRenderer", true, SendMessageOptions.DontRequireReceiver);
+		}
 	}
 
 	void OnTriggerExit(Collider other) {
@@ -92,6 +103,7 @@ public class UnitRangeScript : MonoBehaviour {
 				//Debug.Log (thisUnit.gameObject.tag + " does not see " + other.gameObject.tag + " anymore");
 				if(other.gameObject != null) {
 					thisUnit.removeEnemyInRange(other.gameObject);
+					other.gameObject.SendMessage("setRenderer", false, SendMessageOptions.DontRequireReceiver);
 				}
 			}
 
@@ -112,6 +124,7 @@ public class UnitRangeScript : MonoBehaviour {
 				if(other.gameObject != null) {
 					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
+					other.gameObject.SendMessage("setRenderer", false, SendMessageOptions.DontRequireReceiver);
 				}
 			}
 			
