@@ -245,7 +245,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		while(true) {
 			Ray testRay =new Ray(unitGroup.transform.position, (unitMovementTarget - unitGroup.transform.position));
 			if(Physics.Raycast(testRay, out hit, spreadDistanceInGroup, LayerMask.GetMask("Obstacle"))) {
-				if(hit.collider.tag.Contains(vars.blockage_tag)) {
+				if(hit.collider != null) {
 					Debug.DrawRay(unitGroup.transform.position, (unitMovementTarget - unitGroup.transform.position), Color.magenta, 10.0f);
 					unitMovementTarget = new Vector3(pivot.x + Random.Range(-distance, distance) + 1.0f,
 					                                 transform.position.y,

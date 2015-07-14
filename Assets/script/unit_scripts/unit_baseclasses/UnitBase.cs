@@ -247,10 +247,12 @@ public abstract class UnitBase : MonoBehaviour
 			List<GameObject> enemyUnitsInGroupRange = new List<GameObject>();
 			foreach(GameObject enemy in unitGroup.enemiesInGroupRange) {
 				//if(enemy.tag != gameObject.tag) {
-					enemyUnitsInRange.Add(enemy);
+				enemyUnitsInGroupRange.Add(enemy);
+				Debug.Log ("ADDING UNIT");
 				//}
 			}
 			if(enemyUnitsInGroupRange.Count > 0) {
+				Debug.Log ("CHECKING UNITS IN GROUP RANGE)");
 				GameObject closestInGroup = enemyUnitsInGroupRange[0];
 				foreach(GameObject enemy in enemyUnitsInGroupRange) {
 					if(enemy != null) {

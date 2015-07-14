@@ -82,6 +82,9 @@ public class UnitGroupFriendly : UnitGroupBase {
 				RaycastHit hit;
 				if (Physics.Raycast(ray, out hit))
 				{
+					if(hit.collider.gameObject.tag.Contains(vars.blockage_tag)) {
+						return;
+					}
 					if (hit.collider.gameObject.tag.Contains(vars.enemy_tag) && hit.collider.gameObject.tag.Contains(vars.attackable_tag))
 					{
 						Debug.Log("hit: " + hit.collider.name);

@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\unit_scripts\unit_types\UnitFighterTypeA.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\unit_scripts\unit_types\UnitFighterTypeB.cs">
     <Files>
-      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeA.cs" Line="79" Column="45" />
+      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeA.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeB.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

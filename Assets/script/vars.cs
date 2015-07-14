@@ -209,6 +209,7 @@ public class vars : MonoBehaviour {
 	public static string unitgroup_manager_tag = "Man";
 	public static string objective_tag_name = "objective_desc";
 	public static string upgrade_tag_name = "upgrade_desc";
+	public static string blockage_tag = "block";
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
 	public static string path_manager_name = "path_manager";
 	public static string res_name = "ressource";
