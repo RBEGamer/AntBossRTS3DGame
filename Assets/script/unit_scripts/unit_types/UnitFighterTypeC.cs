@@ -54,9 +54,11 @@ public class UnitFighterTypeC : UnitBase {
 		if(unitCombatTarget != null) {
 			// attack target directly
 			unitMovementTarget = unitCombatTarget.transform.position;
-			if(Vector3.Distance(this.transform.position, unitCombatTarget.transform.position) <= unitCurrentAttackRange) {
+			if(Vector3.Distance(unitTransform.position, 
+			                    unitCombatTarget.transform.position) <= ((unitRadius + enemyUnitRadius) + unitCurrentAttackRange)) {
 				unitMovementTarget = this.transform.position;
 				if(unitCurrentCombatCooldown <= 0) {
+					unitTransform.LookAt(unitCombatTarget.transform);
 					unitAnimator.speed = 1/unitCurrentAttackspeed;
 					unitAnimator.SetTrigger("doattack");
 					unitCurrentCombatCooldown = unitCurrentAttackspeed;

@@ -74,6 +74,8 @@ public class UnitGroupCache : MonoBehaviour {
 		
 		standardAttackrange = t.attackrange;
 		standardVisionRange = t.visionRange;
+
+		standardVisionRange = t.regeneration;
 	}
 	
 	
@@ -196,15 +198,15 @@ public class UnitGroupCache : MonoBehaviour {
 
 					if(group.upgrade_slot_0 == null){
 						group.upgrade_slot_0 = upgrade;
-						Debug.Log("set upgrade to slot 0");
+						//Debug.Log("set upgrade to slot 0");
 						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_0.GetComponent<Image>().sprite = group.upgrade_slot_0.upgrade_icon;
 					}else 	if(group.upgrade_slot_1 == null){
 						group.upgrade_slot_1 = upgrade;
-						Debug.Log("set upgrade to slot 1");
+						//Debug.Log("set upgrade to slot 1");
 						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_1.GetComponent<Image>().sprite = group.upgrade_slot_1.upgrade_icon;
 					}else 	if(group.upgrade_slot_2 == null){
 						group.upgrade_slot_2 = upgrade;
-						Debug.Log("set upgrade to slot 2");
+						//Debug.Log("set upgrade to slot 2");
 						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_2.GetComponent<Image>().sprite = group.upgrade_slot_2.upgrade_icon;
 					}
 

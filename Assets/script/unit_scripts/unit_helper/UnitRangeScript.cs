@@ -15,13 +15,36 @@ public class UnitRangeScript : MonoBehaviour {
 	void Update () {
 	}
 
+	bool canSeeUnit(Vector3 target) {
+		Ray testRay =new Ray(thisUnit.transform.position, (target - thisUnit.transform.position));
+		RaycastHit hit;
+		if(Physics.Raycast(testRay, out hit, LayerMask.GetMask("Obstacle"))) {
+			if(hit.collider.tag.Contains(vars.blockage_tag)) {
+				Debug.DrawRay(thisUnit.transform.position, (target - thisUnit.transform.position), Color.magenta, 10.0f);
+				Debug.Log("unit behind wall!");
+				return false;
+			}
+			else {
+				Debug.DrawRay(thisUnit.transform.position, (target - thisUnit.transform.position), Color.green, 10.0f);
+				return true;
+			}
+		}
+		else {
+			Debug.DrawRay(thisUnit.transform.position, (target - thisUnit.transform.position), Color.green, 10.0f);
+			return true;
+		}
+	}
+
 	void OnTriggerEnter(Collider other)
 	{
+		if(!canSeeUnit(other.transform.position)) {
+			return;
+		}
 		if(other.gameObject.tag.Contains(vars.attackable_tag)) {
 			if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){
 
 				if(other.gameObject != null) {
-					Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
+					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
 				}
 			}
@@ -29,7 +52,7 @@ public class UnitRangeScript : MonoBehaviour {
 			if(other.gameObject.tag.Contains(vars.friendly_tag) && thisUnit.gameObject.tag.Contains(vars.enemy_tag)){
 
 				if(other.gameObject != null) {
-					Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
+					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
 				}
 			}
@@ -38,11 +61,14 @@ public class UnitRangeScript : MonoBehaviour {
 
 	void OnCollisionEnter (Collision other)
 	{
+		if(!canSeeUnit(other.transform.position)) {
+			return;
+		}
 		if(other.gameObject.tag.Contains(vars.attackable_tag)) {
 			if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){
 				
 				if(other.gameObject != null) {
-					Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
+					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
 				}
 			}
@@ -50,7 +76,7 @@ public class UnitRangeScript : MonoBehaviour {
 			if(other.gameObject.tag.Contains(vars.friendly_tag) && thisUnit.gameObject.tag.Contains(vars.enemy_tag)){
 				
 				if(other.gameObject != null) {
-					Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
+					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
 				}
 			}
@@ -84,7 +110,7 @@ public class UnitRangeScript : MonoBehaviour {
 			if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){
 				
 				if(other.gameObject != null) {
-					Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
+					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
 				}
 			}
@@ -92,7 +118,7 @@ public class UnitRangeScript : MonoBehaviour {
 			if(other.gameObject.tag.Contains(vars.friendly_tag) && thisUnit.gameObject.tag.Contains(vars.enemy_tag)){
 				
 				if(other.gameObject != null) {
-					Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
+					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
 				}
 			}

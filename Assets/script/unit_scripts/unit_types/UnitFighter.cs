@@ -20,26 +20,24 @@ public class UnitFighter : UnitBase, ISelectableBase {
 
 	public bool isNearDefensePoint = false;
 
+	
+
+
+
 	void Start() {
 		setAttributesFromGroup();
+
 	}
 	
 	// Update is called once per frame
 		void Update () {
 
-		SetHealthVisual(unitCurrentHealth / unitBaseHealth);
-
-		/*
-		if(uiManager.is_in_menu) {
-			unitNavMeshAgent.velocity = Vector3.zero;
-			unitNavMeshAgent.ResetPath();
-			unitAnimator.speed = 0;
-			return;
-		}*/
+		setHealthVisual(unitCurrentHealth / unitBaseHealth);
 
 		if(!retreatToBase) {
 			checkInRange();
 		}
+
 
 		if(!unitCombatTarget) {
 			unitTargetPriority = 0;
@@ -153,23 +151,25 @@ public class UnitFighter : UnitBase, ISelectableBase {
 			if(unitCombatTarget != null) {
 				unitMovementTarget = unitCombatTarget.transform.position;
 				
-				if (!unitNavMeshAgent.pathPending)
+				/*if (!unitNavMeshAgent.pathPending)
 				{
 					if (unitNavMeshAgent.remainingDistance <= unitNavMeshAgent.stoppingDistance)
 					{
 						if (!unitNavMeshAgent.hasPath || unitNavMeshAgent.velocity.sqrMagnitude == 0f)
-						{
-							if(Vector3.Distance(this.transform.position, unitCombatTarget.transform.position) <= unitCurrentAttackRange) {
+						{*/
+							if(Vector3.Distance(unitTransform.position, 
+							                    unitCombatTarget.transform.position) <= ((unitRadius + enemyUnitRadius) + unitCurrentAttackRange)) {
 								unitMovementTarget = this.transform.position;
 								if(unitCurrentCombatCooldown <= 0) {
+									unitTransform.LookAt(unitCombatTarget.transform);
 									unitAnimator.speed = 1/unitCurrentAttackspeed;
 									unitAnimator.SetTrigger("doattack");
 									unitCurrentCombatCooldown = unitCurrentAttackspeed;
 								}
 							}
-						}
+						/*}
 					}
-				}
+				}*/
 				
 			}
 			else {	
@@ -221,23 +221,48 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		if (unitNavMeshAgent.destination != unitMovementTarget && !isUnitDisabled)
 		{
 			unitNavMeshAgent.SetDestination(unitMovementTarget);
+
 		}
 	}
 
 	// Health between [0.0f,1.0f] == (currentHealth / totalHealth)
-	public void SetHealthVisual(float healthNormalized){
+	public void setHealthVisual(float healthNormalized){
 		healthBar.transform.localScale = new Vector3( healthNormalized,
 		                                             healthBar.transform.localScale.y,
 		                                             healthBar.transform.localScale.z);
 	}
 
 
+
 	// helper functions
 	public void getNewIdlePosition(Vector3 pivot, float distance)
 	{
+		RaycastHit hit;
+		int safetycounter = 0;
 		unitMovementTarget = new Vector3(pivot.x + Random.Range(-distance, distance) + 1.0f,
-		                             transform.position.y,
-		                             pivot.z + Random.Range(-distance, distance) + 1);
+		                                 transform.position.y,
+		                                 pivot.z + Random.Range(-distance, distance) + 1);
+		while(true) {
+			Ray testRay =new Ray(unitGroup.transform.position, (unitMovementTarget - unitGroup.transform.position));
+			if(Physics.Raycast(testRay, out hit, spreadDistanceInGroup, LayerMask.GetMask("Obstacle"))) {
+				if(hit.collider.tag.Contains(vars.blockage_tag)) {
+					Debug.DrawRay(unitGroup.transform.position, (unitMovementTarget - unitGroup.transform.position), Color.magenta, 10.0f);
+					unitMovementTarget = new Vector3(pivot.x + Random.Range(-distance, distance) + 1.0f,
+					                                 transform.position.y,
+					                                 pivot.z + Random.Range(-distance, distance) + 1);
+					Debug.Log("hit wall! getting new idle point");
+				}
+				else {
+					Debug.DrawRay(unitGroup.transform.position, (unitMovementTarget - unitGroup.transform.position), Color.green, 10.0f);
+					break;
+				}
+			}
+			else {
+				Debug.DrawRay(unitGroup.transform.position, (unitMovementTarget - unitGroup.transform.position), Color.green, 10.0f);
+				break;
+			}
+		}
+
 	}
 
 	bool checkInRange() {
@@ -250,7 +275,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 				//if(unitCommand != 2) {
 					followTarget = null;
 					getNewIdlePosition(unitGroup.transform.position, spreadDistanceInGroup);
-
+					
 				//}
 			}
 		} else if(isNearDefensePoint == true && Vector3.Distance(this.transform.position, unitGroup.transform.position) > spreadDistanceInGroup){

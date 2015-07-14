@@ -23,6 +23,7 @@ public abstract class UnitBase : MonoBehaviour
 	protected NavMeshAgent unitNavMeshAgent;
 	public UnitGroupBase unitGroup;
 	protected Animator unitAnimator;
+	protected Transform unitTransform;
 
 	// Tracks whether or not unit is going to be destroyed
 	protected bool isUnitDisabled;
@@ -94,6 +95,10 @@ public abstract class UnitBase : MonoBehaviour
 
 	// Current combat target
 	public GameObject unitCombatTarget;
+	
+	// combat purposes
+	public float unitRadius;
+	protected float enemyUnitRadius;
 
 	// For enemy purposes
 	public RouteScript currentRoute;
@@ -104,6 +109,8 @@ public abstract class UnitBase : MonoBehaviour
 	public upgrade_description upgrade_slot_0;
 	public upgrade_description upgrade_slot_1;
 	public upgrade_description upgrade_slot_2;
+
+
 
 	// Use this for initialization
 	public void Awake () {
@@ -131,8 +138,8 @@ public abstract class UnitBase : MonoBehaviour
 			unitRange.myCollider.radius = unitCurrentVisionrange;
 		}
 
-
-
+		unitTransform = this.transform;
+		unitRadius = unitNavMeshAgent.radius + 1;
 	}
 
 	public void setUnitGroup(UnitGroupBase newUnitGroup) {
@@ -281,8 +288,11 @@ public abstract class UnitBase : MonoBehaviour
 			unitTargetPriority = priority;
 			unitCombatTarget = target;
 			unitCommand = 2;
-			Debug.Log(gameObject.name + " changes target to " + target.name + " priority " + priority);
+			//Debug.Log(gameObject.name + " changes target to " + target.name + " priority " + priority);
 			unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
+			if(unitCombatTarget.tag.Contains(vars.unit_tag)) {
+				enemyUnitRadius = unitCombatTarget.GetComponent<NavMeshAgent>().radius;
+			}
 		}
 	}
 
