@@ -25,7 +25,7 @@ public struct SavedUnitGroup {
 	public upgrade_description upgrade_slot_1;
 	public upgrade_description upgrade_slot_2;
 
-	public void initialize(float _attackspeed, float _movementspeed, float _damage, float _health, float _attackrange, float _visionrange) {
+	public void initialize(float _attackspeed, float _movementspeed, float _damage, float _health, float _attackrange, float _visionrange, float _regeneration) {
 		position = Vector3.zero;
 		
 		attackspeed = _attackspeed;
@@ -36,7 +36,8 @@ public struct SavedUnitGroup {
 		
 		attackrange = _attackrange;
 		visionRange = _visionrange;
-		
+
+		regeneration = _regeneration;
 		numUnits = 0;
 	}
 }
@@ -75,7 +76,7 @@ public class UnitGroupCache : MonoBehaviour {
 		standardAttackrange = t.attackrange;
 		standardVisionRange = t.visionRange;
 
-		standardVisionRange = t.regeneration;
+		standardRegeneration = t.regeneration;
 	}
 	
 	
@@ -94,7 +95,7 @@ public class UnitGroupCache : MonoBehaviour {
 	// creates new(empty) group
 	public SavedUnitGroup createNewGroup() {
 		SavedUnitGroup newUnitGroup = new SavedUnitGroup();
-		newUnitGroup.initialize(standardAttackspeed, standardMovementspeed, standardDamage, standardHealth, standardAttackrange, standardVisionRange);
+		newUnitGroup.initialize(standardAttackspeed, standardMovementspeed, standardDamage, standardHealth, standardAttackrange, standardVisionRange, standardRegeneration);
 		newUnitGroup.unitGroupName = "Standard Ants " + unitGroupCounter.ToString();
 		newUnitGroup.position = new Vector3(transform.position.x + 5, transform.position.y, transform.position.z);
 		unitGroupCounter++;

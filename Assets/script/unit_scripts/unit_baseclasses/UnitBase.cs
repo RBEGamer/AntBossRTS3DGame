@@ -130,7 +130,7 @@ public abstract class UnitBase : MonoBehaviour
 		uiManager = GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>();
 		unitNavMeshAgent = GetComponent<NavMeshAgent>();
 		unitAnimator = GetComponent<Animator>();
-		if(unitGroup != null) {
+		if(unitGroup != null) {/*
 			unitCurrentAttackspeed = unitGroup.attackspeed;
 			unitCurrentMovementspeed = unitGroup.movementspeed;
 			unitCurrentRegeneration = unitGroup.regeneration;
@@ -141,7 +141,8 @@ public abstract class UnitBase : MonoBehaviour
 			
 			unitCurrentAttackRange = unitGroup.attackrange;
 			unitCurrentVisionrange = unitGroup.visionRange;
-			unitGroup.addUnit(this);
+			unitGroup.addUnit(this);*/
+			setAttributesFromGroup();
 		}
 
 		isUnitDisabled = false;
@@ -194,6 +195,7 @@ public abstract class UnitBase : MonoBehaviour
 		unitBaseVisionRange = unitGroup.visionRange;
 
 		unitBaseRegeneration = unitGroup.regeneration;
+		unitCurrentRegeneration = unitBaseRegeneration;
 		if(unitRange.myCollider != null) {
 			unitRange.myCollider.radius = unitCurrentVisionrange;
 		}
