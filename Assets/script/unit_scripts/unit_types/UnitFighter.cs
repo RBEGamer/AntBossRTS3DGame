@@ -170,6 +170,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 								if(unitCurrentCombatCooldown <= 0) {
 									unitTransform.LookAt(unitCombatTarget.transform);
 									unitAnimator.speed = 1/unitCurrentAttackspeed;
+									unitAnimator.SetBool("isrunning", false);
 									unitAnimator.SetTrigger("doattack");
 									unitCurrentCombatCooldown = unitCurrentAttackspeed;
 								}
