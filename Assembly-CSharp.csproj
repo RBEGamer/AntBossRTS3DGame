@@ -106,6 +106,7 @@
      <Compile Include="Assets\script_cache.cs" />
      <None Include="Assets\modelle\scout\Materials\test.shader" />
      <None Include="Assets\modelle\ENVIRONMENT\pilz2\Materials\test.shader" />
+     <None Include="Assets\shader\unit.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Programme/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

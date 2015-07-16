@@ -1,11 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\unit_scripts\unit_types\UnitFighter.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\unit_scripts\unit_baseclasses\UnitBase.cs">
     <Files>
-      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighter.cs" Line="173" Column="10" />
-      <File FileName="Assets\script\unit_scripts\unit_helper\UnitGroupCache.cs" Line="40" Column="32" />
-      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitGroupBase.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitBase.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\unit_scripts\spawner_scripts\SpawnerScript.cs" Line="24" Column="1" />
+      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeA.cs" Line="109" Column="11" />
+      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeB.cs" Line="102" Column="48" />
+      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighterTypeC.cs" Line="104" Column="11" />
+      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitBase.cs" Line="328" Column="6" />
+      <File FileName="Assets\script\unit_scripts\spawner_scripts\RouteScript.cs" Line="17" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

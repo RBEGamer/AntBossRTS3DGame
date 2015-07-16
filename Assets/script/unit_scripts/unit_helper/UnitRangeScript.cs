@@ -37,12 +37,12 @@ public class UnitRangeScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(!canSeeUnit(other.transform.position)) {
-			return;
-		}
+
 		if(other.gameObject.tag.Contains(vars.attackable_tag)) {
 			if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){
-
+				if(!canSeeUnit(other.transform.position)) {
+					return;
+				}
 				if(other.gameObject != null) {
 					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
@@ -51,7 +51,9 @@ public class UnitRangeScript : MonoBehaviour {
 			}
 
 			if(other.gameObject.tag.Contains(vars.friendly_tag) && thisUnit.gameObject.tag.Contains(vars.enemy_tag)){
-
+				if(!canSeeUnit(other.transform.position)) {
+					return;
+				}
 				if(other.gameObject != null) {
 					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
@@ -67,7 +69,9 @@ public class UnitRangeScript : MonoBehaviour {
 		}
 		if(other.gameObject.tag.Contains(vars.attackable_tag)) {
 			if(other.gameObject.tag.Contains(vars.enemy_tag) && thisUnit.gameObject.tag.Contains(vars.friendly_tag)){
-				
+				if(!canSeeUnit(other.transform.position)) {
+					return;
+				}
 				if(other.gameObject != null) {
 					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);
@@ -76,7 +80,9 @@ public class UnitRangeScript : MonoBehaviour {
 			}
 			
 			if(other.gameObject.tag.Contains(vars.friendly_tag) && thisUnit.gameObject.tag.Contains(vars.enemy_tag)){
-				
+				if(!canSeeUnit(other.transform.position)) {
+					return;
+				}
 				if(other.gameObject != null) {
 					//Debug.Log (thisUnit.gameObject.tag + " sees " + other.gameObject.tag);
 					thisUnit.addEnemyInRange(other.gameObject);

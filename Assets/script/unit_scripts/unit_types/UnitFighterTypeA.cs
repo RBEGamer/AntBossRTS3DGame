@@ -5,6 +5,8 @@ using System.Reflection;
 
 public class UnitFighterTypeA : UnitBase {
 	private bool patrolDirection = false;
+
+
 	void Start() {
 		unitFaction = UnitFaction.EnemyFaction;
 		unitMovementTarget = transform.position;
@@ -30,32 +32,38 @@ public class UnitFighterTypeA : UnitBase {
 				unitGroup.myUnitList.Add(GetComponent<UnitBase>());
 			}
 		}
+
+		unitCommand = UnitCommand.AttackMove;
 	}
 	
 	void Update () {
-		/*
-		if(uiManager.is_in_menu) {
-			unitNavMeshAgent.velocity = Vector3.zero;
-			unitNavMeshAgent.ResetPath();
-			unitAnimator.speed = 0;
-			return;
-		}*/
-		if(!unitCombatTarget) {
-			unitTargetPriority = 0;
-		}
 
 		cleanUp();
+
+		// update destination if changed
+		if (unitNavMeshAgent.destination != unitMovementTarget && !isUnitDisabled)
+		{
+			unitNavMeshAgent.SetDestination(unitMovementTarget);
+		}
+
 		if(unitCurrentCombatCooldown > 0) {
 			unitCurrentCombatCooldown -= Time.deltaTime;
 			return;
 		}
+
+
 		analyseUnitsInRange();
-		if(unitCombatTarget != null) {
+
+		if(unitCommand == UnitCommand.AttackDirectly && unitCombatTarget != null) {
+
 			// attack target directly
 			unitMovementTarget = unitCombatTarget.transform.position;
+
 			if(Vector3.Distance(unitTransform.position, 
 			                    unitCombatTarget.transform.position) <= ((unitRadius + enemyUnitRadius) + unitCurrentAttackRange)) {
-				unitMovementTarget = this.transform.position;
+
+				unitMovementTarget = unitTransform.position;
+
 				if(unitCurrentCombatCooldown <= 0) {
 					unitTransform.LookAt(unitCombatTarget.transform);
 					unitAnimator.speed = 1/unitCurrentAttackspeed;
@@ -64,13 +72,49 @@ public class UnitFighterTypeA : UnitBase {
 				}
 			}
 		}
-		else if(unitMovementTarget != null && currentRoute != null){
+
+		else if(unitCommand == UnitCommand.Idle) {
+
+			if (!unitNavMeshAgent.pathPending)
+			{
+				if (unitNavMeshAgent.remainingDistance <= unitNavMeshAgent.stoppingDistance)
+				{
+					if (!unitNavMeshAgent.hasPath || unitNavMeshAgent.velocity.sqrMagnitude == 0f)
+					{
+						// Done 
+						
+						if(currentIdleTime <= 0.0f) 
+						{
+							unitAnimator.SetBool("isrunning", false);
+							currentIdleRareCooldown = idleRareCooldown;
+							getNewIdlePosition(currentRoute.wayPointObjects[currentWayPoint].transform.position, spreadDistanceInGroup);
+							currentIdleTime = Random.Range (lowerIdleTime, upperIdleTime);
+						} 
+						else 
+						{
+							currentIdleRareCooldown -= Time.deltaTime;
+							if(currentIdleRareCooldown <= 0) {
+								if(Random.Range (0, 100) <= idleRareChance) {
+									//unitAnimator.SetTrigger("idlerare");
+									currentIdleRareCooldown = idleRareCooldown;
+								}
+							}
+							unitAnimator.SetBool("isrunning", false);
+							currentIdleTime -= Time.deltaTime;
+						}
+					}
+				}
+			}
+		}
+		else if(unitCommand == UnitCommand.AttackMove){
 			unitAnimator.speed = 1;
 			unitAnimator.SetBool("isrunning", true);
-			if(unitMovementTarget != currentRoute.wayPointObjects[currentWayPoint].transform.position) {
-				unitMovementTarget = currentRoute.wayPointObjects[currentWayPoint].transform.position;
+
+			if(unitMovementTarget != currentRoute.wayPointTransforms[currentWayPoint].position) {
+				unitMovementTarget = currentRoute.wayPointTransforms[currentWayPoint].position;
 			}
-			if(Vector3.Distance(this.transform.position, currentRoute.wayPointObjects[currentWayPoint].transform.position) < 1.5f) {
+
+			if(Vector3.Distance(this.transform.position, currentRoute.wayPointTransforms[currentWayPoint].position) < 1.5f) {
 				if(currentWayPoint < currentRoute.wayPointObjects.Count -1) {
 					currentWayPoint++;
 					
@@ -78,16 +122,16 @@ public class UnitFighterTypeA : UnitBase {
 					if(unitGroup.isPatrol && currentWayPoint == currentRoute.wayPointObjects.Count -1) {
 						currentWayPoint = 0;
 					}
+					else if(unitGroup.isPatrol == false) {
+						unitCommand = UnitCommand.Idle;
+					}
+
 					unitAnimator.SetBool("isrunning", false);
 				}
 				
 			}
 		}
-		// update destination if changed
-		if (unitNavMeshAgent.destination != unitMovementTarget && !isUnitDisabled)
-		{
-			unitNavMeshAgent.SetDestination(unitMovementTarget);
-		}
+
 	}
 	public void analyseUnitsInRange() {
 		cleanUp();
@@ -217,6 +261,8 @@ public class UnitFighterTypeA : UnitBase {
 			}
 		}
 	}
+
+
 	
 	public void attackTarget() {
 		dealDamage();

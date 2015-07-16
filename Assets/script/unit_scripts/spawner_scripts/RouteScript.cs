@@ -6,6 +6,7 @@ using UnityEditor;
 [ExecuteInEditMode]  
 public class RouteScript : MonoBehaviour {
 	public List<GameObject> wayPointObjects;
+	public List<Transform> wayPointTransforms;
 	public bool isOccupied = false;
 
 	//public Color routeColor;
@@ -13,7 +14,10 @@ public class RouteScript : MonoBehaviour {
 	public bool clickToShowRoute;
 	// Use this for initialization
 	void Start () {
-	
+		wayPointTransforms = new List<Transform>();
+		for(int i = 0; i < wayPointObjects.Count; i++) {
+			wayPointTransforms.Add(wayPointObjects[i].gameObject.transform);
+		}
 	}
 	
 	// Update is called once per frame

@@ -68,6 +68,19 @@ public abstract class UnitBase : MonoBehaviour
 	// unit cost
 	public float unitCostFood;
 	public float unitCostMaterials;
+
+	// spread idle distance
+	public float spreadDistanceInGroup = 5.0f;
+	
+	// rare idle animation
+	protected float idleRareChance = 20;
+	protected float currentIdleRareCooldown = 5.0f;
+	protected float idleRareCooldown = 5.0f;
+	
+	public float currentIdleTime = 0.0f;
+	public float upperIdleTime = 10.0f;
+	public float lowerIdleTime = 6.0f;
+	public GameObject healthBar;
 	
 	// ---------------------------
 	// Logic variables
@@ -124,24 +137,13 @@ public abstract class UnitBase : MonoBehaviour
 	public void Awake () {
 		unitRenderer = GetComponentsInChildren<Renderer>();
 		if(gameObject.tag.Contains(vars.enemy_tag)) {
-			setRenderer(false);
+			//setRenderer(false);
 		}
 
 		uiManager = GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>();
 		unitNavMeshAgent = GetComponent<NavMeshAgent>();
 		unitAnimator = GetComponent<Animator>();
-		if(unitGroup != null) {/*
-			unitCurrentAttackspeed = unitGroup.attackspeed;
-			unitCurrentMovementspeed = unitGroup.movementspeed;
-			unitCurrentRegeneration = unitGroup.regeneration;
-			unitNavMeshAgent.speed = unitCurrentMovementspeed;
-			
-			unitCurrentDamage = unitGroup.damage;
-			unitCurrentHealth = unitGroup.health;
-			
-			unitCurrentAttackRange = unitGroup.attackrange;
-			unitCurrentVisionrange = unitGroup.visionRange;
-			unitGroup.addUnit(this);*/
+		if(unitGroup != null) {
 			setAttributesFromGroup();
 		}
 
@@ -318,13 +320,45 @@ public abstract class UnitBase : MonoBehaviour
 			unitCombatTarget = target;
 			unitCommand = UnitCommand.AttackDirectly;
 			//Debug.Log(gameObject.name + " changes target to " + target.name + " priority " + priority);
+
 			unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
-			if(unitCombatTarget.tag.Contains(vars.unit_tag)) {
+
+			//if(unitCombatTarget.tag.Contains(vars.unit_tag)) {
 				enemyUnitRadius = unitCombatTarget.GetComponent<NavMeshAgent>().radius;
-			}
+			//}
 		}
 	}
 
+	// helper functions
+	virtual public void getNewIdlePosition(Vector3 pivot, float distance)
+	{
+		RaycastHit hit;
+		int safetycounter = 0;
+		unitMovementTarget = new Vector3(pivot.x + Random.Range(-distance, distance) + 1.0f,
+		                                 transform.position.y,
+		                                 pivot.z + Random.Range(-distance, distance) + 1);
+		while(true) {
+			Ray testRay = new Ray(pivot, (unitMovementTarget - pivot));
+			if(Physics.Raycast(testRay, out hit, spreadDistanceInGroup, LayerMask.GetMask("Obstacle"))) {
+				if(hit.collider != null) {
+					Debug.DrawRay(pivot, (unitMovementTarget - pivot), Color.magenta, 10.0f);
+					unitMovementTarget = new Vector3(pivot.x + Random.Range(-distance, distance) + 1.0f,
+					                                 transform.position.y,
+					                                 pivot.z + Random.Range(-distance, distance) + 1);
+					Debug.Log("hit wall! getting new idle point");
+				}
+				else {
+					Debug.DrawRay(pivot, (unitMovementTarget - pivot), Color.green, 10.0f);
+					break;
+				}
+			}
+			else {
+				Debug.DrawRay(pivot, (unitMovementTarget - pivot), Color.green, 10.0f);
+				break;
+			}
+		}
+		
+	}
 
 
 
@@ -365,6 +399,10 @@ public abstract class UnitBase : MonoBehaviour
 	}
 
 	virtual public void cleanUp() {
+		if(!unitCombatTarget) {
+			unitTargetPriority = 0;
+		}
+
 		for(int i = enemiesInRange.Count - 1; i >= 0; i--) {
 			if (enemiesInRange[i] == null)
 			{

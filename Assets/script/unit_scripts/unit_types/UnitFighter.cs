@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 
 public class UnitFighter : UnitBase, ISelectableBase {
-
+	/*
 	public float spreadDistanceInGroup = 5.0f;
 
 	// rare idle animation
@@ -15,7 +15,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 	public float currentIdleTime = 0.0f;
 	public float upperIdleTime = 10.0f;
 	public float lowerIdleTime = 6.0f;
-	public GameObject healthBar;
+	public GameObject healthBar;*/
 	
 
 	public bool isNearDefensePoint = false;
