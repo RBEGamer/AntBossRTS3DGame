@@ -158,7 +158,7 @@ public class vars : MonoBehaviour {
 	public static int initial_collector_ants = 10;
 	public static int initial_attack_ants = 10;
 	public static int initial_scout_ants = 10;
-	public static int base_start_health_percentage = 100;
+	public static int base_start_health_percentage = 1000;
 
 	public static int max_storage_res_a = 10000;
 	public static int max_storage_res_b = 10000;
@@ -210,6 +210,7 @@ public class vars : MonoBehaviour {
 	public static string objective_tag_name = "objective_desc";
 	public static string upgrade_tag_name = "upgrade_desc";
 	public static string blockage_tag = "block";
+	public static string fogofwar_tag = "fogofwar";
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
 	public static string path_manager_name = "path_manager";
 	public static string res_name = "ressource";

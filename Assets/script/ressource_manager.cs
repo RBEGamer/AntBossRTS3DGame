@@ -179,7 +179,7 @@ public class ressource_manager : MonoBehaviour {
 
 	public int count_selected_ressources(){
 		int _count = 0;
-		if(GameObject.FindGameObjectsWithTag(vars.collector_ant_tag) != null){
+		if(GameObject.FindGameObjectsWithTag(vars.collector_ant_tag+vars.attackable_tag+vars.friendly_tag) != null){
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
 			if(n.GetComponent<ressource>().is_selected_by_res_manager){
 				_count++;

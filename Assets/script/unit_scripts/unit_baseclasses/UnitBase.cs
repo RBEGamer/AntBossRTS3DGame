@@ -323,9 +323,11 @@ public abstract class UnitBase : MonoBehaviour
 
 			unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
 
-			//if(unitCombatTarget.tag.Contains(vars.unit_tag)) {
+			if(unitCombatTarget.GetComponent<NavMeshAgent>()) {
 				enemyUnitRadius = unitCombatTarget.GetComponent<NavMeshAgent>().radius;
-			//}
+			} else {
+				enemyUnitRadius = 0.5f;
+			}
 		}
 	}
 

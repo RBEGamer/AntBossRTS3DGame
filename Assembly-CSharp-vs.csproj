@@ -46,6 +46,16 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FogOfWar\FogOfWar.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarAreaRevealer.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarCamera.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarCircleRevealer.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarHeightSampler.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarLineOfSightChecker.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarRayCastSampler.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarRenderer.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarSquareRevealer.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarTerrainSampler.cs" />
      <Compile Include="Assets\script\GameTimer.cs" />
      <Compile Include="Assets\script\ant_path_walker.cs" />
      <Compile Include="Assets\script\audio_clip_state.cs" />
@@ -104,6 +114,7 @@
      <Compile Include="Assets\script\wp_edges.cs" />
      <Compile Include="Assets\script\wp_path_manager.cs" />
      <Compile Include="Assets\script_cache.cs" />
+     <None Include="Assets\FogOfWar\FogOfWarIndieSoft.shader" />
      <None Include="Assets\modelle\scout\Materials\test.shader" />
      <None Include="Assets\modelle\ENVIRONMENT\pilz2\Materials\test.shader" />
      <None Include="Assets\shader\unit.shader" />
