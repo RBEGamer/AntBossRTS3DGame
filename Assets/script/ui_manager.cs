@@ -514,6 +514,7 @@ public class ui_manager : MonoBehaviour {
 				if(i >= ant_produce_query.Count){
 					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
 					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = false;
+          GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
 				}else{
 				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
 				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = true;
@@ -525,11 +526,12 @@ public class ui_manager : MonoBehaviour {
 							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = scout_ant_icon;
 							break;
 						case ant_types.collector:
+
 							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = collector_ant_icon;
 							break;
 						case ant_types.attack:
 							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = attack_ant_icon;
-              Debug.Log("query att time updated");
+             
 							break;
 						default:
 							break;
@@ -561,10 +563,11 @@ public class ui_manager : MonoBehaviour {
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants += 1;
 					break;
 				case ant_types.collector:
+     
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += 1;
 					break;
 				case ant_types.attack:
-          Debug.Log("atack ant finished");
+          
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
 					break;
 				default:
@@ -729,6 +732,7 @@ public class ui_manager : MonoBehaviour {
 						break;
 					case selected_ant_type.collector:
 						if(ant_produce_query.Count < 12){
+              Debug.Log("add wuery coll");
 							ant_query_info tmp_prid_ant;
 							tmp_prid_ant.type = ant_types.collector;
 							tmp_prid_ant.max_waittime = vars.costs_collector_ants.ant_query_waittime;
@@ -741,7 +745,7 @@ public class ui_manager : MonoBehaviour {
 						break;
 					case selected_ant_type.attack:
 						if(ant_produce_query.Count < 12){
-              Debug.Log("add wuery attack");
+          
 							ant_query_info tmp_prid_ant;
 							tmp_prid_ant.type = ant_types.attack;
 							tmp_prid_ant.max_waittime = vars.costs_attack_ants.ant_query_waittime;

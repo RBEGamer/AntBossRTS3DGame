@@ -177,8 +177,8 @@ public class vars : MonoBehaviour {
 		public static float ant_query_waittime = 3.0f;
 	}
 	public struct costs_collector_ants{
-		public static float costs_res_a = 2000.0f;
-		public static float costs_res_b = 0.0f;
+		public static float costs_res_a = 1000.0f;
+		public static float costs_res_b = 500.0f;
 		public static float costs_res_c = 0.0f;
 		public static float ant_query_waittime = 2.0f;
 	}
