@@ -186,7 +186,7 @@ public class vars : MonoBehaviour {
 		public static float costs_res_a = 700.0f;
 		public static float costs_res_b = 100.0f;
 		public static float costs_res_c = 0.0f;
-		public static float ant_query_waittime = 1.0f;
+		public static float ant_query_waittime = 2.0f;
 	}
 	/* -------END BASE SETTINGS AREA ----------------------*/
 

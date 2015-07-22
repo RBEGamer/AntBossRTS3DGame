@@ -178,6 +178,8 @@ public class collector_ant : MonoBehaviour {
 				collectiong_counter -= Time.deltaTime;
 				if(collectiong_counter <= 0.0f){
 				ant_bite_size =	GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().ant_bite();
+        ant_material.mainTexture = ant_texture_loaded;
+
 				sw_path();
 				set_walking_state();
 				}
@@ -255,6 +257,17 @@ public class collector_ant : MonoBehaviour {
 							//base.restype_a_storage += ant_bite_size;
 								GameObject.Find(vars.base_name).GetComponent<base_manager>().add_to_storage(get_res_type_by_id(connected_ressource),ant_bite_size);
 							ant_bite_size = 0.0f;
+
+              if (GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().res.current_harvest_amount <= 0)
+              {
+                if (GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().res.target_collection_ants >0)
+                {
+                   GameObject.Find(vars.res_name + "_" + connected_ressource).GetComponent<ressource>().res.target_collection_ants -= 1;
+                }
+               
+                set_destroy_state();
+              }
+
 							sw_path();
 						}
 

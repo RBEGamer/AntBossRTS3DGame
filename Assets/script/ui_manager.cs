@@ -477,22 +477,29 @@ public class ui_manager : MonoBehaviour {
 	public void quit_produce_task(int queray_pos){
 
 		//schauen welcher typ -> ressourcen wieder drauf -> aus der liste entferenn
+    if (ant_produce_query.Count > queray_pos)
+    {
+      if (ant_produce_query[queray_pos].type == ant_types.scout)
+      {
+        base_manager_cache.res_a_storage += vars.costs_scout_ants.costs_res_a;
+        base_manager_cache.res_b_storage += vars.costs_scout_ants.costs_res_b;
+        //base_manager_cache.res_c_storage += vars.costs_scout_ants.costs_res_c;
+      }
+      else if (ant_produce_query[queray_pos].type == ant_types.collector)
+      {
+        base_manager_cache.res_a_storage += vars.costs_collector_ants.costs_res_a;
+        base_manager_cache.res_b_storage += vars.costs_collector_ants.costs_res_b;
+        //base_manager_cache.res_c_storage += vars.costs_collector_ants.costs_res_c;
+      }
+      else if (ant_produce_query[queray_pos].type == ant_types.attack)
+      {
+        base_manager_cache.res_a_storage += vars.costs_attack_ants.costs_res_a;
+        base_manager_cache.res_b_storage += vars.costs_attack_ants.costs_res_b;
+        //base_manager_cache.res_c_storage += vars.costs_attack_ants.costs_res_c;
+      }
 
-		if(ant_produce_query[queray_pos].type == ant_types.scout){
-			base_manager_cache.res_a_storage += vars.costs_scout_ants.costs_res_a;
-			base_manager_cache.res_b_storage += vars.costs_scout_ants.costs_res_b;
-			//base_manager_cache.res_c_storage += vars.costs_scout_ants.costs_res_c;
-		}else if(ant_produce_query[queray_pos].type == ant_types.collector){
-			base_manager_cache.res_a_storage += vars.costs_collector_ants.costs_res_a;
-			base_manager_cache.res_b_storage += vars.costs_collector_ants.costs_res_b;
-			//base_manager_cache.res_c_storage += vars.costs_collector_ants.costs_res_c;
-		}else if(ant_produce_query[queray_pos].type == ant_types.attack){
-			base_manager_cache.res_a_storage += vars.costs_attack_ants.costs_res_a;
-			base_manager_cache.res_b_storage += vars.costs_attack_ants.costs_res_b;
-			//base_manager_cache.res_c_storage += vars.costs_attack_ants.costs_res_c;
-		}
-
-		ant_produce_query.RemoveAt(queray_pos);
+      ant_produce_query.RemoveAt(queray_pos);
+    }
 	}
 
 
@@ -503,7 +510,7 @@ public class ui_manager : MonoBehaviour {
 		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui && ant_produce_query.Count > 0){
 			//alle btns weiss
 			for (int i = 0; i < 12; i++) {
-				
+		
 				if(i >= ant_produce_query.Count){
 					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
 					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = false;
@@ -522,6 +529,7 @@ public class ui_manager : MonoBehaviour {
 							break;
 						case ant_types.attack:
 							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = attack_ant_icon;
+              Debug.Log("query att time updated");
 							break;
 						default:
 							break;
@@ -556,12 +564,16 @@ public class ui_manager : MonoBehaviour {
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants += 1;
 					break;
 				case ant_types.attack:
+          Debug.Log("atack ant finished");
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
 					break;
 				default:
-					//	GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+						GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+            GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
 					break;
 				}
+        GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+        GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
 				ant_produce_query.RemoveAt(i);
 			}
 			
@@ -645,7 +657,6 @@ public class ui_manager : MonoBehaviour {
 	public void init_base_ui_with_new_selection(){
 		switch (curr_sel_type) {
 		case selected_ant_type.nothing:
-	
 			costs_res_a = vars.costs_nothing_ants.costs_res_a;
 			costs_res_b = vars.costs_nothing_ants.costs_res_b;
 			//	costs_res_c = vars.costs_nothing_ants.costs_res_c;
@@ -656,14 +667,12 @@ public class ui_manager : MonoBehaviour {
 			costs_res_b = vars.costs_scout_ants.costs_res_b;
 			//	costs_res_c = vars.costs_scout_ants.costs_res_c;
 			break;
-		case selected_ant_type.collector:
-
+      case selected_ant_type.collector:
 			costs_res_a = vars.costs_collector_ants.costs_res_a;
 			costs_res_b = vars.costs_collector_ants.costs_res_b;
 			//	costs_res_c = vars.costs_collector_ants.costs_res_c;
 			break;
 		case selected_ant_type.attack:
-
 			costs_res_a = vars.costs_attack_ants.costs_res_a;
 			costs_res_b = vars.costs_attack_ants.costs_res_b;
 			//	costs_res_c = vars.costs_attack_ants.costs_res_c;
@@ -719,12 +728,12 @@ public class ui_manager : MonoBehaviour {
 						//	base_manager_cache.res_c_storage -= final_costs_res_c;
 						break;
 					case selected_ant_type.collector:
-
 						if(ant_produce_query.Count < 12){
 							ant_query_info tmp_prid_ant;
 							tmp_prid_ant.type = ant_types.collector;
 							tmp_prid_ant.max_waittime = vars.costs_collector_ants.ant_query_waittime;
-							tmp_prid_ant.waititme = vars.costs_scout_ants.ant_query_waittime;
+							tmp_prid_ant.waititme = vars.costs_collector_ants.ant_query_waittime;
+              ant_produce_query.Add(tmp_prid_ant);
 							base_manager_cache.res_a_storage -= final_costs_res_a;
 							base_manager_cache.res_b_storage -= final_costs_res_b;
 						}
@@ -732,10 +741,12 @@ public class ui_manager : MonoBehaviour {
 						break;
 					case selected_ant_type.attack:
 						if(ant_produce_query.Count < 12){
+              Debug.Log("add wuery attack");
 							ant_query_info tmp_prid_ant;
-							tmp_prid_ant.type = ant_types.scout;
+							tmp_prid_ant.type = ant_types.attack;
 							tmp_prid_ant.max_waittime = vars.costs_attack_ants.ant_query_waittime;
-							tmp_prid_ant.waititme = vars.costs_scout_ants.ant_query_waittime;
+							tmp_prid_ant.waititme = vars.costs_attack_ants.ant_query_waittime;
+              ant_produce_query.Add(tmp_prid_ant);
 							base_manager_cache.res_a_storage -= final_costs_res_a;
 							base_manager_cache.res_b_storage -= final_costs_res_b;
 						}
