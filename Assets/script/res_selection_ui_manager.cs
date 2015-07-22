@@ -16,24 +16,35 @@ public class res_selection_ui_manager : MonoBehaviour {
 
 
 	public void update_res_selection_ui(){
-
+    Debug.Log("res updated");
 		for (int i = 0; i < 18; i++) {
 			GameObject.Find("res_selection_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = res_icon_ui_none;
 			GameObject.Find("res_selection_btn_" + (i+1).ToString()).GetComponent<Button>().interactable = false;
 		}
 		
+
+
 		int counter = 0;
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag)) {
-			counter++;	
-			GameObject.Find("res_selection_btn_" + (n.GetComponent<ressource>().ressource_id+1).ToString()).GetComponent<Button>().interactable = true;
-			if(n.GetComponent<ressource>().res_type == vars.ressource_type.A){
-				GameObject.Find("res_selection_btn_" + (n.GetComponent<ressource>().ressource_id+1).ToString()).GetComponent<Image>().sprite = res_icon_ui_type_a;
-			}else if(n.GetComponent<ressource>().res_type == vars.ressource_type.B){
-				GameObject.Find("res_selection_btn_" + (n.GetComponent<ressource>().ressource_id+1).ToString()).GetComponent<Image>().sprite = res_icon_ui_type_b;
-				//	}else if(n.GetComponent<ressource>().res_type == vars.ressource_type.C){
-				//		GameObject.Find("res_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = res_icon_ui_type_c;
-			}
-		}
+    foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.res_tag))
+    {
+
+
+      if (n.GetComponent<ressource>().is_node_connected)
+      {
+        counter++;
+        GameObject.Find("res_selection_btn_" + (n.GetComponent<ressource>().ressource_id + 1).ToString()).GetComponent<Button>().interactable = true;
+        if (n.GetComponent<ressource>().res_type == vars.ressource_type.A)
+        {
+          GameObject.Find("res_selection_btn_" + (n.GetComponent<ressource>().ressource_id + 1).ToString()).GetComponent<Image>().sprite = res_icon_ui_type_a;
+        }
+        else if (n.GetComponent<ressource>().res_type == vars.ressource_type.B)
+        {
+          GameObject.Find("res_selection_btn_" + (n.GetComponent<ressource>().ressource_id + 1).ToString()).GetComponent<Image>().sprite = res_icon_ui_type_b;
+          //	}else if(n.GetComponent<ressource>().res_type == vars.ressource_type.C){
+          //		GameObject.Find("res_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = res_icon_ui_type_c;
+        }
+      }
+    }
 	}
 	
 	

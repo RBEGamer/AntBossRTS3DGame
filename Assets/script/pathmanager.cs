@@ -137,7 +137,7 @@ public class pathmanager : MonoBehaviour {
 					get_node_with_intern_node_id(saved_node_id).cursor.SetActive(false); //disable the cursor
 					get_node_with_intern_node_id(saved_node_id).cursor.transform.position = get_node_with_intern_node_id(saved_node_id).node_pos-new Vector3(0f,-1f,0f); //set the invisible cursor the node pos
 					//disable_node_colliders();
-					get_node_with_intern_node_id(saved_node_id).cursor.transform.rotation =  hit.collider.transform.rotation;
+				//	get_node_with_intern_node_id(saved_node_id).cursor.transform.rotation =  hit.collider.transform.rotation;
 					enable_node_colliders();
 					deselect_all_nodes();
         			complete_path_node_information();
@@ -323,7 +323,6 @@ public class pathmanager : MonoBehaviour {
 			tmp.gameObject.GetComponent<node>().is_base_node = false;
 			tmp.gameObject.transform.rotation = Quaternion.FromToRotation(Vector3.down, hit.normal);
 			nodes.Add (tmp);
-
 			//nodes[tmp_id].gameObject.GetComponent<node>().node_const(pos ,tmp_id, get_selected_node (), true);
 			last_added_wp = tmp_id;
 
@@ -340,6 +339,7 @@ public class pathmanager : MonoBehaviour {
 					get_node_with_intern_node_id(tmp_id).connected_with_res = true;
 					get_node_with_intern_node_id(tmp_id).connected_res_id = r.GetComponent<ressource>().ressource_id;
 					get_node_with_intern_node_id(tmp_id).node_pos = r.gameObject.GetComponent<ressource>().ressource_pos;
+          GameObject.Find("RES_SELECTION_UI").GetComponent<res_selection_ui_manager>().update_res_selection_ui();
         }
 
       }

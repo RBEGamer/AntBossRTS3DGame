@@ -86,7 +86,7 @@ public class ressource : MonoBehaviour {
 		this.name = vars.res_name + "_" + ressource_id;
 		refresh_res_info();
 		show_complete_model();
-
+   
 
 
 	}
