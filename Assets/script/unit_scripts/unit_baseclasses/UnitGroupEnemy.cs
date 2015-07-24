@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class UnitGroupEnemy : UnitGroupBase {
 
+
 	public List<string> possibleRoutes;
 
 	public RouteScript myRoute;
@@ -22,8 +23,10 @@ public class UnitGroupEnemy : UnitGroupBase {
 		}
 		if(startingWayPoint != -1 && myRoute != null) {
 			foreach(UnitBase unit in myUnitList) {
+				Debug.Log ("TEST");
 				unit.currentRoute = myRoute;
-				unit.currentWayPoint = startingWayPoint;
+				myRoute.isOccupied = true;
+				unit.currentWayPoint = startingWayPoint - 1;
 			}
 		}
 	}
@@ -34,6 +37,9 @@ public class UnitGroupEnemy : UnitGroupBase {
 
 		foreach(UnitBase unit in myUnitList) {
 			unit.currentRoute = myRoute;
+			if(startingWayPoint != -1) {
+				unit.currentWayPoint = startingWayPoint - 1;
+			}
 		}
 	}
 	

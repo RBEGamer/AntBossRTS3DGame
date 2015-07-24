@@ -152,12 +152,12 @@ public class vars : MonoBehaviour {
 	public static bool collector_ant_en_dyn_speed = false;//wenn auf true  brauchen die Ameisen immer die selbe zeit zum node -> längere strecke = schnellere ameise
 	public static int res_manager_ant_spawn_speed = 100; //wie schnell werden neue collector ameisen erstellt
 	/* -------BASE SETTINGS AREA ----------------------*/
-	public static float initial_res_a_storage = 5000.0f;
-	public static float initial_res_b_storage = 500.0f;
+	public static float initial_res_a_storage = 0.0f;
+	public static float initial_res_b_storage = 0.0f;
 	public static float initial_res_c_storage = 500.0f;
-	public static int initial_collector_ants = 10;
-	public static int initial_attack_ants = 10;
-	public static int initial_scout_ants = 10;
+	public static int initial_collector_ants = 3;
+	public static int initial_attack_ants = 3;
+	public static int initial_scout_ants = 3;
 	public static int base_start_health_percentage = 1000;
 
 	public static int max_storage_res_a = 10000;

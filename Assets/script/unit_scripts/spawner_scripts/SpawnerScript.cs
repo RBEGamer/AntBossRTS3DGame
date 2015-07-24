@@ -28,26 +28,9 @@ public class SpawnerScript : MonoBehaviour {
 		}
 
 		foreach(RouteScript route in spawnerRoutes) {
-
+		//for(int i = 0; i < spawnerRoutes.Count-1; i++){
 			if(route.isOccupied == false) {
-				List<UnitGroupEnemy> listAvailableGroups = new List<UnitGroupEnemy>();
-				foreach(GameObject group in unitGroupList) {
-					UnitGroupEnemy temp = group.GetComponent<UnitGroupEnemy>();
-					if(temp.possibleRoutes.Contains(route.gameObject.name)) {
-						listAvailableGroups.Add (temp);
-					}
-				}
-
-
-				int x = Random.Range (0, listAvailableGroups.Count);
-
-				while(TotalSpawnTime < listAvailableGroups[x].spawnTimeLimit) {
-					x = Random.Range (0, listAvailableGroups.Count);
-				}
-
-				GameObject newgroup = Instantiate(listAvailableGroups[x].gameObject, transform.position, Quaternion.identity) as GameObject;
-				newgroup.GetComponent<UnitGroupEnemy>().setRoute(route);
-				route.isOccupied = true;
+				spawnNewGroup(route);
 			}
 		}
 	}
@@ -67,27 +50,37 @@ public class SpawnerScript : MonoBehaviour {
 		if(currentSpawnTimer > spawnIntervall) {
 			currentSpawnTimer = 0.0f;
 			foreach(RouteScript route in spawnerRoutes) {
+			//for(int i = 0; i < spawnerRoutes.Count-1; i++){
 				if(route.isOccupied == false) {
-					List<UnitGroupEnemy> listAvailableGroups = new List<UnitGroupEnemy>();
-					foreach(GameObject group in unitGroupList) {
-						UnitGroupEnemy temp = group.GetComponent<UnitGroupEnemy>();
-						if(temp.possibleRoutes.Contains(route.gameObject.name)) {
-							listAvailableGroups.Add (temp);
-						}
-					}
-					
-					int x = Random.Range (0, listAvailableGroups.Count);
-					
-					while(TotalSpawnTime < listAvailableGroups[x].spawnTimeLimit) {
-						x = Random.Range (0, listAvailableGroups.Count);
-					}
-					
-					GameObject newgroup = Instantiate(listAvailableGroups[x].gameObject, transform.position, Quaternion.identity) as GameObject;
-					newgroup.GetComponent<UnitGroupEnemy>().setRoute(route);
-					route.isOccupied = true;
+					Debug.Log("TEST!");
+					spawnNewGroup(route);
 				}
 			}
 		}
+	}
+
+	void spawnNewGroup(RouteScript targetRoute) {
+		List<UnitGroupEnemy> listAvailableGroups = new List<UnitGroupEnemy>();
+		foreach(GameObject group in unitGroupList) {
+			UnitGroupEnemy temp = group.GetComponent<UnitGroupEnemy>();
+			if(temp.possibleRoutes.Contains(targetRoute.gameObject.name) && temp.spawnTimeLimit <= TotalSpawnTime) {
+				listAvailableGroups.Add (temp);
+			}
+		}
+
+		if(listAvailableGroups.Count < 1) {
+			return;
+		}
+		
+		int x = Random.Range (0, listAvailableGroups.Count);
+		
+		while(TotalSpawnTime < listAvailableGroups[x].spawnTimeLimit) {
+			x = Random.Range (0, listAvailableGroups.Count);
+		}
+		
+		GameObject newgroup = Instantiate(listAvailableGroups[x].gameObject, transform.position, Quaternion.identity) as GameObject;
+		newgroup.GetComponent<UnitGroupEnemy>().setRoute(targetRoute);
+		targetRoute.isOccupied = true;
 	}
 	
 }

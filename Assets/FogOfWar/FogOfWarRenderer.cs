@@ -15,12 +15,15 @@ public class FogOfWarRenderer : MonoBehaviour
 
     void Update()
     {
-		if (fogOfWar != null && fogOfWar.enabled && fogOfWar.gameObject.active)
-        {
-			for(int i = 0; i < thisRenderer.Length; i++) {
-				thisRenderer[i].enabled = fogOfWar.IsRevealed(transform.position);
+		if(fogOfWar != null) {
+			if (fogOfWar != null && fogOfWar.enabled && fogOfWar.gameObject.active)
+	        {
+				for(int i = 0; i < thisRenderer.Length; i++) {
+					thisRenderer[i].enabled = fogOfWar.IsRevealed(transform.position);
 
+				}
 			}
-        }
+		}
+
     }
 }

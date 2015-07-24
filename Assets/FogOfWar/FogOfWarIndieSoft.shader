@@ -13,7 +13,8 @@ Shader "Fog Of War/Soft (Indie)" {
 
 		Pass {
 			ZWrite On
-			ZTest Always
+			ZTest LEqual
+			//ZTest Always
 			ColorMask 0
 			
 			CGPROGRAM
