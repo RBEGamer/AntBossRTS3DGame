@@ -9,7 +9,8 @@ public class base_manager : MonoBehaviour {
 	public float res_b_storage;
 	public float res_c_storage;
 	
-	public int health = 0;
+	public float health = 0.0f;
+	public float healthregen = 0.0f;
 	
 	public GameObject storage_of_res_a_text;
 	public GameObject storage_of_res_b_text;
@@ -139,6 +140,9 @@ public class base_manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if(health < vars.base_start_health_percentage) {
+			health += healthregen * Time.deltaTime;
+		}
 		storage_of_res_a_text.GetComponent<Text>().text = res_a_storage.ToString();
 		storage_of_res_b_text.GetComponent<Text>().text = res_b_storage.ToString();
 		//storage_of_res_c_text.GetComponent<Text>().text = res_c_storage.ToString();
