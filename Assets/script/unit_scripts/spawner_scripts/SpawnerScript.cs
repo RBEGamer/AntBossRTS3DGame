@@ -43,20 +43,19 @@ public class SpawnerScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		currentSpawnTimer += Time.deltaTime;
 		TotalSpawnTime += Time.deltaTime;
 
-		if(currentSpawnTimer > spawnIntervall) {
+		//if(currentSpawnTimer > spawnIntervall) {
 			currentSpawnTimer = 0.0f;
 			foreach(RouteScript route in spawnerRoutes) {
 			//for(int i = 0; i < spawnerRoutes.Count-1; i++){
 				if(route.isOccupied == false) {
-					Debug.Log("TEST!");
 					spawnNewGroup(route);
 				}
 			}
-		}
+		//}
 	}
 
 	void spawnNewGroup(RouteScript targetRoute) {
@@ -78,9 +77,16 @@ public class SpawnerScript : MonoBehaviour {
 			x = Random.Range (0, listAvailableGroups.Count);
 		}
 		
-		GameObject newgroup = Instantiate(listAvailableGroups[x].gameObject, transform.position, Quaternion.identity) as GameObject;
-		newgroup.GetComponent<UnitGroupEnemy>().setRoute(targetRoute);
+		//GameObject newgroup = Instantiate(listAvailableGroups[x].gameObject, transform.position, Quaternion.identity) as GameObject;
+		//newgroup.GetComponent<UnitGroupEnemy>().setRoute(targetRoute);
+		StartCoroutine(createNewGroup(listAvailableGroups[x], targetRoute, listAvailableGroups[x].productionTime));
 		targetRoute.isOccupied = true;
 	}
-	
+
+	IEnumerator createNewGroup(UnitGroupEnemy groupToSpawn, RouteScript targetRoute, float delayTime) {
+		yield return new WaitForSeconds(delayTime);
+
+		GameObject newgroup = Instantiate(groupToSpawn.gameObject, transform.position, Quaternion.identity) as GameObject;
+		newgroup.GetComponent<UnitGroupEnemy>().setRoute(targetRoute);
+	}
 }

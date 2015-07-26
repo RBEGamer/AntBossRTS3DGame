@@ -23,6 +23,11 @@ public class ui_manager : MonoBehaviour {
 	public GameObject toggle_waypoint_mode_button_holder;
 	public GameObject toggle_waypoint_mode_button_text_holder;
 
+	public int amount_ant_buttons = 12;
+	Image[] cacheImages;
+	Image[] cacheImagesProd;
+	Button[] cacheButtons;
+
 	public void toggle_menu(){
 		is_in_menu = !is_in_menu;
 		pause_menu_holder.SetActive(is_in_menu);
@@ -84,6 +89,14 @@ public class ui_manager : MonoBehaviour {
 
 
 	void Start () {
+		cacheImagesProd = new Image[amount_ant_buttons];
+		cacheImages = new Image[amount_ant_buttons];
+		cacheButtons = new Button[amount_ant_buttons];
+		for(int i = 0; i < amount_ant_buttons; i++) {
+			cacheImagesProd[i] = GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>();
+			cacheImages[i] = GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>();
+			cacheButtons[i] = GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>();
+		}
 		base_manager_cache = GameObject.Find(vars.base_name).GetComponent<base_manager>();
 		unit_group_chache_cache = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>();
 		upgrade_manager_cache = GameObject.Find(vars.upgrade_manager_name).GetComponent<upgrade_manager>();
@@ -169,34 +182,103 @@ public class ui_manager : MonoBehaviour {
 		switch (ui_view_slot_0) {
 			
 		case selected_ui_in_slot_0.empty_ui:
-			empty_ui_holder.SetActive(true);
-			base_ui_holder.SetActive(false);
-			ressource_ui_holder.SetActive(false);
-			unit_ui_holder.SetActive(false);
+			if(empty_ui_holder.activeSelf != true) {
+				empty_ui_holder.SetActive(true);
+			}
+			if(base_ui_holder.activeSelf != false) {
+				base_ui_holder.SetActive(false);
+			}
+			if(base_ui_holder.activeSelf != false) {
+				ressource_ui_holder.SetActive(false);
+			}
+
+			if(unit_ui_holder.activeSelf != false) {
+				unit_ui_holder.SetActive(false);
+			}
 			break;
 		case selected_ui_in_slot_0.base_ui:
+			if(empty_ui_holder.activeSelf != false) {
+				empty_ui_holder.SetActive(false);
+			}
+			if(base_ui_holder.activeSelf != true) {
+				base_ui_holder.SetActive(true);
+			}
+			if(base_ui_holder.activeSelf != false) {
+				ressource_ui_holder.SetActive(false);
+			}
+			
+			if(unit_ui_holder.activeSelf != false) {
+				unit_ui_holder.SetActive(false);
+			}
+			/*
 			empty_ui_holder.SetActive(false);
 			base_ui_holder.SetActive(true);
 			ressource_ui_holder.SetActive(false);
 			unit_ui_holder.SetActive(false);
+			*/
 			break;
 		case selected_ui_in_slot_0.ressource_ui:
+			if(empty_ui_holder.activeSelf != false) {
+				empty_ui_holder.SetActive(false);
+			}
+			if(base_ui_holder.activeSelf != false) {
+				base_ui_holder.SetActive(false);
+			}
+			if(base_ui_holder.activeSelf != true) {
+				ressource_ui_holder.SetActive(true);
+			}
+			
+			if(unit_ui_holder.activeSelf != false) {
+				unit_ui_holder.SetActive(false);
+			}
+			/*
 			empty_ui_holder.SetActive(false);
 			base_ui_holder.SetActive(false);
 			ressource_ui_holder.SetActive(true);
-			unit_ui_holder.SetActive(false);
+			unit_ui_holder.SetActive(false);*/
+		
 			break;
 		case selected_ui_in_slot_0.unit_ui:
+			if(empty_ui_holder.activeSelf != false) {
+				empty_ui_holder.SetActive(false);
+			}
+			if(base_ui_holder.activeSelf != false) {
+				base_ui_holder.SetActive(false);
+			}
+			if(base_ui_holder.activeSelf != false) {
+				ressource_ui_holder.SetActive(false);
+			}
+			
+			if(unit_ui_holder.activeSelf != true) {
+				unit_ui_holder.SetActive(true);
+			}
+			/*
 			empty_ui_holder.SetActive(false);
 			base_ui_holder.SetActive(false);
 			ressource_ui_holder.SetActive(false);
 			unit_ui_holder.SetActive(true);
+			*/
 			break;
 		default:
+			if(empty_ui_holder.activeSelf != true) {
+				empty_ui_holder.SetActive(true);
+			}
+			if(base_ui_holder.activeSelf != false) {
+				base_ui_holder.SetActive(false);
+			}
+			if(base_ui_holder.activeSelf != false) {
+				ressource_ui_holder.SetActive(false);
+			}
+			
+			if(unit_ui_holder.activeSelf != false) {
+				unit_ui_holder.SetActive(false);
+			}
+			/*
 			empty_ui_holder.SetActive(true);
 			base_ui_holder.SetActive(false);
 			ressource_ui_holder.SetActive(false);
 			unit_ui_holder.SetActive(false);
+			*/
 			break;
 		}
 		
@@ -323,11 +405,16 @@ public class ui_manager : MonoBehaviour {
 			//WENN RESSOURCE NICHT CONNECTED DANN DEN SLIDER NICHT ANZEIGEN!!!!!!!!!!!
 			
 			if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_node_connected && !ui_assigned_ui_holder.gameObject.activeSelf){
-				ui_assigned_ui_holder.SetActive(true);
+				if(ui_assigned_ui_holder.activeSelf != true) {
+					ui_assigned_ui_holder.SetActive(true);
+				}
 			}
 
 			if(!GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_node_connected && ui_assigned_ui_holder.gameObject.activeSelf){
-				ui_assigned_ui_holder.SetActive(false);
+				if(ui_assigned_ui_holder.activeSelf != false) {
+					ui_assigned_ui_holder.SetActive(false);
+				}
+
 			}
 			
 			
@@ -505,32 +592,49 @@ public class ui_manager : MonoBehaviour {
 
 
 
+
 	void ant_produce_query_task(){
-		
+	
 		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui && ant_produce_query.Count > 0){
 			//alle btns weiss
-			for (int i = 0; i < 12; i++) {
+			for (int i = 0; i < amount_ant_buttons; i++) {
 		
 				if(i >= ant_produce_query.Count){
-					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
-					GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = false;
-          GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
+					//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+					cacheImages[i].sprite = none_ant_icon;
+					cacheImages[i].fillAmount = 0.0f;
+
+					/*if(GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable  != false) {
+						GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = false;
+					}*/
+					cacheButtons[i].interactable = false;
+
+         		//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
 				}else{
-				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
-				GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = true;
+					cacheImages[i].fillAmount = 0.0f;
+				//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
+					/*
+					if(GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable != true) {
+						GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>().interactable = true;
+					}*/
+
+					cacheButtons[i].interactable = true;
 				
 
-						GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = ant_produce_query[i].waititme / ant_produce_query[i].max_waittime;
+						//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = ant_produce_query[i].waititme / ant_produce_query[i].max_waittime;
+						cacheImagesProd[i].fillAmount = ant_produce_query[i].waititme / ant_produce_query[i].max_waittime;
 						switch (ant_produce_query[i].type) {
 						case ant_types.scout:
-							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = scout_ant_icon;
+							//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = scout_ant_icon;
+							cacheImages[i].sprite = scout_ant_icon;
 							break;
 						case ant_types.collector:
-
-							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = collector_ant_icon;
+							cacheImages[i].sprite = collector_ant_icon;
+							//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = collector_ant_icon;
 							break;
 						case ant_types.attack:
-							GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = attack_ant_icon;
+							cacheImages[i].sprite = attack_ant_icon;
+							//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = attack_ant_icon;
              
 							break;
 						default:
@@ -559,7 +663,7 @@ public class ui_manager : MonoBehaviour {
 
 			if(ant_produce_query[i].waititme <= 0.0f){
 				switch (ant_produce_query[i].type) {
-				case ant_types.scout:
+				case ant_types.scout: 
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants += 1;
 					break;
 				case ant_types.collector:
@@ -571,12 +675,16 @@ public class ui_manager : MonoBehaviour {
 					GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_attack_ants += 1;
 					break;
 				default:
-						GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
-            GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
+						//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+					cacheImages[i].sprite = none_ant_icon;
+            		//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
+					cacheImagesProd[i].fillAmount = 0.0f;
 					break;
 				}
-        GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
-        GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
+				cacheImages[i].sprite = none_ant_icon;
+				cacheImagesProd[i].fillAmount = 0.0f;
+		        //GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;
+		        //GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>().fillAmount = 0.0f;
 				ant_produce_query.RemoveAt(i);
 			}
 			

@@ -102,11 +102,11 @@ public class vars : MonoBehaviour {
 		public static int max_collector_ants = 10; //wie viele Armeisen können an dieser REssource abbauen
 		public static float interaction_circle_radius = 2.0f;
 		public static float interactition_latitude = 0.1f;
-		public static float ant_bite_decrease = 10; //wie viel soll eine ameise bei einem biss tragen können
+		public static float ant_bite_decrease = 5; //wie viel soll eine ameise bei einem biss tragen können
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Nahrung";
 		public static float effiency = 1.0f;
-		public static float harwesting_time = 5.0f; //ONLY FROM COLLECTOR ANT USED
+		public static float harwesting_time = 3.0f; //ONLY FROM COLLECTOR ANT USED
 	}
 	public struct res_type_b{
 		public static float max_harvest = 2000.0f;
@@ -152,12 +152,12 @@ public class vars : MonoBehaviour {
 	public static bool collector_ant_en_dyn_speed = false;//wenn auf true  brauchen die Ameisen immer die selbe zeit zum node -> längere strecke = schnellere ameise
 	public static int res_manager_ant_spawn_speed = 100; //wie schnell werden neue collector ameisen erstellt
 	/* -------BASE SETTINGS AREA ----------------------*/
-	public static float initial_res_a_storage = 0.0f;
+	public static float initial_res_a_storage = 50.0f;
 	public static float initial_res_b_storage = 0.0f;
-	public static float initial_res_c_storage = 500.0f;
+	public static float initial_res_c_storage = 0.0f;
 	public static int initial_collector_ants = 3;
 	public static int initial_attack_ants = 3;
-	public static int initial_scout_ants = 3;
+	public static int initial_scout_ants = 5;
 	public static int base_start_health_percentage = 1000;
 
 	public static int max_storage_res_a = 10000;
@@ -168,25 +168,24 @@ public class vars : MonoBehaviour {
 		public static float costs_res_a = 0.0f;
 		public static float costs_res_b = 0.0f;
 		public static float costs_res_c = 0.0f;
-	}
-
+	}	
 	public struct costs_scout_ants{
-		public static float costs_res_a = 100.0f;
-		public static float costs_res_b = 500.0f;
+		public static float costs_res_a = 125.0f;
+		public static float costs_res_b = 50.0f;
 		public static float costs_res_c = 0.0f;
-		public static float ant_query_waittime = 3.0f;
+		public static float ant_query_waittime = 15.0f;
 	}
 	public struct costs_collector_ants{
-		public static float costs_res_a = 1000.0f;
-		public static float costs_res_b = 500.0f;
+		public static float costs_res_a = 50.0f;
+		public static float costs_res_b = 0.0f;
 		public static float costs_res_c = 0.0f;
-		public static float ant_query_waittime = 2.0f;
+		public static float ant_query_waittime = 10.0f;
 	}
 	public struct costs_attack_ants{
-		public static float costs_res_a = 700.0f;
-		public static float costs_res_b = 100.0f;
+		public static float costs_res_a = 100.0f;
+		public static float costs_res_b = 000.0f;
 		public static float costs_res_c = 0.0f;
-		public static float ant_query_waittime = 2.0f;
+		public static float ant_query_waittime = 15.0f;
 	}
 	/* -------END BASE SETTINGS AREA ----------------------*/
 
@@ -195,7 +194,7 @@ public class vars : MonoBehaviour {
 	public static string wp_node_tag = "wp_node";
 	public static string res_tag = "ressource";
 	public static string scout_ant_tag = "scout_ant";
-	public static string collector_ant_tag = "collector_ant";
+	public static string collector_ant_tag = "collector_antAttFri";
 	public static string environment_tag = "environment";
 	public static string ground_tag = "ground";	
 	public static string base_tag = "base";	

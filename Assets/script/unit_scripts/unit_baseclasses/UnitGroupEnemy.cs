@@ -9,6 +9,7 @@ public class UnitGroupEnemy : UnitGroupBase {
 
 	public RouteScript myRoute;
 	public float spawnTimeLimit = 0.0f;
+	public float productionTime = 0.0f;
 	public int startingWayPoint = -1;
 	// Use this for initialization
 	void Awake () {

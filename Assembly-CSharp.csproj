@@ -51,6 +51,7 @@
      <Compile Include="Assets\FogOfWar\FogOfWarCamera.cs" />
      <Compile Include="Assets\FogOfWar\FogOfWarCircleRevealer.cs" />
      <Compile Include="Assets\FogOfWar\FogOfWarHeightSampler.cs" />
+     <Compile Include="Assets\FogOfWar\FogOfWarLineDrawingLOS.cs" />
      <Compile Include="Assets\FogOfWar\FogOfWarLineOfSightChecker.cs" />
      <Compile Include="Assets\FogOfWar\FogOfWarRayCastSampler.cs" />
      <Compile Include="Assets\FogOfWar\FogOfWarRenderer.cs" />
@@ -118,6 +119,7 @@
      <None Include="Assets\modelle\scout\Materials\test.shader" />
      <None Include="Assets\modelle\ENVIRONMENT\pilz2\Materials\test.shader" />
      <None Include="Assets\shader\unit.shader" />
+     <None Include="Assets\mat\unitshader\test.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Programme/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

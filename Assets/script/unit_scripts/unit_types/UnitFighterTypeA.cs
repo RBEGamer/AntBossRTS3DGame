@@ -110,25 +110,28 @@ public class UnitFighterTypeA : UnitBase {
 			unitAnimator.speed = 1;
 			unitAnimator.SetBool("isrunning", true);
 
-			if(unitMovementTarget != currentRoute.wayPointTransforms[currentWayPoint].position) {
-				unitMovementTarget = currentRoute.wayPointTransforms[currentWayPoint].position;
-			}
-
-			if(Vector3.Distance(this.transform.position, currentRoute.wayPointTransforms[currentWayPoint].position) < 1.5f) {
-				if(currentWayPoint < currentRoute.wayPointObjects.Count -1) {
-					currentWayPoint++;
-					
-				} else {
-					if(unitGroup.isPatrol && currentWayPoint == currentRoute.wayPointObjects.Count -1) {
-						currentWayPoint = 0;
-					}
-					else if(unitGroup.isPatrol == false) {
-						unitCommand = UnitCommand.Idle;
-					}
-
-					unitAnimator.SetBool("isrunning", false);
+			if(unitMovementTarget != null && currentRoute != null) {
+				if(unitMovementTarget != currentRoute.wayPointTransforms[currentWayPoint].position) {
+					unitMovementTarget = currentRoute.wayPointTransforms[currentWayPoint].position;
 				}
-				
+			}
+			if(currentRoute != null) {
+				if(Vector3.Distance(this.transform.position, currentRoute.wayPointTransforms[currentWayPoint].position) < 1.5f) {
+					if(currentWayPoint < currentRoute.wayPointObjects.Count -1) {
+						currentWayPoint++;
+						
+					} else {
+						if(unitGroup.isPatrol && currentWayPoint == currentRoute.wayPointObjects.Count -1) {
+							currentWayPoint = 0;
+						}
+						else if(unitGroup.isPatrol == false) {
+							unitCommand = UnitCommand.Idle;
+						}
+
+						unitAnimator.SetBool("isrunning", false);
+					}
+					
+				}
 			}
 		}
 
