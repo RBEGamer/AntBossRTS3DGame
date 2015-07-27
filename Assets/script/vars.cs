@@ -156,7 +156,7 @@ public class vars : MonoBehaviour {
 	public static float initial_res_b_storage = 0.0f;
 	public static float initial_res_c_storage = 0.0f;
 	public static int initial_collector_ants = 3;
-	public static int initial_attack_ants = 3;
+	public static int initial_attack_ants = 11;
 	public static int initial_scout_ants = 5;
 	public static int base_start_health_percentage = 1000;
 
@@ -224,7 +224,7 @@ public class vars : MonoBehaviour {
 	public static string sound_manager_name = "sound_manager";
 	public static string main_camera_script_holder_name = "camera_controller";
 	public static string objective_manager_name = "objective_manager";
-	public static string upgrade_manager_name = "upgrade_manager";
+	public static string upgrade_manager_name = "UPGRADES";
 	public static string UnitGroupUIManager = "UnitGroupUIManager";
 	/*---------------  SCENE NAMES (please add the scene in the Unity Build settings ------------------*/
 	public static string main_menu_scene_name  = "main_menu";

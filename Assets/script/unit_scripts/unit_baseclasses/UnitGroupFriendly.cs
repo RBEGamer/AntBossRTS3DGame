@@ -25,6 +25,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 	
 	// Update is called once per frame
 	void Update () {
+		//transform.rotation = new Quaternion (270.0f, 0.0f, 0.0f, 1.0f);
 		if (Input.GetKeyDown(vars.key_panic) && isSelected())
 		{
 			setPanic();
@@ -34,7 +35,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 			transform.position = new Vector3(unitGroupTarget.transform.position.x, unitGroupTarget.transform.position.y + 5.0f, unitGroupTarget.transform.position.z);
 		}
 		else {
-			transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
+			transform.position = new Vector3(transform.position.x, 3.0f, transform.position.z);
 		}
 		
 		cleanUp();
