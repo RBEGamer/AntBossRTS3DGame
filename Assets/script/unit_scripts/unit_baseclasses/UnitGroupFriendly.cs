@@ -35,7 +35,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 			transform.position = new Vector3(unitGroupTarget.transform.position.x, unitGroupTarget.transform.position.y + 5.0f, unitGroupTarget.transform.position.z);
 		}
 		else {
-			transform.position = new Vector3(transform.position.x, 3.0f, transform.position.z);
+			transform.position = new Vector3(transform.position.x, 4.0f, transform.position.z);
 		}
 		
 		cleanUp();
