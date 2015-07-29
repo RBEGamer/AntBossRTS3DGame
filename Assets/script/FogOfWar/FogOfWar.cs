@@ -222,7 +222,8 @@ public class FogOfWar : MonoBehaviour
 
         WorldToFog(pos, out r, out c);
 
-        return fogData[(r * nodeCount) + c].x >= Time.time;
+        //return fogData[(r * nodeCount) + c].x >= Time.time;
+		return fogData[(r * nodeCount) + c].x >= Time.time;
     }
 
     /// <summary>

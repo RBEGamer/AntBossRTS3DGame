@@ -32,7 +32,7 @@ public class MapItem : MonoBehaviour
     public Map Map = null;
 
 	[HideInInspector]
-	public FogOfWarRenderer thisFogOfWarRenderer;
+	public ShowRevealed thisFogOfWarRenderer;
 
     public virtual Vector3 Position
     {
@@ -41,7 +41,7 @@ public class MapItem : MonoBehaviour
 
     void Start()
     {
-		thisFogOfWarRenderer = GetComponent<FogOfWarRenderer> ();
+		thisFogOfWarRenderer = GetComponent<ShowRevealed> ();
         realTexture = iconTexture;
 
         if (rotateAlongForwardAxis)

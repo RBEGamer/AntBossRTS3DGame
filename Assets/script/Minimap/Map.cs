@@ -563,7 +563,7 @@ public class Map : MonoBehaviour
 
     void CheckForPing()
     {
-        if (pingEnabled && pingOnClick && Input.GetButtonDown(pingButtonName))
+        if (pingEnabled && pingOnClick && Input.GetButtonDown(pingButtonName) && isVisible)
         {
             Vector3 mpos = NormalizedMousePosition;
             

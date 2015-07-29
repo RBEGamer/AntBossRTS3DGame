@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class FogOfWarRenderer : MonoBehaviour
+public class ShowRevealed : MonoBehaviour
 {
     [SerializeField]
     public static FogOfWar fogOfWar;
