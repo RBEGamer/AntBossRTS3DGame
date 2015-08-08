@@ -143,35 +143,35 @@ public class UnitFighterTypeB : UnitBase {
 
 			// FILL LISTS --- 
 			List<GameObject> enemyScoutsInRange = new List<GameObject>();
-			foreach(GameObject enemy in enemiesInRange) {
+			foreach(GameObject enemy in unitsInRange) {
 				if(enemy.tag.Contains (vars.friendly_tag) && enemy.tag.Contains (vars.scout_ant_tag)) {
 					enemyScoutsInRange.Add (enemy);
 				}
 			}
 			
 			List<GameObject> enemyWorkerInRange = new List<GameObject>();
-			foreach(GameObject enemy in enemiesInRange) {
+			foreach(GameObject enemy in unitsInRange) {
 				if(enemy.tag.Contains (vars.friendly_tag) && enemy.tag.Contains (vars.collector_ant_tag)) {
 					enemyWorkerInRange.Add (enemy);
 				}
 			}
 			
 			List<GameObject> enemyFighterInRange = new List<GameObject>();
-			foreach(GameObject enemy in enemiesInRange) {
+			foreach(GameObject enemy in unitsInRange) {
 				if(enemy.tag.Contains (vars.friendly_tag) && enemy.tag.Contains(vars.unit_tag)) {
 					enemyFighterInRange.Add (enemy);
 				}
 			}
 			
 			List<GameObject> enemyBasesInRange = new List<GameObject>();
-			foreach(GameObject enemy in enemiesInRange) {
+			foreach(GameObject enemy in unitsInRange) {
 				if(enemy.tag.Contains (vars.friendly_tag) && enemy.tag.Contains(vars.base_tag)) {
 					enemyBasesInRange.Add (enemy);
 				}
 			}
 
 			List<GameObject> enemyRessourcesInRange = new List<GameObject>();
-			foreach(GameObject enemy in enemiesInRange) {
+			foreach(GameObject enemy in unitsInRange) {
 				if(enemy.tag.Contains (vars.friendly_tag) && enemy.tag.Contains(vars.res_tag)) {
 					enemyRessourcesInRange.Add (enemy);
 				}

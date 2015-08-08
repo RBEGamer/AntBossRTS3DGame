@@ -1,14 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\unit_scripts\unit_baseclasses\UnitBase.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\unit_scripts\unit_skills\New Units\UnitScript.cs">
     <Files>
-      <File FileName="Assets\script\unit_scripts\unit_types\UnitFighter.cs" Line="6" Column="2" />
-      <File FileName="Assets\script\wp_path_manager.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\wp_edges.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitGroupFriendly.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitGroupBase.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\ant_path_walker.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\unit_scripts\unit_baseclasses\UnitBase.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\unit_scripts\unit_skills\New Units\AttributeScript.cs" Line="15" Column="1" />
+      <File FileName="Assets\Scripts\unit_scripts\unit_skills\New Units\HealthScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\unit_scripts\unit_baseclasses\UnitBase.cs" Line="348" Column="2" />
+      <File FileName="Assets\Scripts\unit_scripts\unit_types\UnitFighter.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\unit_scripts\unit_skills\New Units\UnitScript.cs" Line="111" Column="68" />
+      <File FileName="Assets\Scripts\unit_scripts\unit_skills\SkillCalculator.cs" Line="31" Column="5" />
+      <File FileName="Assets\Scripts\unit_scripts\unit_skills\New Units\MovementScript.cs" Line="20" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

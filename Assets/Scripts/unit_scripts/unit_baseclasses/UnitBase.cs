@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public enum UnitFaction
 {
@@ -11,11 +12,14 @@ public enum UnitFaction
 }
 
 public enum UnitCommand {
-	AttackMove,
-	Move,
-	AttackDirectly,
-	Idle
+	RetreatToBaseNoReturn = 1,
+	RetreatToBase = 2,
+	Move = 3, 
+	Attack = 4,
+	AttackMove = 5,
+	Idle = 6
 }
+
 
 public abstract class UnitBase : MonoBehaviour
 {
@@ -109,7 +113,7 @@ public abstract class UnitBase : MonoBehaviour
 
 	// Tracks units in range for later analysis
 	//public List<UnitBase> unitsInRange;
-	public List<GameObject> enemiesInRange;
+	public List<GameObject> unitsInRange;
 
 	// Tracks units targeting this one
 	public List<UnitBase> unitsTargetingMe;
@@ -131,10 +135,15 @@ public abstract class UnitBase : MonoBehaviour
 	public upgrade_description upgrade_slot_1;
 	public upgrade_description upgrade_slot_2;
 
+	// Upgrade logic(all units)
+	[SerializeField]
+	public Dictionary<string, float> currentSkillFlags;
 
 
 	// Use this for initialization
 	public void Awake () {
+
+		currentSkillFlags = new Dictionary<string, float>();
 		unitRenderer = GetComponentsInChildren<Renderer>();
 		if(gameObject.tag.Contains(vars.enemy_tag)) {
 			//setRenderer(false);
@@ -224,6 +233,10 @@ public abstract class UnitBase : MonoBehaviour
 
 	virtual public void receiveDamage(int damage) {
 		unitCurrentHealth -= damage;
+		checkForDeath();
+	}
+
+	virtual public void checkForDeath() {
 		if(unitCurrentHealth <= 0 && isUnitDisabled == false) {
 			foreach(UnitBase t in unitsTargetingMe) {
 				t.unitCombatTarget = null;
@@ -249,9 +262,11 @@ public abstract class UnitBase : MonoBehaviour
 			}
 
 			List<GameObject> enemyUnitsInRange = new List<GameObject>();
-			foreach(GameObject enemy in enemiesInRange) {
+			foreach(GameObject enemy in unitsInRange) {
 				//if(enemy.tag != gameObject.tag && enemy.tag != "NeutralFaction") {
+				if(enemy.tag.Contains(vars.enemy_tag)) {
 					enemyUnitsInRange.Add(enemy);
+				}
 				//}
 			}
 
@@ -318,8 +333,7 @@ public abstract class UnitBase : MonoBehaviour
 		else if(priority > unitTargetPriority) {
 			unitTargetPriority = priority;
 			unitCombatTarget = target;
-			unitCommand = UnitCommand.AttackDirectly;
-			//Debug.Log(gameObject.name + " changes target to " + target.name + " priority " + priority);
+			unitCommand = UnitCommand.Attack;
 
 			unitCombatTarget.SendMessage("addUnitTargetingMe", this, SendMessageOptions.DontRequireReceiver);
 
@@ -362,12 +376,51 @@ public abstract class UnitBase : MonoBehaviour
 		
 	}
 
+	virtual public void OnTakeSkillResult(SkillResult result) {
+		if(result.skillType == SkillResult.SkillType.Heal) {
+			unitCurrentHealth = Mathf.Clamp(unitCurrentHealth + result.skillPower, 0, unitBaseHealth);
+		}
+		if(result.skillType == SkillResult.SkillType.Damage) {
+			unitCurrentHealth = Mathf.Clamp(unitCurrentHealth - result.skillPower, 0, unitBaseHealth);
+		}
 
+		if(!currentSkillFlags.ContainsKey(result.skillFlag)) {
+			currentSkillFlags.Add(result.skillFlag, result.skillFlagTimer);
+		}
+
+		checkForDeath();
+	}
+
+	virtual public void clearFlags() {
+		for (int index = 0; index < currentSkillFlags.Count; index++) {
+			var item = currentSkillFlags.ElementAt(index);
+			if(Time.time > item.Value) {
+				currentSkillFlags.Remove(item.Key);
+			}
+		}
+	}
 
 	virtual public void onDisable() {
 		isUnitDisabled = true;
 	}
 
+	virtual public void addUnitInRange(GameObject unit) {
+		unitsInRange.Add(unit.gameObject);
+		if(unitGroup != null && unit.tag.Contains(vars.enemy_tag)) {
+			unitGroup.addEnemyToRange(unit.gameObject);
+		}
+	}
+	
+	virtual public void removeUnitInRange(GameObject unit) {
+		unitsInRange.Remove(unit);
+		if(unitGroup != null) {
+			if(unitsInRange.Contains(unit)) {
+				unitGroup.removeEnemyFromRange(unit);
+			}
+		}
+	}
+
+	/*
 	virtual public void addEnemyInRange(GameObject enemy) {
 		enemiesInRange.Add(enemy.gameObject);
 		if(unitGroup != null) {
@@ -386,7 +439,7 @@ public abstract class UnitBase : MonoBehaviour
 				unitGroup.removeEnemyFromRange(enemy);
 			}
 		}
-	}
+	}*/
 
 	virtual public void addUnitTargetingMe(UnitBase unit) {
 		if(!unitsTargetingMe.Contains(unit)) {
@@ -405,10 +458,10 @@ public abstract class UnitBase : MonoBehaviour
 			unitTargetPriority = 0;
 		}
 
-		for(int i = enemiesInRange.Count - 1; i >= 0; i--) {
-			if (enemiesInRange[i] == null)
+		for(int i = unitsInRange.Count - 1; i >= 0; i--) {
+			if (unitsInRange[i] == null)
 			{
-				enemiesInRange.RemoveAt(i);
+				unitsInRange.RemoveAt(i);
 			}
 		}
 

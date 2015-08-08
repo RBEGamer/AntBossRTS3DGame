@@ -59,7 +59,7 @@ public class UnitGroupEnemy : UnitGroupBase {
 				enemiesInGroupRange.RemoveAt(i);
 			}
 		}
-		if (myUnitList.Count == 0)
+		if (myUnitList.Count == 0 && myRoute != null)
 		{
 			myRoute.isOccupied = false;
 			Destroy(gameObject);

@@ -31,6 +31,9 @@ public class UnitFighter : UnitBase, ISelectableBase {
 	
 	// Update is called once per frame
 		void Update () {
+
+
+
 		// update destination if changed
 		if (unitNavMeshAgent.destination != unitMovementTarget && !isUnitDisabled)
 		{
@@ -152,7 +155,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 		}
 		
 		// attack target directly
-		if (unitCommand == UnitCommand.AttackDirectly) {
+		if (unitCommand == UnitCommand.Attack) {
 			analyseUnitsInRange();
 			unitAnimator.SetBool("isrunning", true);
 			if(unitCombatTarget != null) {
@@ -228,6 +231,10 @@ public class UnitFighter : UnitBase, ISelectableBase {
 
 	}
 
+	void FixedUpdate() {
+		clearFlags();
+	}
+
 	// Health between [0.0f,1.0f] == (currentHealth / totalHealth)
 	public void setHealthVisual(float healthNormalized){
 		healthBar.transform.localScale = new Vector3( healthNormalized,
@@ -270,7 +277,7 @@ public class UnitFighter : UnitBase, ISelectableBase {
 
 	bool checkInRange() {
 		if(Vector3.Distance(this.transform.position, unitGroup.transform.position) < spreadDistanceInGroup) {
-			if(unitCommand != UnitCommand.AttackDirectly) {
+			if(unitCommand != UnitCommand.Attack) {
 				unitCommand = UnitCommand.Idle;
 			}
 			if(!isNearDefensePoint) {

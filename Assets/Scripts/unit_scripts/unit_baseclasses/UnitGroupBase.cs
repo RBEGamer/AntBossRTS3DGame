@@ -88,7 +88,7 @@ public class UnitGroupBase : MonoBehaviour {
 	public void removeEnemyFromRange(GameObject enemy) {
 		bool last = true;
 		foreach(UnitBase t in myUnitList) {
-			if(t.enemiesInRange.Contains(enemy)) {
+			if(t.unitsInRange.Contains(enemy)) {
 				last = false;
 			}
 		}
