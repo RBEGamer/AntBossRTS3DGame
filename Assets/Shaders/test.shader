@@ -17,7 +17,7 @@
 		_EmitConst_1("EmitConst_1", Range(0.0, 3.0))= 1.0
 		_EmitConst_2("EmitConst_2", Range(0.0, 3.0))= 1.0
 		_SpecularConst("SpecularConst", Range (0.0, 3.0)) = 1.0
-		_DifRefCosnt("DifRefConst", Range(0.0, 3.0)) = 1.0
+		_DifRefCosnt("DifRefConst", Range(1.0, 3.0)) = 1.0
 		  
 	}
 	SubShader {
@@ -166,6 +166,8 @@
 			uniform float _Shininess;
 			uniform float4 _RimColor;
 			uniform float _RimPower;
+			uniform float _SpecularConst;
+			uniform float _DifRefConst;
 			
 			// Unity Defined Variables;
 			uniform float4 _LightColor0;
@@ -244,7 +246,7 @@
 				// Rim Lighting
 				float rim = 1 - saturate( dot( viewDirection, normalDirection ) );
 				float3 rimLighting = saturate( pow( rim, _RimPower ) * _RimColor.rgb * diffuseReflection);
-				float3 lightFinal = diffuseReflection + ( specularReflection * tex.a ) + rimLighting;
+				float3 lightFinal = (_DifRefConst *diffuseReflection) + (_SpecularConst * specularReflection * tex.a ) + rimLighting;
 				
 
 				return float4( tex.xyz * lightFinal * _Color.xyz, 1.0);

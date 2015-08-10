@@ -20,7 +20,10 @@ public class unit_selection_manager : MonoBehaviour {
 	public void map_group_to_slot_0(int group_id){
 
 
-		foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
+		/*foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList) {
+			item.OnUnselected();
+		}*/
+		foreach (UnitGroupFriendlyScript item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList) {
 			item.OnUnselected();
 		}
 
@@ -29,19 +32,19 @@ public class unit_selection_manager : MonoBehaviour {
 		if(group_states[group_id-1]){
 			// TMP GROUP
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_saved_group = true;
-			int offset = GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count;
+			int offset = GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList.Count;
 
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().sug = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved[group_id-offset-1];
 		}else{
 			//NICHT TMP GROUP
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_saved_group = false;
-			GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList[group_id-1].OnSelected();
+			GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList[group_id-1].OnSelected();
 		}
 
 		refresh_unit_group_selection_ui();
 
 
-		//if(GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count >= group_id-1){
+		//if(GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList.Count >= group_id-1){
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id-1;
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_unit();
 
@@ -54,10 +57,13 @@ public class unit_selection_manager : MonoBehaviour {
 
 
 	public void create_new_group(){
-		foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList) {
+		/*foreach (UnitGroupFriendly item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList) {
+			item.OnUnselected();
+		}*/
+		foreach (UnitGroupFriendlyScript item in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList) {
 			item.OnUnselected();
 		}
-		if((GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved.Count+GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList.Count) < 18){
+		if((GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved.Count+GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList.Count) < 18){
 			SavedUnitGroup svg = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().createNewGroup();
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().sug = svg;
 			//GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id;
@@ -81,13 +87,19 @@ public class unit_selection_manager : MonoBehaviour {
 		
 		
 		int counter =0 ;
-		foreach (UnitGroupFriendly group in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UnitGroupUIManager>().unitGroupList){
+		/*foreach (UnitGroupFriendly group in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList){
+			group_states[counter] = false;
+			counter++;
+			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = group_icons[counter-1];
+			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Button>().interactable = true;
+		}*/
+		foreach (UnitGroupFriendlyScript group in GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>().unitGroupList){
 			group_states[counter] = false;
 			counter++;
 			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Image>().sprite = group_icons[counter-1];
 			GameObject.Find("unit_selection_btn_" + counter.ToString()).GetComponent<Button>().interactable = true;
 		}
-		
+
 		//Debug.Log(GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>().unitGroupsSaved.Count);
 		//
 		//int counter =0 ;

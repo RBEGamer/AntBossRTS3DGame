@@ -21,7 +21,7 @@ public class ShowRevealed : MonoBehaviour
 		}
 	}
 
-    void Update()
+    void FixedUpdate()
     {
 		if(fogOfWar != null) {
 			if (fogOfWar != null && fogOfWar.enabled && fogOfWar.gameObject.active)
@@ -32,6 +32,5 @@ public class ShowRevealed : MonoBehaviour
 				}
 			}
 		}
-
     }
 }

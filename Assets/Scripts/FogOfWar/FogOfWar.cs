@@ -192,7 +192,7 @@ public class FogOfWar : MonoBehaviour
                 planeTopLeftCol = c;
 
                 plane.transform.position = FogToWorld(posRow, posCol);
-				plane.transform.position = new Vector3(plane.transform.position.x, plane.transform.position.y + 2.0f, plane.transform.position.z);
+				//plane.transform.position = new Vector3(plane.transform.position.x, plane.transform.position.y, plane.transform.position.z);
                 copyHeight();
             }
 

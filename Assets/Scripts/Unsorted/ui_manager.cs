@@ -975,9 +975,9 @@ public class ui_manager : MonoBehaviour {
 
 
 			if(is_saved_group){
-			unit_group_info_health_text.GetComponent<Text>().text = sug.health.ToString();
+			/*unit_group_info_health_text.GetComponent<Text>().text = sug.health.ToString();
 			unit_group_info_attackrange_text.GetComponent<Text>().text = sug.attackrange.ToString();
-			unit_group_info_attackspeed_text.GetComponent<Text>().text = sug.attackspeed.ToString();
+			unit_group_info_attackspeed_text.GetComponent<Text>().text = sug.attackspeed.ToString();*/
 
 			for (int i = 0; i < sug.numUnits; i++) {
 				GameObject.Find("unit_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = filled_unit_ui_slot;
@@ -1192,12 +1192,12 @@ public class ui_manager : MonoBehaviour {
 				}
 				break;
 			case selected_ui_in_slot_0.unit_ui:
-				if(is_saved_group && unit_group_chache_cache.add_upgrade(ref selected_upgrade, sug) && ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
+				/*if(is_saved_group && unit_group_chache_cache.add_upgrade(ref selected_upgrade, sug) && ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
 					show_upgrade_ui = false;
 					selected_upgrade = null;
 					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
 					upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
-				}
+				}*/
 				break;
 
 			default:
