@@ -78,13 +78,20 @@ public class UnitCommandHandler : MonoBehaviour {
 			return;
 		}
 
-		if(unitScript.movementScript.currentDestination != unitScript.unitGroupScript.transform.position) {
-			unitScript.movementScript.UpdateDestination(unitScript.unitGroupScript.transform.position);
-		}
+		if(unitScript.movementScript.followTarget == null) {
+			if(unitScript.movementScript.hasReachedDestination()) {
+				unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
+				unitScript.currentCommand = UnitCommand.Idle;
+			}
+		} else {
+			if(unitScript.movementScript.currentDestination != unitScript.unitGroupScript.transform.position) {
+				unitScript.movementScript.UpdateDestination(unitScript.unitGroupScript.transform.position);
+			}
 
-		if(unitScript.movementScript.isWithinGroupRange()) {
-			unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
-			unitScript.currentCommand = UnitCommand.Idle;
+			if(unitScript.movementScript.isWithinGroupRange()) {
+				unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
+				unitScript.currentCommand = UnitCommand.Idle;
+			}
 		}
 	}
 
@@ -106,7 +113,6 @@ public class UnitCommandHandler : MonoBehaviour {
 
 		if(attackTarget != null) {
 			unitScript.weaponScript.attackTarget = attackTarget;
-			//AttributeScript enemyAttributeScript = attackTarget.GetComponent<AttributeScript>();
 			unitScript.movementScript.UpdateDestination(attackTarget.transform.position);
 
 			if(Vector3.Distance(transform.position, 
@@ -168,7 +174,11 @@ public class UnitCommandHandler : MonoBehaviour {
 		}
 	}
 	public virtual void RetreatToBase() {
-		if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.unitGroupAttackTarget.transform.position) < 3.0f) {
+		if(unitScript.movementScript.followTarget == null) {
+			unitScript.movementScript.UpdateDestination(unitScript.unitGroupScript.unitGroupAttackTarget.transform.position);
+
+		}
+		if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.unitGroupAttackTarget.transform.position) < 5.0f) {
 			foreach (Transform child in transform)
 			{
 				GameObject.Destroy(child.gameObject);

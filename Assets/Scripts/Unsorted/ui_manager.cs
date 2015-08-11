@@ -1016,7 +1016,7 @@ public class ui_manager : MonoBehaviour {
 		if(is_saved_group){
 			int aig = unit_group_chache_cache.deleteUnitGroup(sug);
 			base_manager_cache.bought_attack_ants += aig;
-		ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
+			ui_view_slot_0 = selected_ui_in_slot_0.empty_ui;
 		}
 	}
 

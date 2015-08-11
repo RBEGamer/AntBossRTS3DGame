@@ -27,9 +27,18 @@ public class UnitTargetScript : MonoBehaviour {
 	}
 
 	public virtual void UpdateTarget() {
+
+		if(attackTarget != null) {
+			if(attackTarget.GetComponent<HealthScript>().hasHealth == false) {
+				resetTarget();
+			}
+		}
+
+		unitScript.unitVision.cleanUp();
+
 		List<GameObject> eligibleTargets = new List<GameObject>();
 		for(int i = 0; i < unitScript.unitVision.objectsInRange.Count; i++) {
-			unitScript.unitVision.cleanUp();
+
 			if(unitScript.unitVision.objectsInRange[i].GetComponent<FlagScript>().Faction != unitScript.flagScript.Faction) {
 				eligibleTargets.Add(unitScript.unitVision.objectsInRange[i]);
 

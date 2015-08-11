@@ -33,6 +33,7 @@ public class UnitGroupCache : MonoBehaviour {
 	
 	public GameObject unitGroupPrefab;
 	public GameObject unitPrefab;
+	public GameObject testPrefab;
 	
 	public List<SavedUnitGroup> unitGroupsSaved;
 	public static int unitGroupCounter = 1;
@@ -102,10 +103,10 @@ public class UnitGroupCache : MonoBehaviour {
 	}
 	
 	// adds a unit group(on retreat)
-	public void addUnitGroup(UnitGroupBase group) {
+	public void addUnitGroup(UnitGroupScript group) {
 		SavedUnitGroup newUnitGroup = new SavedUnitGroup();
 		
-		newUnitGroup.numUnits = group.numUnitsInGroup;
+		newUnitGroup.numUnits = group.unitsInBaseScripts.Count;
 		unitGroupsSaved.Add (newUnitGroup);
 	}
 	
@@ -115,14 +116,19 @@ public class UnitGroupCache : MonoBehaviour {
 		GameObject newgroup = Instantiate(unitGroupPrefab, position, Quaternion.identity) as GameObject;
 		UnitGroupScript newUnitGroupScript = newgroup.GetComponent<UnitGroupFriendlyScript>();
 
-		GameObject newunit;
-		
+		GameObject newUnit;
+		GameObject newUpgrade;
 		for(int i = 0; i < group.numUnits; i++) {
-			newunit = Instantiate(unitPrefab, position, Quaternion.identity) as GameObject;
-			UnitScript unitBase = newunit.GetComponent<UnitScript>();
-			unitBase.unitGroupScript = newUnitGroupScript;
+			newUnit = Instantiate(unitPrefab, position, Quaternion.identity) as GameObject;
+			UnitScript unitScript = newUnit.GetComponent<UnitScript>();
+			unitScript.unitGroupScript = newUnitGroupScript;
+			position = new Vector3(0,0,0);
+			newUpgrade = Instantiate (testPrefab, position, Quaternion.identity) as GameObject;
+			newUpgrade.transform.parent = newUnit.transform;
+			newUpgrade.GetComponent<Skill>().unitScript = unitScript;
 		}
-		
+
+
 		
 		deleteUnitGroup(group);
 

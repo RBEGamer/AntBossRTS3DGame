@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AreaHeal : MonoBehaviour {
-	public UnitScript thisUnit;
+	public Skill skill;
 
 	public float healpower;
 	public float healrange;
@@ -13,13 +13,17 @@ public class AreaHeal : MonoBehaviour {
 	public UnitFaction targetFaction;
 	public int numTargets;
 
+	public void Start() {
+		skill = GetComponent<Skill>();
+	}
+
 	void OnFire() {
 		List<UnitScript> targetUnits = new List<UnitScript>();
-		for(int i = 0; i < thisUnit.unitGroupScript.unitsInGroup.Count; i++) {
+		for(int i = 0; i < skill.unitScript.unitGroupScript.unitsInGroup.Count; i++) {
 			if(i == numTargets) {
 				break;
 			}
-			UnitScript unit = thisUnit.unitGroupScript.unitsInGroupScripts[i];
+			UnitScript unit = skill.unitScript.unitGroupScript.unitsInGroupScripts[i];
 			if(unit != null) {
 				if(unit.flagScript.Faction == targetFaction
 				   && Vector3.Distance(transform.position, unit.transform.position) <= healrange

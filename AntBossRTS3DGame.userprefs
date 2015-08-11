@@ -1,10 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\TargetScripts\UnitTargetScript.cs">
-    <Files>
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\TargetScripts\UnitTargetScript.cs" Line="17" Column="58" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

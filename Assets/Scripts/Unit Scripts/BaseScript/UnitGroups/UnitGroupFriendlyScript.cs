@@ -19,6 +19,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 	public bool startedLeaving = false;
 
 	public bool isLowered = true;
+	public bool acceptCommand = true;
 	public void Start() {
 		capsuleCollider = GetComponent<CapsuleCollider>();
 		if(unitFighterUI == null) {
@@ -30,14 +31,28 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 
 	}
 
-	void FixedUpdate() {
+	void Update() {
 
+		cleanUp();
+		//transform.rotation = new Quaternion (270.0f, 0.0f, 0.0f, 1.0f);
+		if (Input.GetKeyDown(vars.key_panic) && isSelected())
+		{
+			setPanic();
+		}
 		if(!isLowered) {
 			GameObject nearestOne = findNearestUnitTowardsDestination(transform.position).gameObject;
 
-			if(Vector3.Distance(nearestOne.transform.position, transform.position - Vector3.up) < 5.0f) {
-				isLowered = true;
-				transform.position = new Vector3(transform.position.x, transform.position.y - 3.0f, transform.position.z);
+			if(unitGroupAttackTarget == null) {
+				if(Vector3.Distance(nearestOne.transform.position, transform.position - Vector3.up) < 5.0f) {
+					isLowered = true;
+					transform.position = new Vector3(transform.position.x, transform.position.y - 3.0f, transform.position.z);
+				}
+			} else {
+				transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
+			}
+		} else {
+			if(unitGroupAttackTarget != null) {
+				transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
 			}
 		}
 	}
@@ -45,15 +60,9 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 	// issues retreat command
 	public void setPanic()
 	{
-		if(!changeCommand(UnitCommand.RetreatToBase)) {
-			return;
-		}
 		findNearestBasePosition();
-		foreach (UnitScript t in unitsInGroupScripts)
-		{
-			t.currentCommand = UnitCommand.RetreatToBase;
-		}
-
+		moveToBase(unitFighterUI.baseList[0]);
+		acceptCommand = false;
 		transform.position = nearestBasePosition + Vector3.up * floatingDistance;
 
 	}
@@ -67,8 +76,11 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		}
 
 		unitGroupAttackTarget = null;
-		if (unitGroupCommand != UnitCommand.RetreatToBase && !startedLeaving)
+		if (!acceptCommand || startedLeaving)
 		{
+			return;
+		}
+		else {
 			if (capsuleCollider.bounds.Contains(destination + Vector3.up * 5.0f))
 			{
 				moveToDefensePoint(this.transform.position);
@@ -106,10 +118,11 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		transform.position = new Vector3(destination.x, destination.y + 5.0f, destination.z);
 		isLowered = false;
 		UnitScript nearestUnit = findNearestUnitTowardsDestination(destination);
-		
+		unitGroupCommand = UnitCommand.AttackMove;
 		foreach (UnitScript t in unitsInGroupScripts)
 		{
 			t.unitTargetScript.resetTarget();
+			t.movementScript.followTarget = null;
 			if (t == nearestUnit)
 			{
 				t.movementScript.UpdateDestination(destination);
@@ -128,16 +141,13 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 	// retreat to base / double right click
 	public void moveToBase(GameObject targetbase)
 	{
-		/*if(unitGroupCommand == UnitCommand.RetreatToBase) {
-			foreach (UnitScript t in unitsInGroupScripts)
-			{
-				t.currentCommand = UnitCommand.RetreatToBaseNoReturn;
-				unitGroupCommand = UnitCommand.RetreatToBaseNoReturn;
-			}
-		} else {*/
+		if(unitGroupCommand == UnitCommand.RetreatToBase) {
+			acceptCommand = false;
+		} else {
 		UnitScript nearestUnit = findNearestUnitTowardsDestination(targetbase.transform.position);
 		transform.position = targetbase.transform.position;
 		unitGroupAttackTarget = targetbase;
+		unitGroupCommand = UnitCommand.RetreatToBase;
 		foreach (UnitScript t in unitsInGroupScripts)
 		{
 			t.unitTargetScript.resetTarget();
@@ -152,13 +162,14 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 			}
 			t.currentCommand = UnitCommand.RetreatToBase;
 		}
-		//}
+		}
 	}
 	
 	// retreat to defense point / double right click
 	public void moveToDefensePoint(Vector3 destination)
 	{
 		UnitScript nearestUnit = findNearestUnitTowardsDestination(destination);
+		unitGroupCommand = UnitCommand.Move;
 		foreach (UnitScript t in unitsInGroupScripts)
 		{
 
@@ -172,7 +183,6 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 				t.movementScript.followTarget = nearestUnit.gameObject;
 			}
 			t.currentCommand = UnitCommand.Move;
-			unitGroupCommand = UnitCommand.Move;
 			t.unitTargetScript.resetTarget();
 		}
 	}
@@ -180,9 +190,11 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 	public void setTargetEnemy(GameObject enemy) {
 		transform.position = enemy.transform.position;
 		unitGroupAttackTarget = enemy;
+		unitGroupCommand = UnitCommand.Attack;
 		foreach (UnitScript t in unitsInGroupScripts)
 		{
 			t.currentCommand = UnitCommand.Attack;
+			t.unitTargetScript.attackTarget = enemy;
 			t.unitCommandHandler.attackTarget = enemy;
 		}
 	}
@@ -203,6 +215,32 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 			}
 		} else {
 			nearestBasePosition = Vector3.zero;
+		}
+	}
+
+	// keep order in list
+	public void cleanUp()
+	{
+		for(int i = unitsInGroup.Count - 1; i >= 0; i--) {
+			if (unitsInGroup[i] == null)
+			{
+				unitsInGroup.RemoveAt(i);
+			}
+		}
+		
+		for(int i = enemiesInGroupRange.Count - 1; i >= 0; i--) {
+			if (enemiesInGroupRange[i] == null)
+			{
+				enemiesInGroupRange.RemoveAt(i);
+			}
+		}
+		
+		if(unitsInGroup.Count == 0) {
+			if(unitGroupCommand == UnitCommand.RetreatToBase) {
+				nearestBase.GetComponent<UnitGroupCache>().addUnitGroup(this);
+			}
+			unitFighterUI.unitGroupList.Remove(this);
+			Destroy(gameObject);
 		}
 	}
 

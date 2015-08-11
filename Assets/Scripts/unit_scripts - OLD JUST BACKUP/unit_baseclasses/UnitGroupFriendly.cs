@@ -227,7 +227,7 @@ public class UnitGroupFriendly : UnitGroupBase {
 		if (myUnitList.Count == 0)
 		{
 			if(inPanic || retreatToBase) {
-				nearestBase.GetComponent<UnitGroupCache>().addUnitGroup(this);
+				//nearestBase.GetComponent<UnitGroupCache>().addUnitGroup(this);
 			}
 			myUnitGroupManager.unitGroupList.Remove(this);
 			Destroy(gameObject);

@@ -62,7 +62,11 @@ public class MovementScript : MonoBehaviour {
 	}
 
 	public bool isWithinGroupRange() {
-		if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.transform.position) < unitScript.spreadDistance) {
+		float distance = unitScript.spreadDistance;
+		if(followTarget == null && (unitScript.currentCommand == UnitCommand.AttackMove || unitScript.currentCommand == UnitCommand.Move)) {
+			distance = 1.0f;
+		}
+		if(Vector3.Distance(this.transform.position, new Vector3(unitScript.unitGroupScript.transform.position.x, 0, unitScript.unitGroupScript.transform.position.z)) < unitScript.spreadDistance/2.0f) {
 			return true;
 		} else {
 			return false;

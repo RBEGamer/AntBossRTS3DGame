@@ -99,6 +99,7 @@ public class UnitScript : MonoBehaviour {
 		return newTargetPosition;
 	}
 
+
 	public void OnSelected() { unitGroupScript.SendMessage("OnSelected", SendMessageOptions.DontRequireReceiver); }
 	
 	public void OnUnselected() { }

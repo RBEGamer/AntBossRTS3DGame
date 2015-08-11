@@ -32,12 +32,18 @@ public class SkillResult : ScriptableObject {
 		None
 	}
 
+	public enum SkillPowerType {
+		Absolute,
+		Percantage
+	}
 
 	// Flags
 	public static string flag_recentlyHealed = "RecentlyHealed";
 
 	// Skill Data
 	public SkillType skillType = SkillType.Heal;
+	public SkillAttribute skillAttribute = SkillAttribute.Health;
+	public SkillPowerType skillPowerType = SkillPowerType.Absolute;
 
 	public string skillFlag = "";
 	public string skillFlagUnique = "";
@@ -45,5 +51,5 @@ public class SkillResult : ScriptableObject {
 
 	public float skillPower = 0.0f;
 
-	public SkillAttribute skillAttribute = SkillAttribute.Health;
+
 }

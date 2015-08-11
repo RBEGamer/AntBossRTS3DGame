@@ -32,6 +32,7 @@ public class AttributeScript : MonoBehaviour {
 	}
 
 	void OnSkillResult(SkillResult skillResult) {
+		Debug.Log ("FIRED");
 		if(skillResult.skillType == SkillResult.SkillType.Buff) {
 			switch(skillResult.skillAttribute) {
 			case SkillResult.SkillAttribute.AttackRange: {
