@@ -18,6 +18,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 
 	public bool startedLeaving = false;
 
+	public bool isLowered = true;
 	public void Start() {
 		capsuleCollider = GetComponent<CapsuleCollider>();
 		if(unitFighterUI == null) {
@@ -25,6 +26,20 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		}
 
 		unitFighterUI.unitGroupList.Add(this);
+		transform.rotation = new Quaternion(0, 180, 180, 1);
+
+	}
+
+	void FixedUpdate() {
+
+		if(!isLowered) {
+			GameObject nearestOne = findNearestUnitTowardsDestination(transform.position).gameObject;
+
+			if(Vector3.Distance(nearestOne.transform.position, transform.position - Vector3.up) < 5.0f) {
+				isLowered = true;
+				transform.position = new Vector3(transform.position.x, transform.position.y - 3.0f, transform.position.z);
+			}
+		}
 	}
 
 	// issues retreat command
@@ -54,7 +69,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		unitGroupAttackTarget = null;
 		if (unitGroupCommand != UnitCommand.RetreatToBase && !startedLeaving)
 		{
-			if (capsuleCollider.bounds.Contains(destination))
+			if (capsuleCollider.bounds.Contains(destination + Vector3.up * 5.0f))
 			{
 				moveToDefensePoint(this.transform.position);
 				return;
@@ -88,7 +103,8 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 	// a-move / standard right click
 	public void placeNewDefensePoint(Vector3 destination)
 	{
-		transform.position = destination;
+		transform.position = new Vector3(destination.x, destination.y + 5.0f, destination.z);
+		isLowered = false;
 		UnitScript nearestUnit = findNearestUnitTowardsDestination(destination);
 		
 		foreach (UnitScript t in unitsInGroupScripts)

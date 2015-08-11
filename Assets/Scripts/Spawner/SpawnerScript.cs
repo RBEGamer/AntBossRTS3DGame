@@ -85,6 +85,7 @@ public class SpawnerScript : MonoBehaviour {
 		yield return new WaitForSeconds(delayTime);
 
 		GameObject newgroup = Instantiate(groupToSpawn.gameObject, transform.position, Quaternion.identity) as GameObject;
+
 		newgroup.GetComponent<EnemyGroupAttributes>().routeScript = targetRoute;
 	}
 }
