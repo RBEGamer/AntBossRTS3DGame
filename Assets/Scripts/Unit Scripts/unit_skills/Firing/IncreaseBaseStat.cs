@@ -19,4 +19,15 @@ public class IncreaseBaseStat : MonoBehaviour {
 
 		SkillCalculator.passSkillResult(this.gameObject, skill.unitScript.gameObject, skillResult);
 	}
+
+	void OnUnFire() {
+		SkillResult skillResult = new SkillResult();
+		
+		skillResult.skillAttribute = skillAttribute;
+		skillResult.skillType = SkillResult.SkillType.Buff;
+		skillResult.skillPower = -skillPower;
+		skillResult.skillFlag = skillResult.skillType.ToString()+""+skillAttribute.ToString();
+		
+		SkillCalculator.passSkillResult(this.gameObject, skill.unitScript.gameObject, skillResult);
+	}
 }

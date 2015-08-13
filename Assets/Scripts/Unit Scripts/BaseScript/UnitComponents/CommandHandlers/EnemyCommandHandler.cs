@@ -111,7 +111,7 @@ public class EnemyCommandHandler : UnitCommandHandler {
 			{
 				unitScript.currentIdleRareCooldown -= Time.deltaTime;
 				if(unitScript.currentIdleRareCooldown <= 0) {
-					if(Random.Range (0, 100) <= unitScript.idleRareChance) {
+					if(Random.Range (0, 100) < unitScript.idleRareChance) {
 						unitScript.animator.SetTrigger("idlerare");
 						unitScript.currentIdleRareCooldown = unitScript.idleRareCooldown;
 					}
