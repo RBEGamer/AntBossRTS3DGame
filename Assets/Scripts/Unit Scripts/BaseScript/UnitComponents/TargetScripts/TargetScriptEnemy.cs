@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -141,13 +141,13 @@ public class TargetScriptEnemy : UnitTargetScript {
 		}
 
 		if(unitsInGroupRangePriority > 0) {
-			if(unitScript.unitGroupScript.enemiesInGroupRange.Count > 0) {
-				GameObject closestInGroup = unitScript.unitGroupScript.enemiesInGroupRange[0];
-				for(int i = 0; i < unitScript.unitGroupScript.enemiesInGroupRange.Count; i++) {
-					if(unitScript.unitGroupScript.enemiesInGroupRange[i] != null) {
-						if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.enemiesInGroupRange[i].transform.position) <= 
+			if(unitScript.unitGroupScript.unitsInGroupRange.Count > 0) {
+				GameObject closestInGroup = unitScript.unitGroupScript.unitsInGroupRange[0];
+				for(int i = 0; i < unitScript.unitGroupScript.unitsInGroupRange.Count; i++) {
+					if(unitScript.unitGroupScript.unitsInGroupRange[i] != null) {
+						if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.unitsInGroupRange[i].transform.position) <= 
 						   Vector3.Distance(this.transform.position, closestInGroup.transform.position)) {
-							closestInGroup = unitScript.unitGroupScript.enemiesInGroupRange[i];
+							closestInGroup = unitScript.unitGroupScript.unitsInGroupRange[i];
 						}
 					}
 				}

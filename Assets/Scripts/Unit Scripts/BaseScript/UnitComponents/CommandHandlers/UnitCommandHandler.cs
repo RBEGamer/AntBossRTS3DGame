@@ -14,6 +14,7 @@ public class UnitCommandHandler : MonoBehaviour {
 	public float currentCooldown = 0.0f;
 
 	public bool died = false;
+
 	public void Start() {
 		unitScript = GetComponent<UnitScript>();
 	}
@@ -71,6 +72,7 @@ public class UnitCommandHandler : MonoBehaviour {
 
 	public virtual void AttackMove() {
 		unitScript.animator.SetBool("isrunning", true);
+		attackTarget = unitScript.unitTargetScript.attackTarget;
 		// See if a target is in range and attack
 		if(attackTarget = unitScript.unitTargetScript.attackTarget) {
 			previousCommand = unitScript.currentCommand;
@@ -110,7 +112,7 @@ public class UnitCommandHandler : MonoBehaviour {
 
 	public virtual void Attack() {
 		unitScript.animator.SetBool("isrunning", true);
-
+		attackTarget = unitScript.unitTargetScript.attackTarget;
 		if(attackTarget != null) {
 			unitScript.weaponScript.attackTarget = attackTarget;
 			unitScript.movementScript.UpdateDestination(attackTarget.transform.position);

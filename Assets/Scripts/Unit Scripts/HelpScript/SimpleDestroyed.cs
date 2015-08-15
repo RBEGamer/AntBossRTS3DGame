@@ -4,6 +4,7 @@ using System.Collections;
 public class SimpleDestroyed : MonoBehaviour {
 	// Update is called once per frame
 	void destroyObject() {
-		Destroy(gameObject);
+		gameObject.SetActive(false);
+		Destroy(gameObject, 0.1f);
 	}
 }

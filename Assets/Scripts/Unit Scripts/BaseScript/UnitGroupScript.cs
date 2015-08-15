@@ -11,14 +11,20 @@ public class UnitGroupScript : MonoBehaviour {
 	public List<UnitScript> unitsInBaseScripts;
 
 
-	public List<GameObject> enemiesInGroupRange;
-	public List<UnitScript> enemiesInGroupRangeScripts;
+	public List<GameObject> unitsInGroupRange;
+	public List<UnitScript> unitsInGroupRangeScripts;
 
 	public UnitCommand unitGroupCommand;
-	
+
+	public List<string> normalUpgrades;
+	public string specialUpgrade;
 
 	[SerializeField]
 	public Dictionary<string, float> currentSkillFlags;
+
+	void Start() {
+
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -74,24 +80,32 @@ public class UnitGroupScript : MonoBehaviour {
 		return nearestUnit;
 	}
 	
-	public void addEnemyToRange(GameObject enemy) {
-		if(!enemiesInGroupRange.Contains(enemy)) {
-			enemiesInGroupRange.Add (enemy);
-			enemiesInGroupRangeScripts.Add(enemy.GetComponent<UnitScript>());
+	public void addUnitToRange(GameObject enemy) {
+		if(!unitsInGroupRange.Contains(enemy)) {
+			unitsInGroupRange.Add (enemy);
+			UnitScript enemyUnitScript = enemy.GetComponent<UnitScript>();
+			if(enemyUnitScript != null) {
+				unitsInGroupRangeScripts.Add(enemyUnitScript);
+			}
 		}
 	}
 	
-	public void removeEnemyFromRange(GameObject enemy) {
+	public void removeUnitFromRange(GameObject enemy) {
 		bool last = true;
 		for(int i = 0; i < unitsInGroup.Count; i++) {
-			if(unitsInGroup[i].GetComponent<UnitVision>().objectsInRange.Contains(enemy)) {
-				last = false;
+			if(unitsInGroup[i].GetComponent<UnitVision>() != null) {
+				if(unitsInGroup[i].GetComponent<UnitVision>().objectsInRange.Contains(enemy)) {
+					last = false;
+				}
 			}
 		}
 
 		if(last) {
-			enemiesInGroupRange.Remove(enemy);
-			enemiesInGroupRangeScripts.Remove(enemy.GetComponent<UnitScript>());
+			unitsInGroupRange.Remove(enemy);
+			UnitScript enemyUnitScript = enemy.GetComponent<UnitScript>();
+			if(enemyUnitScript != null) {
+				unitsInGroupRangeScripts.Remove(enemyUnitScript);
+			}
 		}
 	}
 
@@ -143,10 +157,10 @@ public class UnitGroupScript : MonoBehaviour {
 			}
 		}
 		
-		for(int i = enemiesInGroupRange.Count - 1; i >= 0; i--) {
-			if (enemiesInGroupRange[i] == null)
+		for(int i = unitsInGroupRange.Count - 1; i >= 0; i--) {
+			if (unitsInGroupRange[i] == null)
 			{
-				enemiesInGroupRange.RemoveAt(i);
+				unitsInGroupRange.RemoveAt(i);
 			}
 		}
 

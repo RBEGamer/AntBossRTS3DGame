@@ -16,6 +16,12 @@ public class HealthScript : MonoBehaviour {
 		resetHealth();
 	}
 
+	void Update() {
+
+		checkDeath();
+
+	}
+
 	void OnSkillResult(SkillResult skillresult) {
 		if(skillresult.skillType == SkillResult.SkillType.Damage) {
 			float removedFromShield = 0;

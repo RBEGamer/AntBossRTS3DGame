@@ -41,10 +41,7 @@ public class UnitScript : MonoBehaviour {
 	public float currentIdleTime = 0.0f;
 	public float upperIdleTime = 10.0f;
 	public float lowerIdleTime = 6.0f;
-
-	void Awake() {
-
-	}
+	
 
 	void Start() {
 		unitGroupScript.addUnit(this);

@@ -21,6 +21,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 	public bool isLowered = true;
 	public bool acceptCommand = true;
 	public void Start() {
+
 		capsuleCollider = GetComponent<CapsuleCollider>();
 		if(unitFighterUI == null) {
 			unitFighterUI = GameObject.Find(vars.UnitGroupUIManager).GetComponent<UIUnitFighterSelection>();
@@ -228,10 +229,10 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 			}
 		}
 		
-		for(int i = enemiesInGroupRange.Count - 1; i >= 0; i--) {
-			if (enemiesInGroupRange[i] == null)
+		for(int i = unitsInGroupRange.Count - 1; i >= 0; i--) {
+			if (unitsInGroupRange[i] == null)
 			{
-				enemiesInGroupRange.RemoveAt(i);
+				unitsInGroupRange.RemoveAt(i);
 			}
 		}
 		
