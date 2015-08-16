@@ -293,10 +293,12 @@ public class wp_manager : MonoBehaviour
 	
 	private void select_waypoint_with_id (int id)
 	{
+		if(id > 0){
 		nodeObjects[id-1].GetComponent<path_point> ().is_selected = true;
 		selected_wp_pos = nodeObjects[id-1].transform.position;
 		selected_wp_rot = nodeObjects[id-1].transform.rotation;
 		selected_wp_scale = nodeObjects[id-1].transform.localScale;
+		}
 	}
 
 	private void disable_all_colliders ()
@@ -315,7 +317,9 @@ public class wp_manager : MonoBehaviour
 	
 	private void map_wp_to_ui (int wp_id)
 	{
+
 		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().connected_wp_id = wp_id;
+		if( wp_id > 0){
 		if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.base_node){
 		}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
@@ -325,6 +329,9 @@ public class wp_manager : MonoBehaviour
 
 		disable_all_range_circles ();
 		enable_range_cirlce_on_slelected (wp_id);
+		}else{
+			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_empty();
+		}
 	}
 	
 	private GameObject GetClickedGameObject ()
