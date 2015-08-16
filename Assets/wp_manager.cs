@@ -566,7 +566,7 @@ public class wp_manager : MonoBehaviour
 			GameObject rayobj = GetClickedGameObject ();
 			foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
 				Debug.Log ("select 2");
-				if (rayobj == n.gameObject && rayobj != null) {
+				if (rayobj == n.gameObject && rayobj != null && n.GetComponent<path_point>().type == path_point.node_type.normal_node) {
 					Debug.Log ("select 3");
 					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
 					deselect_all_waypoints ();
