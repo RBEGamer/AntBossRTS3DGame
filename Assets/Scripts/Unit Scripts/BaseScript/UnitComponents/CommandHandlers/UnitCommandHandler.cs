@@ -5,92 +5,76 @@ public class UnitCommandHandler : MonoBehaviour {
 	// General scripts
 	public UnitScript unitScript;
 
-	// Attack target
-	public GameObject attackTarget;
-
 	// Command before attack
 	public UnitCommand previousCommand;
 	
 	public float currentCooldown = 0.0f;
 
-	public bool died = false;
+	public bool isDead = false;
 
 	public void Start() {
 		unitScript = GetComponent<UnitScript>();
 	}
 
+
 	public virtual void HandleCommands() {
-
 		currentCooldown -= Time.deltaTime;
-		Profiler.BeginSample ("OuterCommand");
 		if(unitScript.healthScript.hasHealth) {
-			Profiler.BeginSample ("InnerCommand");
-			switch(unitScript.currentCommand) {
+			if(currentCooldown <= 0.0f) {
+				unitScript.navMeshAgent.Resume();
+				switch(unitScript.currentCommand) {
 
-				case UnitCommand.AttackMove: {
-				Profiler.BeginSample ("Command1");
-					AttackMove();
-				Profiler.EndSample ();
-					break;
-				}
-				case UnitCommand.Move: {
-				Profiler.BeginSample ("Command2");
-					Move();
-				Profiler.EndSample ();
-					break;
-				}
-				case UnitCommand.Attack: {
-				Profiler.BeginSample ("Command3");
-					Attack();
-				Profiler.EndSample ();
-					break;
-				}
-				case UnitCommand.Idle: {
-				Profiler.BeginSample ("Command4");
-					Idle();
-				Profiler.EndSample ();
-					break;
-				}
-				case UnitCommand.RetreatToBase: {
-				Profiler.BeginSample ("Command5");
-					RetreatToBase();
-				Profiler.EndSample ();
-					break;
+					case UnitCommand.AttackMove: {
+						AttackMove();
+						break;
+					}
+					case UnitCommand.Move: {
+						Move();
+						break;
+					}
+					case UnitCommand.Attack: {
+						Attack();
+						break;
+					}
+					case UnitCommand.Idle: {
+						Idle();
+						break;
+					}
+					case UnitCommand.RetreatToBase: {
+						RetreatToBase();
+						break;
+					}
 				}
 			}
-			Profiler.EndSample ();
 		} else {
-			Profiler.BeginSample ("InnerCommand2");
-			if(!died) {
+			if(!isDead) {
 				unitScript.animator.SetTrigger("death");
-				died = true;
+				isDead = true;
 			}
-			Profiler.EndSample ();
 		}
-		Profiler.EndSample ();
 	}
 
 	public virtual void AttackMove() {
-		unitScript.animator.SetBool("isrunning", true);
-		attackTarget = unitScript.unitTargetScript.attackTarget;
-		// See if a target is in range and attack
-		if(attackTarget = unitScript.unitTargetScript.attackTarget) {
+		setRunning(true);
+		unitScript.unitTargetScript.UpdateTarget();
+
+		if(unitScript.unitTargetScript.attackTarget) {
 			previousCommand = unitScript.currentCommand;
 			unitScript.currentCommand = UnitCommand.Attack;
 			return;
 		}
 
 		if(unitScript.movementScript.followTarget == null) {
-			if(unitScript.movementScript.hasReachedDestination()) {
+			if(unitScript.movementScript.hasReachedDestination(unitScript.spreadDistance / 2.0f)) {
+				unitScript.unitTargetScript.resetTarget();
+				unitScript.currentIdleTime = 0.0f;
 				unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
 				unitScript.currentCommand = UnitCommand.Idle;
 			}
 		} else {
-			if(unitScript.movementScript.currentDestination != unitScript.unitGroupScript.transform.position) {
-				unitScript.movementScript.UpdateDestination(unitScript.unitGroupScript.transform.position);
-			}
-
 			if(unitScript.movementScript.isWithinGroupRange()) {
+				unitScript.unitTargetScript.resetTarget();
+				unitScript.currentIdleTime = 0.0f;
 				unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
 				unitScript.currentCommand = UnitCommand.Idle;
 			}
@@ -99,61 +83,77 @@ public class UnitCommandHandler : MonoBehaviour {
 
 	public virtual void Move() {
 		unitScript.unitTargetScript.resetTarget();
-		unitScript.animator.SetBool("isrunning", true);
-		if(unitScript.movementScript.currentDestination != unitScript.unitGroupScript.transform.position) {
-			unitScript.movementScript.UpdateDestination(unitScript.unitGroupScript.transform.position);
-		}
-		
-		if(unitScript.movementScript.isWithinGroupRange()) {
-			unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
-			unitScript.currentCommand = UnitCommand.Idle;
+		setRunning(true);
+
+		if(unitScript.movementScript.followTarget == null) {
+			if(unitScript.movementScript.hasReachedDestination(unitScript.spreadDistance / 2.0f)) {
+				unitScript.unitTargetScript.resetTarget();
+				unitScript.currentIdleTime = 0.0f;
+				unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
+				unitScript.currentCommand = UnitCommand.Idle;
+			}
+		} else {
+			if(unitScript.movementScript.isWithinGroupRange()) {
+				unitScript.unitTargetScript.resetTarget();
+				unitScript.currentIdleTime = 0.0f;
+				unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
+				unitScript.currentCommand = UnitCommand.Idle;
+			}
 		}
 	}
 
 	public virtual void Attack() {
-		unitScript.animator.SetBool("isrunning", true);
-		attackTarget = unitScript.unitTargetScript.attackTarget;
-		if(attackTarget != null) {
-			unitScript.weaponScript.attackTarget = attackTarget;
-			unitScript.movementScript.UpdateDestination(attackTarget.transform.position);
+		setRunning(true);
+		if(unitScript.unitTargetScript.attackTarget) {
+			unitScript.movementScript.UpdateDestination(unitScript.unitTargetScript.attackTarget.transform.position);
+			
+			if(Vector3.Distance(transform.position, unitScript.unitTargetScript.attackTarget.transform.position) <= 
+			   ((unitScript.attributeScript.UnitRadius + unitScript.unitTargetScript.attackTarget.GetComponent<AttributeScript>().UnitRadius) + unitScript.attributeScript.CurrentAttackRange)) {
+					transform.LookAt(unitScript.unitTargetScript.attackTarget.transform);
+					setRunning(false);
 
-			if(Vector3.Distance(transform.position, 
-			                    attackTarget.transform.position) <= ((unitScript.attributeScript.UnitRadius) + unitScript.attributeScript.CurrentAttackRange)) {
-				unitScript.movementScript.UpdateDestination(transform.position);
-				if(currentCooldown <= 0) {
-					transform.LookAt(attackTarget.transform);
 					unitScript.animator.speed = 1/unitScript.attributeScript.CurrentAttackSpeed;
-					unitScript.animator.SetBool("isrunning", false);
+					unitScript.navMeshAgent.Stop();
 					unitScript.animator.SetTrigger("doattack");
 					currentCooldown = unitScript.attributeScript.CurrentAttackSpeed;
-				}
 			}
 			
 		}
 		else {	
 			if(previousCommand != null) {
+				unitScript.unitTargetScript.resetTarget();
+				unitScript.currentIdleTime = 0.0f;
 				unitScript.currentCommand = previousCommand;
 			}
 			else {
+				unitScript.unitTargetScript.resetTarget();
+				unitScript.currentIdleTime = 0.0f;
+				unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
 				unitScript.currentCommand = UnitCommand.Idle;
 			}
 		}
 	}
 	
-	public virtual void Idle() {
-		unitScript.movementScript.followTarget = null;
 
+	public virtual void Idle() {
+		unitScript.movementScript.reset();
+
+		unitScript.currentIdleTime -= Time.deltaTime;
+		if(unitScript.navMeshAgent.velocity.magnitude <= 1.0f && unitScript.currentIdleTime <= 0.0f) {
+			unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
+		}
+		unitScript.unitTargetScript.UpdateTarget();
 		// See if a target is in range and attack
-		if(attackTarget = unitScript.unitTargetScript.attackTarget) {
+		if(unitScript.unitTargetScript.attackTarget) {
 			previousCommand = unitScript.currentCommand;
 			unitScript.currentCommand = UnitCommand.Attack;
 			return;
 		}
 		unitScript.unitTargetScript.resetTarget();
-		if(unitScript.movementScript.reachedDestination) {
+		if(unitScript.movementScript.hasReachedDestination(0.1f)) {
 			if(unitScript.currentIdleTime <= 0.0f) 
 			{
-				unitScript.animator.SetBool("isrunning", false);
+				setRunning(false);
 				unitScript.currentIdleRareCooldown = unitScript.idleRareCooldown;
 				unitScript.movementScript.UpdateDestination(unitScript.newIdlePosition(unitScript.unitGroupScript.transform.position, unitScript.spreadDistance));
 				unitScript.currentIdleTime = Random.Range (unitScript.lowerIdleTime, unitScript.upperIdleTime);
@@ -167,12 +167,18 @@ public class UnitCommandHandler : MonoBehaviour {
 						unitScript.currentIdleRareCooldown = unitScript.idleRareCooldown;
 					}
 				}
-				unitScript.animator.SetBool("isrunning", false);
-				unitScript.currentIdleTime -= Time.deltaTime;
+				setRunning(false);
+
 			}
 		} else {
+			setRunning(true);
+		}
+	}
+
+	public void setRunning(bool isrunning) {
+		unitScript.animator.SetBool("isrunning", isrunning);
+		if(isrunning) {
 			unitScript.animator.speed = 1;
-			unitScript.animator.SetBool("isrunning", true);
 		}
 	}
 	public virtual void RetreatToBase() {

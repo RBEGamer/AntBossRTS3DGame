@@ -124,15 +124,15 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		{
 			t.unitTargetScript.resetTarget();
 			t.movementScript.followTarget = null;
-			if (t == nearestUnit)
-			{
+			/*if (t == nearestUnit)
+			{*/
 				t.movementScript.UpdateDestination(destination);
-
+			/*
 			}
 			else
 			{
 				t.movementScript.followTarget = nearestUnit.gameObject;
-			}
+			}*/
 			
 			t.currentCommand = UnitCommand.AttackMove;
 			unitGroupCommand = UnitCommand.AttackMove;
@@ -151,16 +151,16 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		unitGroupCommand = UnitCommand.RetreatToBase;
 		foreach (UnitScript t in unitsInGroupScripts)
 		{
-			t.unitTargetScript.resetTarget();
+			/*t.unitTargetScript.resetTarget();
 			t.movementScript.followTarget = null;
 			if (t == nearestUnit)
-			{
+			{*/
 				t.movementScript.UpdateDestination(targetbase.transform.position);
-			}
+			/*}
 			else
 			{
 				t.movementScript.followTarget = nearestUnit.gameObject;
-			}
+			}*/
 			t.currentCommand = UnitCommand.RetreatToBase;
 		}
 		}
@@ -196,7 +196,6 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		{
 			t.currentCommand = UnitCommand.Attack;
 			t.unitTargetScript.attackTarget = enemy;
-			t.unitCommandHandler.attackTarget = enemy;
 		}
 	}
 

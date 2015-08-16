@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class UnitVision : MonoBehaviour {
 	public UnitScript unitScript;
 	public List<FlagScript> objectsFlagsInRange;
+	public List<HealthScript> objectsInRangeHealthScripts;
 	public List<GameObject> objectsInRange;
 
 	public SphereCollider sphereCollider;
@@ -68,6 +69,7 @@ public class UnitVision : MonoBehaviour {
 			if(!objectsFlagsInRange.Contains(visionObject)) {
 				objectsFlagsInRange.Add(visionObject);
 				objectsInRange.Add(visionObject.gameObject);
+				objectsInRangeHealthScripts.Add (visionObject.GetComponent<HealthScript>());
 				unitScript.unitGroupScript.addUnitToRange(visionObject.gameObject);
 			}
 		}
@@ -77,6 +79,7 @@ public class UnitVision : MonoBehaviour {
 		if(objectsFlagsInRange.Contains(visionObject)) {
 			objectsFlagsInRange.Remove(visionObject);
 			objectsInRange.Remove(visionObject.gameObject);
+			objectsInRangeHealthScripts.Remove (visionObject.GetComponent<HealthScript>());
 			unitScript.unitGroupScript.removeUnitFromRange(visionObject.gameObject);
 		}
 	}
