@@ -321,6 +321,7 @@ public class wp_manager : MonoBehaviour
 		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().connected_wp_id = wp_id;
 		if( wp_id > 0){
 		if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.base_node){
+			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
 		}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
 		}else{
@@ -422,7 +423,8 @@ public class wp_manager : MonoBehaviour
 
 		//WP DELTETEN auch hier wieder den wp in der base ausnehmen
 		if (curr_wp_mode == wp_mode.deleten && selected_wp_id > 1) {
-			if (GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point> ().type == path_point.node_type.normal_node) {
+			//if (GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point> ().type == path_point.node_type.normal_node) {
+			if(nodeObjects[selected_wp_id].GetComponent<path_point> ().type == path_point.node_type.normal_node) {
 				//alle edes löschen
 				foreach (wp_edge n in edgelist) {
 					if (n.dest_id == selected_wp_id || n.source_id == selected_wp_id) {
@@ -430,7 +432,8 @@ public class wp_manager : MonoBehaviour
 					}
 				}
 				//WP Objekt löschen
-				Destroy (GameObject.Find ("node_" + selected_wp_id.ToString ()));
+				//Destroy (GameObject.Find ("node_" + selected_wp_id.ToString ()));
+				Destroy (nodeObjects[selected_wp_id]);
 				//alle linien neu anzeigen lassen
 				refresh_edge_visuals ();
 				//switch ui view to default
@@ -568,8 +571,10 @@ public class wp_manager : MonoBehaviour
 					if (Physics.Raycast (origin, dest, out coll_hit, 100)) {
 						Debug.Log ("move 4");
 
-						GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = hit.point;
-						GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+						//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = hit.point;
+						//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+						nodeObjects[selected_wp_id].gameObject.transform.position = hit.point;
+						nodeObjects[selected_wp_id].gameObject.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 						//set new pos -> kosten abziehen
 						if (Input.GetMouseButtonDown (0)) {
 							Debug.Log ("move 5");
@@ -583,8 +588,10 @@ public class wp_manager : MonoBehaviour
 			}
 			if (Input.GetMouseButtonDown (1)) {
 				enable_collider_on_selected (selected_wp_id);
-				GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = selected_wp_pos;
-				GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = selected_wp_rot;
+				//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = selected_wp_pos;
+				//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = selected_wp_rot;
+
+				nodeObjects[selected_wp_id].gameObject.transform.position = selected_wp_pos;
 				curr_wp_mode = wp_mode.none;
 			}
 		}
@@ -609,6 +616,13 @@ public class wp_manager : MonoBehaviour
 					selected_wp_id = wpid;
 					curr_wp_mode = wp_mode.selecten;
 					Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
+				} else if(rayobj == n.gameObject && rayobj != null && n.GetComponent<path_point>().type == path_point.node_type.base_node) {
+					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
+					deselect_all_waypoints ();
+					select_waypoint_with_id (wpid);
+					map_wp_to_ui (wpid);
+					selected_wp_id = wpid;
+					curr_wp_mode = wp_mode.selecten;
 				}
 			}	
 
@@ -820,7 +834,8 @@ public class wp_manager : MonoBehaviour
 
 		for (int i = 0; i < graph.Count; i++) {
 			dijkstra_node tmp = graph[i];
-			GameObject.Find("node_" + tmp.node_id.ToString()).GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
+			///GameObject.Find("node_" + tmp.node_id.ToString()).GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
+			nodeObjects[tmp.node_id].GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
 		}
 	}
 
