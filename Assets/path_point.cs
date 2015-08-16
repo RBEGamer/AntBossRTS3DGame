@@ -61,15 +61,19 @@ public class path_point : MonoBehaviour {
 
 
 	public void enable_range_cycle(){
+		if(type != node_type.base_node){
 		if(!circle_holder.activeSelf){
 			circle_holder.SetActive(true);
+			}
 		}
 
 	}
 
 	public void disable_range_cycle(){
+		if(type != node_type.base_node){
 		if(circle_holder.activeSelf){
 			circle_holder.SetActive(false);
+			}
 		}
 	}
 
@@ -80,7 +84,7 @@ public class path_point : MonoBehaviour {
 			wpManager = GameObject.Find(vars.path_manager_name).GetComponent<wp_manager>();
 		}
 		wpManager.addNodeObject(this.gameObject);
-		
+		circle_holder.SetActive(false);
 
 		if(type == node_type.base_node){
 			erobert = true;
