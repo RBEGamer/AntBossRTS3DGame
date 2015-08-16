@@ -482,10 +482,11 @@ public class wp_manager : MonoBehaviour
 			disable_collider_on_slelected (selected_wp_id);
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
+			RaycastHit coll_hit;
 			// Casts the ray and get the first game object hit
-			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
+			if (Physics.Raycast (ray, out hit, 100.0f)) {
 				Debug.Log ("con 3");
-				RaycastHit coll_hit;
+
 				if (nodeObjects.Contains(hit.collider.gameObject) && Vector3.Distance (hit.point, selected_wp_pos) < 10.0f) {
 					Debug.Log ("con 4");
 					if (Input.GetMouseButtonDown (0)) {
@@ -823,14 +824,17 @@ public class wp_manager : MonoBehaviour
 		}
 	}
 
-
+	float tmax = 1.0f;
+	float tcurr = 0.0f;
 	private void Dijkstra_Compute(List<dijkstra_node> nodes, int startkonten){
 		Debug.Log("Dijkstra_Compute");
 		int current_node = startkonten;
 		//für alle nodes
 		//foreach (dijkstra_node alle_nodes in nodes) {
+		tcurr = tmax;
 			while (!check_if_all_visited()){ // die noch nicht besucht wurden
-	
+			tcurr -= Time.deltaTime;
+			if(tcurr <= 0.0f){break;}
 				mark_node_as_visited(current_node); // und auf besucht
 				//für jeden nachbarn des aktuellen nodes
 				foreach (int neig in get_node_component(current_node).neighbours) {
