@@ -242,6 +242,7 @@ public class wp_manager : MonoBehaviour
 	
 	private void deselect_all_waypoints ()
 	{
+		curr_wp_mode = wp_mode.none;
 		foreach (GameObject n in nodeObjects) {
 			n.GetComponent<path_point> ().is_selected = false;
 			map_wp_to_ui (-1);
@@ -514,7 +515,7 @@ public class wp_manager : MonoBehaviour
 
 						//neue edge adden
 						if (!war_was) {
-							convert_edgelist_to_dijkstra_node_list ();
+
 							Debug.Log ("con 7 add edge");
 							//Vector3 sd = GameObject.Find ("node_" + tmp_dest_id.ToString ()).transform.position;
 							//Vector3 dd = GameObject.Find ("node_" + tmp_origin_id.ToString ()).transform.position;
@@ -539,7 +540,7 @@ public class wp_manager : MonoBehaviour
 							}
 
 						}
-
+						convert_edgelist_to_dijkstra_node_list ();
 					}
 
 				}
@@ -796,7 +797,7 @@ public class wp_manager : MonoBehaviour
 		for (int i = 0; i < dijkstra_node_list.Count; i++) {
 			if (dijkstra_node_list [i].node_id == id) {
 				dijkstra_node tmp = dijkstra_node_list [i];
-				tmp.distance = to;
+				tmp.ancestor = to;
 				dijkstra_node_list [i] = tmp;
 			}
 		}
@@ -835,21 +836,22 @@ public class wp_manager : MonoBehaviour
 		for (int i = 0; i < graph.Count; i++) {
 			dijkstra_node tmp = graph[i];
 			///GameObject.Find("node_" + tmp.node_id.ToString()).GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
-			nodeObjects[tmp.node_id].GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
+			nodeObjects[tmp.node_id-1].GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
 		}
 	}
 
 	float tmax = 1.0f;
 	float tcurr = 0.0f;
+	
 	private void Dijkstra_Compute(List<dijkstra_node> nodes, int startkonten){
-		Debug.Log("Dijkstra_Compute");
+		//Debug.Log("Dijkstra_Compute");
 		int current_node = startkonten;
 		//für alle nodes
-		//foreach (dijkstra_node alle_nodes in nodes) {
-		tcurr = tmax;
-			while (!check_if_all_visited()){ // die noch nicht besucht wurden
-			tcurr -= Time.deltaTime;
-			if(tcurr <= 0.0f){break;}
+		
+		foreach (dijkstra_node alle_nodes in nodes) {
+			if(!alle_nodes.visited){ // die noch nicht besucht wurden
+				
+				//if(current_node < 0){Debug.Log("ERR");break;}
 				mark_node_as_visited(current_node); // und auf besucht
 				//für jeden nachbarn des aktuellen nodes
 				foreach (int neig in get_node_component(current_node).neighbours) {
@@ -857,16 +859,17 @@ public class wp_manager : MonoBehaviour
 						float current_node_weight = get_node_component(current_node).distance;
 						float edge_node_weight = get_edge_weight(current_node, neig);
 						float kanten_summe = current_node_weight + edge_node_weight; //addiere das gewicht beider kanten
-						if(kanten_summe < edge_node_weight){ //wenn sie summe kleiner ist als die des nachbarn
-							set_node_ancestor_to(neig,current_node); //setzte dich selber als seinen vorgänger
-							set_node_distance_to(neig, kanten_summe); //und setzte die ausgerechnete distanz als dizstanz von diesem
-						}//ende kantensumme
+						//if(edge_node_weight <= kanten_summe){ //wenn sie summe kleiner ist als die des nachbarn
+						//Debug.Log ("TEST!!");
+						set_node_ancestor_to(neig, current_node); //setzte dich selber als seinen vorgänger
+						set_node_distance_to(neig, kanten_summe); //und setzte die ausgerechnete distanz als dizstanz von diesem
+						//}//ende kantensumme
 					}//ende alle neig nicht visites
 				}//ende fpr each neighbour
 				current_node = get_node_with_lowest_distance(); //setzte den node mit der geringsten distanz auf aktuell
 			}//end if !visites
-
-//}//end for
+		}//end for
+		
 	}
 
 	private List<int> Dijkstra_Resolve_Path(List<dijkstra_node> nodes, int startknoten, int zielknoten){
