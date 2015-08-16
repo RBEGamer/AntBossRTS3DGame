@@ -403,28 +403,7 @@ public abstract class UnitBase : MonoBehaviour
 			}
 		}
 	}
-
-	/*
-	virtual public void addEnemyInRange(GameObject enemy) {
-		enemiesInRange.Add(enemy.gameObject);
-		if(unitGroup != null) {
-			//Debug.Log(gameObject.tag + " adds " + enemy.gameObject.tag + " to group " + unitGroup.tag);
-
-			unitGroup.addEnemyToRange(enemy.gameObject);
-		}
-	}
 	
-	virtual public void removeEnemyInRange(GameObject enemy) {
-		enemiesInRange.Remove(enemy);
-		if(unitGroup != null) {
-			//Debug.Log(gameObject.tag + " removes " + enemy.gameObject.tag);
-			if(enemiesInRange.Contains(enemy)) {
-
-				unitGroup.removeEnemyFromRange(enemy);
-			}
-		}
-	}*/
-
 	virtual public void addUnitTargetingMe(UnitBase unit) {
 		if(!unitsTargetingMe.Contains(unit)) {
 			unitsTargetingMe.Add(unit);

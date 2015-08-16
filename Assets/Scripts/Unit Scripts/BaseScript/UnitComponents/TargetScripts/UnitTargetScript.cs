@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ public class UnitTargetScript : MonoBehaviour {
 	public void Start() {
 		unitScript = GetComponent<UnitScript>();
 	}
-	public void FixedUpdate() {
+	public void Update() {
 		UpdateTarget();
 	}
 
@@ -30,6 +30,9 @@ public class UnitTargetScript : MonoBehaviour {
 
 		if(attackTarget != null) {
 			if(attackTarget.GetComponent<HealthScript>().hasHealth == false) {
+				resetTarget();
+			}
+			if(!attackTarget.activeSelf) {
 				resetTarget();
 			}
 		}
@@ -66,11 +69,11 @@ public class UnitTargetScript : MonoBehaviour {
 
 
 		List<GameObject> eligibleTargetsInGroupRange = new List<GameObject>();
+		unitScript.unitGroupScript.cleanUp();
+		for(int i = 0; i < unitScript.unitGroupScript.unitsInGroupRange.Count; i++) {
 
-		for(int i = 0; i < unitScript.unitGroupScript.enemiesInGroupRange.Count; i++) {
-			unitScript.unitGroupScript.cleanUp();
-			if(unitScript.unitGroupScript.enemiesInGroupRange[i].GetComponent<FlagScript>().Faction != unitScript.flagScript.Faction) {
-				eligibleTargetsInGroupRange.Add(unitScript.unitGroupScript.enemiesInGroupRange[i]);
+			if(unitScript.unitGroupScript.unitsInGroupRange[i].GetComponent<FlagScript>().Faction != unitScript.flagScript.Faction) {
+				eligibleTargetsInGroupRange.Add(unitScript.unitGroupScript.unitsInGroupRange[i]);
 			}
 		}
 

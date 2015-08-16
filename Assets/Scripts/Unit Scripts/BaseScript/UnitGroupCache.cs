@@ -2,82 +2,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+
+
 public struct SavedUnitGroup {
 	public int numUnits;
 	public string unitGroupName;
 
 	// Upgrade logic(friendly units only)
-	public GameObject upgrade_slot_0;
-	public GameObject upgrade_slot_1;
-	public GameObject upgrade_slot_2;
-
-	public void initialize(float _attackspeed, float _movementspeed, float _damage, float _health, float _attackrange, float _visionrange, float _regeneration) {
-		/*position = Vector3.zero;
-		
-		attackspeed = _attackspeed;
-		movementspeed = _movementspeed;
-		
-		damage = _damage;
-		health = _health;
-		
-		attackrange = _attackrange;
-		visionRange = _visionrange;
-
-		regeneration = _regeneration;
-		numUnits = 0;*/
-	}
+	public List<string> normalUpgrades;
+	public string specialUpgrade;
 }
 
-
 public class UnitGroupCache : MonoBehaviour {
-	
+	public UpgradeManager upgradeManager;
+
 	public GameObject unitGroupPrefab;
 	public GameObject unitPrefab;
 	public GameObject testPrefab;
 	
 	public List<SavedUnitGroup> unitGroupsSaved;
 	public static int unitGroupCounter = 1;
-	/*
-	public float standardAttackspeed;
-	
-	public float standardDamage;
-	public float standardHealth;
-	public float standardMovementspeed;
-	
-	public float standardAttackrange;
-	public float standardVisionRange;
-
-	public float standardRegeneration;*/
 
 	// Use this for initialization
 	void Start () {
 		unitGroupsSaved = new List<SavedUnitGroup>();
-
-		/*UnitGroupBase t = unitGroupPrefab.GetComponent<UnitGroupBase>();
-		standardAttackspeed = t.attackspeed;
-		
-		standardDamage = t.damage;
-		standardHealth = t.health;
-		standardMovementspeed = t.movementspeed;
-		
-		standardAttackrange = t.attackrange;
-		standardVisionRange = t.visionRange;
-
-		standardRegeneration = t.regeneration;*/
 	}
-	
-	
-	void Update() {
 
-	}
-	
 	// creates new(empty) group
 	public SavedUnitGroup createNewGroup() {
 		SavedUnitGroup newUnitGroup = new SavedUnitGroup();
-		//newUnitGroup.initialize(standardAttackspeed, standardMovementspeed, standardDamage, standardHealth, standardAttackrange, standardVisionRange, standardRegeneration);
 		newUnitGroup.unitGroupName = "Standard Ants " + unitGroupCounter.ToString();
-		//newUnitGroup.position = new Vector3(transform.position.x + 5, transform.position.y, transform.position.z);
 		unitGroupCounter++;
+		newUnitGroup.normalUpgrades = new List<string>();
+		newUnitGroup.normalUpgrades.Add("Heal");
 		unitGroupsSaved.Add (newUnitGroup);
 		
 		return newUnitGroup;
@@ -117,81 +74,38 @@ public class UnitGroupCache : MonoBehaviour {
 		UnitGroupScript newUnitGroupScript = newgroup.GetComponent<UnitGroupFriendlyScript>();
 
 		GameObject newUnit;
-		GameObject newUpgrade;
+
 		for(int i = 0; i < group.numUnits; i++) {
+
 			newUnit = Instantiate(unitPrefab, position, Quaternion.identity) as GameObject;
 			UnitScript unitScript = newUnit.GetComponent<UnitScript>();
 			unitScript.unitGroupScript = newUnitGroupScript;
 			position = new Vector3(0,0,0);
-			newUpgrade = Instantiate (testPrefab, position, Quaternion.identity) as GameObject;
-			newUpgrade.transform.parent = newUnit.transform;
-			newUpgrade.GetComponent<Skill>().unitScript = unitScript;
 		}
-
-
-		
+		GameObject newUpgrade;
+		Skill newUpgradeSkill;
+		foreach(string upgrade in group.normalUpgrades) {
+			newUpgrade = Instantiate(upgradeManager.getUpgrade(upgrade), position, Quaternion.identity) as GameObject;
+			newUpgrade.SetActive(true);
+			newUpgrade.transform.parent = newgroup.transform;
+			newUpgradeSkill = newUpgrade.GetComponent<Skill>();
+			if(newUpgradeSkill.skillType == 1) {
+				newUpgradeSkill.unitGroupScript = newUnitGroupScript;
+			}
+		}
 		deleteUnitGroup(group);
 
 	}
 
-	/*
-	public bool add_upgrade(ref upgrade_description upgrade, SavedUnitGroup group){
-		Debug.Log("unit upgrade add");
-		if(upgrade != null && upgrade.upgrade_type == vars.upgrade_type.units){
-			Debug.Log("upgrade check");
-			base_manager thisBase = GameObject.FindGameObjectWithTag(vars.base_tag+""+vars.friendly_tag+""+vars.attackable_tag).GetComponent<base_manager>();
-			if(thisBase.res_a_storage >= upgrade.costs_res_a && thisBase.res_b_storage >= upgrade.costs_res_b && thisBase.res_c_storage >= upgrade.costs_res_c){
-				Debug.Log("costs check");
-				// remove resources from base
-				thisBase.res_a_storage -= upgrade.costs_res_a;
-				thisBase.res_b_storage -= upgrade.costs_res_b;
-				thisBase.res_c_storage -= upgrade.costs_res_c;
-				
-				if(group.upgrade_slot_0 == null || group.upgrade_slot_1 == null || group.upgrade_slot_2 == null){
-					switch (upgrade.upgrade_add_to_value) {
-					case vars.upgrade_values.ant_life:
-						group.health += upgrade.increase_value;
-						break;
-
-					case vars.upgrade_values.ant_damage:
-						group.damage += upgrade.increase_value;
-						break;
-
-					case vars.upgrade_values.ant_speed:
-						group.movementspeed += upgrade.increase_value;
-						break;
-					case vars.upgrade_values.ant_regeneration:
-						group.regeneration += upgrade.increase_value;
-						break;
-
-					default:
-						break;
-					}
-
-					if(group.upgrade_slot_0 == null){
-						group.upgrade_slot_0 = upgrade;
-						//Debug.Log("set upgrade to slot 0");
-						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_0.GetComponent<Image>().sprite = group.upgrade_slot_0.upgrade_icon;
-					}else 	if(group.upgrade_slot_1 == null){
-						group.upgrade_slot_1 = upgrade;
-						//Debug.Log("set upgrade to slot 1");
-						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_1.GetComponent<Image>().sprite = group.upgrade_slot_1.upgrade_icon;
-					}else 	if(group.upgrade_slot_2 == null){
-						group.upgrade_slot_2 = upgrade;
-						//Debug.Log("set upgrade to slot 2");
-						GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().upgrade_unit_button_2.GetComponent<Image>().sprite = group.upgrade_slot_2.upgrade_icon;
-					}
-
-					return true;
-				}
-			}else{
-				Debug.Log("err 2");
+	public void addUpgrade(string upgradeName, SavedUnitGroup group, bool type) {
+		if(type) {
+			if(group.normalUpgrades.Count < 4) {
+				group.normalUpgrades.Add(upgradeName);
 			}
-			
-		}else{
-			Debug.Log("err 1");
+		} else if(!type) {
+			if(group.specialUpgrade == null) {
+				group.specialUpgrade = upgradeName;
+			}
 		}
-		return false;
-		
-	}*/
+	}
 }

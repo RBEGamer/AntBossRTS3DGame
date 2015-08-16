@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: f45dc7a073e329a41aa7c0ca4abc9f6c
+timeCreated: 1439568677
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Box002
+    100002: end_fuehler_links
+    100004: end_fuehler_rechts
+    100006: End_hinterteil
+    100008: end_kopf
+    100010: end_links_hinten
+    100012: end_links_hinten1
+    100014: end_links_mitte
+    100016: end_links_mitte1
+    100018: end_links_vorne
+    100020: end_rechts_vorne
+    100022: joint_brustkorb
+    100024: joint_fuehler_links_oben
+    100026: joint_fuehler_links_unten
+    100028: joint_fuehler_rechts_oben
+    100030: joint_fuehler_rechts_unten
+    100032: joint_hals
+    100034: joint_Hinterteil_oben
+    100036: joint_Hinterteil_unten
+    100038: joint_koerpermitte
+    100040: joint_kopf
+    100042: joint_links_hinten_mitte
+    100044: joint_links_hinten_mitte1
+    100046: joint_links_hinten_oben
+    100048: joint_links_hinten_oben1
+    100050: joint_links_hinten_unten
+    100052: joint_links_hinten_unten1
+    100054: joint_links_mitte_mitte
+    100056: joint_links_mitte_mitte1
+    100058: joint_links_mitte_oben
+    100060: joint_links_mitte_oben1
+    100062: joint_links_mitte_unten
+    100064: joint_links_mitte_unten1
+    100066: joint_links_vorne_mitte
+    100068: joint_links_vorne_oben
+    100070: joint_links_vorne_unten
+    100072: joint_rechts_vorne_mitte
+    100074: joint_rechts_vorne_oben
+    100076: joint_rechts_vorne_unten
+    100078: //RootNode
+    400000: Box002
+    400002: end_fuehler_links
+    400004: end_fuehler_rechts
+    400006: End_hinterteil
+    400008: end_kopf
+    400010: end_links_hinten
+    400012: end_links_hinten1
+    400014: end_links_mitte
+    400016: end_links_mitte1
+    400018: end_links_vorne
+    400020: end_rechts_vorne
+    400022: joint_brustkorb
+    400024: joint_fuehler_links_oben
+    400026: joint_fuehler_links_unten
+    400028: joint_fuehler_rechts_oben
+    400030: joint_fuehler_rechts_unten
+    400032: joint_hals
+    400034: joint_Hinterteil_oben
+    400036: joint_Hinterteil_unten
+    400038: joint_koerpermitte
+    400040: joint_kopf
+    400042: joint_links_hinten_mitte
+    400044: joint_links_hinten_mitte1
+    400046: joint_links_hinten_oben
+    400048: joint_links_hinten_oben1
+    400050: joint_links_hinten_unten
+    400052: joint_links_hinten_unten1
+    400054: joint_links_mitte_mitte
+    400056: joint_links_mitte_mitte1
+    400058: joint_links_mitte_oben
+    400060: joint_links_mitte_oben1
+    400062: joint_links_mitte_unten
+    400064: joint_links_mitte_unten1
+    400066: joint_links_vorne_mitte
+    400068: joint_links_vorne_oben
+    400070: joint_links_vorne_unten
+    400072: joint_rechts_vorne_mitte
+    400074: joint_rechts_vorne_oben
+    400076: joint_rechts_vorne_unten
+    400078: //RootNode
+    4300000: Box002
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Box002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 2
+    tangentImportMode: 2
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

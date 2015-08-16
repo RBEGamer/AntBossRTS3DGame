@@ -9,7 +9,7 @@ public class UnitVision : MonoBehaviour {
 
 	public SphereCollider sphereCollider;
 
-	public void Start() {
+	public void Awake() {
 		objectsFlagsInRange = new List<FlagScript>();
 		objectsInRange = new List<GameObject>();
 		sphereCollider = GetComponent<SphereCollider>();
@@ -68,9 +68,7 @@ public class UnitVision : MonoBehaviour {
 			if(!objectsFlagsInRange.Contains(visionObject)) {
 				objectsFlagsInRange.Add(visionObject);
 				objectsInRange.Add(visionObject.gameObject);
-				if(visionObject.Faction != unitScript.flagScript.Faction) {
-					unitScript.unitGroupScript.addEnemyToRange(visionObject.gameObject);
-				}
+				unitScript.unitGroupScript.addUnitToRange(visionObject.gameObject);
 			}
 		}
 	}
@@ -79,9 +77,7 @@ public class UnitVision : MonoBehaviour {
 		if(objectsFlagsInRange.Contains(visionObject)) {
 			objectsFlagsInRange.Remove(visionObject);
 			objectsInRange.Remove(visionObject.gameObject);
-			if(visionObject.Faction != unitScript.flagScript.Faction) {
-				unitScript.unitGroupScript.removeEnemyFromRange(visionObject.gameObject);
-			}
+			unitScript.unitGroupScript.removeUnitFromRange(visionObject.gameObject);
 		}
 	}
 
