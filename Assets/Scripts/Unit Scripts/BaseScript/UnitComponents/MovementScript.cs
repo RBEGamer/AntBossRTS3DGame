@@ -20,8 +20,9 @@ public class MovementScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		hasReachedDestination();
-		if(followTarget != null) {
+		hasReachedDestination(0.0f);
+
+		if(followTarget) {
 			follow();
 		}
 	}
@@ -30,6 +31,7 @@ public class MovementScript : MonoBehaviour {
 		if(unitScript.navMeshAgent.speed != unitScript.attributeScript.CurrentMovementSpeed) {
 			unitScript.navMeshAgent.speed = unitScript.attributeScript.CurrentMovementSpeed;
 		}
+
 		if(unitScript.navMeshAgent.destination != destination) {
 			unitScript.navMeshAgent.destination = destination;
 			reachedDestination = false;
@@ -40,12 +42,18 @@ public class MovementScript : MonoBehaviour {
 	public void follow() {
 		UpdateDestination(followTarget.transform.position);
 	}
+
+	public void reset() {
+		reachedDestination = false;
+		followTarget = null;
+	}
 	
-	public bool hasReachedDestination() {
+	public bool hasReachedDestination(float offset) {
 		if (!unitScript.navMeshAgent.pathPending)
 		{
-			if (unitScript.navMeshAgent.remainingDistance <= unitScript.navMeshAgent.stoppingDistance)
+			if (unitScript.navMeshAgent.remainingDistance <= unitScript.navMeshAgent.stoppingDistance + offset)
 			{
+				return reachedDestination = true;
 				if (!unitScript.navMeshAgent.hasPath || unitScript.navMeshAgent.velocity.sqrMagnitude == 0f)
 				{
 					return reachedDestination = true;
@@ -62,10 +70,6 @@ public class MovementScript : MonoBehaviour {
 	}
 
 	public bool isWithinGroupRange() {
-		float distance = unitScript.spreadDistance;
-		if(followTarget == null && (unitScript.currentCommand == UnitCommand.AttackMove || unitScript.currentCommand == UnitCommand.Move)) {
-			distance = 1.0f;
-		}
 		if(Vector3.Distance(this.transform.position, new Vector3(unitScript.unitGroupScript.transform.position.x, 0, unitScript.unitGroupScript.transform.position.z)) < unitScript.spreadDistance) {
 			return true;
 		} else {

@@ -52,7 +52,7 @@ public class UnitScript : MonoBehaviour {
 		if(flagScript.Faction == UnitFaction.PlayerFaction) {
 			setHealthVisual(healthScript.CurrentHealth / healthScript.BaseHealth);
 		}
-		currentTarget = unitCommandHandler.attackTarget;
+		currentTarget = unitTargetScript.attackTarget;
 
 		healthScript.regenerate(attributeScript.CurrentHealthRegeneration, attributeScript.CurrentShieldRegeneration);
 	}
