@@ -1,13 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Unsorted/ui_manager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/path_point.cs">
     <Files>
-      <File FileName="Assets/Scripts/Unsorted/ressource.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Unsorted/walk_way_manager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Unsorted/wp_path_manager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/FogOfWar/ShowDiscovered.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Unsorted/ui_manager.cs" Line="1278" Column="1" />
-      <File FileName="../waypoint_system/Assets/ui_manager.cs" Line="54" Column="3" />
+      <File FileName="Assets/wp_manager.cs" Line="569" Column="168" />
+      <File FileName="Assets/Scripts/Unsorted/ui_manager.cs" Line="94" Column="49" />
+      <File FileName="Assets/path_point.cs" Line="70" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
