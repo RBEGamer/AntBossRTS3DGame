@@ -8,9 +8,9 @@ public class ui_manager : MonoBehaviour {
 
 
 
-	private base_manager base_manager_cache;
-	private UnitGroupCache unit_group_chache_cache;
-	private upgrade_manager upgrade_manager_cache;
+	public base_manager base_manager_cache;
+	public UnitGroupCache unit_group_chache_cache;
+	public upgrade_manager upgrade_manager_cache;
 
 	//------------MENU -----------------------------------------------//
 	//------------MENU -----------------------------------------------//
@@ -29,7 +29,7 @@ public class ui_manager : MonoBehaviour {
 	Button[] cacheButtons;
 
 	public void toggle_menu(){
-		is_in_menu = !is_in_menu;
+		is_in_menu = !is_in_menu; 
 		pause_menu_holder.SetActive(is_in_menu);
 
 		if(is_in_menu){
