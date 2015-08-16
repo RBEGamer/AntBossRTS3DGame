@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class EnemyCommandHandler : UnitCommandHandler {
@@ -37,9 +37,9 @@ public class EnemyCommandHandler : UnitCommandHandler {
 				}
 			}
 		} else {
-			if(!isDead) {
+			if(!died) {
 				unitScript.animator.SetTrigger("death");
-				isDead = true;
+				died = true;
 			}
 		}
 	}
@@ -47,9 +47,9 @@ public class EnemyCommandHandler : UnitCommandHandler {
 	public override void AttackMove() {
 		unitScript.animator.SetBool("isrunning", true);
 		unitScript.animator.speed = 1;
-		unitScript.unitTargetScript.UpdateTarget();
 		// See if a target is in range and attack
 		if(unitScript.unitTargetScript.attackTarget != null) {
+			attackTarget = unitScript.unitTargetScript.attackTarget;
 			previousCommand = unitScript.currentCommand;
 			unitScript.currentCommand = UnitCommand.Attack;
 			return;
@@ -85,9 +85,10 @@ public class EnemyCommandHandler : UnitCommandHandler {
 
 	public override void Idle() {
 		unitScript.movementScript.followTarget = null;
-		unitScript.unitTargetScript.UpdateTarget();
+		
 		// See if a target is in range and attack
 		if(unitScript.unitTargetScript.attackTarget != null) {
+			attackTarget = unitScript.unitTargetScript.attackTarget;
 			previousCommand = unitScript.currentCommand;
 			unitScript.currentCommand = UnitCommand.Attack;
 			return;

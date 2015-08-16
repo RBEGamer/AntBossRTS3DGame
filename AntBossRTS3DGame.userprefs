@@ -1,20 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\CommandHandlers\UnitCommandHandler.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupCache.cs">
     <Files>
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\CommandHandlers\UnitCommandHandler.cs" Line="191" Column="4" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\TargetScripts\UnitTargetScript.cs" Line="47" Column="85" />
-      <File FileName="Assets\Scripts\Unit Scripts\HelpScript\SimpleDestroyed.cs" Line="6" Column="20" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\HealthScript.cs" Line="71" Column="73" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\WeaponScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\TargetScripts\TargetScriptEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupCache.cs" Line="12" Column="2" />
+      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupScript.cs" Line="26" Column="3" />
+      <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Skill.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FogOfWar\ShowRevealed.cs" Line="16" Column="1" />
+      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroups\UnitGroupFriendlyScript.cs" Line="24" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="D:\Projekte\AntBoss\github_rep\AntBossRTS3DGame\Assets\Scripts\FogOfWar\ShowRevealed.cs" line="23" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

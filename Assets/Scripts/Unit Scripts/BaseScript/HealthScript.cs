@@ -17,7 +17,9 @@ public class HealthScript : MonoBehaviour {
 	}
 
 	void Update() {
+
 		checkDeath();
+
 	}
 
 	void OnSkillResult(SkillResult skillresult) {
@@ -68,7 +70,6 @@ public class HealthScript : MonoBehaviour {
 	void checkDeath() {
 		if(CurrentHealth <= 0) {
 			hasHealth = false;
-			SendMessage("destroyObject", SendMessageOptions.DontRequireReceiver);
 		}
 	}
 }

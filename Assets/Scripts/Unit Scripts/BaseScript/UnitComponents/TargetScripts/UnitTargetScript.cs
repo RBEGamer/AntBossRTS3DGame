@@ -10,6 +10,9 @@ public class UnitTargetScript : MonoBehaviour {
 	public void Start() {
 		unitScript = GetComponent<UnitScript>();
 	}
+	public void Update() {
+		UpdateTarget();
+	}
 
 	public void changeTarget(GameObject target, int priority) {
 		if(currentTargetPriority < priority) {
@@ -39,17 +42,8 @@ public class UnitTargetScript : MonoBehaviour {
 		List<GameObject> eligibleTargets = new List<GameObject>();
 		for(int i = 0; i < unitScript.unitVision.objectsInRange.Count; i++) {
 
-			if(unitScript.unitVision.objectsInRange[i].GetComponent<FlagScript>().Faction != unitScript.flagScript.Faction &&
-			   unitScript.unitVision.objectsInRange[i].GetComponent<HealthScript>().hasHealth) {
-				bool blocked = false;
-				NavMeshHit hit;
-				blocked = NavMesh.Raycast(transform.position,unitScript.unitVision.objectsInRange[i].transform.position, out hit, NavMesh.AllAreas);
-				if (blocked) {
-					Debug.Log ("BLOCKED");
-					Debug.DrawRay(hit.position, Vector3.up, Color.red);
-				} else {
-					eligibleTargets.Add(unitScript.unitVision.objectsInRange[i]);
-				}
+			if(unitScript.unitVision.objectsInRange[i].GetComponent<FlagScript>().Faction != unitScript.flagScript.Faction) {
+				eligibleTargets.Add(unitScript.unitVision.objectsInRange[i]);
 
 			}
 		}
@@ -79,16 +73,7 @@ public class UnitTargetScript : MonoBehaviour {
 		for(int i = 0; i < unitScript.unitGroupScript.unitsInGroupRange.Count; i++) {
 
 			if(unitScript.unitGroupScript.unitsInGroupRange[i].GetComponent<FlagScript>().Faction != unitScript.flagScript.Faction) {
-				bool blocked = false;
-				NavMeshHit hit;
-				blocked = NavMesh.Raycast(transform.position,unitScript.unitGroupScript.unitsInGroupRange[i].transform.position, out hit, NavMesh.AllAreas);
-				if (blocked) {
-					Debug.Log ("BLOCKED");
-					Debug.DrawRay(hit.position, Vector3.up, Color.red);
-				} else {
-					eligibleTargetsInGroupRange.Add(unitScript.unitGroupScript.unitsInGroupRange[i]);
-				}
-
+				eligibleTargetsInGroupRange.Add(unitScript.unitGroupScript.unitsInGroupRange[i]);
 			}
 		}
 
