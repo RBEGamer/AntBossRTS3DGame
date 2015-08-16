@@ -10,6 +10,20 @@ public class wp_manager : MonoBehaviour
 	public GameObject waypoint_prefab;
 
 
+	public List<GameObject> nodeObjects;
+
+	public void addNodeObject(GameObject newNode) {
+		if(!nodeObjects.Contains(newNode)) {
+			nodeObjects.Add(newNode);
+		}
+	}
+
+	public void removeNodeObject(GameObject oldNode) {
+		if(nodeObjects.Contains(oldNode)) {
+			nodeObjects.Remove(oldNode);
+		}
+	}
+
 	public enum wp_mode
 	{
 		verschieben,
@@ -191,7 +205,7 @@ public class wp_manager : MonoBehaviour
 	{
 		disable_all_range_circles ();
 		curr_wp_mode = wp_mode.selecten;
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			n.GetComponent<path_point> ().is_selected = false;
 		}
 	}
@@ -206,7 +220,7 @@ public class wp_manager : MonoBehaviour
 
 	private int get_selected_wp ()
 	{
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			if (n.GetComponent<path_point> ().is_selected) {
 				selected_wp_id = n.GetComponent<path_point> ().waypoint_id;
 				return n.GetComponent<path_point> ().waypoint_id;
@@ -218,7 +232,7 @@ public class wp_manager : MonoBehaviour
 	private int get_selected_count ()
 	{
 		int counter = 0;
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			if (n.GetComponent<path_point> ().is_selected) {
 				counter++;
 			}
@@ -228,7 +242,7 @@ public class wp_manager : MonoBehaviour
 	
 	private void deselect_all_waypoints ()
 	{
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			n.GetComponent<path_point> ().is_selected = false;
 			map_wp_to_ui (-1);
 		}
@@ -238,27 +252,27 @@ public class wp_manager : MonoBehaviour
 	private void disable_range_cirlce_on_slelected (int id)
 	{
 		if (id > 0) {
-			GameObject.Find ("node_" + id).GetComponent<path_point> ().disable_range_cycle ();
+			nodeObjects[id-1].GetComponent<path_point> ().disable_range_cycle ();
 		}
 	}
 
 	private void enable_range_cirlce_on_slelected (int id)
 	{
 		if (id > 0) {
-			GameObject.Find ("node_" + id).GetComponent<path_point> ().enable_range_cycle ();
+			nodeObjects[id-1].GetComponent<path_point> ().enable_range_cycle ();
 		}
 	}
 
 	private void disable_all_range_circles ()
 	{
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			n.GetComponent<path_point> ().disable_range_cycle ();
 		}
 	}
 
 	private void enable_all_range_circles ()
 	{
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			n.GetComponent<path_point> ().enable_range_cycle ();
 		}
 	}
@@ -266,35 +280,35 @@ public class wp_manager : MonoBehaviour
 	private void disable_collider_on_slelected (int id)
 	{
 		if (id > 0) {
-			GameObject.Find ("node_" + id).GetComponent<path_point> ().disabled_collider ();
+			nodeObjects[id-1].GetComponent<path_point> ().disabled_collider ();
 		}
 	}
 
 	private void enable_collider_on_selected (int id)
 	{
 		if (id > 0) {
-			GameObject.Find ("node_" + id).GetComponent<path_point> ().enable_collider ();
+			nodeObjects[id-1].GetComponent<path_point> ().enable_collider ();
 		}
 	}
 	
 	private void select_waypoint_with_id (int id)
 	{
-		GameObject.Find ("node_" + id).GetComponent<path_point> ().is_selected = true;
-		selected_wp_pos = GameObject.Find ("node_" + id).transform.position;
-		selected_wp_rot = GameObject.Find ("node_" + id).transform.rotation;
-		selected_wp_scale = GameObject.Find ("node_" + id).transform.localScale;
+		nodeObjects[id-1].GetComponent<path_point> ().is_selected = true;
+		selected_wp_pos = nodeObjects[id-1].transform.position;
+		selected_wp_rot = nodeObjects[id-1].transform.rotation;
+		selected_wp_scale = nodeObjects[id-1].transform.localScale;
 	}
 
 	private void disable_all_colliders ()
 	{
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			n.GetComponent<path_point> ().disabled_collider ();
 		}
 	}
 
 	private void enable_all_colliders ()
 	{
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			n.GetComponent<path_point> ().enable_collider ();
 		}
 	}
@@ -302,7 +316,13 @@ public class wp_manager : MonoBehaviour
 	private void map_wp_to_ui (int wp_id)
 	{
 		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().connected_wp_id = wp_id;
-		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
+		if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.base_node){
+		}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
+			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
+		}else{
+			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
+		}
+
 		disable_all_range_circles ();
 		enable_range_cirlce_on_slelected (wp_id);
 	}
@@ -325,7 +345,7 @@ public class wp_manager : MonoBehaviour
 	void refresh_edge_visuals ()
 	{
 		Debug.Log ("refresh visals");
-		foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+		foreach (GameObject n in nodeObjects) {
 			int sid = n.GetComponent<path_point> ().waypoint_id;
 			Vector3 spos = new Vector3 (n.gameObject.transform.position.x, n.gameObject.transform.position.y + n.gameObject.transform.localScale.y, n.gameObject.transform.position.z);
 			int pointcounter = 0;
@@ -339,8 +359,11 @@ public class wp_manager : MonoBehaviour
 			int pointcounter_pos = 0;
 			for (int i = 0; i < edgelist.Count; i++) {
 				if (edgelist [i].source_id == sid) {
-					Vector3 dpos_original = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.position;
-					Vector3 dscale = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.localScale; 
+					//Vector3 dpos_original = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.position;
+					//Vector3 dscale = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.localScale; 
+
+					Vector3 dpos_original = nodeObjects[edgelist[i].dest_id-1].transform.position;
+					Vector3 dscale = nodeObjects[edgelist[i].dest_id-1].transform.localScale;
 					Vector3 dpos = new Vector3 (dpos_original.x, dpos_original.y + dscale.y, dpos_original.z);
 
 					Debug.Log ("ADD vertext point : from " + spos.ToString () + " to " + dpos.ToString ());
@@ -456,7 +479,7 @@ public class wp_manager : MonoBehaviour
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 				Debug.Log ("con 3");
 				RaycastHit coll_hit;
-				if (hit.collider.gameObject.tag == "node" && Vector3.Distance (hit.point, selected_wp_pos) < 3.0f) {
+				if (nodeObjects.Contains(hit.collider.gameObject) && Vector3.Distance (hit.point, selected_wp_pos) < 10.0f) {
 					Debug.Log ("con 4");
 					if (Input.GetMouseButtonDown (0)) {
 						Debug.Log ("con 5");
@@ -480,10 +503,13 @@ public class wp_manager : MonoBehaviour
 
 						//neue edge adden
 						if (!war_was) {
+							convert_edgelist_to_dijkstra_node_list ();
 							Debug.Log ("con 7 add edge");
-							Vector3 sd = GameObject.Find ("node_" + tmp_dest_id.ToString ()).transform.position;
-							Vector3 dd = GameObject.Find ("node_" + tmp_origin_id.ToString ()).transform.position;
+							//Vector3 sd = GameObject.Find ("node_" + tmp_dest_id.ToString ()).transform.position;
+							//Vector3 dd = GameObject.Find ("node_" + tmp_origin_id.ToString ()).transform.position;
 
+							Vector3 sd = nodeObjects[tmp_dest_id-1].transform.position;
+							Vector3 dd = nodeObjects[tmp_origin_id-1].transform.position;
 							wp_edge tmp_edge = new wp_edge (edgelist.Count, tmp_origin_id, tmp_dest_id, Vector3.Distance (sd, dd));
 							edgelist.Add (tmp_edge);
 
@@ -502,7 +528,7 @@ public class wp_manager : MonoBehaviour
 							}
 
 						}
-						convert_edgelist_to_dijkstra_node_list ();
+
 					}
 
 				}
@@ -564,7 +590,7 @@ public class wp_manager : MonoBehaviour
 			enable_all_colliders ();
 			enable_range_cirlce_on_slelected (selected_wp_id);
 			GameObject rayobj = GetClickedGameObject ();
-			foreach (GameObject n in GameObject.FindGameObjectsWithTag("node")) {
+			foreach (GameObject n in nodeObjects) {
 				Debug.Log ("select 2");
 				if (rayobj == n.gameObject && rayobj != null && n.GetComponent<path_point>().type == path_point.node_type.normal_node) {
 					Debug.Log ("select 3");

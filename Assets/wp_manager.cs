@@ -316,7 +316,13 @@ public class wp_manager : MonoBehaviour
 	private void map_wp_to_ui (int wp_id)
 	{
 		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().connected_wp_id = wp_id;
-		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
+		if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.base_node){
+		}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
+			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
+		}else{
+			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
+		}
+
 		disable_all_range_circles ();
 		enable_range_cirlce_on_slelected (wp_id);
 	}
