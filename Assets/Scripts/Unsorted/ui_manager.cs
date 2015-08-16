@@ -219,7 +219,7 @@ public class ui_manager : MonoBehaviour {
 			if(unit_ui_holder.activeSelf != false) {
 				unit_ui_holder.SetActive(false);
 			}
-			if(unit_ui_holder.activeSelf != false) {
+			if(waypoint_ui_holder.activeSelf != false) {
 				waypoint_ui_holder.SetActive(false);
 			}
 			/*
@@ -243,7 +243,7 @@ public class ui_manager : MonoBehaviour {
 			if(unit_ui_holder.activeSelf != false) {
 				unit_ui_holder.SetActive(false);
 			}
-			if(unit_ui_holder.activeSelf != false) {
+			if(waypoint_ui_holder.activeSelf != false) {
 				waypoint_ui_holder.SetActive(false);
 			}
 			/*
@@ -268,7 +268,7 @@ public class ui_manager : MonoBehaviour {
 				unit_ui_holder.SetActive(true);
 			}
 
-			if(unit_ui_holder.activeSelf != false) {
+			if(waypoint_ui_holder.activeSelf != false) {
 				waypoint_ui_holder.SetActive(false);
 			}
 
@@ -287,7 +287,7 @@ public class ui_manager : MonoBehaviour {
 			if(unit_ui_holder.activeSelf != false) {
 				unit_ui_holder.SetActive(false);
 			}
-			if(unit_ui_holder.activeSelf != true) {
+			if(waypoint_ui_holder.activeSelf != true) {
 				waypoint_ui_holder.SetActive(true);
 			}
 			/*
@@ -311,7 +311,7 @@ public class ui_manager : MonoBehaviour {
 			if(unit_ui_holder.activeSelf != false) {
 				unit_ui_holder.SetActive(false);
 			}
-			if(unit_ui_holder.activeSelf != false) {
+			if(waypoint_ui_holder.activeSelf != false) {
 				waypoint_ui_holder.SetActive(false);
 			}
 			/*
