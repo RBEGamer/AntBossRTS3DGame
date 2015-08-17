@@ -351,12 +351,20 @@ public class wp_manager : MonoBehaviour
 	{
 		if(id > 0){
 		deselect_all_waypoints();
+<<<<<<< HEAD
 		selected_wp_id = id;
 		getNodeObjectById(id).GetComponent<path_point> ().is_selected = true;
 		selected_wp_pos = getNodeObjectById(id).transform.position;
 		selected_wp_rot = getNodeObjectById(id).transform.rotation;
 		selected_wp_scale = getNodeObjectById(id).transform.localScale;
 
+=======
+		nodeObjects[id-1].GetComponent<path_point> ().is_selected = true;
+		selected_wp_pos = nodeObjects[id-1].transform.position;
+		selected_wp_rot = nodeObjects[id-1].transform.rotation;
+		selected_wp_scale = nodeObjects[id-1].transform.localScale;
+		selected_wp_id = id;
+>>>>>>> origin/master
 		}
 	}
 
