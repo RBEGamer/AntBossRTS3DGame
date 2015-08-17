@@ -333,10 +333,12 @@ public class wp_manager : MonoBehaviour
 	public void select_waypoint_with_id (int id)
 	{
 		if(id > 0){
+		deselect_all_waypoints();
 		nodeObjects[id-1].GetComponent<path_point> ().is_selected = true;
 		selected_wp_pos = nodeObjects[id-1].transform.position;
 		selected_wp_rot = nodeObjects[id-1].transform.rotation;
 		selected_wp_scale = nodeObjects[id-1].transform.localScale;
+
 		}
 	}
 
@@ -516,7 +518,7 @@ public class wp_manager : MonoBehaviour
 						Debug.Log ("add wp process");
 						//GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
 						sgo.GetComponent<path_point> ().is_selected = true; //den neu erstellten selektieren
-							selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
+							//selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
 							Debug.Log ("add edge");
 							Vector3 sd = sgo.transform.position;
 							Vector3 dd = selected_wp_pos;
@@ -527,9 +529,9 @@ public class wp_manager : MonoBehaviour
 
 							select_waypoint_with_id(sgo.GetComponent<path_point> ().waypoint_id);
 							//selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
-						map_wp_to_ui (selected_wp_id); //ui auf den neuen WP mappen
-						curr_wp_mode = wp_mode.adden; //wieder in adden mode gehen
-						sgo.GetComponent<path_point>().enable_collider();
+							map_wp_to_ui (sgo.GetComponent<path_point>().waypoint_id); //ui auf den neuen WP mappen
+							curr_wp_mode = wp_mode.adden; //wieder in adden mode gehen
+							sgo.GetComponent<path_point>().enable_collider();
 							sgo.GetComponent<CapsuleCollider>().enabled = true;
 							sgo = null;
 							refresh_edge_visuals ();
@@ -547,6 +549,7 @@ public class wp_manager : MonoBehaviour
 					removeResObject(sgo);
 				}
 				removeNodeObject(sgo);
+				deselect_all_waypoints();
 				Destroy(sgo);
 				sgo = null;
 				Debug.Log("select btn 1");
