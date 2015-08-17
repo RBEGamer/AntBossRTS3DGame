@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 [SerializeField]
 public class wp_manager : MonoBehaviour
@@ -351,20 +352,11 @@ public class wp_manager : MonoBehaviour
 	{
 		if(id > 0){
 		deselect_all_waypoints();
-<<<<<<< HEAD
 		selected_wp_id = id;
 		getNodeObjectById(id).GetComponent<path_point> ().is_selected = true;
 		selected_wp_pos = getNodeObjectById(id).transform.position;
 		selected_wp_rot = getNodeObjectById(id).transform.rotation;
 		selected_wp_scale = getNodeObjectById(id).transform.localScale;
-
-=======
-		nodeObjects[id-1].GetComponent<path_point> ().is_selected = true;
-		selected_wp_pos = nodeObjects[id-1].transform.position;
-		selected_wp_rot = nodeObjects[id-1].transform.rotation;
-		selected_wp_scale = nodeObjects[id-1].transform.localScale;
-		selected_wp_id = id;
->>>>>>> origin/master
 		}
 	}
 
@@ -539,48 +531,52 @@ public class wp_manager : MonoBehaviour
 						Debug.Log("add 4");
 						sgo.transform.position = hit.point;
 						sgo.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+						if (!EventSystem.current.IsPointerOverGameObject())
+						{
+							if (Input.GetMouseButtonDown (0)) {
+								Debug.Log ("add wp process");
+								//GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
+								sgo.GetComponent<path_point> ().is_selected = true; //den neu erstellten selektieren
+									//selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
+									Debug.Log ("add edge");
+									Vector3 sd = sgo.transform.position;
+									Vector3 dd = selected_wp_pos;
+									//wp_edge tmp_edge = new wp_edge (edgelist.Count, sgo.GetComponent<path_point>().waypoint_id, selected_wp_id, Vector3.Distance (sd, dd));
+									//edgelist.Add (tmp_edge);
+									wp_edge tmp_edge_test = new wp_edge (edgelist.Count, selected_wp_id, sgo.GetComponent<path_point>().waypoint_id, Vector3.Distance (sd, dd));
+									edgelist.Add (tmp_edge_test);
 
-					if (Input.GetMouseButtonDown (0)) {
-						Debug.Log ("add wp process");
-						//GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
-						sgo.GetComponent<path_point> ().is_selected = true; //den neu erstellten selektieren
-							//selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
-							Debug.Log ("add edge");
-							Vector3 sd = sgo.transform.position;
-							Vector3 dd = selected_wp_pos;
-							//wp_edge tmp_edge = new wp_edge (edgelist.Count, sgo.GetComponent<path_point>().waypoint_id, selected_wp_id, Vector3.Distance (sd, dd));
-							//edgelist.Add (tmp_edge);
-							wp_edge tmp_edge_test = new wp_edge (edgelist.Count, selected_wp_id, sgo.GetComponent<path_point>().waypoint_id, Vector3.Distance (sd, dd));
-							edgelist.Add (tmp_edge_test);
-
-							select_waypoint_with_id(sgo.GetComponent<path_point> ().waypoint_id);
-							//selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
-							map_wp_to_ui (sgo.GetComponent<path_point>().waypoint_id); //ui auf den neuen WP mappen
-							curr_wp_mode = wp_mode.adden; //wieder in adden mode gehen
-							sgo.GetComponent<path_point>().enable_collider();
-							sgo.GetComponent<CapsuleCollider>().enabled = true;
-							sgo = null;
-							refresh_edge_visuals ();
-							convert_edgelist_to_dijkstra_node_list ();
-					} //ende mouse button
-					} //ende distance
+									select_waypoint_with_id(sgo.GetComponent<path_point> ().waypoint_id);
+									//selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
+									map_wp_to_ui (sgo.GetComponent<path_point>().waypoint_id); //ui auf den neuen WP mappen
+									curr_wp_mode = wp_mode.adden; //wieder in adden mode gehen
+									sgo.GetComponent<path_point>().enable_collider();
+									sgo.GetComponent<CapsuleCollider>().enabled = true;
+									sgo = null;
+									refresh_edge_visuals ();
+									convert_edgelist_to_dijkstra_node_list ();
+							} //ende mouse button
+							} //ende distance
+					}
 				}//ende raycast
 			}
 			//}
-
-			if (Input.GetMouseButtonDown (1)) { //abbrechen
-				if(sgo.GetComponent<path_point>().type == path_point.node_type.base_node){
-					removeBaseObject(sgo);
-				}else if(sgo.GetComponent<path_point>().type == path_point.node_type.res_node){
-					removeResObject(sgo);
+			if (!EventSystem.current.IsPointerOverGameObject())
+			{
+				if (Input.GetMouseButtonDown (1)) { //abbrechen
+					if(sgo.GetComponent<path_point>().type == path_point.node_type.base_node){
+						removeBaseObject(sgo);
+					}else if(sgo.GetComponent<path_point>().type == path_point.node_type.res_node){
+						removeResObject(sgo);
+					}
+					removeNodeObject(sgo);
+					deselect_all_waypoints();
+					Destroy(sgo);
+					sgo = null;
+					WP_COUNTER_MAIN--;
+					Debug.Log("select btn 1");
+					curr_wp_mode = wp_mode.none;
 				}
-				removeNodeObject(sgo);
-				deselect_all_waypoints();
-				Destroy(sgo);
-				sgo = null;
-				WP_COUNTER_MAIN--;
-				Debug.Log("select btn 1");
-				curr_wp_mode = wp_mode.none;
 			}
 
 		}
@@ -601,56 +597,62 @@ public class wp_manager : MonoBehaviour
 
 				if (nodeObjects.Contains(hit.collider.gameObject) && Vector3.Distance (hit.point, selected_wp_pos) < (selection_range+1)) {
 					Debug.Log ("con 4");
-					if (Input.GetMouseButtonDown (0)) {
-						Debug.Log ("con 5");
-						//ist in reichweite
-						//jetzt schauen ob
-						int tmp_dest_id = hit.collider.gameObject.GetComponent<path_point> ().waypoint_id;
-						int tmp_origin_id = selected_wp_id;
-						bool war_was = false;
+					if (!EventSystem.current.IsPointerOverGameObject())
+					{
+						if (Input.GetMouseButtonDown (0)) {
+							Debug.Log ("con 5");
+							//ist in reichweite
+							//jetzt schauen ob
+							int tmp_dest_id = hit.collider.gameObject.GetComponent<path_point> ().waypoint_id;
+							int tmp_origin_id = selected_wp_id;
+							bool war_was = false;
 
-						List<wp_edge> edges_to_remove = new List<wp_edge> ();
-						if(tmp_dest_id != tmp_origin_id){
-						//edges_to_remove.Clear();
-						foreach (wp_edge e in edgelist) {
-							if ((e.dest_id == tmp_dest_id && e.source_id == tmp_origin_id) || (e.source_id == tmp_dest_id && e.dest_id == tmp_origin_id)) {
-								war_was = true;
-								edges_to_remove.Add (e);
-								Debug.Log (" con 6 remove edje");
-							}
-						}
-
-
-
-						//neue edge adden
-						if (!war_was) {
-							Debug.Log ("con 7 add edge");
-								Vector3 sd = getNodeObjectById(tmp_dest_id).transform.position;
-								Vector3 dd = getNodeObjectById(tmp_origin_id).transform.position;
-							wp_edge tmp_edge = new wp_edge (edgelist.Count, tmp_origin_id, tmp_dest_id, Vector3.Distance (sd, dd));
-							edgelist.Add (tmp_edge);
-							//wp_edge tmp_edge_test = new wp_edge (edgelist.Count, tmp_dest_id, tmp_origin_id, Vector3.Distance (sd, dd));
-							//edgelist.Add (tmp_edge_test);
-							refresh_edge_visuals ();
-							curr_wp_mode = wp_mode.selecten;
-						} else {
-							//remove edge
-							foreach (wp_edge etr in edges_to_remove) {
-								edgelist.Remove (etr);
+							List<wp_edge> edges_to_remove = new List<wp_edge> ();
+							if(tmp_dest_id != tmp_origin_id){
+							//edges_to_remove.Clear();
+							foreach (wp_edge e in edgelist) {
+								if ((e.dest_id == tmp_dest_id && e.source_id == tmp_origin_id) || (e.source_id == tmp_dest_id && e.dest_id == tmp_origin_id)) {
+									war_was = true;
+									edges_to_remove.Add (e);
+									Debug.Log (" con 6 remove edje");
+								}
 							}
 
-						}
-							convert_edgelist_to_dijkstra_node_list ();
+
+
+							//neue edge adden
+							if (!war_was) {
+								Debug.Log ("con 7 add edge");
+									Vector3 sd = getNodeObjectById(tmp_dest_id).transform.position;
+									Vector3 dd = getNodeObjectById(tmp_origin_id).transform.position;
+								wp_edge tmp_edge = new wp_edge (edgelist.Count, tmp_origin_id, tmp_dest_id, Vector3.Distance (sd, dd));
+								edgelist.Add (tmp_edge);
+								//wp_edge tmp_edge_test = new wp_edge (edgelist.Count, tmp_dest_id, tmp_origin_id, Vector3.Distance (sd, dd));
+								//edgelist.Add (tmp_edge_test);
+								refresh_edge_visuals ();
+								curr_wp_mode = wp_mode.selecten;
+							} else {
+								//remove edge
+								foreach (wp_edge etr in edges_to_remove) {
+									edgelist.Remove (etr);
+								}
+
+							}
+								convert_edgelist_to_dijkstra_node_list ();
+							}
+
 						}
 
+						}
 					}
 
-				}
-
 			}
-			//enable_collider_on_selected (selected_wp_id);
-			if (Input.GetMouseButtonDown (1)) {
-				curr_wp_mode = wp_mode.none;
+			if (!EventSystem.current.IsPointerOverGameObject())
+			{
+				//enable_collider_on_selected (selected_wp_id);
+				if (Input.GetMouseButtonDown (1)) {
+					curr_wp_mode = wp_mode.none;
+				}
 			}
 			//	}
 		}
@@ -669,6 +671,7 @@ public class wp_manager : MonoBehaviour
 				RaycastHit coll_hit;
 				if (hit.collider.gameObject.tag == "ground" && Vector3.Distance (hit.point, selected_wp_pos) <= 10.0f) {
 					Debug.Log ("move 3");
+					remove_connections();
 					Vector3 origin = new Vector3 (selected_wp_pos.x, selected_wp_pos.y + selected_wp_scale.y, selected_wp_pos.z);
 					Vector3 dest = new Vector3 (hit.point.x, hit.point.y + selected_wp_scale.y, hit.point.z);
 					if (Physics.Raycast (origin, dest, out coll_hit, 100)) {
@@ -679,72 +682,85 @@ public class wp_manager : MonoBehaviour
 						getNodeObjectById(selected_wp_id).gameObject.transform.position = hit.point;
 						getNodeObjectById(selected_wp_id).gameObject.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 						//set new pos -> kosten abziehen
-						if (Input.GetMouseButtonDown (0)) {
-							Debug.Log ("move 5");
-							enable_collider_on_selected (selected_wp_id);
-							curr_wp_mode = wp_mode.none;
-						
-						}//ende getmouse
+						if (!EventSystem.current.IsPointerOverGameObject())
+						{
+							if (Input.GetMouseButtonDown (0)) {
+								Debug.Log ("move 5");
+								enable_collider_on_selected (selected_wp_id);
+								curr_wp_mode = wp_mode.none;
+							
+							}//ende getmouse
+						}
 					}
-			
+					convert_edgelist_to_dijkstra_node_list();
+					refresh_edge_visuals();
 				}
 			}
-			if (Input.GetMouseButtonDown (1)) {
-				enable_collider_on_selected (selected_wp_id);
-				//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = selected_wp_pos;
-				//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = selected_wp_rot;
+			if (!EventSystem.current.IsPointerOverGameObject())
+			{
+				if (Input.GetMouseButtonDown (1)) {
+					enable_collider_on_selected (selected_wp_id);
+					//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = selected_wp_pos;
+					//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = selected_wp_rot;
 
-				getNodeObjectById(selected_wp_id).gameObject.transform.position = selected_wp_pos;
-				curr_wp_mode = wp_mode.none;
+					getNodeObjectById(selected_wp_id).gameObject.transform.position = selected_wp_pos;
+					curr_wp_mode = wp_mode.none;
+				}
 			}
 		}
 
 
 
 		//SELECTEN
-		if (Input.GetMouseButtonDown (0) && curr_wp_mode == wp_mode.selecten) {
-			Debug.Log ("select 1");
-			disable_all_range_circles();
-			enable_all_colliders ();
-			enable_range_cirlce_on_slelected (selected_wp_id);
-			GameObject rayobj = GetClickedGameObject ();
-			foreach (GameObject n in nodeObjects) {
+		if (!EventSystem.current.IsPointerOverGameObject())
+		{
+			if (Input.GetMouseButtonDown (0) && curr_wp_mode == wp_mode.selecten) {
+				Debug.Log ("select 1");
+				disable_all_range_circles();
+				enable_all_colliders ();
+				enable_range_cirlce_on_slelected (selected_wp_id);
+				GameObject rayobj = GetClickedGameObject ();
+				foreach (GameObject n in nodeObjects) {
 
 
-				Debug.Log(n.gameObject.name);
-				 if(rayobj == n.gameObject && rayobj != null) {
-					Debug.Log ("select 2");
-					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
-					deselect_all_waypoints ();
-					select_waypoint_with_id (wpid);
-					map_wp_to_ui (wpid);
-					selected_wp_id = wpid;
-					curr_wp_mode = wp_mode.selecten;
-					Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
-					break;
+					Debug.Log(n.gameObject.name);
+					 if(rayobj == n.gameObject && rayobj != null) {
+						Debug.Log ("select 2");
+						int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
+						deselect_all_waypoints ();
+						select_waypoint_with_id (wpid);
+						map_wp_to_ui (wpid);
+						selected_wp_id = wpid;
+						curr_wp_mode = wp_mode.selecten;
+						Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
+						break;
+					}
+					/*}else if (rayobj == n.gameObject && rayobj != null) {
+
+						Debug.Log ("select 3");
+						int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
+						deselect_all_waypoints ();
+						select_waypoint_with_id (wpid);
+						map_wp_to_ui (wpid);
+						selected_wp_id = wpid;
+						curr_wp_mode = wp_mode.selecten;
+						Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
+						break;
+					}*/
+
+				}	
+
+			}else{
+				if (!EventSystem.current.IsPointerOverGameObject())
+				{
+					if (Input.GetMouseButtonDown (1)) {
+						Debug.Log("deselect all");
+						deselect_all_waypoints ();
+						disable_all_range_circles ();
+					}
 				}
-				/*}else if (rayobj == n.gameObject && rayobj != null) {
-
-					Debug.Log ("select 3");
-					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
-					deselect_all_waypoints ();
-					select_waypoint_with_id (wpid);
-					map_wp_to_ui (wpid);
-					selected_wp_id = wpid;
-					curr_wp_mode = wp_mode.selecten;
-					Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
-					break;
-				}*/
-
-			}	
-
-		}else{
-			if (Input.GetMouseButtonDown (1)) {
-				Debug.Log("deselect all");
-				deselect_all_waypoints ();
-				disable_all_range_circles ();
-			}
-		} 
+			} 
+		}
 	}
 
 
