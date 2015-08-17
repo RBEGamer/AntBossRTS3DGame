@@ -100,7 +100,7 @@ public class path_point : MonoBehaviour {
 		}else{
 		this.waypoint_id = wpManager.get_wp_id();
 		}
-		disabled_collider();
+		//disabled_collider();
 		//this.name = "node_" + waypoint_id.ToString();
 
 	}
