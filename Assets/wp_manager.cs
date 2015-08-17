@@ -358,8 +358,11 @@ public class wp_manager : MonoBehaviour
 				Debug.Log("map base view");
 			}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
 				Debug.Log ("TEST2");
-				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
+				Debug.Log(nodeObjects[wp_id-1].gameObject.ToString());
 				GameObject.Find ("ui_manager").GetComponent<ui_manager>().connected_res_to_ui = nodeObjects[wp_id-1].gameObject;
+				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
+		
+
 			}else{
 				Debug.Log ("TEST");
 				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();

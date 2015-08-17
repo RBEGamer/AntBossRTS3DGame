@@ -412,9 +412,9 @@ public class ui_manager : MonoBehaviour {
 			healthbar_progress_picture_holder.gameObject.GetComponent<Image>().fillAmount = inverted_health;
 
 			//RES CURRENT AVARIABLE RESSOURCE AMOUNT
-			ui_res_amount_text.GetComponent<Text>().text = connected_res_to_ui.GetComponent<ressource>().res.current_harvest_amount.ToString() + " / " + GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_harvest.ToString();
+			ui_res_amount_text.GetComponent<Text>().text = connected_res_to_ui.GetComponent<ressource>().res.current_harvest_amount.ToString() + " / " + connected_res_to_ui.GetComponent<ressource>().res.max_harvest.ToString();
 			//RES CURRENT ACTIVE COLLECTOR ANTS
-			ui_active_collector_ants.GetComponent<Text>().text = connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants.ToString() + " / "+ GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants.ToString();
+			ui_active_collector_ants.GetComponent<Text>().text = connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants.ToString() + " / "+ connected_res_to_ui.GetComponent<ressource>().res.max_collector_ants.ToString();
 			
 			
 			
@@ -513,7 +513,7 @@ public class ui_manager : MonoBehaviour {
 	foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
 			if(n.GetComponent<collector_ant>().ant_bite_size > 0 && n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui.GetComponent<path_point>().waypoint_id &&  connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants >= 1){
 				base_manager_cache.bought_collector_ants += 1;
-				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= 1;
+				connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants -= 1;
 				n.GetComponent<collector_ant>().ant_state = collector_ant.ant_activity_state.destroy;
 			}
 		}
