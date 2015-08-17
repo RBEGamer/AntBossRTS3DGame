@@ -338,7 +338,7 @@ public class wp_manager : MonoBehaviour
 		selected_wp_pos = nodeObjects[id-1].transform.position;
 		selected_wp_rot = nodeObjects[id-1].transform.rotation;
 		selected_wp_scale = nodeObjects[id-1].transform.localScale;
-
+		selected_wp_id = id;
 		}
 	}
 
@@ -412,7 +412,7 @@ public class wp_manager : MonoBehaviour
 			Debug.Log ("set vertex count to :" + (pointcounter * 3).ToString ());
 			n.GetComponent<LineRenderer> ().SetVertexCount (pointcounter * 3);
 			int pointcounter_pos = 0;
-			for (int i = 0; i < edgelist.Count-1; i++) {
+			for (int i = 0; i < edgelist.Count; i++) {
 				if (edgelist [i].source_id == sid) {
 					//Vector3 dpos_original = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.position;
 					//Vector3 dscale = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.localScale; 
