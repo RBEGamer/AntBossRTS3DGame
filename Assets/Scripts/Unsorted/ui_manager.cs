@@ -164,9 +164,7 @@ public class ui_manager : MonoBehaviour {
 	
 	public void slot_0_set_ressource(){
 		show_upgrade_ui = false;
-		if(!vars.is_in_patheditmode){
-			ui_view_slot_0 = selected_ui_in_slot_0.ressource_ui;
-		}
+		ui_view_slot_0 = selected_ui_in_slot_0.ressource_ui;
 		manage_view();
 		switched_view_to_ressource_ui();
 	}
@@ -174,13 +172,13 @@ public class ui_manager : MonoBehaviour {
 	public void slot_0_set_unit(){
 		show_upgrade_ui = false;
 		ui_view_slot_0 = selected_ui_in_slot_0.unit_ui;
-		vars.is_in_patheditmode = false;
+		manage_view();
 	}
 
 	public void slot_0_set_waypoint(){
 		show_upgrade_ui = false;
 		ui_view_slot_0 = selected_ui_in_slot_0.waypoint_ui;
-		vars.is_in_patheditmode = false;
+		manage_view();
 	}
 	
 	private void manage_view(){
@@ -222,12 +220,7 @@ public class ui_manager : MonoBehaviour {
 			if(waypoint_ui_holder.activeSelf != false) {
 				waypoint_ui_holder.SetActive(false);
 			}
-			/*
-			empty_ui_holder.SetActive(false);
-			base_ui_holder.SetActive(true);
-			ressource_ui_holder.SetActive(false);
-			unit_ui_holder.SetActive(false);
-			*/
+
 			break;
 		case selected_ui_in_slot_0.ressource_ui:
 			if(empty_ui_holder.activeSelf != false) {
@@ -246,12 +239,6 @@ public class ui_manager : MonoBehaviour {
 			if(waypoint_ui_holder.activeSelf != false) {
 				waypoint_ui_holder.SetActive(false);
 			}
-			/*
-			empty_ui_holder.SetActive(false);
-			base_ui_holder.SetActive(false);
-			ressource_ui_holder.SetActive(true);
-			unit_ui_holder.SetActive(false);*/
-		
 			break;
 		case selected_ui_in_slot_0.unit_ui:
 			if(empty_ui_holder.activeSelf != false) {
@@ -290,12 +277,7 @@ public class ui_manager : MonoBehaviour {
 			if(waypoint_ui_holder.activeSelf != true) {
 				waypoint_ui_holder.SetActive(true);
 			}
-			/*
-			empty_ui_holder.SetActive(false);
-			base_ui_holder.SetActive(false);
-			ressource_ui_holder.SetActive(false);
-			unit_ui_holder.SetActive(true);
-			*/
+
 			break;
 		default:
 			if(empty_ui_holder.activeSelf != true) {
