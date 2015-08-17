@@ -242,6 +242,7 @@ public class wp_manager : MonoBehaviour
 	
 	private void deselect_all_waypoints ()
 	{
+		curr_wp_mode = wp_mode.none;
 		foreach (GameObject n in nodeObjects) {
 			n.GetComponent<path_point> ().is_selected = false;
 			map_wp_to_ui (-1);
@@ -321,6 +322,7 @@ public class wp_manager : MonoBehaviour
 		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().connected_wp_id = wp_id;
 		if( wp_id > 0){
 		if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.base_node){
+			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
 		}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
 		}else{
@@ -422,7 +424,8 @@ public class wp_manager : MonoBehaviour
 
 		//WP DELTETEN auch hier wieder den wp in der base ausnehmen
 		if (curr_wp_mode == wp_mode.deleten && selected_wp_id > 1) {
-			if (GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point> ().type == path_point.node_type.normal_node) {
+			//if (GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point> ().type == path_point.node_type.normal_node) {
+			if(nodeObjects[selected_wp_id].GetComponent<path_point> ().type == path_point.node_type.normal_node) {
 				//alle edes löschen
 				foreach (wp_edge n in edgelist) {
 					if (n.dest_id == selected_wp_id || n.source_id == selected_wp_id) {
@@ -430,7 +433,8 @@ public class wp_manager : MonoBehaviour
 					}
 				}
 				//WP Objekt löschen
-				Destroy (GameObject.Find ("node_" + selected_wp_id.ToString ()));
+				//Destroy (GameObject.Find ("node_" + selected_wp_id.ToString ()));
+				Destroy (nodeObjects[selected_wp_id]);
 				//alle linien neu anzeigen lassen
 				refresh_edge_visuals ();
 				//switch ui view to default
@@ -511,7 +515,7 @@ public class wp_manager : MonoBehaviour
 
 						//neue edge adden
 						if (!war_was) {
-							convert_edgelist_to_dijkstra_node_list ();
+
 							Debug.Log ("con 7 add edge");
 							//Vector3 sd = GameObject.Find ("node_" + tmp_dest_id.ToString ()).transform.position;
 							//Vector3 dd = GameObject.Find ("node_" + tmp_origin_id.ToString ()).transform.position;
@@ -536,7 +540,7 @@ public class wp_manager : MonoBehaviour
 							}
 
 						}
-
+						convert_edgelist_to_dijkstra_node_list ();
 					}
 
 				}
@@ -568,8 +572,10 @@ public class wp_manager : MonoBehaviour
 					if (Physics.Raycast (origin, dest, out coll_hit, 100)) {
 						Debug.Log ("move 4");
 
-						GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = hit.point;
-						GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+						//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = hit.point;
+						//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+						nodeObjects[selected_wp_id].gameObject.transform.position = hit.point;
+						nodeObjects[selected_wp_id].gameObject.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 						//set new pos -> kosten abziehen
 						if (Input.GetMouseButtonDown (0)) {
 							Debug.Log ("move 5");
@@ -583,8 +589,10 @@ public class wp_manager : MonoBehaviour
 			}
 			if (Input.GetMouseButtonDown (1)) {
 				enable_collider_on_selected (selected_wp_id);
-				GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = selected_wp_pos;
-				GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = selected_wp_rot;
+				//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = selected_wp_pos;
+				//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = selected_wp_rot;
+
+				nodeObjects[selected_wp_id].gameObject.transform.position = selected_wp_pos;
 				curr_wp_mode = wp_mode.none;
 			}
 		}
@@ -600,7 +608,7 @@ public class wp_manager : MonoBehaviour
 			GameObject rayobj = GetClickedGameObject ();
 			foreach (GameObject n in nodeObjects) {
 				Debug.Log ("select 2");
-				if (rayobj == n.gameObject && rayobj != null && n.GetComponent<path_point>().type == path_point.node_type.normal_node) {
+				if (rayobj == n.gameObject && rayobj != null) {
 					Debug.Log ("select 3");
 					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
 					deselect_all_waypoints ();
@@ -609,6 +617,13 @@ public class wp_manager : MonoBehaviour
 					selected_wp_id = wpid;
 					curr_wp_mode = wp_mode.selecten;
 					Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
+				} else if(rayobj == n.gameObject && rayobj != null && n.GetComponent<path_point>().type == path_point.node_type.base_node) {
+					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
+					deselect_all_waypoints ();
+					select_waypoint_with_id (wpid);
+					map_wp_to_ui (wpid);
+					selected_wp_id = wpid;
+					curr_wp_mode = wp_mode.selecten;
 				}
 			}	
 
@@ -782,7 +797,7 @@ public class wp_manager : MonoBehaviour
 		for (int i = 0; i < dijkstra_node_list.Count; i++) {
 			if (dijkstra_node_list [i].node_id == id) {
 				dijkstra_node tmp = dijkstra_node_list [i];
-				tmp.distance = to;
+				tmp.ancestor = to;
 				dijkstra_node_list [i] = tmp;
 			}
 		}
@@ -820,21 +835,23 @@ public class wp_manager : MonoBehaviour
 
 		for (int i = 0; i < graph.Count; i++) {
 			dijkstra_node tmp = graph[i];
-			GameObject.Find("node_" + tmp.node_id.ToString()).GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
+			///GameObject.Find("node_" + tmp.node_id.ToString()).GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
+			nodeObjects[tmp.node_id-1].GetComponent<path_point>().add_path_to_node(Dijkstra_Resolve_Path(graph, startkonten, tmp.node_id));
 		}
 	}
 
 	float tmax = 1.0f;
 	float tcurr = 0.0f;
+	
 	private void Dijkstra_Compute(List<dijkstra_node> nodes, int startkonten){
-		Debug.Log("Dijkstra_Compute");
+		//Debug.Log("Dijkstra_Compute");
 		int current_node = startkonten;
 		//für alle nodes
-		//foreach (dijkstra_node alle_nodes in nodes) {
-		tcurr = tmax;
-			while (!check_if_all_visited()){ // die noch nicht besucht wurden
-			tcurr -= Time.deltaTime;
-			if(tcurr <= 0.0f){break;}
+		
+		foreach (dijkstra_node alle_nodes in nodes) {
+			if(!alle_nodes.visited){ // die noch nicht besucht wurden
+				
+				//if(current_node < 0){Debug.Log("ERR");break;}
 				mark_node_as_visited(current_node); // und auf besucht
 				//für jeden nachbarn des aktuellen nodes
 				foreach (int neig in get_node_component(current_node).neighbours) {
@@ -842,16 +859,17 @@ public class wp_manager : MonoBehaviour
 						float current_node_weight = get_node_component(current_node).distance;
 						float edge_node_weight = get_edge_weight(current_node, neig);
 						float kanten_summe = current_node_weight + edge_node_weight; //addiere das gewicht beider kanten
-						if(kanten_summe < edge_node_weight){ //wenn sie summe kleiner ist als die des nachbarn
-							set_node_ancestor_to(neig,current_node); //setzte dich selber als seinen vorgänger
-							set_node_distance_to(neig, kanten_summe); //und setzte die ausgerechnete distanz als dizstanz von diesem
-						}//ende kantensumme
+						//if(edge_node_weight <= kanten_summe){ //wenn sie summe kleiner ist als die des nachbarn
+						//Debug.Log ("TEST!!");
+						set_node_ancestor_to(neig, current_node); //setzte dich selber als seinen vorgänger
+						set_node_distance_to(neig, kanten_summe); //und setzte die ausgerechnete distanz als dizstanz von diesem
+						//}//ende kantensumme
 					}//ende alle neig nicht visites
 				}//ende fpr each neighbour
 				current_node = get_node_with_lowest_distance(); //setzte den node mit der geringsten distanz auf aktuell
 			}//end if !visites
-
-//}//end for
+		}//end for
+		
 	}
 
 	private List<int> Dijkstra_Resolve_Path(List<dijkstra_node> nodes, int startknoten, int zielknoten){
