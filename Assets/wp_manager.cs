@@ -11,6 +11,35 @@ public class wp_manager : MonoBehaviour
 
 
 	public List<GameObject> nodeObjects;
+	public List<GameObject> resObjects;
+	public List<GameObject> baseObjects;
+
+
+	public void addBaseObject(GameObject newNode) {
+		if(!baseObjects.Contains(newNode)) {
+			baseObjects.Add(newNode);
+		}
+	}
+	
+	public void removeBaseObject(GameObject oldNode) {
+		if(baseObjects.Contains(oldNode)) {
+			baseObjects.Remove(oldNode);
+		}
+	}
+
+
+	public void addResObject(GameObject newNode) {
+		if(!resObjects.Contains(newNode)) {
+			resObjects.Add(newNode);
+		}
+	}
+	
+	public void removeResObject(GameObject oldNode) {
+		if(resObjects.Contains(oldNode)) {
+			resObjects.Remove(oldNode);
+		}
+	}
+
 
 	public void addNodeObject(GameObject newNode) {
 		if(!nodeObjects.Contains(newNode)) {
@@ -323,9 +352,10 @@ public class wp_manager : MonoBehaviour
 		if( wp_id > 0){
 		if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.base_node){
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
+				Debug.Log("map base view");
 		}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
-				GameObject.Find ("ui_manager").GetComponent<ui_manager>().connected_res_to_ui = nodeObjects[wp_id-1].gameObject.GetComponent<ressource>().ressource_id;
+			GameObject.Find ("ui_manager").GetComponent<ui_manager>().connected_res_to_ui = nodeObjects[wp_id-1].gameObject;
 		}else{
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
 		}
@@ -611,9 +641,11 @@ public class wp_manager : MonoBehaviour
 			enable_range_cirlce_on_slelected (selected_wp_id);
 			GameObject rayobj = GetClickedGameObject ();
 			foreach (GameObject n in nodeObjects) {
-				Debug.Log ("select 2");
-				if (rayobj == n.gameObject && rayobj != null) {
-					Debug.Log ("select 3");
+
+
+				Debug.Log(n.gameObject.name);
+				 if(rayobj == n.gameObject && rayobj != null && n.GetComponent<path_point>().type == path_point.node_type.base_node) {
+					Debug.Log ("select 2");
 					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
 					deselect_all_waypoints ();
 					select_waypoint_with_id (wpid);
@@ -621,7 +653,9 @@ public class wp_manager : MonoBehaviour
 					selected_wp_id = wpid;
 					curr_wp_mode = wp_mode.selecten;
 					Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
-				} else if(rayobj == n.gameObject && rayobj != null && n.GetComponent<path_point>().type == path_point.node_type.base_node) {
+				}else if (rayobj == n.gameObject && rayobj != null) {
+
+					Debug.Log ("select 3");
 					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
 					deselect_all_waypoints ();
 					select_waypoint_with_id (wpid);

@@ -81,7 +81,7 @@ public class ui_manager : MonoBehaviour {
 
 
 	public int connected_unit_to_ui = -1;
-	public int connected_res_to_ui = -1;
+	public GameObject connected_res_to_ui = null;
 	public int uirc = 0;
 	public int uirct = 50;
 	// Use this for initialization
@@ -340,9 +340,9 @@ public class ui_manager : MonoBehaviour {
 
 
 	public void refresh_ressource_ui_slots(){
-		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+		if(connected_res_to_ui != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 		
-			GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_selected_by_res_manager = true;
+			connected_res_to_ui.GetComponent<ressource>().is_selected_by_res_manager = true;
 
 
 
@@ -353,7 +353,7 @@ public class ui_manager : MonoBehaviour {
 		//show ant ichons on buttons
 		int counter =0 ;
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-			if(n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui){
+			if(n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui.GetComponent<path_point>().waypoint_id){
 				counter++;
 				if(n.GetComponent<collector_ant>().ant_bite_size > 0){
 					GameObject.Find("ant_destroy_btn_" + counter.ToString()).GetComponent<Image>().sprite = ant_icon_loaded;
@@ -369,7 +369,7 @@ public class ui_manager : MonoBehaviour {
 	public void switched_view_to_ressource_ui(){
 
 		//RESS TYPE ICON
-		switch (GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res_type) {
+		switch (connected_res_to_ui.GetComponent<ressource>().res_type) {
 		case vars.ressource_type.A:
 			ui_res_a_icon.SetActive(true);
 			ui_res_b_icon.SetActive(false);
@@ -403,37 +403,30 @@ public class ui_manager : MonoBehaviour {
 
 	public void refresh_ressource_ui(){
 
-
-
-
-
-
-
-
-		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+		if( connected_res_to_ui != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 
 			//HEALTHBAR
-			float inverted_health = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.health_percentage / 100.0f;
+			float inverted_health = connected_res_to_ui.GetComponent<ressource>().res.health_percentage / 100.0f;
 			if(inverted_health > 1.0f){inverted_health = 1.0f;}
 			if(inverted_health < 0.0f){inverted_health = 0.0f;}
 			healthbar_progress_picture_holder.gameObject.GetComponent<Image>().fillAmount = inverted_health;
 
 			//RES CURRENT AVARIABLE RESSOURCE AMOUNT
-			ui_res_amount_text.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.current_harvest_amount.ToString() + " / " + GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_harvest.ToString();
+			ui_res_amount_text.GetComponent<Text>().text = connected_res_to_ui.GetComponent<ressource>().res.current_harvest_amount.ToString() + " / " + GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_harvest.ToString();
 			//RES CURRENT ACTIVE COLLECTOR ANTS
-			ui_active_collector_ants.GetComponent<Text>().text = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants.ToString() + " / "+ GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants.ToString();
+			ui_active_collector_ants.GetComponent<Text>().text = connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants.ToString() + " / "+ GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants.ToString();
 			
 			
 			
 			//WENN RESSOURCE NICHT CONNECTED DANN DEN SLIDER NICHT ANZEIGEN!!!!!!!!!!!
 			
-			if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_node_connected && !ui_assigned_ui_holder.gameObject.activeSelf){
+			if(connected_res_to_ui.GetComponent<ressource>().is_node_connected && !ui_assigned_ui_holder.gameObject.activeSelf){
 				if(ui_assigned_ui_holder.activeSelf != true) {
 					ui_assigned_ui_holder.SetActive(true);
 				}
 			}
 
-			if(!GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().is_node_connected && ui_assigned_ui_holder.gameObject.activeSelf){
+			if(!connected_res_to_ui.GetComponent<ressource>().is_node_connected && ui_assigned_ui_holder.gameObject.activeSelf){
 				if(ui_assigned_ui_holder.activeSelf != false) {
 					ui_assigned_ui_holder.SetActive(false);
 				}
@@ -453,17 +446,17 @@ public class ui_manager : MonoBehaviour {
 	public int res_ants_to_assign =0 ;
 
 	public void apply_ant_assign(){
-		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+		if( connected_res_to_ui != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 
 			if(res_ants_to_assign > 0){
-		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants += res_ants_to_assign;
+				connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants += res_ants_to_assign;
 				base_manager_cache.bought_collector_ants -= res_ants_to_assign;
 		//WTF THIS CODE FOR THE BASE PART WTF
 				//base_manager_cache.res_a_storage += vars.costs_collector_ants.costs_res_a * res_ants_to_assign;
 				//base_manager_cache.res_b_storage += vars.costs_collector_ants.costs_res_b * res_ants_to_assign;
 			}else if (res_ants_to_assign < 0){
 
-				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= Mathf.Abs( res_ants_to_assign);
+				connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants -= Mathf.Abs( res_ants_to_assign);
 				base_manager_cache.bought_collector_ants += Mathf.Abs( res_ants_to_assign);
 
 				base_manager_cache.res_a_storage += vars.costs_collector_ants.costs_res_a * Mathf.Abs(res_ants_to_assign);
@@ -475,13 +468,13 @@ public class ui_manager : MonoBehaviour {
 
 	public void res_calc_assign(float value){
 		res_ants_to_assign = 0;
-		if(connected_res_to_ui >= 0 && GameObject.Find(vars.res_name + "_" + connected_res_to_ui) != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+		if(connected_res_to_ui != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 		
 		int v = (int)value;
 		
 
-		int tca = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;//TARGET ANTS
-		int mca = GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.max_collector_ants;//TARGET ANTS
+			int tca = connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants;//TARGET ANTS
+			int mca = connected_res_to_ui.GetComponent<ressource>().res.max_collector_ants;//TARGET ANTS
 
 			int caca = base_manager_cache.bought_collector_ants; //current avariable collection ants
 
@@ -518,15 +511,9 @@ public class ui_manager : MonoBehaviour {
 
 	public void clear_full_ants(){
 	foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-
-			if(n.GetComponent<collector_ant>().ant_bite_size > 0 && n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui && GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants >= 1){
-
-
+			if(n.GetComponent<collector_ant>().ant_bite_size > 0 && n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui.GetComponent<path_point>().waypoint_id &&  connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants >= 1){
 				base_manager_cache.bought_collector_ants += 1;
 				GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= 1;
-
-
-
 				n.GetComponent<collector_ant>().ant_state = collector_ant.ant_activity_state.destroy;
 			}
 		}
@@ -536,9 +523,9 @@ public class ui_manager : MonoBehaviour {
 
 	public void clear_selected_ant(int ant_count){
 
-		if( GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants >= 1){
+		if( connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants >= 1){
 			base_manager_cache.bought_collector_ants += 1;
-		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants -= 1;
+			connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants -= 1;
 		}
 
 	}
@@ -546,11 +533,11 @@ public class ui_manager : MonoBehaviour {
 	public void clear_all_ants(){
 
 
-		base_manager_cache.bought_collector_ants +=GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants;
-		GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().res.target_collection_ants = 0;
+		base_manager_cache.bought_collector_ants +=connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants;
+		connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants = 0;
 
 		foreach (GameObject n in GameObject.FindGameObjectsWithTag(vars.collector_ant_tag)) {
-			if( n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui){
+			if( n.GetComponent<collector_ant>().connected_ressource == connected_res_to_ui.GetComponent<path_point>().waypoint_id){
 				n.GetComponent<collector_ant>().ant_state = collector_ant.ant_activity_state.destroy;
 			}
 		}
@@ -753,11 +740,11 @@ public class ui_manager : MonoBehaviour {
 	
 	
 	public void toggle_patheditmode(){
-		vars.is_in_patheditmode = !vars.is_in_patheditmode;
-		if(vars.is_in_patheditmode){
-		}else{
-		GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().deselect_all_nodes();
-		}
+	//	vars.is_in_patheditmode = !vars.is_in_patheditmode;
+	//	if(vars.is_in_patheditmode){
+	//	}else{
+	//	GameObject.Find(vars.path_manager_name).GetComponent<pathmanager>().deselect_all_nodes();
+	//	}
 	}
 	
 	
@@ -1260,7 +1247,6 @@ public class ui_manager : MonoBehaviour {
 			GameObject.Find(vars.path_manager_name).GetComponent<wp_manager>().curr_wp_mode = wp_manager.wp_mode.verschieben;
 		}
 		Debug.Log("click move");
-
 	}
 	
 	public void wp_btn_connect(){

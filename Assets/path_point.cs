@@ -84,6 +84,14 @@ public class path_point : MonoBehaviour {
 			wpManager = GameObject.Find(vars.path_manager_name).GetComponent<wp_manager>();
 		}
 		wpManager.addNodeObject(this.gameObject);
+
+		if(type == node_type.res_node){
+			wpManager.addResObject(this.gameObject);
+		}else if( type == node_type.base_node){
+			wpManager.addBaseObject(this.gameObject);
+		}
+
+
 		circle_holder.SetActive(false);
 
 		if(type == node_type.base_node){
