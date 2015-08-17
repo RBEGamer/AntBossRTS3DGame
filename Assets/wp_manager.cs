@@ -517,8 +517,8 @@ public class wp_manager : MonoBehaviour
 							Debug.Log ("add edge");
 							Vector3 sd = sgo.transform.position;
 							Vector3 dd = selected_wp_pos;
-							wp_edge tmp_edge = new wp_edge (edgelist.Count, sgo.GetComponent<path_point>().waypoint_id, selected_wp_id, Vector3.Distance (sd, dd));
-							edgelist.Add (tmp_edge);
+							//wp_edge tmp_edge = new wp_edge (edgelist.Count, sgo.GetComponent<path_point>().waypoint_id, selected_wp_id, Vector3.Distance (sd, dd));
+							//edgelist.Add (tmp_edge);
 							wp_edge tmp_edge_test = new wp_edge (edgelist.Count, selected_wp_id, sgo.GetComponent<path_point>().waypoint_id, Vector3.Distance (sd, dd));
 							edgelist.Add (tmp_edge_test);
 							refresh_edge_visuals ();
@@ -596,8 +596,8 @@ public class wp_manager : MonoBehaviour
 							Vector3 dd = nodeObjects[tmp_origin_id-1].transform.position;
 							wp_edge tmp_edge = new wp_edge (edgelist.Count, tmp_origin_id, tmp_dest_id, Vector3.Distance (sd, dd));
 							edgelist.Add (tmp_edge);
-							wp_edge tmp_edge_test = new wp_edge (edgelist.Count, tmp_dest_id, tmp_origin_id, Vector3.Distance (sd, dd));
-							edgelist.Add (tmp_edge_test);
+							//wp_edge tmp_edge_test = new wp_edge (edgelist.Count, tmp_dest_id, tmp_origin_id, Vector3.Distance (sd, dd));
+							//edgelist.Add (tmp_edge_test);
 							refresh_edge_visuals ();
 							curr_wp_mode = wp_mode.selecten;
 						} else {
