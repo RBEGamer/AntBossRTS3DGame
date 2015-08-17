@@ -324,7 +324,7 @@ public class wp_manager : MonoBehaviour
 		}
 	}
 	
-	private void select_waypoint_with_id (int id)
+	public void select_waypoint_with_id (int id)
 	{
 		if(id > 0){
 		nodeObjects[id-1].GetComponent<path_point> ().is_selected = true;
@@ -348,7 +348,7 @@ public class wp_manager : MonoBehaviour
 		}
 	}
 	
-	private void map_wp_to_ui (int wp_id)
+	public void map_wp_to_ui (int wp_id)
 	{
 
 		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().connected_wp_id = wp_id;
@@ -492,7 +492,7 @@ public class wp_manager : MonoBehaviour
 				// Casts the ray and get the first game object hit
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 					Debug.Log (hit.collider);
-					if (Input.GetMouseButtonDown (0) && hit.collider.gameObject.tag == "ground") {
+					if (Input.GetMouseButtonDown (0) && hit.collider.gameObject.tag == "ground" && Vector3.Distance (hit.point, selected_wp_pos) <= 3.0f) {
 						Debug.Log ("add wp process");
 						//ressourcen checken und abziehen
 						//deselect_all_waypoints (); //alle deselektieren

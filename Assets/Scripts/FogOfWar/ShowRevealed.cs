@@ -14,7 +14,7 @@ public class ShowRevealed : MonoBehaviour
 		thisRenderer = GetComponentsInChildren<Renderer>();
 		if(!fogOfWar) {
 			fogOfWar = GameObject.FindGameObjectWithTag(vars.fogofwar_tag).GetComponent<FogOfWar>();
-			Debug.ClearDeveloperConsole();
+			//Debug.ClearDeveloperConsole();
 		}
 	
 		for(int i = 0; i < thisRenderer.Length; i++) {
