@@ -53,7 +53,7 @@ public class path_point : MonoBehaviour {
 	public void disabled_collider(){
 		if(type == node_type.normal_node){
 		if(this.GetComponent<CapsuleCollider>().enabled){
-			//this.GetComponent<CapsuleCollider>().enabled = false;
+			this.GetComponent<CapsuleCollider>().enabled = false;
 		}
 		}
 	}
@@ -93,13 +93,14 @@ public class path_point : MonoBehaviour {
 
 
 		circle_holder.SetActive(false);
-
+	
 		if(type == node_type.base_node){
 			erobert = true;
 			this.waypoint_id  = 1;
 		}else{
 		this.waypoint_id = wpManager.get_wp_id();
 		}
+		disabled_collider();
 		//this.name = "node_" + waypoint_id.ToString();
 
 	}

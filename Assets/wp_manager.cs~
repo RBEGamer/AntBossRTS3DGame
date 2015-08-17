@@ -7,7 +7,7 @@ using System.Linq;
 public class wp_manager : MonoBehaviour
 {
 
-
+	public float selection_range = 10.0f;
 	public GameObject waypoint_prefab;
 
 
@@ -450,7 +450,7 @@ public class wp_manager : MonoBehaviour
 	}
 
 
-
+	GameObject sgo = null;
 	// Update is called once per frame
 	void Update ()
 	{
@@ -489,34 +489,46 @@ public class wp_manager : MonoBehaviour
 
 		//WP ADDEN
 		if (curr_wp_mode == wp_mode.adden) {
+
 			disable_all_range_circles();
 			//if(GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point>().type == path_point.node_type.normal_node){
 			if (waypoint_prefab != null) {
-				enable_all_colliders ();
+				//enable_all_colliders ();
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;
 				// Casts the ray and get the first game object hit
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 					Debug.Log (hit.collider);
-					if (Input.GetMouseButtonDown (0) && hit.collider.gameObject.tag == "ground" && Vector3.Distance (hit.point, selected_wp_pos) <= 3.0f) {
+					if(sgo == null){
+					 sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
+						sgo.GetComponent<path_point>().disabled_collider();
+					}
+					Debug.Log(sgo.GetComponent<CapsuleCollider>().enabled);
+					if(Vector3.Distance (hit.point, selected_wp_pos) <= selection_range && hit.collider.gameObject.tag == "ground"  ){
+						sgo.transform.position = hit.point;
+						sgo.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
+
+					if (Input.GetMouseButtonDown (0)) {
 						Debug.Log ("add wp process");
-						//ressourcen checken und abziehen
-						//deselect_all_waypoints (); //alle deselektieren
-						GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
+						//GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
 						sgo.GetComponent<path_point> ().is_selected = true; //den neu erstellten selektieren
 						selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
 						map_wp_to_ui (selected_wp_id); //ui auf den neuen WP mappen
 						curr_wp_mode = wp_mode.adden; //wieder in adden mode gehen
-						//disable_all_colliders();
-						//enable_collider_on_selected(selected_wp_id); //collider 
-					} 
+							sgo.GetComponent<path_point>().enable_collider();
+							sgo = null;
+
+					} //ende mouse button
+					} //ende distance
 				}//ende raycast
 			}
 			//}
 
 			if (Input.GetMouseButtonDown (1)) { //abbrechen
+				Destroy(sgo);
 				Debug.Log("select btn 1");
 				curr_wp_mode = wp_mode.none;
+			
 			}
 
 		}
@@ -535,7 +547,7 @@ public class wp_manager : MonoBehaviour
 			if (Physics.Raycast (ray, out hit, 100.0f)) {
 				Debug.Log ("con 3");
 
-				if (nodeObjects.Contains(hit.collider.gameObject) && Vector3.Distance (hit.point, selected_wp_pos) < 10.0f) {
+				if (nodeObjects.Contains(hit.collider.gameObject) && Vector3.Distance (hit.point, selected_wp_pos) < selection_range) {
 					Debug.Log ("con 4");
 					if (Input.GetMouseButtonDown (0)) {
 						Debug.Log ("con 5");
