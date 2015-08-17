@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [SerializeField]
 public class wp_manager : MonoBehaviour
@@ -19,6 +20,8 @@ public class wp_manager : MonoBehaviour
 		if(!baseObjects.Contains(newNode)) {
 			baseObjects.Add(newNode);
 		}
+
+		nodeObjects = nodeObjects.OrderBy(x=>x.GetComponent<path_point>().waypoint_id).ToList();
 	}
 	
 	public void removeBaseObject(GameObject oldNode) {
@@ -350,18 +353,19 @@ public class wp_manager : MonoBehaviour
 
 		GameObject.Find ("ui_manager").GetComponent<ui_manager> ().connected_wp_id = wp_id;
 		if( wp_id > 0){
-		if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.base_node){
-			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
+			if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.base_node){
+				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_base();
 				Debug.Log("map base view");
-		}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
-			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
-			GameObject.Find ("ui_manager").GetComponent<ui_manager>().connected_res_to_ui = nodeObjects[wp_id-1].gameObject;
-		}else{
-			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
-		}
-
-		disable_all_range_circles ();
-		enable_range_cirlce_on_slelected (wp_id);
+			}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
+				Debug.Log ("TEST2");
+				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
+				GameObject.Find ("ui_manager").GetComponent<ui_manager>().connected_res_to_ui = nodeObjects[wp_id-1].gameObject;
+			}else{
+				Debug.Log ("TEST");
+				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
+			}
+			disable_all_range_circles ();
+			enable_range_cirlce_on_slelected (wp_id);
 		}else{
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_empty();
 		}
@@ -644,7 +648,7 @@ public class wp_manager : MonoBehaviour
 
 
 				Debug.Log(n.gameObject.name);
-				 if(rayobj == n.gameObject && rayobj != null && n.GetComponent<path_point>().type == path_point.node_type.base_node) {
+				 if(rayobj == n.gameObject && rayobj != null) {
 					Debug.Log ("select 2");
 					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
 					deselect_all_waypoints ();
@@ -653,7 +657,9 @@ public class wp_manager : MonoBehaviour
 					selected_wp_id = wpid;
 					curr_wp_mode = wp_mode.selecten;
 					Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
-				}else if (rayobj == n.gameObject && rayobj != null) {
+					break;
+				}
+				/*}else if (rayobj == n.gameObject && rayobj != null) {
 
 					Debug.Log ("select 3");
 					int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
@@ -663,7 +669,8 @@ public class wp_manager : MonoBehaviour
 					selected_wp_id = wpid;
 					curr_wp_mode = wp_mode.selecten;
 					Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
-				}
+					break;
+				}*/
 
 			}	
 

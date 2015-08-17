@@ -53,7 +53,7 @@ public class path_point : MonoBehaviour {
 	public void disabled_collider(){
 		if(type == node_type.normal_node){
 		if(this.GetComponent<CapsuleCollider>().enabled){
-			this.GetComponent<CapsuleCollider>().enabled = false;
+			//this.GetComponent<CapsuleCollider>().enabled = false;
 		}
 		}
 	}
