@@ -14,7 +14,7 @@ public class path_point : MonoBehaviour {
 	public static wp_manager wpManager;
 	public node_type type;
 	public int waypoint_id;
-	public bool accessable = false;
+	//public bool accessable = false;
 	public bool is_selected = false;
 	public bool erobert = false;
 
@@ -22,10 +22,10 @@ public class path_point : MonoBehaviour {
 	public GameObject circle_holder;
 
 
-	public bool visited;
-	public float distance;
-	public int ancestor;
-	public bool tagged;
+	//public bool visited;
+	//public float distance;
+	//public int ancestor;
+	//public bool tagged;
 
 
 
