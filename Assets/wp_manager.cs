@@ -325,6 +325,7 @@ public class wp_manager : MonoBehaviour
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
 		}else if(nodeObjects[wp_id-1].GetComponent<path_point>().type == path_point.node_type.res_node){
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
+				GameObject.Find ("ui_manager").GetComponent<ui_manager>().connected_res_to_ui = nodeObjects[wp_id-1].gameObject.GetComponent<ressource>().ressource_id;
 		}else{
 			GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
 		}
@@ -483,7 +484,7 @@ public class wp_manager : MonoBehaviour
 			Debug.Log ("con 1");
 			//	if (GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point>().type == path_point.node_type.normal_node) {
 			Debug.Log ("con 2");
-			disable_collider_on_slelected (selected_wp_id);
+			//disable_collider_on_slelected (selected_wp_id);
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			RaycastHit coll_hit;
@@ -502,6 +503,7 @@ public class wp_manager : MonoBehaviour
 						bool war_was = false;
 
 						List<wp_edge> edges_to_remove = new List<wp_edge> ();
+						if(tmp_dest_id != tmp_origin_id){
 						//edges_to_remove.Clear();
 						foreach (wp_edge e in edgelist) {
 							if ((e.dest_id == tmp_dest_id && e.source_id == tmp_origin_id) || (e.source_id == tmp_dest_id && e.dest_id == tmp_origin_id)) {
@@ -540,13 +542,15 @@ public class wp_manager : MonoBehaviour
 							}
 
 						}
-						convert_edgelist_to_dijkstra_node_list ();
+							convert_edgelist_to_dijkstra_node_list ();
+						}
+
 					}
 
 				}
 
 			}
-			enable_collider_on_selected (selected_wp_id);
+			//enable_collider_on_selected (selected_wp_id);
 			if (Input.GetMouseButtonDown (1)) {
 				curr_wp_mode = wp_mode.none;
 			}
@@ -603,7 +607,7 @@ public class wp_manager : MonoBehaviour
 		if (Input.GetMouseButtonDown (0) && curr_wp_mode == wp_mode.selecten) {
 			Debug.Log ("select 1");
 			disable_all_range_circles();
-			enable_all_colliders ();
+			//enable_all_colliders ();
 			enable_range_cirlce_on_slelected (selected_wp_id);
 			GameObject rayobj = GetClickedGameObject ();
 			foreach (GameObject n in nodeObjects) {
@@ -624,7 +628,9 @@ public class wp_manager : MonoBehaviour
 					map_wp_to_ui (wpid);
 					selected_wp_id = wpid;
 					curr_wp_mode = wp_mode.selecten;
+					Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
 				}
+
 			}	
 
 		}else{

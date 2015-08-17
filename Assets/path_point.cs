@@ -43,7 +43,7 @@ public class path_point : MonoBehaviour {
 
 
 	public void enable_collider(){
-		if(type != node_type.base_node){
+		if(type == node_type.normal_node){
 		if(!this.GetComponent<CapsuleCollider>().enabled){
 			this.GetComponent<CapsuleCollider>().enabled = true;
 		}
@@ -51,7 +51,7 @@ public class path_point : MonoBehaviour {
 	}
 
 	public void disabled_collider(){
-		if(type != node_type.base_node){
+		if(type == node_type.normal_node){
 		if(this.GetComponent<CapsuleCollider>().enabled){
 			this.GetComponent<CapsuleCollider>().enabled = false;
 		}
@@ -61,7 +61,7 @@ public class path_point : MonoBehaviour {
 
 
 	public void enable_range_cycle(){
-		if(type != node_type.base_node){
+		if(type == node_type.normal_node){
 		if(!circle_holder.activeSelf){
 			circle_holder.SetActive(true);
 			}
@@ -70,7 +70,7 @@ public class path_point : MonoBehaviour {
 	}
 
 	public void disable_range_cycle(){
-		if(type != node_type.base_node){
+		if(type == node_type.normal_node){
 		if(circle_holder.activeSelf){
 			circle_holder.SetActive(false);
 			}
