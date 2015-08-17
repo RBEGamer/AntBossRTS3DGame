@@ -130,7 +130,7 @@ public class wp_manager : MonoBehaviour
 
 
 
-	public class wp_edge : MonoBehaviour {
+	public class wp_edge : ScriptableObject {
 		
 		public int source_id;
 		public int dest_id;
@@ -410,7 +410,7 @@ public class wp_manager : MonoBehaviour
 			Debug.Log ("set vertex count to :" + (pointcounter * 3).ToString ());
 			n.GetComponent<LineRenderer> ().SetVertexCount (pointcounter * 3);
 			int pointcounter_pos = 0;
-			for (int i = 0; i < edgelist.Count; i++) {
+			for (int i = 0; i < edgelist.Count-1; i++) {
 				if (edgelist [i].source_id == sid) {
 					//Vector3 dpos_original = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.position;
 					//Vector3 dscale = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.localScale; 
@@ -493,18 +493,22 @@ public class wp_manager : MonoBehaviour
 			disable_all_range_circles();
 			//if(GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point>().type == path_point.node_type.normal_node){
 			if (waypoint_prefab != null) {
+				Debug.Log("add 1");
 				//enable_all_colliders ();
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;
 				// Casts the ray and get the first game object hit
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
+					Debug.Log("add 2");
 					Debug.Log (hit.collider);
 					if(sgo == null){
 					 sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
+						Debug.Log("add 3");
 						sgo.GetComponent<path_point>().disabled_collider();
 					}
 					Debug.Log(sgo.GetComponent<CapsuleCollider>().enabled);
 					if(Vector3.Distance (hit.point, selected_wp_pos) <= selection_range && hit.collider.gameObject.tag == "ground"  ){
+						Debug.Log("add 4");
 						sgo.transform.position = hit.point;
 						sgo.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 
@@ -512,8 +516,7 @@ public class wp_manager : MonoBehaviour
 						Debug.Log ("add wp process");
 						//GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
 						sgo.GetComponent<path_point> ().is_selected = true; //den neu erstellten selektieren
-						selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
-
+							selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
 							Debug.Log ("add edge");
 							Vector3 sd = sgo.transform.position;
 							Vector3 dd = selected_wp_pos;
@@ -521,16 +524,16 @@ public class wp_manager : MonoBehaviour
 							//edgelist.Add (tmp_edge);
 							wp_edge tmp_edge_test = new wp_edge (edgelist.Count, selected_wp_id, sgo.GetComponent<path_point>().waypoint_id, Vector3.Distance (sd, dd));
 							edgelist.Add (tmp_edge_test);
-							refresh_edge_visuals ();
-							curr_wp_mode = wp_mode.selecten;
 
-
+							select_waypoint_with_id(sgo.GetComponent<path_point> ().waypoint_id);
+							//selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
 						map_wp_to_ui (selected_wp_id); //ui auf den neuen WP mappen
 						curr_wp_mode = wp_mode.adden; //wieder in adden mode gehen
 						sgo.GetComponent<path_point>().enable_collider();
 							sgo.GetComponent<CapsuleCollider>().enabled = true;
 							sgo = null;
-
+							refresh_edge_visuals ();
+							convert_edgelist_to_dijkstra_node_list ();
 					} //ende mouse button
 					} //ende distance
 				}//ende raycast
