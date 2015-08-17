@@ -156,6 +156,7 @@ public class wp_manager : MonoBehaviour
 	//hier wird die edgelist in einen dijkstra_node konvertiert ein node beinhaltet: die eigene id, liste der nachbarn, list der edges zu den nachbarn mit der länge
 	private void convert_edgelist_to_dijkstra_node_list ()
 	{
+		check_connection_state_of_nodes();
 		Debug.Log ("convert edgelist :" + edgelist.Count.ToString ());
 		//alle 
 		List<int> individual_nodes = new List<int> ();
@@ -174,7 +175,6 @@ public class wp_manager : MonoBehaviour
 				individual_nodes.Add (n.source_id);
 			}
 		}
-
 		foreach (wp_edge n in edgelist) {
 			bool war_drinnen = false;
 			//adde alle anfgangspunkte
@@ -187,7 +187,6 @@ public class wp_manager : MonoBehaviour
 				individual_nodes.Add (n.dest_id);
 			}
 		}
-
 		//hier für jeden gerade erzeugten node einen dijkstra_node erstellen dieser enthät alle infos für den graph
 		foreach (int inode in individual_nodes) {
 			dijkstra_node new_dnode = new dijkstra_node (inode);
@@ -204,19 +203,26 @@ public class wp_manager : MonoBehaviour
 			dijkstra_node_list.Add (new_dnode);
 		}
 		Debug.Log ("conversion complete : " + dijkstra_node_list.Count.ToString ());
-
-
-
-
-
 		Dijkstra_Init(dijkstra_node_list, 1);
 
-
-
-	
-
-
 	}
+
+
+
+	private void check_connection_state_of_nodes(){
+		for (int i = 0; i < resObjects.Count; i++) {
+			resObjects[i].GetComponent<ressource>().is_node_connected = false;
+		}
+		for (int i = 0; i < resObjects.Count; i++) {
+			foreach (wp_edge edge in edgelist) {
+				if(edge.dest_id == resObjects[i].GetComponent<path_point>().waypoint_id){
+					resObjects[i].GetComponent<ressource>().is_node_connected = true;
+				}
+			}
+	}
+	}
+
+
 
 	public List<wp_edge> edgelist;
 	public int WP_COUNTER_MAIN = 1;
