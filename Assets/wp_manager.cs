@@ -566,7 +566,7 @@ public class wp_manager : MonoBehaviour
 			if (Physics.Raycast (ray, out hit, 100.0f)) {
 				Debug.Log ("con 3");
 
-				if (nodeObjects.Contains(hit.collider.gameObject) && Vector3.Distance (hit.point, selected_wp_pos) < selection_range) {
+				if (nodeObjects.Contains(hit.collider.gameObject) && Vector3.Distance (hit.point, selected_wp_pos) < (selection_range+1)) {
 					Debug.Log ("con 4");
 					if (Input.GetMouseButtonDown (0)) {
 						Debug.Log ("con 5");
