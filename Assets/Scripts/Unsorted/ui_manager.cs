@@ -224,21 +224,24 @@ public class ui_manager : MonoBehaviour {
 
 			break;
 		case selected_ui_in_slot_0.ressource_ui:
-			if(empty_ui_holder.activeSelf != false) {
-				empty_ui_holder.SetActive(false);
-			}
-			if(base_ui_holder.activeSelf != false) {
-				base_ui_holder.SetActive(false);
-			}
-			if(base_ui_holder.activeSelf != true) {
-				ressource_ui_holder.SetActive(true);
-			}
-			
-			if(unit_ui_holder.activeSelf != false) {
-				unit_ui_holder.SetActive(false);
-			}
-			if(waypoint_ui_holder.activeSelf != false) {
-				waypoint_ui_holder.SetActive(false);
+
+			if(connected_res_to_ui.GetComponent<path_point>().path_to_base.Count > 0) {
+				if(empty_ui_holder.activeSelf != false) {
+					empty_ui_holder.SetActive(false);
+				}
+				if(base_ui_holder.activeSelf != false) {
+					base_ui_holder.SetActive(false);
+				}
+				if(base_ui_holder.activeSelf != true) {
+					ressource_ui_holder.SetActive(true);
+				}
+				
+				if(unit_ui_holder.activeSelf != false) {
+					unit_ui_holder.SetActive(false);
+				}
+				if(waypoint_ui_holder.activeSelf != false) {
+					waypoint_ui_holder.SetActive(false);
+				}
 			}
 			break;
 		case selected_ui_in_slot_0.unit_ui:
@@ -368,7 +371,6 @@ public class ui_manager : MonoBehaviour {
 
 
 	public void switched_view_to_ressource_ui(){
-
 		//RESS TYPE ICON
 		switch (connected_res_to_ui.GetComponent<ressource>().res_type) {
 		case vars.ressource_type.A:
@@ -468,6 +470,7 @@ public class ui_manager : MonoBehaviour {
 }
 
 	public void res_calc_assign(float value){
+
 		res_ants_to_assign = 0;
 		if(connected_res_to_ui != null && ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
 		

@@ -98,7 +98,7 @@ public class vars : MonoBehaviour {
 	}
 
 	public struct res_type_a{
-		public static float max_harvest = 100.0f; //wie viel ressourcen können abgebaut werden von dieser ressource
+		public static float max_harvest = 1000.0f; //wie viel ressourcen können abgebaut werden von dieser ressource
 		public static int max_collector_ants = 10; //wie viele Armeisen können an dieser REssource abbauen
 		public static float interaction_circle_radius = 2.0f;
 		public static float interactition_latitude = 0.1f;
