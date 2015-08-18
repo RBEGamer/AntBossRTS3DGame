@@ -1,13 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerDestroyed.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\BaseScript\UnitGroups\UnitGroupFriendlyScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerDestroyed.cs" Line="10" Column="61" />
-      <File FileName="Assets\Scripts\Unit Scripts\HelpScript\SimpleDestroyed.cs" Line="6" Column="2" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\HealthScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerManager.cs" Line="33" Column="59" />
-      <File FileName="Assets\Scripts\Unsorted\ui_manager.cs" Line="356" Column="1" />
+      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroups\UnitGroupFriendlyScript.cs" Line="119" Column="64" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

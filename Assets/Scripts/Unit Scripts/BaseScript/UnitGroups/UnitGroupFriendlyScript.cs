@@ -43,17 +43,17 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		if(!isLowered) {
 			GameObject nearestOne = findNearestUnitTowardsDestination(transform.position).gameObject;
 
-			if(unitGroupAttackTarget == null) {
+			/*if(unitGroupAttackTarget == null) {
 				if(Vector3.Distance(nearestOne.transform.position, transform.position - Vector3.up) < 5.0f) {
 					isLowered = true;
 					transform.position = new Vector3(transform.position.x, transform.position.y - 3.0f, transform.position.z);
 				}
 			} else {
-				transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
-			}
+				//transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
+			}*/
 		} else {
 			if(unitGroupAttackTarget != null) {
-				transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
+				//transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
 			}
 		}
 	}
@@ -82,7 +82,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 			return;
 		}
 		else {
-			if (capsuleCollider.bounds.Contains(destination + Vector3.up * 5.0f))
+			if (capsuleCollider.bounds.Contains(destination + Vector3.up))
 			{
 				moveToDefensePoint(this.transform.position);
 				return;
@@ -116,7 +116,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 	// a-move / standard right click
 	public void placeNewDefensePoint(Vector3 destination)
 	{
-		transform.position = new Vector3(destination.x, destination.y + 5.0f, destination.z);
+		transform.position = new Vector3(destination.x, destination.y, destination.z);
 		isLowered = false;
 		UnitScript nearestUnit = findNearestUnitTowardsDestination(destination);
 		unitGroupCommand = UnitCommand.AttackMove;

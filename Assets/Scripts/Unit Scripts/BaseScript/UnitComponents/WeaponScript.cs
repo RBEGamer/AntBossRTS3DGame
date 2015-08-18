@@ -13,6 +13,8 @@ public class WeaponScript : MonoBehaviour {
 
 		skillResult.skillType = SkillResult.SkillType.Damage;
 		skillResult.skillPower = unitScript.attributeScript.CurrentAttackDamage;
-		SkillCalculator.passSkillResult(transform.gameObject, unitScript.unitTargetScript.attackTarget.gameObject, skillResult);
+		if(unitScript.unitTargetScript.attackTarget != null) {
+			SkillCalculator.passSkillResult(transform.gameObject, unitScript.unitTargetScript.attackTarget.gameObject, skillResult);
+		}
 	}
 }
