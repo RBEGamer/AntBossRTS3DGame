@@ -28,12 +28,15 @@ public class WorkerScript : MonoBehaviour {
 	public bool hasRessource = false;
 	public bool bitten = false;
 
+	public bool retreat = false;
+
 	public float currentMovementOffset = 2.0f;
 	public float movementUpperOffset = 3.0f;
 	public float movementLowerOffset = 2.0f;
 
 	// Use this for initialization
 	void Start () {
+
 		if(pathManager == null) {
 			pathManager = GameObject.Find (vars.path_manager_name).GetComponent<wp_manager>();
 		}
@@ -53,6 +56,7 @@ public class WorkerScript : MonoBehaviour {
 	}
 	
 	public void initializeWorker(path_point WP) {
+		retreat = false;
 		targetWP = WP;
 		targetRessource = WP.GetComponent<ressource>();
 		currentPath = WP.path_to_base;
@@ -76,13 +80,20 @@ public class WorkerScript : MonoBehaviour {
 					currentMovementOffset = Random.Range(movementLowerOffset, movementUpperOffset);
 
 				} else if(!bitten){
-					animator.SetBool("harvesting", true);
-					animator.SetBool("isrunning", false);
-					navMeshAgent.enabled = false;
-					navMeshObstacle.enabled = true;
-					transform.LookAt(pathManager.getNodeObjectById(currentPointID()).transform);
-					Invoke ("harvest", 5.0f);
-					bitten = true;
+
+					if(targetRessource.res.current_harvest_amount >= 5) {
+						animator.SetBool("harvesting", true);
+						animator.SetBool("isrunning", false);
+						navMeshAgent.enabled = false;
+						navMeshObstacle.enabled = true;
+						transform.LookAt(pathManager.getNodeObjectById(currentPointID()).transform);
+						Invoke ("harvest", 5.0f);
+						bitten = true;
+					} else {
+						bitten = false;
+						hasRessource = true;
+						retreat = true;
+					}
 				}
 				
 			}
@@ -95,6 +106,9 @@ public class WorkerScript : MonoBehaviour {
 					currentResourceAmount = 0;
 					meshRenderer.material.mainTexture = normalTexture;
 					ressourceType = vars.ressource_type.default_type;
+					if(retreat) {
+						retreatToBase();
+					}
 				}
 				if(currentPointInPath > 0) {
 					currentPointInPath--;
@@ -117,6 +131,8 @@ public class WorkerScript : MonoBehaviour {
 	}
 	
 	public void harvest() {
+		GameObject.Find ("ui_manager").GetComponent<ui_manager>().refresh_ressource_ui();
+		GameObject.Find ("ui_manager").GetComponent<ui_manager>().refresh_ressource_ui_slots();
 		navMeshAgent.enabled = true;
 		navMeshObstacle.enabled = false;
 		//navMeshAgent.Resume();
@@ -127,7 +143,10 @@ public class WorkerScript : MonoBehaviour {
 		bitten = false;
 		animator.SetBool("harvesting", false);
 		animator.SetBool("isrunning", true);
+	}
 
-
+	public void retreatToBase() {
+		baseManager.bought_collector_ants += 1;
+		Destroy(gameObject);
 	}
 }

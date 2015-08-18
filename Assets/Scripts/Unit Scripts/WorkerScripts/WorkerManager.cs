@@ -35,6 +35,22 @@ public class WorkerManager : MonoBehaviour {
 		}
 	}
 
+	public void clearOneAnt(ressource clearRessource) {
+		for(int i = 0; i < workerScripts.Count; i++) {
+			if(workerScripts[i].targetRessource == clearRessource) {
+				workerScripts[i].retreat = true;
+				break;
+			}
+		}
+	}
+	public void clearAllAnts(ressource clearRessource) {
+		for(int i = 0; i < workerScripts.Count; i++) {
+			if(workerScripts[i].targetRessource == clearRessource) {
+				workerScripts[i].retreat = true;
+			}
+		}
+	}
+
 	public void addRessource(ressource newRessource) {
 		if(!ressourceScripts.Contains(newRessource)) {
 			ressourceScripts.Add(newRessource);
