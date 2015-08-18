@@ -1,11 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Unsorted/audio_clip_state.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/menu_scripts/menu_button_manager.cs">
     <Files>
-      <File FileName="Assets/Scripts/menu_scripts/menu_button_manager.cs" Line="99" Column="3" />
-      <File FileName="Assets/Scripts/helper/scene_forwarder.cs" Line="10" Column="3" />
-      <File FileName="Assets/Scripts/Unsorted/sound_manager.cs" Line="56" Column="3" />
-      <File FileName="Assets/Scripts/Unsorted/audio_clip_state.cs" Line="61" Column="1" />
+      <File FileName="Assets/Scripts/menu_scripts/menu_button_manager.cs" Line="73" Column="2" />
+      <File FileName="Assets/Scripts/helper/scene_forwarder.cs" Line="10" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
