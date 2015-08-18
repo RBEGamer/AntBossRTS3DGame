@@ -8,16 +8,19 @@ public class path_point : MonoBehaviour {
 		normal_node, base_node, res_node
 	}
 
-
-
+	public enum node_status  {
+		built, destroyed, being_built, placed, being_placed
+	}
 
 	public static wp_manager wpManager;
 	public node_type type;
+	public node_status status = node_status.being_placed;
 	public int waypoint_id;
 	//public bool accessable = false;
 	public bool is_selected = false;
 	public bool erobert = false;
 
+	public Renderer renderer;
 
 	public GameObject circle_holder;
 
@@ -35,12 +38,6 @@ public class path_point : MonoBehaviour {
 		path_to_base.AddRange(path);
 
 	}
-
-
-
-
-	
-
 
 	public void enable_collider(){
 		if(type == node_type.normal_node){
@@ -104,7 +101,32 @@ public class path_point : MonoBehaviour {
 		//this.name = "node_" + waypoint_id.ToString();
 
 	}
-	
+
+
+	public void setStatus(node_status newStatus) {
+
+		switch(newStatus) {
+		case(node_status.built):
+			status = newStatus;
+				break;
+		case(node_status.being_placed):
+			status = newStatus;
+			break;
+		case(node_status.placed):
+			status = newStatus;
+			break;
+		case(node_status.destroyed):
+			status = newStatus;
+			break;
+		case(node_status.being_built):
+			status = newStatus;
+			break;
+		default:
+			break;
+
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 	

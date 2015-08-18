@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class wp_manager : MonoBehaviour
 {
 
+	public GameObject scoutPrefab;
 	public float selection_range = 10.0f;
 	public GameObject waypoint_prefab;
 
@@ -103,7 +104,7 @@ public class wp_manager : MonoBehaviour
 			visited = false;
 			tagged = false;
 			ancestor = -1;
-			Debug.Log("added nijkstra_node : " + node_id.ToString());
+			//Debug.log("added nijkstra_node : " + node_id.ToString());
 		}
 
 		public dijkstra_node (int nid, List<wp_edge> ede, List<int> neig, float dist, bool v, bool t, int a)
@@ -115,7 +116,7 @@ public class wp_manager : MonoBehaviour
 			visited = v;
 			tagged = t;
 			ancestor = a;
-			Debug.Log("added nijkstra_node : " + node_id.ToString());
+			//Debug.log("added nijkstra_node : " + node_id.ToString());
 			log_info();
 		}
 
@@ -128,7 +129,7 @@ public class wp_manager : MonoBehaviour
 			visited = false;
 			tagged = false;
 			ancestor = -1;
-			Debug.Log("added nijkstra_node : " + node_id.ToString());
+			//Debug.log("added nijkstra_node : " + node_id.ToString());
 		}
 
 		public void log_info(){
@@ -142,7 +143,7 @@ public class wp_manager : MonoBehaviour
 				tmp += " ; " + item.ToString();
 			}
 
-			Debug.Log(" NODE INFO : id:" + node_id.ToString() + " " + tmp + "  Distance : " + distance.ToString() + " Visited : " + visited.ToString() + " ANCESTOR : " + ancestor.ToString());
+			//Debug.log(" NODE INFO : id:" + node_id.ToString() + " " + tmp + "  Distance : " + distance.ToString() + " Visited : " + visited.ToString() + " ANCESTOR : " + ancestor.ToString());
 		}
 	}
 
@@ -163,7 +164,7 @@ public class wp_manager : MonoBehaviour
 			debug_edge_info();
 		}
 		public void debug_edge_info(){
-			Debug.Log ("ADDED EDGE FROM :" + source_id + " TO " + dest_id + " WITH THE WEIGHT : "+ weight);
+			//Debug.log ("ADDED EDGE FROM :" + source_id + " TO " + dest_id + " WITH THE WEIGHT : "+ weight);
 		}
 	}
 
@@ -175,7 +176,7 @@ public class wp_manager : MonoBehaviour
 	private void convert_edgelist_to_dijkstra_node_list ()
 	{
 		check_connection_state_of_nodes();
-		Debug.Log ("convert edgelist :" + edgelist.Count.ToString ());
+		//Debug.log ("convert edgelist :" + edgelist.Count.ToString ());
 		//alle 
 		List<int> individual_nodes = new List<int> ();
 		individual_nodes.Clear ();
@@ -208,19 +209,19 @@ public class wp_manager : MonoBehaviour
 		//hier für jeden gerade erzeugten node einen dijkstra_node erstellen dieser enthät alle infos für den graph
 		foreach (int inode in individual_nodes) {
 			dijkstra_node new_dnode = new dijkstra_node (inode);
-			Debug.Log("new dnode : " + inode.ToString());
+			//Debug.log("new dnode : " + inode.ToString());
 			//alle edges hinzufügen
 			foreach (wp_edge edge in edgelist) {
 				if (edge.source_id == inode) {
 					new_dnode.node_edges.Add (edge);
-					Debug.Log(" neigh : " + edge.dest_id);
+					//Debug.log(" neigh : " + edge.dest_id);
 					new_dnode.neighbours.Add (edge.dest_id);
 				}
 			}
 			new_dnode.log_info();
 			dijkstra_node_list.Add (new_dnode);
 		}
-		Debug.Log ("conversion complete : " + dijkstra_node_list.Count.ToString ());
+		//Debug.log ("conversion complete : " + dijkstra_node_list.Count.ToString ());
 		Dijkstra_Init(dijkstra_node_list, 1);
 
 	}
@@ -381,16 +382,16 @@ public class wp_manager : MonoBehaviour
 		if( wp_id > 0){
 			if(getNodeObjectById(wp_id).GetComponent<path_point>().type == path_point.node_type.base_node){
 				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_base();
-				Debug.Log("map base view");
+				//Debug.log("map base view");
 			}else if(getNodeObjectById(wp_id).GetComponent<path_point>().type == path_point.node_type.res_node){
-				Debug.Log ("TEST2");
-				Debug.Log(getNodeObjectById(wp_id).gameObject.ToString());
+				//Debug.log ("TEST2");
+				//Debug.log(getNodeObjectById(wp_id).gameObject.ToString());
 				GameObject.Find ("ui_manager").GetComponent<ui_manager>().connected_res_to_ui = getNodeObjectById(wp_id).gameObject;
 				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_ressource();
 		
 
 			}else{
-				Debug.Log ("TEST");
+				//Debug.log ("TEST");
 				GameObject.Find ("ui_manager").GetComponent<ui_manager> ().slot_0_set_waypoint();
 			}
 			disable_all_range_circles ();
@@ -415,9 +416,9 @@ public class wp_manager : MonoBehaviour
 
 	
 	//hier werden die verbindungen angezeigt zb durch eine liste druch linerenderers oder so
-	void refresh_edge_visuals ()
+	public void refresh_edge_visuals ()
 	{
-		Debug.Log ("refresh visals");
+		//Debug.log ("refresh visals");
 		foreach (GameObject n in nodeObjects) {
 			int sid = n.GetComponent<path_point> ().waypoint_id;
 			Vector3 spos = new Vector3 (n.gameObject.transform.position.x, n.gameObject.transform.position.y + n.gameObject.transform.localScale.y, n.gameObject.transform.position.z);
@@ -427,11 +428,15 @@ public class wp_manager : MonoBehaviour
 					pointcounter++;
 				}
 			}
-			Debug.Log ("set vertex count to :" + (pointcounter * 3).ToString ());
+			//Debug.log ("set vertex count to :" + (pointcounter * 3).ToString ());
 			n.GetComponent<LineRenderer> ().SetVertexCount (pointcounter * 3);
 			int pointcounter_pos = 0;
 			for (int i = 0; i < edgelist.Count; i++) {
 				if (edgelist [i].source_id == sid) {
+
+					if(getNodeObjectById(edgelist[i].dest_id).GetComponent<path_point>().status != path_point.node_status.built) {
+						continue;
+					}	
 					//Vector3 dpos_original = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.position;
 					//Vector3 dscale = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.localScale; 
 
@@ -439,7 +444,7 @@ public class wp_manager : MonoBehaviour
 					Vector3 dscale = getNodeObjectById(edgelist[i].dest_id).transform.localScale;
 					Vector3 dpos = new Vector3 (dpos_original.x, dpos_original.y + dscale.y, dpos_original.z);
 
-					Debug.Log ("ADD vertext point : from " + spos.ToString () + " to " + dpos.ToString ());
+					//Debug.log ("ADD vertext point : from " + spos.ToString () + " to " + dpos.ToString ());
 					//SET THE POINTS
 					n.GetComponent<LineRenderer> ().SetPosition (pointcounter_pos, spos);
 					pointcounter_pos++;
@@ -474,12 +479,10 @@ public class wp_manager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
-
 		//DEBUG
 		if (curr_wp_mode == wp_mode.none) {
 			curr_wp_mode = wp_mode.selecten;
-			Debug.Log("none to selecten");
+			//Debug.log("none to selecten");
 			disable_all_range_circles();
 			disable_all_colliders ();
 		}
@@ -513,32 +516,33 @@ public class wp_manager : MonoBehaviour
 			disable_all_range_circles();
 			//if(GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point>().type == path_point.node_type.normal_node){
 			if (waypoint_prefab != null) {
-				Debug.Log("add 1");
+				//Debug.log("add 1");
 				//enable_all_colliders ();
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;
 				// Casts the ray and get the first game object hit
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
-					Debug.Log("add 2");
-					Debug.Log (hit.collider);
+					//Debug.log("add 2");
+					//Debug.log (hit.collider);
 					if(sgo == null){
 					 sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
-						Debug.Log("add 3");
+						//Debug.log("add 3");
 						sgo.GetComponent<path_point>().disabled_collider();
 					}
-					Debug.Log(sgo.GetComponent<CapsuleCollider>().enabled);
+					//Debug.log(sgo.GetComponent<CapsuleCollider>().enabled);
 					if(Vector3.Distance (hit.point, selected_wp_pos) <= selection_range && hit.collider.gameObject.tag == "ground"  ){
-						Debug.Log("add 4");
+						//Debug.log("add 4");
 						sgo.transform.position = hit.point;
 						sgo.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 						if (!EventSystem.current.IsPointerOverGameObject())
 						{
 							if (Input.GetMouseButtonDown (0)) {
-								Debug.Log ("add wp process");
+								//Debug.log ("add wp process");
 								//GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
 								sgo.GetComponent<path_point> ().is_selected = true; //den neu erstellten selektieren
+								sgo.GetComponent<path_point> ().setStatus(path_point.node_status.placed);
 									//selected_wp_id = sgo.GetComponent<path_point> ().waypoint_id;
-									Debug.Log ("add edge");
+									//Debug.log ("add edge");
 									Vector3 sd = sgo.transform.position;
 									Vector3 dd = selected_wp_pos;
 									//wp_edge tmp_edge = new wp_edge (edgelist.Count, sgo.GetComponent<path_point>().waypoint_id, selected_wp_id, Vector3.Distance (sd, dd));
@@ -552,9 +556,18 @@ public class wp_manager : MonoBehaviour
 									curr_wp_mode = wp_mode.adden; //wieder in adden mode gehen
 									sgo.GetComponent<path_point>().enable_collider();
 									sgo.GetComponent<CapsuleCollider>().enabled = true;
-									sgo = null;
+
+
+								//newScout.GetComponent<ScoutScript>().initializeScout(sgo.GetComponent<path_point>());
+									
 									refresh_edge_visuals ();
 									convert_edgelist_to_dijkstra_node_list ();
+								GameObject newScout = (GameObject)Instantiate(scoutPrefab, new Vector3(transform.position.x+2.0f, transform.position.y, transform.position.z), Quaternion.identity);
+								ScoutScript scoutScript = newScout.GetComponent<ScoutScript>();
+								if(scoutScript) {
+									scoutScript.initializeScout(sgo.GetComponent<path_point>());
+								}
+								sgo = null;
 							} //ende mouse button
 							} //ende distance
 					}
@@ -574,7 +587,7 @@ public class wp_manager : MonoBehaviour
 					Destroy(sgo);
 					sgo = null;
 					WP_COUNTER_MAIN--;
-					Debug.Log("select btn 1");
+					//Debug.log("select btn 1");
 					curr_wp_mode = wp_mode.none;
 				}
 			}
@@ -584,23 +597,23 @@ public class wp_manager : MonoBehaviour
 
 		//WP CONNECTEN
 		if (curr_wp_mode == wp_mode.connecten && selected_wp_id > 0) {
-			Debug.Log ("con 1");
+			//Debug.log ("con 1");
 			//	if (GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point>().type == path_point.node_type.normal_node) {
-			Debug.Log ("con 2");
+			//Debug.log ("con 2");
 			//disable_collider_on_slelected (selected_wp_id);
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			RaycastHit coll_hit;
 			// Casts the ray and get the first game object hit
 			if (Physics.Raycast (ray, out hit, 100.0f)) {
-				Debug.Log ("con 3");
+				//Debug.log ("con 3");
 
 				if (nodeObjects.Contains(hit.collider.gameObject) && Vector3.Distance (hit.point, selected_wp_pos) < (selection_range+1)) {
-					Debug.Log ("con 4");
+					//Debug.log ("con 4");
 					if (!EventSystem.current.IsPointerOverGameObject())
 					{
 						if (Input.GetMouseButtonDown (0)) {
-							Debug.Log ("con 5");
+							//Debug.log ("con 5");
 							//ist in reichweite
 							//jetzt schauen ob
 							int tmp_dest_id = hit.collider.gameObject.GetComponent<path_point> ().waypoint_id;
@@ -614,7 +627,7 @@ public class wp_manager : MonoBehaviour
 								if ((e.dest_id == tmp_dest_id && e.source_id == tmp_origin_id) || (e.source_id == tmp_dest_id && e.dest_id == tmp_origin_id)) {
 									war_was = true;
 									edges_to_remove.Add (e);
-									Debug.Log (" con 6 remove edje");
+									//Debug.log (" con 6 remove edje");
 								}
 							}
 
@@ -622,7 +635,7 @@ public class wp_manager : MonoBehaviour
 
 							//neue edge adden
 							if (!war_was) {
-								Debug.Log ("con 7 add edge");
+								//Debug.log ("con 7 add edge");
 									Vector3 sd = getNodeObjectById(tmp_dest_id).transform.position;
 									Vector3 dd = getNodeObjectById(tmp_origin_id).transform.position;
 								wp_edge tmp_edge = new wp_edge (edgelist.Count, tmp_origin_id, tmp_dest_id, Vector3.Distance (sd, dd));
@@ -660,22 +673,22 @@ public class wp_manager : MonoBehaviour
 
 		//VERSCHIEBEN
 		if (curr_wp_mode == wp_mode.verschieben && selected_wp_id > 0) {
-			Debug.Log ("move 1");
+			//Debug.log ("move 1");
 			disable_collider_on_slelected (selected_wp_id);
 			enable_range_cirlce_on_slelected (selected_wp_id);
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			// Casts the ray and get the first game object hit
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
-				Debug.Log ("move 2");
+				//Debug.log ("move 2");
 				RaycastHit coll_hit;
 				if (hit.collider.gameObject.tag == "ground" && Vector3.Distance (hit.point, selected_wp_pos) <= 10.0f) {
-					Debug.Log ("move 3");
+					//Debug.log ("move 3");
 					remove_connections();
 					Vector3 origin = new Vector3 (selected_wp_pos.x, selected_wp_pos.y + selected_wp_scale.y, selected_wp_pos.z);
 					Vector3 dest = new Vector3 (hit.point.x, hit.point.y + selected_wp_scale.y, hit.point.z);
 					if (Physics.Raycast (origin, dest, out coll_hit, 100)) {
-						Debug.Log ("move 4");
+						//Debug.log ("move 4");
 
 						//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.position = hit.point;
 						//GameObject.Find ("node_" + selected_wp_id).gameObject.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
@@ -685,7 +698,7 @@ public class wp_manager : MonoBehaviour
 						if (!EventSystem.current.IsPointerOverGameObject())
 						{
 							if (Input.GetMouseButtonDown (0)) {
-								Debug.Log ("move 5");
+								//Debug.log ("move 5");
 								enable_collider_on_selected (selected_wp_id);
 								curr_wp_mode = wp_mode.none;
 							
@@ -715,7 +728,7 @@ public class wp_manager : MonoBehaviour
 		if (!EventSystem.current.IsPointerOverGameObject())
 		{
 			if (Input.GetMouseButtonDown (0) && curr_wp_mode == wp_mode.selecten) {
-				Debug.Log ("select 1");
+				//Debug.log ("select 1");
 				disable_all_range_circles();
 				enable_all_colliders ();
 				enable_range_cirlce_on_slelected (selected_wp_id);
@@ -723,28 +736,28 @@ public class wp_manager : MonoBehaviour
 				foreach (GameObject n in nodeObjects) {
 
 
-					Debug.Log(n.gameObject.name);
+					//Debug.log(n.gameObject.name);
 					 if(rayobj == n.gameObject && rayobj != null) {
-						Debug.Log ("select 2");
+						//Debug.log ("select 2");
 						int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
 						deselect_all_waypoints ();
 						select_waypoint_with_id (wpid);
 						map_wp_to_ui (wpid);
 						selected_wp_id = wpid;
 						curr_wp_mode = wp_mode.selecten;
-						Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
+						//Debug.log ("wp_selected id:" + selected_wp_id.ToString ());
 						break;
 					}
 					/*}else if (rayobj == n.gameObject && rayobj != null) {
 
-						Debug.Log ("select 3");
+						//Debug.log ("select 3");
 						int wpid = rayobj.GetComponent<path_point> ().waypoint_id;
 						deselect_all_waypoints ();
 						select_waypoint_with_id (wpid);
 						map_wp_to_ui (wpid);
 						selected_wp_id = wpid;
 						curr_wp_mode = wp_mode.selecten;
-						Debug.Log ("wp_selected id:" + selected_wp_id.ToString ());
+						//Debug.log ("wp_selected id:" + selected_wp_id.ToString ());
 						break;
 					}*/
 
@@ -754,7 +767,7 @@ public class wp_manager : MonoBehaviour
 				if (!EventSystem.current.IsPointerOverGameObject())
 				{
 					if (Input.GetMouseButtonDown (1)) {
-						Debug.Log("deselect all");
+						//Debug.log("deselect all");
 						deselect_all_waypoints ();
 						disable_all_range_circles ();
 					}
@@ -780,7 +793,7 @@ public class wp_manager : MonoBehaviour
 					if (ed.dest_id == neig && ed.source_id == this_node) {
 						return ed.weight;
 					}
-					Debug.Log (ed.dest_id + "  ->  " + neig + "     :    " + ed.source_id + "   ->  " + this_node + "    W:" + ed.weight);
+					//Debug.log (ed.dest_id + "  ->  " + neig + "     :    " + ed.source_id + "   ->  " + this_node + "    W:" + ed.weight);
 				}
 			}
 		}
@@ -796,7 +809,7 @@ public class wp_manager : MonoBehaviour
 			if (n.distance < saved_dist && !n.visited) {
 				saved_dist = n.distance;
 				saved_node_id = n.node_id;
-				Debug.Log ("the node with the lowest distance is : " + saved_node_id);
+				//Debug.log ("the node with the lowest distance is : " + saved_node_id);
 				return saved_node_id;
 			}
 		}
@@ -810,7 +823,7 @@ public class wp_manager : MonoBehaviour
 				dijkstra_node tmp = dijkstra_node_list [i];
 				tmp.visited = true;
 				dijkstra_node_list [i] = tmp;
-				Debug.Log ("der node " + id + " wurde auf besucht gesetzt");
+				//Debug.log ("der node " + id + " wurde auf besucht gesetzt");
 			}
 		}
 	}
@@ -822,7 +835,7 @@ public class wp_manager : MonoBehaviour
 				dijkstra_node tmp = dijkstra_node_list [i];
 				tmp.visited = false;
 				dijkstra_node_list [i] = tmp;
-				Debug.Log ("der node " + id + " wurde auf besucht gesetzt");
+				//Debug.log ("der node " + id + " wurde auf besucht gesetzt");
 			}
 		}
 	}
@@ -940,7 +953,7 @@ public class wp_manager : MonoBehaviour
 
 
 	public void Dijkstra_Init(List<dijkstra_node> graph, int startkonten){
-		Debug.Log("Dijkstra_Init");
+		//Debug.log("Dijkstra_Init");
 		dijkstra_node start_node_object = new dijkstra_node();
 		for (int i = 0; i < graph.Count; i++) {
 			dijkstra_node node_to_edit = graph[i];
@@ -971,14 +984,14 @@ public class wp_manager : MonoBehaviour
 	float tcurr = 0.0f;
 	
 	private void Dijkstra_Compute(List<dijkstra_node> nodes, int startkonten){
-		//Debug.Log("Dijkstra_Compute");
+		////Debug.log("Dijkstra_Compute");
 		int current_node = startkonten;
 		//für alle nodes
 		
 		foreach (dijkstra_node alle_nodes in nodes) {
 			if(!alle_nodes.visited){ // die noch nicht besucht wurden
 				
-				//if(current_node < 0){Debug.Log("ERR");break;}
+				//if(current_node < 0){//Debug.log("ERR");break;}
 				mark_node_as_visited(current_node); // und auf besucht
 				//für jeden nachbarn des aktuellen nodes
 				foreach (int neig in get_node_component(current_node).neighbours) {
@@ -987,7 +1000,7 @@ public class wp_manager : MonoBehaviour
 						float edge_node_weight = get_edge_weight(current_node, neig);
 						float kanten_summe = current_node_weight + edge_node_weight; //addiere das gewicht beider kanten
 						//if(edge_node_weight <= kanten_summe){ //wenn sie summe kleiner ist als die des nachbarn
-						//Debug.Log ("TEST!!");
+						////Debug.log ("TEST!!");
 						set_node_ancestor_to(neig, current_node); //setzte dich selber als seinen vorgänger
 						set_node_distance_to(neig, kanten_summe); //und setzte die ausgerechnete distanz als dizstanz von diesem
 						//}//ende kantensumme
@@ -1000,7 +1013,7 @@ public class wp_manager : MonoBehaviour
 	}
 
 	private List<int> Dijkstra_Resolve_Path(List<dijkstra_node> nodes, int startknoten, int zielknoten){
-		Debug.Log("Dijkstra_Resolve_Path :" + startknoten.ToString() + "->" + zielknoten.ToString());
+		//Debug.log("Dijkstra_Resolve_Path :" + startknoten.ToString() + "->" + zielknoten.ToString());
 		List<int> path = new List<int>();
 		int curr_id_fp = zielknoten;
 

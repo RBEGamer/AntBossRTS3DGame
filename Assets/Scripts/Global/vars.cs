@@ -212,6 +212,7 @@ public class vars : MonoBehaviour {
 	public static string fogofwar_tag = "fogofwar";
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
 	public static string path_manager_name = "path_manager";
+	public static string worker_manager_name = "WorkerManager";
 	public static string res_name = "ressource";
 	public static string wp_node_name = "node";
 	public static string ui_manager_name = "ui_manager";

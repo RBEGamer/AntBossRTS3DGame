@@ -22,7 +22,7 @@ public class ressource : MonoBehaviour {
 	public upgrade_description upgrade_slot_2;
 	public upgrade_description upgrade_slot_3;
 
-
+	public static WorkerManager workerManager;
 	public int ressource_id;
 
 	public vars.ressource_type res_type;
@@ -43,6 +43,7 @@ public class ressource : MonoBehaviour {
 		public float interactition_latitude;
 		public float ant_bite_decrease;
 		public float current_harvest_amount;
+		public int current_collection_ants;
 		public int target_collection_ants;
 		public int health_percentage;
 		public string ui_displayname_ressource;
@@ -76,6 +77,12 @@ public class ressource : MonoBehaviour {
 	}
 
 	void Start () {
+		if(workerManager == null) {
+			workerManager = GameObject.Find (vars.worker_manager_name).GetComponent<WorkerManager>();
+		} 
+
+		workerManager.addRessource(this);
+
 		click_collider.SetActive(false);
 		is_selected_by_res_manager = false;
     ressource_pos = this.gameObject.transform.position;

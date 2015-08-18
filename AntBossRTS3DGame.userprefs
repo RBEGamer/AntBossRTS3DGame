@@ -1,14 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\wp_manager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerScript.cs">
     <Files>
-      <File FileName="Assets\wp_manager.cs" Line="4" Column="19" />
-      <File FileName="Assets\path_point.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unsorted\ui_manager.cs" Line="169" Column="32" />
+      <File FileName="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerScript.cs" Line="20" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="D:\Projekte\AntBoss\github_rep\AntBossRTS3DGame\Assets\Scripts\Unsorted\collector_ant.cs" line="165" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
