@@ -16,8 +16,8 @@ public class TargetScriptEnemy : UnitTargetScript {
 		List<GameObject> eligibleTargets = new List<GameObject>();
 		for(int i = 0; i < unitScript.unitVision.objectsInRange.Count; i++) {
 			unitScript.unitVision.cleanUp();
-			if(unitScript.unitVision.objectsInRange[i].GetComponent<FlagScript>().Faction != unitScript.flagScript.Faction) {
-				eligibleTargets.Add(unitScript.unitVision.objectsInRange[i]);
+			if(unitScript.unitVision.objectsFlagsInRange[i].Faction != unitScript.flagScript.Faction) {
+				eligibleTargets.Add(unitScript.unitVision.objectsFlagsInRange[i].gameObject);
 				
 			}
 		}
@@ -142,12 +142,14 @@ public class TargetScriptEnemy : UnitTargetScript {
 
 		if(unitsInGroupRangePriority > 0) {
 			if(unitScript.unitGroupScript.unitsInGroupRange.Count > 0) {
-				GameObject closestInGroup = unitScript.unitGroupScript.unitsInGroupRange[0];
+				GameObject closestInGroup = null;
 				for(int i = 0; i < unitScript.unitGroupScript.unitsInGroupRange.Count; i++) {
-					if(unitScript.unitGroupScript.unitsInGroupRange[i] != null) {
-						if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.unitsInGroupRange[i].transform.position) <= 
-						   Vector3.Distance(this.transform.position, closestInGroup.transform.position)) {
-							closestInGroup = unitScript.unitGroupScript.unitsInGroupRange[i];
+					if(unitScript.unitGroupScript.unitsInGroupRange[i].GetComponent<FlagScript>().Faction !=unitScript.flagScript.Faction) {
+						if(unitScript.unitGroupScript.unitsInGroupRange[i] != null) {
+							if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.unitsInGroupRange[i].transform.position) <= 
+							   Vector3.Distance(this.transform.position, closestInGroup.transform.position)) {
+								closestInGroup = unitScript.unitGroupScript.unitsInGroupRange[i];
+							}
 						}
 					}
 				}
