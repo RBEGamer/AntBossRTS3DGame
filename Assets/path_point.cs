@@ -12,6 +12,7 @@ public class path_point : MonoBehaviour {
 		built, destroyed, being_built, placed, being_placed
 	}
 
+	public FogOfWarCircleRevealer circleRevealer;
 	public static wp_manager wpManager;
 	public node_type type;
 	public node_status status = node_status.being_placed;
@@ -76,7 +77,7 @@ public class path_point : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		circleRevealer = GetComponent<FogOfWarCircleRevealer>();
 		if(!wpManager) {
 			wpManager = GameObject.Find(vars.path_manager_name).GetComponent<wp_manager>();
 		}
@@ -108,7 +109,8 @@ public class path_point : MonoBehaviour {
 		switch(newStatus) {
 		case(node_status.built):
 			status = newStatus;
-				break;
+			circleRevealer.enabled = true;
+			break;
 		case(node_status.being_placed):
 			status = newStatus;
 			break;
