@@ -30,6 +30,7 @@ public class WorkerManager : MonoBehaviour {
 					workerScript.initializeWorker(ressourceScripts[i].gameObject.GetComponent<path_point>());
 				}
 				ressourceScripts[i].res.current_collection_ants++;
+				ressourceScripts[i].current_ants_working_on_this_res++;
 			}
 		}
 	}

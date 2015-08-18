@@ -13,6 +13,7 @@ public class WorkerScript : MonoBehaviour {
 	public Texture fullTexture;
 	
 	public NavMeshAgent navMeshAgent;
+	public NavMeshObstacle navMeshObstacle;
 	public Animator animator;
 	
 	public path_point targetWP;
@@ -26,6 +27,10 @@ public class WorkerScript : MonoBehaviour {
 	public vars.ressource_type ressourceType = vars.ressource_type.default_type;
 	public bool hasRessource = false;
 	public bool bitten = false;
+
+	public float currentMovementOffset = 2.0f;
+	public float movementUpperOffset = 3.0f;
+	public float movementLowerOffset = 2.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -44,7 +49,7 @@ public class WorkerScript : MonoBehaviour {
 
 		workerManager.addWorker(this);
 		navMeshAgent = GetComponent<NavMeshAgent>();
-		
+		navMeshObstacle = GetComponent<NavMeshObstacle>();
 	}
 	
 	public void initializeWorker(path_point WP) {
@@ -57,21 +62,24 @@ public class WorkerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(navMeshAgent.destination != currentPointPosition()) {
-			navMeshAgent.destination = currentPointPosition();
-			Debug.Log ("NEW DESTINATION:" + navMeshAgent.destination+ " - "+ pathManager.getNodeObjectById(currentPath[currentPointInPath]).gameObject.name);
+		if(navMeshAgent.enabled == true) {
+			if(navMeshAgent.destination != currentPointPosition()) {
+				navMeshAgent.destination = currentPointPosition();
+			}
 		}
 
 		if(!hasRessource) {
-			if(Vector3.Distance(transform.position, currentPointPosition()) < 3.0f && isActive) {
+			if(Vector3.Distance(transform.position, currentPointPosition()) < currentMovementOffset && isActive) {
 				
 				if(currentPointInPath < targetWP.path_to_base.Count-1) {
 					currentPointInPath++;
+					currentMovementOffset = Random.Range(movementLowerOffset, movementUpperOffset);
 
 				} else if(!bitten){
 					animator.SetBool("harvesting", true);
 					animator.SetBool("isrunning", false);
-					navMeshAgent.Stop();
+					navMeshAgent.enabled = false;
+					navMeshObstacle.enabled = true;
 					transform.LookAt(pathManager.getNodeObjectById(currentPointID()).transform);
 					Invoke ("harvest", 5.0f);
 					bitten = true;
@@ -80,7 +88,7 @@ public class WorkerScript : MonoBehaviour {
 			}
 		}
 		else {
-			if(Vector3.Distance(transform.position, currentPointPosition()) < 3.0f && isActive) {
+			if(Vector3.Distance(transform.position, currentPointPosition()) < currentMovementOffset && isActive) {
 				if(pathManager.getNodeObjectById(currentPath[currentPointInPath]).GetComponent<path_point>().type == path_point.node_type.base_node) {
 					baseManager.add_to_storage(ressourceType, currentResourceAmount);
 					hasRessource = false;
@@ -90,6 +98,11 @@ public class WorkerScript : MonoBehaviour {
 				}
 				if(currentPointInPath > 0) {
 					currentPointInPath--;
+					if(pathManager.getNodeObjectById(currentPath[currentPointInPath]).GetComponent<path_point>().type == path_point.node_type.base_node) {
+						currentMovementOffset = 3.0f;
+					} else {
+						currentMovementOffset = Random.Range(movementLowerOffset, movementUpperOffset);
+					}
 				}
 			}
 		}
@@ -104,7 +117,9 @@ public class WorkerScript : MonoBehaviour {
 	}
 	
 	public void harvest() {
-		navMeshAgent.Resume();
+		navMeshAgent.enabled = true;
+		navMeshObstacle.enabled = false;
+		//navMeshAgent.Resume();
 		meshRenderer.material.mainTexture = fullTexture;
 		currentResourceAmount = targetRessource.ant_bite();
 		ressourceType = targetRessource.res_type;

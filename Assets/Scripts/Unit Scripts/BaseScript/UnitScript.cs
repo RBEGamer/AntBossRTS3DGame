@@ -14,6 +14,7 @@ public class UnitScript : MonoBehaviour {
 	// General object scripts
 	public Animator animator;
 	public NavMeshAgent navMeshAgent;
+	public NavMeshObstacle navMeshObstacle;
 	public MovementScript movementScript;
 	public AttributeScript attributeScript;
 	public HealthScript healthScript;

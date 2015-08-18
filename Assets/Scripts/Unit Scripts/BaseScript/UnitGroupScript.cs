@@ -68,6 +68,7 @@ public class UnitGroupScript : MonoBehaviour {
 
 	// helper function
 	public UnitScript findNearestUnitTowardsDestination(Vector3 destination) {
+		cleanUp();
 		UnitScript nearestUnit = unitsInGroupScripts[0];
 		foreach (UnitScript t in unitsInGroupScripts)
 		{

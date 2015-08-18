@@ -43,8 +43,10 @@ public class AreaHeal : MonoBehaviour {
 		skillResult.skillFlag = SkillResult.flag_recentlyHealed;
 		skillResult.skillFlagTimer = Time.time + flagCooldown;
 
-		for(int i = 0; i < numTargets; i++) {
-			SkillCalculator.passSkillResult(this.gameObject, targetUnits[i].gameObject, skillResult);
+		if(targetUnits.Count > 0) {
+			for(int i = 0; i < numTargets; i++) {
+				SkillCalculator.passSkillResult(this.gameObject, targetUnits[i].gameObject, skillResult);
+			}
 		}
 	}
 

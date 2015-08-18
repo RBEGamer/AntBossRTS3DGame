@@ -21,7 +21,10 @@ public class UnitCommandHandler : MonoBehaviour {
 		currentCooldown -= Time.deltaTime;
 		if(unitScript.healthScript.hasHealth) {
 			if(currentCooldown <= 0.0f) {
-				unitScript.navMeshAgent.Resume();
+				//unitScript.navMeshAgent.Resume();
+				unitScript.navMeshObstacle.enabled = false;
+				unitScript.navMeshAgent.enabled = true;
+
 				switch(unitScript.currentCommand) {
 
 					case UnitCommand.AttackMove: {
@@ -113,7 +116,9 @@ public class UnitCommandHandler : MonoBehaviour {
 					setRunning(false);
 
 					unitScript.animator.speed = 1/unitScript.attributeScript.CurrentAttackSpeed;
-					unitScript.navMeshAgent.Stop();
+					//unitScript.navMeshAgent.Stop();	
+					unitScript.navMeshAgent.enabled = false;
+					unitScript.navMeshObstacle.enabled = true;
 					unitScript.animator.SetTrigger("doattack");
 					currentCooldown = unitScript.attributeScript.CurrentAttackSpeed;
 			}

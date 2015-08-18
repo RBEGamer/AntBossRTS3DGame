@@ -22,18 +22,23 @@ public class EnemyCommandHandler : UnitCommandHandler {
 		currentCooldown -= Time.deltaTime;
 
 		if(unitScript.healthScript.hasHealth) {
-			switch(unitScript.currentCommand) {
-				case UnitCommand.AttackMove: {
-					AttackMove();
-					break;
-				}
-				case UnitCommand.Attack: {
-					Attack();
-					break;
-				}
-				case UnitCommand.Idle: {
-					Idle();
-					break;
+			if(currentCooldown <= 0.0f) {
+				//unitScript.navMeshAgent.Resume();
+				unitScript.navMeshAgent.enabled = true;
+				unitScript.navMeshObstacle.enabled = false;
+				switch(unitScript.currentCommand) {
+					case UnitCommand.AttackMove: {
+						AttackMove();
+						break;
+					}
+					case UnitCommand.Attack: {
+						Attack();
+						break;
+					}
+					case UnitCommand.Idle: {
+						Idle();
+						break;
+					}
 				}
 			}
 		} else {

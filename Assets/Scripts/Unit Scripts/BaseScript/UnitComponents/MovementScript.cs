@@ -28,14 +28,16 @@ public class MovementScript : MonoBehaviour {
 	}
 
 	public void UpdateDestination(Vector3 destination) {
-		if(unitScript.navMeshAgent.speed != unitScript.attributeScript.CurrentMovementSpeed) {
-			unitScript.navMeshAgent.speed = unitScript.attributeScript.CurrentMovementSpeed;
-		}
+		if(unitScript.navMeshAgent.enabled == true) {
+			if(unitScript.navMeshAgent.speed != unitScript.attributeScript.CurrentMovementSpeed) {
+				unitScript.navMeshAgent.speed = unitScript.attributeScript.CurrentMovementSpeed;
+			}
 
-		if(unitScript.navMeshAgent.destination != destination) {
-			unitScript.navMeshAgent.destination = destination;
-			reachedDestination = false;
-			currentDestination = destination;
+			if(unitScript.navMeshAgent.destination != destination) {
+				unitScript.navMeshAgent.destination = destination;
+				reachedDestination = false;
+				currentDestination = destination;
+			}
 		}
 	}
 
@@ -49,24 +51,28 @@ public class MovementScript : MonoBehaviour {
 	}
 	
 	public bool hasReachedDestination(float offset) {
-		if (!unitScript.navMeshAgent.pathPending)
-		{
-			if (unitScript.navMeshAgent.remainingDistance <= unitScript.navMeshAgent.stoppingDistance + offset)
+		if(unitScript.navMeshAgent.enabled == true) {
+			if (!unitScript.navMeshAgent.pathPending)
 			{
-				return reachedDestination = true;
-				if (!unitScript.navMeshAgent.hasPath || unitScript.navMeshAgent.velocity.sqrMagnitude == 0f)
+				if (unitScript.navMeshAgent.remainingDistance <= unitScript.navMeshAgent.stoppingDistance + offset)
 				{
 					return reachedDestination = true;
+					if (!unitScript.navMeshAgent.hasPath || unitScript.navMeshAgent.velocity.sqrMagnitude == 0f)
+					{
+						return reachedDestination = true;
+					}
+					else {
+						return reachedDestination = false;
+					}
 				}
 				else {
 					return reachedDestination = false;
 				}
 			}
-			else {
-				return reachedDestination = false;
-			}
+			return reachedDestination = false;
 		}
-		return reachedDestination = false;
+
+		return reachedDestination = true;
 	}
 
 	public bool isWithinGroupRange() {
