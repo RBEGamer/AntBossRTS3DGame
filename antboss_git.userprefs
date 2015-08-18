@@ -1,11 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/wp_manager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Unsorted/audio_clip_state.cs">
     <Files>
-      <File FileName="Assets/Scripts/Unsorted/ui_manager.cs" Line="423" Column="40" />
-      <File FileName="Assets/wp_manager.cs" Line="445" Column="44" />
-      <File FileName="Assets/path_point.cs" Line="75" Column="30" />
-      <File FileName="Assets/Scripts/FogOfWar/ShowRevealed.cs" Line="16" Column="1" />
+      <File FileName="Assets/Scripts/menu_scripts/menu_button_manager.cs" Line="99" Column="3" />
+      <File FileName="Assets/Scripts/helper/scene_forwarder.cs" Line="10" Column="3" />
+      <File FileName="Assets/Scripts/Unsorted/sound_manager.cs" Line="56" Column="3" />
+      <File FileName="Assets/Scripts/Unsorted/audio_clip_state.cs" Line="61" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
