@@ -31,16 +31,16 @@ public class base_manager : MonoBehaviour {
 
 	public bool add_upgrade(ref upgrade_description upgrade){
 		Debug.Log("call add");
-		if(upgrade != null && !upgrade.taken && upgrade.active & upgrade.upgrade_type == vars.upgrade_type.ant_base){
+		if(upgrade.active & upgrade.upgrade_type == vars.upgrade_type.ant_base){
 			Debug.Log("upgrade check");
-			if(res_a_storage >= upgrade.costs_res_a && res_b_storage >= upgrade.costs_res_b && res_c_storage >= upgrade.costs_res_c){
+			if(res_a_storage >= upgrade.costs_res_a_buy && res_b_storage >= upgrade.costs_res_b_buy && res_c_storage >= upgrade.costs_res_c_buy){
 				Debug.Log("costs check");
 				if(upgrade_slot_0 == null || upgrade_slot_1 == null || upgrade_slot_2 == null || upgrade_slot_3 == null){
 					Debug.Log("slot check");
-					upgrade.GetComponent<upgrade_description>().taken = true;
-					res_a_storage -= upgrade.costs_res_a;
-					res_b_storage -= upgrade.costs_res_b;
-					res_c_storage -= upgrade.costs_res_c;
+				//	upgrade.GetComponent<upgrade_description>().taken = true;
+					res_a_storage -= upgrade.costs_res_a_buy;
+					res_b_storage -= upgrade.costs_res_b_buy;
+					res_c_storage -= upgrade.costs_res_c_buy;
 
 					Debug.Log("costs sub");
 					switch (upgrade.GetComponent<upgrade_description>().upgrade_add_to_value) {

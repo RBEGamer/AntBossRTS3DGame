@@ -1095,6 +1095,7 @@ public class ui_manager : MonoBehaviour {
 
 
 	int btn_fill_counter = 0;
+
 	public void manage_upgrade_ui(){
 		if(show_upgrade_ui){
 			upgrad_ui_holder.SetActive(true);
@@ -1109,67 +1110,18 @@ public class ui_manager : MonoBehaviour {
 		
 
 		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-				for (int i = 0; i < 9; i++) {
+				for (int i = 0; i < 8; i++) {
 					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
 					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
 					view_specific_upgrades[i] = null;
 					btn_fill_counter = 0;
 				}
-				for (int i = 0; i < upgrade_manager_cache.upgrade_list.Count; i++) {
-					if(i < 9 && !upgrade_manager_cache.upgrade_list[i].taken && upgrade_manager_cache.upgrade_list[i].upgrade_type == vars.upgrade_type.ant_base){
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter).GetComponent<Image>().sprite = upgrade_manager_cache.upgrade_list[i].upgrade_icon;
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Button>().interactable = true;
-						view_specific_upgrades[btn_fill_counter] = upgrade_manager_cache.upgrade_list[btn_fill_counter];
-						btn_fill_counter++;
-					}
-				}
-		}
-
-
-
-
-			if(ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
-				for (int i = 0; i < 9; i++) {
-					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
-					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
-					view_specific_upgrades[i] = null;
-					btn_fill_counter = 0;
-				}
-
-				for (int i = 0; i < upgrade_manager_cache.upgrade_list.Count; i++) {
-					if(i < 9 && upgrade_manager_cache.upgrade_list[i].upgrade_type == vars.upgrade_type.ressources){
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Button>().interactable = true;
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Image>().sprite = upgrade_manager_cache.upgrade_list[i].upgrade_icon;
-						view_specific_upgrades[btn_fill_counter] = upgrade_manager_cache.upgrade_list[btn_fill_counter];
-						btn_fill_counter = 0; 
-					}
-				}
-			}
-
-
-			if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui && is_saved_group){
-				for (int i = 0; i < 9; i++) {
-					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
-					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
-					view_specific_upgrades[i] = null;
-					btn_fill_counter = 0;
-				}
-				
-				for (int i = 0; i < upgrade_manager_cache.upgrade_list.Count; i++) {
-					if(i < 9 && upgrade_manager_cache.upgrade_list[i].upgrade_type == vars.upgrade_type.units){
-
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Button>().interactable = true;
-						GameObject.Find("select_upgrade_slot_btn_" + btn_fill_counter.ToString()).GetComponent<Image>().sprite = upgrade_manager_cache.upgrade_list[i].upgrade_icon;
-						view_specific_upgrades[btn_fill_counter] = upgrade_manager_cache.upgrade_list[btn_fill_counter];
-						btn_fill_counter = 0;
-					}
-				}
-			}
-
+		
 
 			update_upgrade_ui = false;
 
 		}//ende if
+	}
 	}
 
 	//0-3
@@ -1181,64 +1133,29 @@ public class ui_manager : MonoBehaviour {
 	}
 
 	public void buy_selected_upgrade(){
-		Debug.Log("buy btn");
-
-		//if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-			if(selected_upgrade.gameObject != null){
-			Debug.Log("selected not empty");
-		
-
-
-
-			switch (ui_view_slot_0) {
-			case selected_ui_in_slot_0.base_ui:
-				if(base_manager_cache.add_upgrade(ref selected_upgrade)){
-					show_upgrade_ui = false;
-					selected_upgrade = null;
-					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
-					upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
-				}
-				break;
-			case selected_ui_in_slot_0.ressource_ui:
-				if(GameObject.Find(vars.res_name + "_" + connected_res_to_ui).GetComponent<ressource>().add_upgrade(ref selected_upgrade)){
-					show_upgrade_ui = false;
-					selected_upgrade = null;
-					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
-					upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
-				}
-				break;
-			case selected_ui_in_slot_0.unit_ui:
-				/*if(is_saved_group && unit_group_chache_cache.add_upgrade(ref selected_upgrade, sug) && ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
-					show_upgrade_ui = false;
-					selected_upgrade = null;
-					upgrade_ui_headline_text.GetComponent<Text>().text = "NO UPGRADE SELECTED";
-					upgrade_ui_description_text.GetComponent<Text>().text = "Please select an Upgrade on the left side";
-				}*/
-				break;
-
-			default:
-			break;
-			}
-			}else{
-				Debug.Log("selected empty");
-			}
-
+	
 		update_upgrade_ui = true;
 
 	}
 
-
-	//0-8
-	public void select_upgrade(int btn_id){
-		//if array an pos i = 0
-		if(view_specific_upgrades[btn_id] != null){
-			upgrade_ui_headline_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].upgrade_headline;
-			upgrade_ui_description_text.GetComponent<Text>().text = view_specific_upgrades[btn_id].upgrade_desc;
-			selected_upgrade = view_specific_upgrades[btn_id];
-		}
-		//update_upgrade_ui = true;
+	public void research_selected_upgrade(){
+		
+		update_upgrade_ui = true;
+		
 	}
 
+
+	public void select_tier(int tier){
+
+
+		update_upgrade_ui = true;
+	}
+	//0-8
+	public void select_upgrade(int btn_id){
+
+	}
+		
+	
 
 
 	//------------WAYPOINT -----------------------------------------------//
