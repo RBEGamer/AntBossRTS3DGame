@@ -155,8 +155,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 			t.movementScript.followTarget = null;
 			if (t == nearestUnit)
 			{*/
-				Vector3 targetPosition = targetbase.transform.position + (Vector3.Normalize(transform.position - targetbase.transform.position) * 2.0f);
-				t.movementScript.UpdateDestination(targetPosition);
+				t.movementScript.UpdateDestination(targetbase.transform.position);
 			/*}
 			else
 			{

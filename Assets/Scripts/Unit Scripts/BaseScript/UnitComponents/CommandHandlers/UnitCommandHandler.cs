@@ -188,8 +188,7 @@ public class UnitCommandHandler : MonoBehaviour {
 	}
 	public virtual void RetreatToBase() {
 		if(unitScript.movementScript.followTarget == null) {
-			unitScript.movementScript.UpdateDestination(unitScript.unitGroupScript.unitGroupAttackTarget.transform.position + 
-			                                            (Vector3.Normalize(transform.position - unitScript.unitGroupScript.unitGroupAttackTarget.transform.position) * 2.0f));
+			unitScript.movementScript.UpdateDestination(unitScript.unitGroupScript.unitGroupAttackTarget.transform.position);
 
 		}
 		if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.unitGroupAttackTarget.transform.position) < 5.0f) {
