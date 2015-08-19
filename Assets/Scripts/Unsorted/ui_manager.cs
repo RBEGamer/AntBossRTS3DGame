@@ -832,7 +832,6 @@ public class ui_manager : MonoBehaviour {
 	}
 	
 	public void apply_buy(){
-		
 		if(ants_to_produce > 0){
 			if(base_manager_cache.res_a_storage >= final_costs_res_a){
 				if(base_manager_cache.res_b_storage >= final_costs_res_b){
@@ -1037,7 +1036,7 @@ public class ui_manager : MonoBehaviour {
 	}
 
 	public void add_units_to_group(){
-		if(sug.numUnits < 18 && base_manager_cache.bought_attack_ants > 0 && is_saved_group){
+		if(sug.numUnits < 10 && base_manager_cache.bought_attack_ants > 0 && is_saved_group){
 			sug.numUnits++;
 			base_manager_cache.bought_attack_ants -= 1;
 			update_unit_ui_grid_images = true;
@@ -1058,7 +1057,7 @@ public class ui_manager : MonoBehaviour {
 
 	public void fill_group_with_units(){
 		if(is_saved_group){
-		int amount_to_add = 18 - sug.numUnits;
+		int amount_to_add = 10 - sug.numUnits;
 		if(amount_to_add > 0){
 				int bought_ants = base_manager_cache.bought_attack_ants;
 			if( (bought_ants - amount_to_add) >= 0){

@@ -156,7 +156,7 @@ public class vars : MonoBehaviour {
 	public static float initial_res_b_storage = 50.0f;
 	public static float initial_res_c_storage = 0.0f;
 	public static int initial_collector_ants = 3;
-	public static int initial_attack_ants = 5;
+	public static int initial_attack_ants = 12;
 	public static int initial_scout_ants = 5;
 	public static int base_start_health_percentage = 1000;
 

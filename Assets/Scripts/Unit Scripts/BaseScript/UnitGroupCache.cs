@@ -70,17 +70,19 @@ public class UnitGroupCache : MonoBehaviour {
 	
 	// spawns a waiting unit group
 	public void spawnUnitgroup(SavedUnitGroup group) {
-		Vector3 position = new Vector3(transform.position.x - 5.0f, transform.position.y, transform.position.z);
+		Vector3 position = new Vector3(transform.position.x + 5.0f, transform.position.y, transform.position.z);
 		GameObject newgroup = Instantiate(unitGroupPrefab, position, Quaternion.identity) as GameObject;
 		UnitGroupScript newUnitGroupScript = newgroup.GetComponent<UnitGroupFriendlyScript>();
 
 		GameObject newUnit;
 		List <UnitScript> listNewUnits = new List<UnitScript>();
+		position = new Vector3(transform.position.x + 5.0f, transform.position.y, transform.position.z);
 		for(int i = 0; i < group.numUnits; i++) {
 			newUnit = Instantiate(unitPrefab, position, Quaternion.identity) as GameObject;
+			newUnit.SetActive(false);
 			UnitScript unitScript = newUnit.GetComponent<UnitScript>();
 			unitScript.unitGroupScript = newUnitGroupScript;
-			position = new Vector3(0,0,0);
+
 			listNewUnits.Add(unitScript);
 		}
 		GameObject newUpgrade;
@@ -108,9 +110,16 @@ public class UnitGroupCache : MonoBehaviour {
 			}
 		}
 
-
 		deleteUnitGroup(group);
+		//setListGroupUnitsActive(listNewUnits);
+		StartCoroutine(setListGroupUnitsActive(listNewUnits));
+	}
 
+	public IEnumerator setListGroupUnitsActive(List<UnitScript> units) {
+		for(int i = 0; i < units.Count; i++) {
+			units[i].gameObject.SetActive(true);
+			yield return new WaitForSeconds(0.2f);
+		}
 	}
 
 	public void addUpgrade(string upgradeName, SavedUnitGroup group, bool type) {
