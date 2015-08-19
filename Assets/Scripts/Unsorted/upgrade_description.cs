@@ -28,7 +28,7 @@ public class upgrade_description : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		taken = false;
+		//taken = false;
 		this.name = "upgrade_desc_" + upgrade_type.ToString();
 	}
 	

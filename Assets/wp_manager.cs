@@ -13,6 +13,11 @@ public class wp_manager : MonoBehaviour
 	public GameObject waypoint_prefab;
 
 
+	public int wp_add_cost_a = 10;
+	public int wp_add_cost_b = 10;
+	public int wp_move_cost_a = 60;
+	public int wp_move_cost_b = 30;
+
 	public List<GameObject> nodeObjects;
 	public List<GameObject> resObjects;
 	public List<GameObject> baseObjects;
@@ -490,7 +495,7 @@ public class wp_manager : MonoBehaviour
 
 
 		//WP DELTETEN auch hier wieder den wp in der base ausnehmen
-		if (curr_wp_mode == wp_mode.deleten && selected_wp_id > 1) {
+		if (curr_wp_mode == wp_mode.deleten && selected_wp_id > 1 && ) {
 			//if (GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point> ().type == path_point.node_type.normal_node) {
 			if(getNodeObjectById(selected_wp_id).GetComponent<path_point> ().type == path_point.node_type.normal_node) {
 				//alle edes löschen
@@ -502,6 +507,9 @@ public class wp_manager : MonoBehaviour
 				//WP Objekt löschen
 				//Destroy (GameObject.Find ("node_" + selected_wp_id.ToString ()));
 				Destroy (getNodeObjectById(selected_wp_id));
+				GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage += wp_add_cost_a;
+				GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage += wp_add_cost_b;
+				GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_remove_sound();
 				//alle linien neu anzeigen lassen
 				refresh_edge_visuals ();
 				//switch ui view to default
@@ -536,7 +544,7 @@ public class wp_manager : MonoBehaviour
 						sgo.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 						if (!EventSystem.current.IsPointerOverGameObject())
 						{
-							if (Input.GetMouseButtonDown (0)) {
+							if (Input.GetMouseButtonDown (0) && GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage >= wp_add_cost_a && GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage >= wp_add_cost_b ) {
 								//Debug.log ("add wp process");
 								//GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
 								sgo.GetComponent<path_point> ().is_selected = true; //den neu erstellten selektieren
@@ -558,6 +566,8 @@ public class wp_manager : MonoBehaviour
 									sgo.GetComponent<CapsuleCollider>().enabled = true;
 
 
+								GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= wp_add_cost_a;
+								GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= wp_add_cost_b;
 								//newScout.GetComponent<ScoutScript>().initializeScout(sgo.GetComponent<path_point>());
 									
 									refresh_edge_visuals ();
@@ -568,6 +578,9 @@ public class wp_manager : MonoBehaviour
 									scoutScript.initializeScout(sgo.GetComponent<path_point>());
 								}
 								sgo = null;
+								GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_add_succ_sound();
+							}else{
+								GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_add_fail_sound();
 							} //ende mouse button
 							} //ende distance
 					}
@@ -635,6 +648,7 @@ public class wp_manager : MonoBehaviour
 
 							//neue edge adden
 							if (!war_was) {
+									GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_connect_sound();
 								//Debug.log ("con 7 add edge");
 									Vector3 sd = getNodeObjectById(tmp_dest_id).transform.position;
 									Vector3 dd = getNodeObjectById(tmp_origin_id).transform.position;
@@ -645,6 +659,7 @@ public class wp_manager : MonoBehaviour
 								refresh_edge_visuals ();
 								curr_wp_mode = wp_mode.selecten;
 							} else {
+									GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_disconnect_sound();
 								//remove edge
 								foreach (wp_edge etr in edges_to_remove) {
 									edgelist.Remove (etr);
@@ -697,10 +712,13 @@ public class wp_manager : MonoBehaviour
 						//set new pos -> kosten abziehen
 						if (!EventSystem.current.IsPointerOverGameObject())
 						{
-							if (Input.GetMouseButtonDown (0)) {
+							if (Input.GetMouseButtonDown (0) && GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage >= wp_move_cost_a && GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage >= wp_move_cost_b ) {
 								//Debug.log ("move 5");
 								enable_collider_on_selected (selected_wp_id);
 								curr_wp_mode = wp_mode.none;
+								GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= wp_move_cost_a;
+								GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= wp_move_cost_b;
+								GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_move_place_sound();
 							
 							}//ende getmouse
 						}
@@ -767,6 +785,7 @@ public class wp_manager : MonoBehaviour
 				if (!EventSystem.current.IsPointerOverGameObject())
 				{
 					if (Input.GetMouseButtonDown (1)) {
+						GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_select_sound();
 						//Debug.log("deselect all");
 						deselect_all_waypoints ();
 						disable_all_range_circles ();

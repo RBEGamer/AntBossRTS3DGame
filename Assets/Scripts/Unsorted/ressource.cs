@@ -356,7 +356,7 @@ public class ressource : MonoBehaviour {
 
 
 
-	
+	/*
 	public bool add_upgrade(ref upgrade_description upgrade){
 		Debug.Log("call add");
 		if(upgrade != null && !upgrade.taken && upgrade.active & upgrade.upgrade_type == vars.upgrade_type.ressources){
@@ -425,5 +425,5 @@ public class ressource : MonoBehaviour {
 		}
 		return false;
 	}
-
+*/
 }
