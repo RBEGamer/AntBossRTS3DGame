@@ -19,22 +19,24 @@ public class audio_playback_manager : MonoBehaviour {
 	}
 
 	public void play_wp_add_fail_sound(){
-
 	}
 
 	public void play_wp_add_succ_sound(){
-
 	}
 
 	public void play_wp_remove_sound(){
-
 	}
 
 	public void play_wp_connect_sound(){
-
 	}
 
 	public void play_wp_disconnect_sound(){
+	}
+
+	public void play_wp_move_place_sound(){
+	}
+
+	public void play_wp_select_sound(){
 
 	}
 
