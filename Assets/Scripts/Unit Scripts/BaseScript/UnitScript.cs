@@ -42,13 +42,19 @@ public class UnitScript : MonoBehaviour {
 	public float currentIdleTime = 0.0f;
 	public float upperIdleTime = 10.0f;
 	public float lowerIdleTime = 6.0f;
-	
+
+
+	public bool isInFight = false;
+	public float isOutFightTime;
 
 	void Start() {
 		unitGroupScript.addUnit(this);
 	}
 
 	void FixedUpdate() {
+		if(isInFight && Time.time > isOutFightTime) {
+			setIsInFight(false);
+		}
 		unitCommandHandler.HandleCommands();
 		if(flagScript.Faction == UnitFaction.PlayerFaction) {
 			setHealthVisual(healthScript.CurrentHealth / healthScript.BaseHealth);
@@ -62,6 +68,13 @@ public class UnitScript : MonoBehaviour {
 		healthBar.transform.localScale = new Vector3( healthNormalized,
 		                                             healthBar.transform.localScale.y,
 		                                             healthBar.transform.localScale.z);
+	}
+
+	public void setIsInFight(bool newstatus) {
+		isInFight = newstatus;
+		if(isInFight) {
+			isOutFightTime = Time.time + 3.0f;
+		}
 	}
 
 	// helper functions

@@ -45,6 +45,26 @@ public class CastAttributeCondition : MonoBehaviour {
 				//skill.unitScript.attributeScript.CurrentMovementSpeed += skillPower;
 				break;
 			}
+			case SkillResult.SkillAttribute.isInFight: {
+				if(skill.unitScript.unitGroupScript.isGroupInFight && !casted) {
+					SendMessage("OnFire", SendMessageOptions.DontRequireReceiver);
+					casted = true;
+				} else if(!skill.unitScript.unitGroupScript.isGroupInFight && casted){
+					SendMessage("OnUnFire", SendMessageOptions.DontRequireReceiver);
+					casted = false;
+				}
+					break;
+				}
+		case SkillResult.SkillAttribute.isNotInFight: {
+			if(!skill.unitScript.unitGroupScript.isGroupInFight && !casted) {
+				SendMessage("OnFire", SendMessageOptions.DontRequireReceiver);
+				casted = true;
+			} else if(skill.unitScript.unitGroupScript.isGroupInFight && casted){
+				SendMessage("OnUnFire", SendMessageOptions.DontRequireReceiver);
+				casted = false;
+			}
+			break;
+		}
 			case SkillResult.SkillAttribute.Health: {
 				if(skill.unitScript.healthScript.CurrentHealth < skillPower && !casted) {
 					SendMessage("OnFire", SendMessageOptions.DontRequireReceiver);

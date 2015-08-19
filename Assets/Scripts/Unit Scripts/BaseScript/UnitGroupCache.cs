@@ -34,7 +34,8 @@ public class UnitGroupCache : MonoBehaviour {
 		newUnitGroup.unitGroupName = "Standard Ants " + unitGroupCounter.ToString();
 		unitGroupCounter++;
 		newUnitGroup.normalUpgrades = new List<string>();
-		newUnitGroup.normalUpgrades.Add("Heal");
+		//newUnitGroup.normalUpgrades.Add("Heal");
+		newUnitGroup.normalUpgrades.Add("Moral");
 		unitGroupsSaved.Add (newUnitGroup);
 		
 		return newUnitGroup;
@@ -74,25 +75,40 @@ public class UnitGroupCache : MonoBehaviour {
 		UnitGroupScript newUnitGroupScript = newgroup.GetComponent<UnitGroupFriendlyScript>();
 
 		GameObject newUnit;
-
+		List <UnitScript> listNewUnits = new List<UnitScript>();
 		for(int i = 0; i < group.numUnits; i++) {
-
 			newUnit = Instantiate(unitPrefab, position, Quaternion.identity) as GameObject;
 			UnitScript unitScript = newUnit.GetComponent<UnitScript>();
 			unitScript.unitGroupScript = newUnitGroupScript;
 			position = new Vector3(0,0,0);
+			listNewUnits.Add(unitScript);
 		}
 		GameObject newUpgrade;
 		Skill newUpgradeSkill;
+
 		foreach(string upgrade in group.normalUpgrades) {
 			newUpgrade = Instantiate(upgradeManager.getUpgrade(upgrade), position, Quaternion.identity) as GameObject;
-			newUpgrade.SetActive(true);
-			newUpgrade.transform.parent = newgroup.transform;
 			newUpgradeSkill = newUpgrade.GetComponent<Skill>();
 			if(newUpgradeSkill.skillType == 1) {
+				newUpgrade.SetActive(true);
 				newUpgradeSkill.unitGroupScript = newUnitGroupScript;
+				newUpgrade.transform.parent = newgroup.transform;
+			}
+			if(newUpgradeSkill.skillType == 0 && listNewUnits.Count > 0) {
+				newUpgradeSkill.unitScript = listNewUnits[0];
+				newUpgrade.transform.parent = listNewUnits[0].transform;
+				newUpgrade.SetActive(true);
+				for(int i = 1; i < listNewUnits.Count; i++) {
+					newUpgrade = Instantiate(upgradeManager.getUpgrade(upgrade), position, Quaternion.identity) as GameObject;
+					newUpgrade.SetActive(true);
+					newUpgradeSkill = newUpgrade.GetComponent<Skill>();
+					newUpgradeSkill.unitScript = listNewUnits[i];
+					newUpgrade.transform.parent = listNewUnits[i].transform;
+				}
 			}
 		}
+
+
 		deleteUnitGroup(group);
 
 	}

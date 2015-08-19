@@ -33,7 +33,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 	}
 
 	void Update() {
-
+		updateInFight();
 		cleanUp();
 		//transform.rotation = new Quaternion (270.0f, 0.0f, 0.0f, 1.0f);
 		if (Input.GetKeyDown(vars.key_panic) && isSelected())

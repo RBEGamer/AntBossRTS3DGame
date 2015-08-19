@@ -19,6 +19,9 @@ public class UnitGroupScript : MonoBehaviour {
 	public List<string> normalUpgrades;
 	public string specialUpgrade;
 
+	public bool isGroupInFight = false;
+
+
 	[SerializeField]
 	public Dictionary<string, float> currentSkillFlags;
 
@@ -26,9 +29,51 @@ public class UnitGroupScript : MonoBehaviour {
 
 	}
 
+	protected void updateInFight() {
+		isGroupInFight = false;
+		for(int i =0; i < unitsInGroupScripts.Count; i++) {
+			if(unitsInGroupScripts[i].isInFight) {
+				isGroupInFight = true;
+			}
+		}
+
+
+	}
+
+	public int getNumUnitsInRangeByFlag(string flag, UnitFaction targetfaction, bool includeOwn) {
+		int returnNum = 0;
+		for(int i =0; i < unitsInGroupRange.Count; i++) {
+			if(unitsInGroupRange[i] != null) {
+				if(unitsInGroupRange[i].gameObject.tag.Contains(flag) && unitsInGroupRange[i].GetComponent<FlagScript>().Faction == targetfaction) {
+					returnNum++;
+				}
+			}
+		}
+
+		if(includeOwn) {
+			returnNum += getNumUnitsByFlag(flag, targetfaction);
+		}
+
+		return returnNum;
+	}
+
+	public int getNumUnitsByFlag(string flag, UnitFaction targetfaction) {
+		int returnNum = 0;
+		for(int i =0; i < unitsInGroupScripts.Count; i++) {
+			if(unitsInGroupScripts[i] != null) {
+				if(unitsInGroupScripts[i].gameObject.tag.Contains(flag) && unitsInGroupScripts[i].flagScript.Faction == targetfaction) {
+					returnNum++;
+				}
+			}
+		}
+		return returnNum;
+	}
+
+
 	// Update is called once per frame
 	void Update () {
 		cleanUp();
+		updateInFight();
 	}
 
 	public void passSkillResultToGroup(SkillResult skillResult, GameObject attacker) {
@@ -82,7 +127,7 @@ public class UnitGroupScript : MonoBehaviour {
 	}
 	
 	public void addUnitToRange(GameObject enemy) {
-		if(!unitsInGroupRange.Contains(enemy)) {
+		if(!unitsInGroupRange.Contains(enemy) && !unitsInGroup.Contains(enemy)) {
 			unitsInGroupRange.Add (enemy);
 			UnitScript enemyUnitScript = enemy.GetComponent<UnitScript>();
 			if(enemyUnitScript != null) {
@@ -92,20 +137,22 @@ public class UnitGroupScript : MonoBehaviour {
 	}
 	
 	public void removeUnitFromRange(GameObject enemy) {
-		bool last = true;
-		for(int i = 0; i < unitsInGroup.Count; i++) {
-			if(unitsInGroup[i].GetComponent<UnitVision>() != null) {
-				if(unitsInGroup[i].GetComponent<UnitVision>().objectsInRange.Contains(enemy)) {
-					last = false;
+		if(!unitsInGroup.Contains(enemy)) {
+			bool last = true;
+			for(int i = 0; i < unitsInGroup.Count; i++) {
+				if(unitsInGroup[i].GetComponent<UnitVision>() != null) {
+					if(unitsInGroup[i].GetComponent<UnitVision>().objectsInRange.Contains(enemy)) {
+						last = false;
+					}
 				}
 			}
-		}
 
-		if(last) {
-			unitsInGroupRange.Remove(enemy);
-			UnitScript enemyUnitScript = enemy.GetComponent<UnitScript>();
-			if(enemyUnitScript != null) {
-				unitsInGroupRangeScripts.Remove(enemyUnitScript);
+			if(last) {
+				unitsInGroupRange.Remove(enemy);
+				UnitScript enemyUnitScript = enemy.GetComponent<UnitScript>();
+				if(enemyUnitScript != null) {
+					unitsInGroupRangeScripts.Remove(enemyUnitScript);
+				}
 			}
 		}
 	}

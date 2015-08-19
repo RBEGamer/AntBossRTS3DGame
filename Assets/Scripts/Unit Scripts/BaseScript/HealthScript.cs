@@ -11,8 +11,11 @@ public class HealthScript : MonoBehaviour {
 	public float CurrentHealth = 100.0f;
 
 	public bool isRegenerating = true;
-	
+
+
+	private UnitScript unitscript;
 	void Awake() {
+		unitscript = GetComponent<UnitScript>();
 		resetHealth();
 	}
 
@@ -29,6 +32,7 @@ public class HealthScript : MonoBehaviour {
 			}
 
 			CurrentHealth = Mathf.Clamp(CurrentHealth - (skillresult.skillPower - removedFromShield), -1.0f, BaseHealth);
+			unitscript.setIsInFight(true);
 		}
 
 		else if(skillresult.skillType == SkillResult.SkillType.Heal) {

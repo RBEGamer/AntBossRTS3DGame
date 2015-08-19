@@ -27,8 +27,11 @@ public class AttributeScript : MonoBehaviour {
 
 	public float UnitRadius;
 
+	public UnitScript unitScript;
+
 	void Awake() {
 		resetAttributes();
+		unitScript = GetComponent<UnitScript>();
 	}
 
 	void OnSkillResult(SkillResult skillResult) {
@@ -61,6 +64,7 @@ public class AttributeScript : MonoBehaviour {
 			}
 			case SkillResult.SkillAttribute.MovementSpeed: {
 				CurrentMovementSpeed += skillResult.skillPower;
+				unitScript.navMeshAgent.speed = CurrentMovementSpeed;
 				break;
 			}
 			}
