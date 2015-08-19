@@ -476,6 +476,9 @@ public class ui_manager : MonoBehaviour {
 		
 		int v = (int)value;
 		
+			Debug.Log ("RESSOURCE: " + connected_res_to_ui.GetComponent<ressource>().name + " res.target_collection_ants: " + connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants);
+			Debug.Log ("RESSOURCE: " + connected_res_to_ui.GetComponent<ressource>().name + " res.max_collector_ants: " + connected_res_to_ui.GetComponent<ressource>().res.max_collector_ants);
+
 
 			int tca = connected_res_to_ui.GetComponent<ressource>().res.target_collection_ants;//TARGET ANTS
 			int mca = connected_res_to_ui.GetComponent<ressource>().res.max_collector_ants;//TARGET ANTS

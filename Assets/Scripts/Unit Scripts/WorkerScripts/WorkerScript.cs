@@ -151,6 +151,7 @@ public class WorkerScript : MonoBehaviour {
 
 	public void retreatToBase() {
 		baseManager.bought_collector_ants += 1;
+		targetRessource.current_ants_working_on_this_res -= 1;
 		Destroy(gameObject);
 	}
 }

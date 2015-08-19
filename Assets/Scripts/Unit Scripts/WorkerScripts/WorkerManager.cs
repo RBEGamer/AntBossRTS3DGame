@@ -27,7 +27,7 @@ public class WorkerManager : MonoBehaviour {
 	void FixedUpdate () {
 		currentInterval += Time.deltaTime;
 		if(currentInterval > spawnInterval) {
-			for(int i = 0; i < ressourceScripts.Count -1; i++) {
+			for(int i = 0; i < ressourceScripts.Count; i++) {
 				if(ressourceScripts[i].res.current_collection_ants < ressourceScripts[i].res.target_collection_ants) {
 					/*GameObject newWorker = (GameObject)Instantiate(workerPrefab, new Vector3(transform.position.x+2.0f, transform.position.y, transform.position.z), Quaternion.identity);
 					WorkerScript workerScript = newWorker.GetComponent<WorkerScript>();

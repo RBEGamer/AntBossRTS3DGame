@@ -204,6 +204,13 @@ public class UnitGroupScript : MonoBehaviour {
 				unitsInGroup.RemoveAt(i);
 			}
 		}
+
+		for(int i = unitsInGroupScripts.Count - 1; i >= 0; i--) {
+			if (unitsInGroupScripts[i] == null)
+			{
+				unitsInGroupScripts.RemoveAt(i);
+			}
+		}
 		
 		for(int i = unitsInGroupRange.Count - 1; i >= 0; i--) {
 			if (unitsInGroupRange[i] == null)
@@ -211,6 +218,15 @@ public class UnitGroupScript : MonoBehaviour {
 				unitsInGroupRange.RemoveAt(i);
 			}
 		}
+
+		for(int i = unitsInGroupRangeScripts.Count - 1; i >= 0; i--) {
+			if (unitsInGroupRangeScripts[i] == null)
+			{
+				unitsInGroupRangeScripts.RemoveAt(i);
+			}
+		}
+
+
 
 		if(unitsInGroup.Count == 0) {
 			Destroy(gameObject);
