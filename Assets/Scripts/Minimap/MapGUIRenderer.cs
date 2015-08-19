@@ -166,9 +166,9 @@ public class MapGUIRenderer : MonoBehaviour
         bool labelDrawn = false;
 
 
-        DrawLabel();
+        //DrawLabel();
         DrawMapItems(ref labelDrawn);
         DrawPingIcons(ref labelDrawn);
-		DrawButtons();
+		//DrawButtons();
     }
 }
