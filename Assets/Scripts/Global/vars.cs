@@ -153,7 +153,7 @@ public class vars : MonoBehaviour {
 	public static int res_manager_ant_spawn_speed = 100; //wie schnell werden neue collector ameisen erstellt
 	/* -------BASE SETTINGS AREA ----------------------*/
 	public static float initial_res_a_storage = 50.0f;
-	public static float initial_res_b_storage = 0.0f;
+	public static float initial_res_b_storage = 50.0f;
 	public static float initial_res_c_storage = 0.0f;
 	public static int initial_collector_ants = 3;
 	public static int initial_attack_ants = 5;

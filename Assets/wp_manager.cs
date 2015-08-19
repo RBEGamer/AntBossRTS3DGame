@@ -544,7 +544,8 @@ public class wp_manager : MonoBehaviour
 						sgo.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 						if (!EventSystem.current.IsPointerOverGameObject())
 						{
-							if (Input.GetMouseButtonDown (0) && GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage >= wp_add_cost_a && GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage >= wp_add_cost_b ) {
+							// WP kostet nur scouts! 
+							if (Input.GetMouseButtonDown (0) && GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_scout_ants >0 ) {
 								//Debug.log ("add wp process");
 								//GameObject sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
 								sgo.GetComponent<path_point> ().is_selected = true; //den neu erstellten selektieren
@@ -566,8 +567,8 @@ public class wp_manager : MonoBehaviour
 									sgo.GetComponent<CapsuleCollider>().enabled = true;
 
 
-								GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= wp_add_cost_a;
-								GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= wp_add_cost_b;
+								//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_a_storage -= wp_add_cost_a;
+								//GameObject.Find(vars.base_name).GetComponent<base_manager>().res_b_storage -= wp_add_cost_b;
 								//newScout.GetComponent<ScoutScript>().initializeScout(sgo.GetComponent<path_point>());
 									
 									refresh_edge_visuals ();
