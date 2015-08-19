@@ -62,6 +62,8 @@ public class WorkerScript : MonoBehaviour {
 		currentPath = WP.path_to_base;
 		currentPointInPath = 1;
 		animator.SetBool("isrunning", true);
+		GameObject.Find ("ui_manager").GetComponent<ui_manager>().refresh_ressource_ui();
+		GameObject.Find ("ui_manager").GetComponent<ui_manager>().refresh_ressource_ui_slots();
 	}
 	
 	// Update is called once per frame
@@ -106,6 +108,8 @@ public class WorkerScript : MonoBehaviour {
 					currentResourceAmount = 0;
 					meshRenderer.material.mainTexture = normalTexture;
 					ressourceType = vars.ressource_type.default_type;
+					GameObject.Find ("ui_manager").GetComponent<ui_manager>().refresh_ressource_ui();
+					GameObject.Find ("ui_manager").GetComponent<ui_manager>().refresh_ressource_ui_slots();
 					if(retreat) {
 						retreatToBase();
 					}

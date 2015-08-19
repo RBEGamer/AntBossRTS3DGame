@@ -10,6 +10,9 @@ public class WorkerManager : MonoBehaviour {
 
 
 	public GameObject workerPrefab;
+
+	public float currentInterval = 0;
+	public float spawnInterval = 0.5f;
 	void Awake() {
 		workerScripts = new List<WorkerScript>();
 		ressourceScripts = new List<ressource>();
@@ -22,18 +25,24 @@ public class WorkerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		for(int i = 0; i < ressourceScripts.Count -1; i++) {
-			if(ressourceScripts[i].res.current_collection_ants < ressourceScripts[i].res.target_collection_ants) {
-				/*GameObject newWorker = (GameObject)Instantiate(workerPrefab, new Vector3(transform.position.x+2.0f, transform.position.y, transform.position.z), Quaternion.identity);
-				WorkerScript workerScript = newWorker.GetComponent<WorkerScript>();
-				if(workerScript) {
-					workerScript.initializeWorker(ressourceScripts[i].gameObject.GetComponent<path_point>());
+		currentInterval += Time.deltaTime;
+		if(currentInterval > spawnInterval) {
+			for(int i = 0; i < ressourceScripts.Count -1; i++) {
+				if(ressourceScripts[i].res.current_collection_ants < ressourceScripts[i].res.target_collection_ants) {
+					/*GameObject newWorker = (GameObject)Instantiate(workerPrefab, new Vector3(transform.position.x+2.0f, transform.position.y, transform.position.z), Quaternion.identity);
+					WorkerScript workerScript = newWorker.GetComponent<WorkerScript>();
+					if(workerScript) {
+						workerScript.initializeWorker(ressourceScripts[i].gameObject.GetComponent<path_point>());
+					}
+					ressourceScripts[i].res.current_collection_ants++;
+					ressourceScripts[i].current_ants_working_on_this_res++;*/
+
+					SpawnWorker(ressourceScripts[i]);
+					ressourceScripts[i].res.current_collection_ants++;
+					ressourceScripts[i].current_ants_working_on_this_res++;
+					currentInterval = 0.0f;
+					break;
 				}
-				ressourceScripts[i].res.current_collection_ants++;
-				ressourceScripts[i].current_ants_working_on_this_res++;*/
-				StartCoroutine(SpawnWorker(ressourceScripts[i]));
-				ressourceScripts[i].res.current_collection_ants++;
-				ressourceScripts[i].current_ants_working_on_this_res++;
 			}
 		}
 	}
@@ -79,8 +88,7 @@ public class WorkerManager : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator SpawnWorker(ressource ressourceScripts) {
-		yield return new WaitForSeconds(0.5f);
+	public void SpawnWorker(ressource ressourceScripts) {
 		GameObject newWorker = (GameObject)Instantiate(workerPrefab, new Vector3(transform.position.x+2.0f, transform.position.y, transform.position.z), Quaternion.identity);
 		WorkerScript workerScript = newWorker.GetComponent<WorkerScript>();
 		if(workerScript) {
