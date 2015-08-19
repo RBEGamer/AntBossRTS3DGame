@@ -495,7 +495,7 @@ public class wp_manager : MonoBehaviour
 
 
 		//WP DELTETEN auch hier wieder den wp in der base ausnehmen
-		if (curr_wp_mode == wp_mode.deleten && selected_wp_id > 1 && ) {
+		if (curr_wp_mode == wp_mode.deleten && selected_wp_id > 1) {
 			//if (GameObject.Find ("node_" + selected_wp_id.ToString ()).GetComponent<path_point> ().type == path_point.node_type.normal_node) {
 			if(getNodeObjectById(selected_wp_id).GetComponent<path_point> ().type == path_point.node_type.normal_node) {
 				//alle edes löschen
