@@ -19,9 +19,8 @@ public class CastUnitInRange : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		int unitsFoundInRange = skill.unitScript.unitGroupScript.getNumUnitsInRangeByFlag(unitFlag, targetFaction, includeOwnUnits);
-		Debug.Log (unitsFoundInRange + " YOLO");
 		//skill.unitScript.unitGroupScript.
 		if(!castOnce) {
 			if(unitsFoundInRange > currentUnitsInRange) {

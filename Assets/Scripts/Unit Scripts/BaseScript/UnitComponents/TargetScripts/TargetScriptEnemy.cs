@@ -140,22 +140,34 @@ public class TargetScriptEnemy : UnitTargetScript {
 			}
 		}
 
-		if(unitsInGroupRangePriority > 0) {
-			if(unitScript.unitGroupScript.unitsInGroupRange.Count > 0) {
-				GameObject closestInGroup = null;
-				for(int i = 0; i < unitScript.unitGroupScript.unitsInGroupRange.Count; i++) {
-					if(unitScript.unitGroupScript.unitsInGroupRange[i].GetComponent<FlagScript>().Faction !=unitScript.flagScript.Faction) {
-						if(unitScript.unitGroupScript.unitsInGroupRange[i] != null) {
-							if(Vector3.Distance(this.transform.position, unitScript.unitGroupScript.unitsInGroupRange[i].transform.position) <= 
-							   Vector3.Distance(this.transform.position, closestInGroup.transform.position)) {
-								closestInGroup = unitScript.unitGroupScript.unitsInGroupRange[i];
-							}
+		List<GameObject> eligibleTargetsInGroupRange = new List<GameObject>();
+		unitScript.unitGroupScript.cleanUp();
+		for(int i = 0; i < unitScript.unitGroupScript.unitsInGroupRange.Count; i++) {
+			
+			if(unitScript.unitGroupScript.unitsInGroupRange[i].GetComponent<FlagScript>().Faction != unitScript.flagScript.Faction) {
+				eligibleTargetsInGroupRange.Add(unitScript.unitGroupScript.unitsInGroupRange[i]);
+			}
+		}
+		if(eligibleTargetsInGroupRange.Count > 0){
+			GameObject closestInGroup = eligibleTargetsInGroupRange[0];
+			foreach(GameObject enemy in eligibleTargetsInGroupRange) {
+				if(enemy != null) {
+					UnitScript enemyUnitScript = enemy.GetComponent<UnitScript>();
+					if(enemyUnitScript) {
+						if(enemyUnitScript.currentTarget == this) {
+							changeTarget(enemy, 80);
+							return;
 						}
 					}
+					
+					if(Vector3.Distance(this.transform.position, enemy.transform.position) <= 
+					   Vector3.Distance(this.transform.position, closestInGroup.transform.position)) {
+						closestInGroup = enemy;
+					}
 				}
-				changeTarget(closestInGroup, unitsInGroupRangePriority);
-				return;
 			}
+			changeTarget(closestInGroup, 70);
+			return;
 		}
 	}
 }

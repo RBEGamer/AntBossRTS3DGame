@@ -41,7 +41,7 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 			setPanic();
 		}
 		if(!isLowered) {
-			GameObject nearestOne = findNearestUnitTowardsDestination(transform.position).gameObject;
+			//GameObject nearestOne = findNearestUnitTowardsDestination(transform.position).gameObject;
 
 			/*if(unitGroupAttackTarget == null) {
 				if(Vector3.Distance(nearestOne.transform.position, transform.position - Vector3.up) < 5.0f) {

@@ -24,11 +24,14 @@ public class WorkerManager : MonoBehaviour {
 	void FixedUpdate () {
 		for(int i = 0; i < ressourceScripts.Count -1; i++) {
 			if(ressourceScripts[i].res.current_collection_ants < ressourceScripts[i].res.target_collection_ants) {
-				GameObject newWorker = (GameObject)Instantiate(workerPrefab, new Vector3(transform.position.x+2.0f, transform.position.y, transform.position.z), Quaternion.identity);
+				/*GameObject newWorker = (GameObject)Instantiate(workerPrefab, new Vector3(transform.position.x+2.0f, transform.position.y, transform.position.z), Quaternion.identity);
 				WorkerScript workerScript = newWorker.GetComponent<WorkerScript>();
 				if(workerScript) {
 					workerScript.initializeWorker(ressourceScripts[i].gameObject.GetComponent<path_point>());
 				}
+				ressourceScripts[i].res.current_collection_ants++;
+				ressourceScripts[i].current_ants_working_on_this_res++;*/
+				StartCoroutine(SpawnWorker(ressourceScripts[i]));
 				ressourceScripts[i].res.current_collection_ants++;
 				ressourceScripts[i].current_ants_working_on_this_res++;
 			}
@@ -74,5 +77,15 @@ public class WorkerManager : MonoBehaviour {
 		if(workerScripts.Contains(oldWorker)) {
 			workerScripts.Remove(oldWorker);
 		}
+	}
+
+	public IEnumerator SpawnWorker(ressource ressourceScripts) {
+		yield return new WaitForSeconds(0.5f);
+		GameObject newWorker = (GameObject)Instantiate(workerPrefab, new Vector3(transform.position.x+2.0f, transform.position.y, transform.position.z), Quaternion.identity);
+		WorkerScript workerScript = newWorker.GetComponent<WorkerScript>();
+		if(workerScript) {
+			workerScript.initializeWorker(ressourceScripts.gameObject.GetComponent<path_point>());
+		}
+
 	}
 }
