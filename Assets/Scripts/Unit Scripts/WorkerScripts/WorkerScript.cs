@@ -68,10 +68,14 @@ public class WorkerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(navMeshAgent.enabled == true) {
-			if(navMeshAgent.destination != currentPointPosition()) {
-				navMeshAgent.destination = currentPointPosition();
-			}
+
+		if(currentPointInPath == 0) {
+			//NavMeshHit test;
+			//NavMesh.SamplePosition(baseManager.gameObject.transform.position, out test, 2.0f, NavMesh.AllAreas);
+			Vector3 t = baseManager.gameObject.transform.position + (Vector3.Normalize(transform.position - baseManager.gameObject.transform.position) * 2.0f);
+			updateNavmesh(t);
+		} else {
+			updateNavmesh(currentPointPosition());
 		}
 
 		if(!hasRessource) {
@@ -122,6 +126,14 @@ public class WorkerScript : MonoBehaviour {
 						currentMovementOffset = Random.Range(movementLowerOffset, movementUpperOffset);
 					}
 				}
+			}
+		}
+	}
+
+	public void updateNavmesh(Vector3 destination) {
+		if(navMeshAgent.enabled == true) {
+			if(navMeshAgent.destination != destination) {
+				navMeshAgent.destination = destination;
 			}
 		}
 	}
