@@ -18,6 +18,7 @@ public class LaserLookAt : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(target) {
+			currentDistance = Vector3.Distance(transform.position, target.transform.position);
 			transform.LookAt(target.transform);
 			currentDistance = Vector3.Distance(this.transform.position, target.transform.position);
 			currentLifeTime = (currentDistance/referenceDistance) * referenceLifteTime;

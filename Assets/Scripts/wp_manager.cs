@@ -434,29 +434,32 @@ public class wp_manager : MonoBehaviour
 				}
 			}
 			//Debug.log ("set vertex count to :" + (pointcounter * 3).ToString ());
-			n.GetComponent<LineRenderer> ().SetVertexCount (pointcounter * 3);
-			int pointcounter_pos = 0;
+			//n.GetComponent<LineRenderer> ().SetVertexCount (pointcounter * 3);
+			//int pointcounter_pos = 0;
 			for (int i = 0; i < edgelist.Count; i++) {
 				if (edgelist [i].source_id == sid) {
 
 					if(getNodeObjectById(edgelist[i].dest_id).GetComponent<path_point>().status != path_point.node_status.built) {
+						n.GetComponent<WaypointLaserEffect>().show(null, false);
 						continue;
 					}	
 					//Vector3 dpos_original = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.position;
 					//Vector3 dscale = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.localScale; 
-
+					n.GetComponent<WaypointLaserEffect>().show(getNodeObjectById(edgelist[i].dest_id).GetComponent<WaypointLaserEffect>().particleSystem.gameObject, true);
 					Vector3 dpos_original = getNodeObjectById(edgelist[i].dest_id).transform.position;
 					Vector3 dscale = getNodeObjectById(edgelist[i].dest_id).transform.localScale;
 					Vector3 dpos = new Vector3 (dpos_original.x, dpos_original.y + dscale.y, dpos_original.z);
 
 					//Debug.log ("ADD vertext point : from " + spos.ToString () + " to " + dpos.ToString ());
 					//SET THE POINTS
+					/*
 					n.GetComponent<LineRenderer> ().SetPosition (pointcounter_pos, spos);
 					pointcounter_pos++;
 					n.GetComponent<LineRenderer> ().SetPosition (pointcounter_pos, dpos);
 					pointcounter_pos++;
 					n.GetComponent<LineRenderer> ().SetPosition (pointcounter_pos, spos);
-					pointcounter_pos++;
+					pointcounter_pos++;*/
+
 				}
 			}
 		}
@@ -533,14 +536,14 @@ public class wp_manager : MonoBehaviour
 					//Debug.log("add 2");
 					//Debug.log (hit.collider);
 					if(sgo == null){
-					 sgo = (GameObject)Instantiate (waypoint_prefab, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
+					 sgo = (GameObject)Instantiate (waypoint_prefab, new Vector3(hit.point.x, 0.0f, hit.point.z), Quaternion.FromToRotation (Vector3.up, hit.normal)); //neue instanz erstellen
 						//Debug.log("add 3");
 						sgo.GetComponent<path_point>().disabled_collider();
 					}
 					//Debug.log(sgo.GetComponent<CapsuleCollider>().enabled);
-					if(Vector3.Distance (hit.point, selected_wp_pos) <= selection_range && hit.collider.gameObject.tag == "ground"  ){
+					if(Vector3.Distance (new Vector3(hit.point.x, 0.0f, hit.point.z), selected_wp_pos) <= selection_range && hit.collider.gameObject.tag == "ground"  ){
 						//Debug.log("add 4");
-						sgo.transform.position = hit.point;
+						sgo.transform.position = new Vector3(hit.point.x, 0.0f, hit.point.z);
 						sgo.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 						if (!EventSystem.current.IsPointerOverGameObject())
 						{
