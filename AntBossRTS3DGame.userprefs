@@ -1,9 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\wp_manager.cs">
     <Files>
       <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Casting\CastOnce.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\wp_manager.cs" Line="424" Column="26" />
+      <File FileName="Assets\Scripts\wp_manager.cs" Line="438" Column="6" />
+      <File FileName="Assets\Scripts\helper\Effects\WaypointLaserEffect.cs" Line="17" Column="22" />
+      <File FileName="Assets\Scripts\helper\Skills\LaserLookAt.cs" Line="29" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class WaypointLaserEffect : MonoBehaviour {
 	public float referenceLifteTime;
@@ -11,28 +12,33 @@ public class WaypointLaserEffect : MonoBehaviour {
 
 	public GameObject target;
 
-	public ParticleSystem particleSystem;
+	[SerializeField]
+	public List<ParticleSystem> particleSystem;
 
 	public void Start() {
-		show (null, false);
-	}
-	void Update () {
-		if(target) {
-			particleSystem.gameObject.transform.LookAt(target.transform);
-			currentDistance = Vector3.Distance(this.transform.position, target.transform.position);
-			currentLifeTime = (currentDistance/referenceDistance) * referenceLifteTime;
-			particleSystem.startLifetime = currentLifeTime;
-		} 
+		for(int i = 0; i < particleSystem.Count; i++) {
+			particleSystem[i].Stop();
+		}
 	}
 
-	public void show(GameObject newTarget, bool show) {
+	void Update () {
+		//
+	}
+
+	public void show(GameObject newTarget, bool show, int index) {
 		if(show) {
 			target = newTarget;
-			particleSystem.Play();
+			if(target) {
+				particleSystem[index].gameObject.transform.LookAt(target.transform);
+				currentDistance = Vector3.Distance(this.transform.position, target.transform.position);
+				currentLifeTime = (currentDistance/referenceDistance) * referenceLifteTime;
+				particleSystem[index].startLifetime = currentLifeTime;
+			} 
+			particleSystem[index].Play();
 		} else {
 
 			target = null;
-			particleSystem.Stop();
+			particleSystem[index].Stop();
 		}
 		
 	}

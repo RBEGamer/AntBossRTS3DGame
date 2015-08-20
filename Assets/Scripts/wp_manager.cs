@@ -440,12 +440,20 @@ public class wp_manager : MonoBehaviour
 				if (edgelist [i].source_id == sid) {
 
 					if(getNodeObjectById(edgelist[i].dest_id).GetComponent<path_point>().status != path_point.node_status.built) {
-						n.GetComponent<WaypointLaserEffect>().show(null, false);
+						n.GetComponent<WaypointLaserEffect>().show(null, false, i);
 						continue;
 					}	
 					//Vector3 dpos_original = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.position;
 					//Vector3 dscale = GameObject.Find ("node_" + edgelist [i].dest_id.ToString ()).transform.localScale; 
-					n.GetComponent<WaypointLaserEffect>().show(getNodeObjectById(edgelist[i].dest_id).GetComponent<WaypointLaserEffect>().particleSystem.gameObject, true);
+					n.GetComponent<WaypointLaserEffect>().show(getNodeObjectById(edgelist[i].dest_id).GetComponent<WaypointLaserEffect>().particleSystem[i].gameObject, true, i );
+					if(resObjects.Contains(n)) {
+						//getNodeObjectById(edgelist[i].dest_id).GetComponent<WaypointLaserEffect>().show(n.GetComponent<WaypointLaserEffect>().particleSystem.gameObject, true);
+						//getNodeObjectById(edgelist[i].dest_id).GetComponent<WaypointLaserEffect>().show(n.GetComponent<WaypointLaserEffect>().particleSystem[i].gameObject, true, i);
+					} else {
+						//getNodeObjectById(edgelist[i].dest_id).GetComponent<WaypointLaserEffect>().show(n.GetComponent<WaypointLaserEffect>().particleSystem[i].gameObject, true, i);
+						//n.GetComponent<WaypointLaserEffect>().show(getNodeObjectById(edgelist[i].dest_id).GetComponent<WaypointLaserEffect>().particleSystem.gameObject, true);
+					}
+
 					Vector3 dpos_original = getNodeObjectById(edgelist[i].dest_id).transform.position;
 					Vector3 dscale = getNodeObjectById(edgelist[i].dest_id).transform.localScale;
 					Vector3 dpos = new Vector3 (dpos_original.x, dpos_original.y + dscale.y, dpos_original.z);
