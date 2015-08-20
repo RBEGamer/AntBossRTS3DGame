@@ -65,6 +65,11 @@ public class AttributeScript : MonoBehaviour {
 			case SkillResult.SkillAttribute.MovementSpeed: {
 				CurrentMovementSpeed += skillResult.skillPower;
 				unitScript.navMeshAgent.speed = CurrentMovementSpeed;
+				if(skillResult.skillFlag != "") {
+					if(!unitScript.flagScript.currentSkillFlags.ContainsKey(skillResult.skillFlag)) {
+						unitScript.flagScript.currentSkillFlags.Add(skillResult.skillFlag, skillResult.skillFlagTimer);
+					}
+				}
 				break;
 			}
 			}

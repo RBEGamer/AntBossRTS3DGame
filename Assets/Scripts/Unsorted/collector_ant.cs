@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -217,13 +217,13 @@ public class collector_ant : MonoBehaviour {
 
 						switch (GameObject.Find(vars.res_name + "_" + connected_ressource.ToString()).GetComponent<ressource>().res_type) {
 						case vars.ressource_type.A:
-						collectiong_counter = vars.res_type_a.harwesting_time;
+						collectiong_counter = vars.res_type_a.harvesting_time;
 						break;
 						case vars.ressource_type.B:
-							collectiong_counter = vars.res_type_b.harwesting_time;
+							collectiong_counter = vars.res_type_b.harvesting_time;
 							break;
 						case vars.ressource_type.C:
-							collectiong_counter = vars.res_type_c.harwesting_time;
+							collectiong_counter = vars.res_type_c.harvesting_time;
 							break;
 						case vars.ressource_type.default_type:
 							collectiong_counter = vars.res_type_default.harwesting_time;

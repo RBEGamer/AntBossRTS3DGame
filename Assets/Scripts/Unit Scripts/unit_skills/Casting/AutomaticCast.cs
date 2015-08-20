@@ -5,6 +5,7 @@ public class AutomaticCast : MonoBehaviour {
 
 	public float castCooldown;
 	private float nextCast;
+
 	// Use this for initialization
 	void Start () {
 		nextCast = Time.time + castCooldown;

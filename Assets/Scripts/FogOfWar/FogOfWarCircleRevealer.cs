@@ -40,6 +40,12 @@ public class FogOfWarCircleRevealer : MonoBehaviour
         }
     }
 
+
+	public void increaseRange(float range) {
+		autoRevealRadius += range;
+		radius += range;
+	}
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;

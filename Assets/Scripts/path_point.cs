@@ -32,6 +32,13 @@ public class path_point : MonoBehaviour {
 	//public bool tagged;
 
 
+	public void OnSkillResult(SkillResult skillResult) {
+		if(skillResult.skillType == SkillResult.SkillType.Buff) {
+			if(skillResult.skillAttribute == SkillResult.SkillAttribute.WPVision) {
+				GetComponent<FogOfWarCircleRevealer>().increaseRange(skillResult.skillPower);
+			}
+		}
+	}
 
 	public List<int> path_to_base; //immer ausgehend vom base node die nodes id zu diesem node
 	public void add_path_to_node(List<int> path){

@@ -27,8 +27,7 @@ public class AreaHeal : MonoBehaviour {
 			UnitScript unit = skill.unitGroupScript.unitsInGroupRangeScripts[i];
 			if(unit != null) {
 				if(unit.flagScript.Faction == targetFaction
-				   //&& Vector3.Distance(transform.position, unit.transform.position) <= healrange
-				   //&& !unit.currentSkillFlags.ContainsKey(SkillResult.flag_recentlyHealed)
+				   && !unit.flagScript.currentSkillFlags.ContainsKey(SkillResult.flag_recentlyHealed)
 				   && unit.healthScript.CurrentHealth < unit.healthScript.BaseHealth) {
 					targetUnits.Add(unit);
 				}

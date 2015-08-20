@@ -272,7 +272,7 @@ public class vars : MonoBehaviour {
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Nahrung";
 		public static float effiency = 1.0f;
-		public static float harwesting_time = 3.0f; //ONLY FROM COLLECTOR ANT USED
+		public static float harvesting_time = 5.0f; //ONLY FROM COLLECTOR ANT USED
 	}
 	public struct res_type_b{
 		public static float max_harvest = 2000.0f;
@@ -283,7 +283,7 @@ public class vars : MonoBehaviour {
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Baumaterial";
 		public static float effiency = 1.0f;
-		public static float harwesting_time = 10.0f; //ONLY FROM COLLECTOR ANT USED
+		public static float harvesting_time = 5.0f; //ONLY FROM COLLECTOR ANT USED
 	}
 	public struct res_type_c{
 		public static float max_harvest = 3000.0f;
@@ -294,7 +294,7 @@ public class vars : MonoBehaviour {
 		public static int health_percentage = 100;
 		public static string ui_displayname_ressource = "Energie";
 		public static float effiency = 1.0f;
-		public static float harwesting_time = 15.0f; //ONLY FROM COLLECTOR ANT USED
+		public static float harvesting_time = 15.0f; //ONLY FROM COLLECTOR ANT USED
 	}
 	/* -------END RESSOURCE SETTING AREA ----------------------*/
 

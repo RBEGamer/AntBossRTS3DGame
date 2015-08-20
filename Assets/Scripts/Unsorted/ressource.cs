@@ -49,8 +49,8 @@ public class ressource : MonoBehaviour {
 		public int target_collection_ants;
 		public int health_percentage;
 		public string ui_displayname_ressource;
-		public float effiency;
-
+		public float efficency;
+		public float harvesting_time;
 	}
 
 
@@ -64,6 +64,22 @@ public class ressource : MonoBehaviour {
 
 	//public GameObject res_c_model_complete;
 	//public GameObject res_c_model_bitten;
+
+
+	public void OnSkillResult(SkillResult skillResult) {
+		if(skillResult.skillType == SkillResult.SkillType.Buff) {
+			if(skillResult.skillAttribute == SkillResult.SkillAttribute.RessourceAbbauzeit) {
+				res.harvesting_time -= skillResult.skillPower;
+			}
+			if(skillResult.skillAttribute == SkillResult.SkillAttribute.RessourceMenge) {
+				res.max_harvest += skillResult.skillPower;
+				res.current_harvest_amount += skillResult.skillPower;
+			}
+			if(skillResult.skillAttribute == SkillResult.SkillAttribute.RessourceMenge) {
+				res.ant_bite_decrease += skillResult.skillPower;
+			}
+		}
+	}
 
 	public void set_target_ants(int _target){
 		Debug.Log("set target ants resid:" + ressource_id + "   amount:" +_target);
@@ -185,7 +201,7 @@ public class ressource : MonoBehaviour {
 	}
 
 	public float ant_bite(){
-		res.current_harvest_amount -= res.ant_bite_decrease * res.effiency;
+		res.current_harvest_amount -= res.ant_bite_decrease * res.efficency;
 		if(res.current_harvest_amount < 0 ){res.current_harvest_amount = 0;}
 		//Debug.Log("BITE RES " + ressource_id + " current harvest : " + res.current_harvest_amount);
 
@@ -207,7 +223,8 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_a.ant_bite_decrease;
 			res.health_percentage = vars.res_type_a.health_percentage;
 			res.ui_displayname_ressource = vars.res_type_a.ui_displayname_ressource;
-			res.effiency = vars.res_type_a.effiency;
+			res.efficency = vars.res_type_a.effiency;
+			res.harvesting_time = vars.res_type_a.harvesting_time;
 			break;
 		case vars.ressource_type.B:
 			res.max_harvest = vars.res_type_b.max_harvest;
@@ -217,7 +234,8 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_b.ant_bite_decrease;
 			res.health_percentage = vars.res_type_b.health_percentage;
 			res.ui_displayname_ressource = vars.res_type_b.ui_displayname_ressource;
-			res.effiency = vars.res_type_b.effiency;
+			res.efficency = vars.res_type_b.effiency;
+			res.harvesting_time = vars.res_type_b.harvesting_time;
 			break;
 		case vars.ressource_type.C:
 			res.max_harvest = vars.res_type_c.max_harvest;
@@ -227,7 +245,8 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_c.ant_bite_decrease;
 			res.health_percentage = vars.res_type_c.health_percentage;
 			res.ui_displayname_ressource = vars.res_type_c.ui_displayname_ressource;
-			res.effiency = vars.res_type_c.effiency;
+			res.efficency = vars.res_type_c.effiency;
+			res.harvesting_time = vars.res_type_c.harvesting_time;
 			break;
 		default:
 			res.max_harvest = vars.res_type_default.max_harvest;
@@ -237,7 +256,9 @@ public class ressource : MonoBehaviour {
 			res.ant_bite_decrease = vars.res_type_default.ant_bite_decrease;
 			res.health_percentage = vars.res_type_default.health_percentage;
 			res.ui_displayname_ressource = vars.res_type_default.ui_displayname_ressource;
-			res.effiency = vars.res_type_default.effiency;
+			res.efficency = vars.res_type_default.effiency;
+			res.harvesting_time = vars.res_type_default.harwesting_time;
+			
 			break;
 		}
 

@@ -53,6 +53,12 @@ public class HealthScript : MonoBehaviour {
 			}
 		}
 
+		if(skillresult.skillFlag != "") {
+			if(!unitScript.flagScript.currentSkillFlags.ContainsKey(skillresult.skillFlag)) {
+				unitScript.flagScript.currentSkillFlags.Add(skillresult.skillFlag, skillresult.skillFlagTimer);
+			}
+		}
+
 		checkDeath();
 	}
 
