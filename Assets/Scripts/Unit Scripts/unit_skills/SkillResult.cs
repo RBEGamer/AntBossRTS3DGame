@@ -30,6 +30,10 @@ public class SkillResult : ScriptableObject {
 		Health,
 		Shield,
 		NumUnitsInProduction,
+		RessourceAbbauzeit,
+		RessourceTragemenge,
+		RessourceMenge,
+		WPVision,
 		isInFight,
 		isNotInFight,
 		None
