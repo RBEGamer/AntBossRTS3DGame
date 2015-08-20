@@ -49,11 +49,6 @@ public class UnitCommandHandler : MonoBehaviour {
 					}
 				}
 			}
-		} else {
-			if(!isDead) {
-				unitScript.animator.SetTrigger("death");
-				isDead = true;
-			}
 		}
 	}
 
@@ -108,8 +103,10 @@ public class UnitCommandHandler : MonoBehaviour {
 	public virtual void Attack() {
 		setRunning(true);
 		if(unitScript.unitTargetScript.attackTarget) {
-			unitScript.movementScript.UpdateDestination(unitScript.unitTargetScript.attackTarget.transform.position);
-			
+			//unitScript.movementScript.UpdateDestination(unitScript.unitTargetScript.attackTarget.transform.position);
+			Vector3 t = unitScript.unitTargetScript.attackTarget.gameObject.transform.position + 
+				(Vector3.Normalize(transform.position - unitScript.unitTargetScript.attackTarget.gameObject.transform.position));
+			unitScript.movementScript.UpdateDestination(t);
 			if(Vector3.Distance(transform.position, unitScript.unitTargetScript.attackTarget.transform.position) <= 
 			   ((unitScript.attributeScript.UnitRadius + unitScript.unitTargetScript.attackTarget.GetComponent<AttributeScript>().UnitRadius) + unitScript.attributeScript.CurrentAttackRange)) {
 					transform.LookAt(unitScript.unitTargetScript.attackTarget.transform);

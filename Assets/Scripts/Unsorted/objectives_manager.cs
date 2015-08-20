@@ -134,7 +134,7 @@ public class objectives_manager : MonoBehaviour {
 						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants;
 						break;
 					case vars.objective_toggle_vars.base_health:
-						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().health;
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<HealthScript>().CurrentHealth;
 					break;
 					case vars.objective_toggle_vars.elapsed_game_time:
 						value_to_check = GameTimer.curr_time;
@@ -292,7 +292,7 @@ public class objectives_manager : MonoBehaviour {
 					value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().bought_collector_ants;
 					break;
 					case vars.objective_toggle_vars.base_health:
-						value_to_check = GameObject.Find(vars.base_name).GetComponent<base_manager>().health;
+						value_to_check = GameObject.Find(vars.base_name).GetComponent<HealthScript>().CurrentHealth;
 						break;
 				case vars.objective_toggle_vars.amount_waypoints:
 					value_to_check = 0.0f;

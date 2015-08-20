@@ -8,10 +8,7 @@ public class base_manager : MonoBehaviour {
 	public float res_a_storage;
 	public float res_b_storage;
 	public float res_c_storage;
-	
-	public float health = 0.0f;
-	public float healthregen = 0.0f;
-	
+
 	public GameObject storage_of_res_a_text;
 	public GameObject storage_of_res_b_text;
 	//public GameObject storage_of_res_c_text;
@@ -27,7 +24,7 @@ public class base_manager : MonoBehaviour {
 	public upgrade_description upgrade_slot_3;
 
 
-
+/*
 
 	public bool add_upgrade(ref upgrade_description upgrade){
 		Debug.Log("call add");
@@ -107,7 +104,7 @@ public class base_manager : MonoBehaviour {
 			Debug.Log("err 1");
 		}
 		return false;
-}
+}*/
 
 
 
@@ -121,13 +118,6 @@ public class base_manager : MonoBehaviour {
 
 	}
 
-	public void receiveDamage(int damage) {
-		health -= damage;
-		if(health <= 0) {
-			Destroy(gameObject);
-
-		}
-	}
 	void Start(){
 		res_a_storage = vars.initial_res_a_storage;
 		res_b_storage = vars.initial_res_b_storage;
@@ -135,14 +125,11 @@ public class base_manager : MonoBehaviour {
 		bought_collector_ants = vars.initial_collector_ants;
 		bought_attack_ants = vars.initial_attack_ants;
 		bought_scout_ants = vars.initial_scout_ants;
-		health = vars.base_start_health_percentage;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(health < vars.base_start_health_percentage) {
-			health += healthregen * Time.deltaTime;
-		}
+
 		storage_of_res_a_text.GetComponent<Text>().text = res_a_storage.ToString();
 		storage_of_res_b_text.GetComponent<Text>().text = res_b_storage.ToString();
 		//storage_of_res_c_text.GetComponent<Text>().text = res_c_storage.ToString();

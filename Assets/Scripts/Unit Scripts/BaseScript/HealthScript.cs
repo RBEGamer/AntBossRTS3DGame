@@ -13,9 +13,9 @@ public class HealthScript : MonoBehaviour {
 	public bool isRegenerating = true;
 
 
-	private UnitScript unitscript;
+	private UnitScript unitScript;
 	void Awake() {
-		unitscript = GetComponent<UnitScript>();
+		unitScript = GetComponent<UnitScript>();
 		resetHealth();
 	}
 
@@ -32,7 +32,9 @@ public class HealthScript : MonoBehaviour {
 			}
 
 			CurrentHealth = Mathf.Clamp(CurrentHealth - (skillresult.skillPower - removedFromShield), -1.0f, BaseHealth);
-			unitscript.setIsInFight(true);
+			if(unitScript != null) {
+				unitScript.setIsInFight(true);
+			}
 		}
 
 		else if(skillresult.skillType == SkillResult.SkillType.Heal) {
@@ -72,7 +74,13 @@ public class HealthScript : MonoBehaviour {
 	void checkDeath() {
 		if(CurrentHealth <= 0) {
 			hasHealth = false;
-			SendMessage("destroyObject", SendMessageOptions.DontRequireReceiver);
+			if(unitScript != null) {
+				unitScript.animator.SetTrigger("death");
+				unitScript.animator.SetBool("dead", true);
+				this.enabled = false;
+			} else {
+				SendMessage("destroyObject", SendMessageOptions.DontRequireReceiver);
+			}
 		}
 	}
 }

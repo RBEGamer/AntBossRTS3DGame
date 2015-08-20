@@ -41,12 +41,7 @@ public class EnemyCommandHandler : UnitCommandHandler {
 					}
 				}
 			}
-		} else {
-			if(!isDead) {
-				unitScript.animator.SetTrigger("death");
-				isDead = true;
-			}
-		}
+		} 
 	}
 
 	public override void AttackMove() {

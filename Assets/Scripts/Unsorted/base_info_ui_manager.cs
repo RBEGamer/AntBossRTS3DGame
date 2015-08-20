@@ -32,7 +32,8 @@ public class base_info_ui_manager : MonoBehaviour {
 
 
 
-			float inverted_health = GameObject.Find(vars.base_name).GetComponent<base_manager>().health / 100.0f;
+			//float inverted_health = GameObject.Find(vars.base_name).GetComponent<base_manager>().health / 100.0f;
+			float inverted_health = GameObject.Find(vars.base_name).GetComponent<HealthScript>().CurrentHealth / GameObject.Find(vars.base_name).GetComponent<HealthScript>().BaseHealth;
 			if(inverted_health > 1.0f){inverted_health = 1.0f;}
 			if(inverted_health < 0.0f){inverted_health = 0.0f;}
 			base_healthbar_progress_picture_holder.gameObject.GetComponent<Image>().fillAmount = inverted_health;
