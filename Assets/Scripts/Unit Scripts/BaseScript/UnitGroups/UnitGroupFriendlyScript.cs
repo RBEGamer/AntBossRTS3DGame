@@ -56,6 +56,8 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 				//transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
 			}
 		}
+
+		transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
 	}
 
 	// issues retreat command
