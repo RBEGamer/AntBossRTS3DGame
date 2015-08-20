@@ -40,22 +40,6 @@ public class UnitGroupFriendlyScript : UnitGroupScript {
 		{
 			setPanic();
 		}
-		if(!isLowered) {
-			//GameObject nearestOne = findNearestUnitTowardsDestination(transform.position).gameObject;
-
-			/*if(unitGroupAttackTarget == null) {
-				if(Vector3.Distance(nearestOne.transform.position, transform.position - Vector3.up) < 5.0f) {
-					isLowered = true;
-					transform.position = new Vector3(transform.position.x, transform.position.y - 3.0f, transform.position.z);
-				}
-			} else {
-				//transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
-			}*/
-		} else {
-			if(unitGroupAttackTarget != null) {
-				//transform.position = new Vector3(unitGroupAttackTarget.transform.position.x, unitGroupAttackTarget.transform.position.y + 5.0f, unitGroupAttackTarget.transform.position.z);
-			}
-		}
 
 		transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
 	}
