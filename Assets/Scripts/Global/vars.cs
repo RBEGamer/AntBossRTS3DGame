@@ -399,9 +399,9 @@ public class vars : MonoBehaviour {
 	public static string credit_scene_name = "credits";
 	public static string intro_scene_name = "intro";
 	public static string optionn_scene_name = "options";
-	public static string mission_one_scene_name = "misson_01";
-	public static string mission_two_scene_name = "main";
-	public static string mission_three_scene_name = "main";
+	public static string mission_one_scene_name = "misson_00";
+	public static string mission_two_scene_name = "mission_01";
+	public static string mission_three_scene_name = "mission_02";
 	public static string mission_four_scene_name = "main";
 	public static string mission_five_scene_name = "main";
 	public static string level_won_scene_name = "mission_won";
