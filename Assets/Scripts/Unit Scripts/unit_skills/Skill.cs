@@ -7,6 +7,8 @@ public class Skill : MonoBehaviour {
 	public UnitScript unitScript;
 	public UnitGroupScript unitGroupScript;
 
+	public GameObject skillTarget;
+
 	public int researchTime;
 	public int costA_research;
 	public int costB_research;

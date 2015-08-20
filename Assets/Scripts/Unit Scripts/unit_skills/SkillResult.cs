@@ -29,6 +29,7 @@ public class SkillResult : ScriptableObject {
 		VisionRange,
 		Health,
 		Shield,
+		NumUnitsInProduction,
 		isInFight,
 		isNotInFight,
 		None

@@ -95,6 +95,7 @@ public class UnitGroupCache : MonoBehaviour {
 				if(newUpgradeSkill.skillType == 1) {
 					newUpgrade.SetActive(true);
 					newUpgradeSkill.unitGroupScript = newUnitGroupScript;
+					newUpgradeSkill.skillTarget = newUnitGroupScript.gameObject;
 					newUpgrade.transform.parent = newgroup.transform;
 				}
 				if(newUpgradeSkill.skillType == 0 && listNewUnits.Count > 0) {
@@ -106,6 +107,7 @@ public class UnitGroupCache : MonoBehaviour {
 						newUpgrade.SetActive(true);
 						newUpgradeSkill = newUpgrade.GetComponent<Skill>();
 						newUpgradeSkill.unitScript = listNewUnits[i];
+						newUpgradeSkill.skillTarget = listNewUnits[i].gameObject;
 						newUpgrade.transform.parent = listNewUnits[i].transform;
 					}
 				}
@@ -118,6 +120,7 @@ public class UnitGroupCache : MonoBehaviour {
 			if(newUpgradeSkill.skillType == 1) {
 				newUpgrade.SetActive(true);
 				newUpgradeSkill.unitGroupScript = newUnitGroupScript;
+				newUpgradeSkill.skillTarget = newUnitGroupScript.gameObject;
 				newUpgrade.transform.parent = newgroup.transform;
 			}
 			if(newUpgradeSkill.skillType == 0 && listNewUnits.Count > 0) {
@@ -129,6 +132,7 @@ public class UnitGroupCache : MonoBehaviour {
 					newUpgrade.SetActive(true);
 					newUpgradeSkill = newUpgrade.GetComponent<Skill>();
 					newUpgradeSkill.unitScript = listNewUnits[i];
+					newUpgradeSkill.skillTarget = listNewUnits[i].gameObject;
 					newUpgrade.transform.parent = listNewUnits[i].transform;
 				}
 			}

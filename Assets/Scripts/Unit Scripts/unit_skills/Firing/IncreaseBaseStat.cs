@@ -17,7 +17,7 @@ public class IncreaseBaseStat : MonoBehaviour {
 		skillResult.skillPower = skillPower;
 		skillResult.skillFlag = skillResult.skillType.ToString()+""+skillAttribute.ToString();
 
-		SkillCalculator.passSkillResult(this.gameObject, skill.unitScript.gameObject, skillResult);
+		SkillCalculator.passSkillResult(this.gameObject, skill.skillTarget, skillResult);
 	}
 
 	void OnUnFire() {
@@ -28,6 +28,6 @@ public class IncreaseBaseStat : MonoBehaviour {
 		skillResult.skillPower = -skillPower;
 		skillResult.skillFlag = skillResult.skillType.ToString()+""+skillAttribute.ToString();
 		
-		SkillCalculator.passSkillResult(this.gameObject, skill.unitScript.gameObject, skillResult);
+		SkillCalculator.passSkillResult(this.gameObject, skill.skillTarget, skillResult);
 	}
 }
