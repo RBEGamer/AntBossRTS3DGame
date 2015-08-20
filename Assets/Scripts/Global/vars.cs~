@@ -19,7 +19,7 @@ public class vars : MonoBehaviour {
 	//* change the values in audio clip state.cs too
 	public enum audio_name
 	{
-		audio_clip_info_ingame_uiclick, bgmusic, bgmusic2, ui_click, wp_add, wp_move, wp_connect, wp_remove_connect, unit_move_1, unit_move_2, unit_move_3, unit_move_4,unit_back_move_1, unit_back_move_2, unit_attack_move_1, unit_attack_move_2, select_base_1, select_base_2, select_unit, select_waypoint, select_ressource
+		audio_clip_info_ingame_uiclick, bgmusic, bgmusic2, ui_click, wp_add, wp_move, wp_connect, wp_remove_connect, unit_move_1, unit_move_2, unit_move_3, unit_move_4,unit_back_move_1, unit_back_move_2, unit_attack_move_1, unit_attack_move_2, select_base_1, select_base_2, select_unit, select_waypoint, select_ressource, not_enought_ressources, destroy_base, destroy_skorpion_base
 	}
 	public enum audio_playback_type
 	{
@@ -28,7 +28,7 @@ public class vars : MonoBehaviour {
 	
 	
 	public struct audio_clip_info_bgmusic{
-		public static string audio_clip_path = "sound/sonstige/backround_music";
+		public static string audio_clip_path = "Assets/sound/sonstige/backround_music.ogg";
 		public static audio_playback_type ptype = vars.audio_playback_type.music;
 		public static float volume = 1.0f;
 		public static int priority = 128;
@@ -183,6 +183,31 @@ public class vars : MonoBehaviour {
 		public static float pitch = 1.0f;
 	}
 
+
+	public struct audio_clip_info_not_enought_ressources{
+		public static string audio_clip_path = "sound/selektieren/Zu_wenig_Ressourcen";
+		public static audio_playback_type ptype = vars.audio_playback_type.effect;
+		public static float volume = 1.0f;
+		public static int priority = 128;
+		public static float pitch = 1.0f;
+	}
+
+
+	public struct audio_clip_info_destory_base{
+		public static string audio_clip_path = "sound/sonstige/destroy_base";
+		public static audio_playback_type ptype = vars.audio_playback_type.effect;
+		public static float volume = 1.0f;
+		public static int priority = 128;
+		public static float pitch = 1.0f;
+	}
+
+	public struct audio_clip_info_destroy_skorpion_base{
+		public static string audio_clip_path = "sound/sonstige/destroy_skorpion_base";
+		public static audio_playback_type ptype = vars.audio_playback_type.effect;
+		public static float volume = 1.0f;
+		public static int priority = 128;
+		public static float pitch = 1.0f;
+	}
 	/* ---------END AUDIO SETTINGS-------------------- */
 
 

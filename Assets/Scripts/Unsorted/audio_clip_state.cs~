@@ -172,6 +172,30 @@ public class audio_clip_state : MonoBehaviour {
 			asc.priority = vars.audio_clip_info_select_waypoint.priority;
 			asc.pitch = vars.audio_clip_info_select_waypoint.pitch;
 			break;
+		case vars.audio_name.not_enought_ressources:
+			ac = (AudioClip)Resources.Load(vars.audio_clip_info_not_enought_ressources.audio_clip_path);
+			type = vars.audio_clip_info_not_enought_ressources.ptype;
+			saved_vol = vars.audio_clip_info_not_enought_ressources.volume ;
+			asc.priority = vars.audio_clip_info_not_enought_ressources.priority;
+			asc.pitch = vars.audio_clip_info_not_enought_ressources.pitch;
+			break;
+		case vars.audio_name.destroy_skorpion_base:
+			ac = (AudioClip)Resources.Load(vars.audio_clip_info_destroy_skorpion_base.audio_clip_path);
+			type = vars.audio_clip_info_destroy_skorpion_base.ptype;
+			saved_vol = vars.audio_clip_info_destroy_skorpion_base.volume ;
+			asc.priority = vars.audio_clip_info_destroy_skorpion_base.priority;
+			asc.pitch = vars.audio_clip_info_destroy_skorpion_base.pitch;
+			break;
+		case vars.audio_name.destroy_base:
+			ac = (AudioClip)Resources.Load(vars.audio_clip_info_destory_base.audio_clip_path);
+			type = vars.audio_clip_info_destory_base.ptype;
+			saved_vol = vars.audio_clip_info_destory_base.volume ;
+			asc.priority = vars.audio_clip_info_destory_base.priority;
+			asc.pitch = vars.audio_clip_info_destory_base.pitch;
+			break;
+
+
+
 		default:
 			ac = null;
 			type = vars.audio_playback_type.none;
@@ -180,21 +204,25 @@ public class audio_clip_state : MonoBehaviour {
 			asc.pitch = 1.0f;
 			break;
 		}
-
-		asc.volume = saved_vol;
-		manage_vol();
-		this.name = "audio_playback_" + ac.name;
-
-		asc.clip = ac;
-
-		if(type == vars.audio_playback_type.music){
-			asc.loop = true;
+		if(ac != null){
+			asc.volume = saved_vol;
+			manage_vol();
+			this.name = "audio_playback_" + ac.name;
+			
+			asc.clip = ac;
+			
+			if(type == vars.audio_playback_type.music){
+				asc.loop = true;
+			}else{
+				asc.loop = false;
+			}
+			
+			asc.enabled = true;
+			asc.Play();
 		}else{
-			asc.loop = false;
+			this.name = "audio_playback_" + "null";
 		}
 	
-		asc.enabled = true;
-		asc.Play();
 
 	}
 

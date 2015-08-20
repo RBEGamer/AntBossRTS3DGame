@@ -14,12 +14,18 @@ public class audio_playback_manager : MonoBehaviour {
 	}
 
 
+
+
+	public void play_bgmusic(){
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source(vars.audio_name.bgmusic);}
+	}
+
 	public void play_ingame_ui_click_sound(){
 		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source(vars.audio_name.ui_click);}
 	}
 
 	public void play_wp_add_fail_sound(){
-	
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source(vars.audio_name.not_enought_ressources);}
 	}
 
 	public void play_wp_add_succ_sound(){
@@ -65,4 +71,34 @@ public class audio_playback_manager : MonoBehaviour {
 
 
 
+
+
+	public void play_unit_move_sound(GameObject obj){
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_move_1, obj);}
+		//if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_move_2, obj);}
+		//if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_move_3, obj);}
+		//if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_move_4, obj);}
+
+	}
+	public void play_unit_back_move_sound(GameObject obj){
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_back_move_1, obj);}
+		//if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_back_move_2, obj);}
+	}
+
+	public void play_unit_attack_move_sound(GameObject obj){
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_attack_move_1, obj);}
+		//if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_attack_move_2, obj);}
+	}
+
+	public void play_destroy_base_sound(GameObject obj){
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.destroy_base, obj);}
+		//if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_attack_move_2, obj);}
+	}
+
+	public void play_destroy_skorpion_base_sound(GameObject obj){
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.destroy_skorpion_base, obj);}
+		//if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_attack_move_2, obj);}
+	}
+
+	destroy_skorpion_base
 }

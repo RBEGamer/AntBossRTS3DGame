@@ -39,7 +39,13 @@ public	GameObject audio_player_template;
 		igo.transform.parent = this.gameObject.transform;
 	}
 
-
+	public void create_audio_source_to_object(vars.audio_name audio_file, GameObject obj){
+		GameObject tmp;
+		tmp = audio_player_template;
+		audio_player_template.GetComponent<audio_clip_state>().start(audio_file);
+		GameObject igo = (GameObject)Instantiate(tmp,new Vector3(0.0f,0.0f,0.0f), Quaternion.identity);
+		igo.transform.parent = obj.gameObject.transform;
+	}
 
 
 
