@@ -20,6 +20,10 @@ public class FlagScript : MonoBehaviour {
 	[SerializeField]
 	public Dictionary<string, float> currentSkillFlags;
 
+	public void Start() {
+		currentSkillFlags = new Dictionary<string, float>();
+	}
+
 	public void clearFlags() {
 		for (int index = 0; index < currentSkillFlags.Count; index++) {
 			var item = currentSkillFlags.ElementAt(index);

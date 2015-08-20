@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
 
-[ExecuteInEditMode]  
+[ExecuteInEditMode]
+#endif
 public class RouteScript : MonoBehaviour {
 	public List<GameObject> wayPointObjects;
 	public List<Transform> wayPointTransforms;
@@ -22,6 +24,7 @@ public class RouteScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+#if UNITY_EDITOR
 		if(Selection.activeGameObject == this.gameObject) {
 			if(wayPointObjects.Count > 1) {
 				float colorstep = 1.0f/(float)wayPointObjects.Count;
@@ -35,7 +38,9 @@ public class RouteScript : MonoBehaviour {
 				}
 			}
 		}
+#endif
 	}
+
 }
 
 

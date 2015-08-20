@@ -1,12 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\LaserAttack.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menu_scripts\level_selecotr.cs">
     <Files>
-      <File FileName="Assets\LaserAttack.cs" Line="46" Column="1" />
+      <File FileName="Assets\Scripts\menu_scripts\menu_button_manager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menu_scripts\level_selecotr.cs" Line="50" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="D:\Projekte\AntBoss\github_rep\AntBossRTS3DGame\Assets\Scripts\menu_scripts\menu_button_manager.cs" line="55" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
