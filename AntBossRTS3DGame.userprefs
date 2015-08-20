@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ToolTip.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Minimap\Map.cs">
     <Files>
-      <File FileName="Assets\Scripts\ToolTip.cs" Line="6" Column="19" />
+      <File FileName="Assets\Scripts\Minimap\Map.cs" Line="611" Column="35" />
+      <File FileName="Assets\Scripts\helper\gui_scaler.cs" Line="28" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
