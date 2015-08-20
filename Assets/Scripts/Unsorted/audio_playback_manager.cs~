@@ -100,5 +100,5 @@ public class audio_playback_manager : MonoBehaviour {
 		//if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source_to_object(vars.audio_name.unit_attack_move_2, obj);}
 	}
 
-	destroy_skorpion_base
+
 }
