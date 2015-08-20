@@ -63,7 +63,7 @@ public class UnitGroupCache : MonoBehaviour {
 	// adds a unit group(on retreat)
 	public void addUnitGroup(UnitGroupScript group) {
 		SavedUnitGroup newUnitGroup = new SavedUnitGroup();
-		
+		newUnitGroup.normalUpgrades = new List<string>();
 		newUnitGroup.numUnits = group.unitsInBaseScripts.Count;
 		unitGroupsSaved.Add (newUnitGroup);
 	}
@@ -88,8 +88,32 @@ public class UnitGroupCache : MonoBehaviour {
 		GameObject newUpgrade;
 		Skill newUpgradeSkill;
 
-		foreach(string upgrade in group.normalUpgrades) {
-			newUpgrade = Instantiate(upgradeManager.getUpgrade(upgrade), position, Quaternion.identity) as GameObject;
+		if(group.normalUpgrades.Count > 0) {
+			foreach(string upgrade in group.normalUpgrades) {
+				newUpgrade = Instantiate(upgradeManager.getUpgrade(upgrade), position, Quaternion.identity) as GameObject;
+				newUpgradeSkill = newUpgrade.GetComponent<Skill>();
+				if(newUpgradeSkill.skillType == 1) {
+					newUpgrade.SetActive(true);
+					newUpgradeSkill.unitGroupScript = newUnitGroupScript;
+					newUpgrade.transform.parent = newgroup.transform;
+				}
+				if(newUpgradeSkill.skillType == 0 && listNewUnits.Count > 0) {
+					newUpgradeSkill.unitScript = listNewUnits[0];
+					newUpgrade.transform.parent = listNewUnits[0].transform;
+					newUpgrade.SetActive(true);
+					for(int i = 1; i < listNewUnits.Count; i++) {
+						newUpgrade = Instantiate(upgradeManager.getUpgrade(upgrade), position, Quaternion.identity) as GameObject;
+						newUpgrade.SetActive(true);
+						newUpgradeSkill = newUpgrade.GetComponent<Skill>();
+						newUpgradeSkill.unitScript = listNewUnits[i];
+						newUpgrade.transform.parent = listNewUnits[i].transform;
+					}
+				}
+			}
+		}
+
+		if(group.specialUpgrade != null) {
+			newUpgrade = Instantiate(upgradeManager.getUpgrade(group.specialUpgrade).gameObject, position, Quaternion.identity) as GameObject;
 			newUpgradeSkill = newUpgrade.GetComponent<Skill>();
 			if(newUpgradeSkill.skillType == 1) {
 				newUpgrade.SetActive(true);
@@ -101,7 +125,7 @@ public class UnitGroupCache : MonoBehaviour {
 				newUpgrade.transform.parent = listNewUnits[0].transform;
 				newUpgrade.SetActive(true);
 				for(int i = 1; i < listNewUnits.Count; i++) {
-					newUpgrade = Instantiate(upgradeManager.getUpgrade(upgrade), position, Quaternion.identity) as GameObject;
+					newUpgrade = Instantiate(upgradeManager.getUpgrade(group.specialUpgrade), position, Quaternion.identity) as GameObject;
 					newUpgrade.SetActive(true);
 					newUpgradeSkill = newUpgrade.GetComponent<Skill>();
 					newUpgradeSkill.unitScript = listNewUnits[i];
