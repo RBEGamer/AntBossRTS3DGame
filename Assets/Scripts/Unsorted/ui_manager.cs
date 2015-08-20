@@ -610,7 +610,7 @@ public class ui_manager : MonoBehaviour {
 
 
 
-
+	public bool only_first_produce = false;
 
 	void ant_produce_query_task(){
 	
@@ -677,7 +677,12 @@ public class ui_manager : MonoBehaviour {
 			
 			//Update time
 			ant_query_info ant_time_tmp = ant_produce_query[i];
-			ant_time_tmp.waititme -= Time.deltaTime;
+			if(i == 0 && only_first_produce){
+				ant_time_tmp.waititme -= Time.deltaTime;
+			}else if(!only_first_produce){
+				ant_time_tmp.waititme -= Time.deltaTime;
+			}
+
 			ant_produce_query[i] = ant_time_tmp;
 
 			if(ant_produce_query[i].waititme <= 0.0f){

@@ -10,10 +10,14 @@ public class level_selecotr : MonoBehaviour {
 	public GameObject mission_two_desc;
 	public GameObject mission_three_desc;
 
+	public GameObject map_animation_prefab;
 
 
 
 	public void load_level(){
+
+		Destroy(GameObject.Find(map_animation_prefab.name));
+
 		if(selected_level == 1){
 			GameObject.Find("UI_BUTTON_MANAGER").GetComponent<menu_button_manager>().load_level_one();
 		}else if(selected_level == 2){
