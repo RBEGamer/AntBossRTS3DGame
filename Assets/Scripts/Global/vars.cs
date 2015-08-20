@@ -28,7 +28,7 @@ public class vars : MonoBehaviour {
 	
 	
 	public struct audio_clip_info_bgmusic{
-		public static string audio_clip_path = "/sound/sonstige/backround_music.ogg";
+		public static string audio_clip_path = "sound/sonstige/backround_music";
 		public static audio_playback_type ptype = vars.audio_playback_type.music;
 		public static float volume = 1.0f;
 		public static int priority = 128;
