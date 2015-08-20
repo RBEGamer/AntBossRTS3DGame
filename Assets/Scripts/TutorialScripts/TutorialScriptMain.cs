@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class TutorialScriptMain : MonoBehaviour {
 
@@ -7,7 +9,14 @@ public class TutorialScriptMain : MonoBehaviour {
 
 	public base_manager baseManager;
 
-	
+	public Text text;
+	[SerializeField]
+	public List<string> tutorialTexts;
+
+	public void Start() {
+		text.text = tutorialTexts[tutorialStep];
+	}
+
 	public void updateStep() {
 		tutorialStep++;
 		checkStepBoni();
@@ -23,10 +32,11 @@ public class TutorialScriptMain : MonoBehaviour {
 
 
 	public void checkStepBoni() {
+		text.text = tutorialTexts[tutorialStep];
+
 		if(tutorialStep == 3) {
 			baseManager.bought_scout_ants += 3;
 		}
 		                    
 	}
-
 }

@@ -586,10 +586,20 @@ public class Map : MonoBehaviour
         Debug.LogWarning("MiniMap: If you're using Unity Pro, enable pro-only RenderTexture features by uncommenting #define RENDER_TEXTURE_MAP at the top in Map.cs. If you're not, you can remove this debug message from the Start method in the same file.");
     }
 
+	public Vector2 referenceResolution;
+	public float referenceScreenSize;
+	public float referenceMarginLeftRight = 8;
+	public float referenceMarginTopBottom = 10;
     void Update()
     {
         Instance = this;
 
+		//Debug.Log (Screen.currentResolution.width);
+		//screenSize = (Screen.currentResolution.width / referenceResolution.x) * referenceScreenSize;
+		float factor = (Screen.width / referenceResolution.x);
+		screenSize =  referenceScreenSize * factor;
+		marginTopBottom = referenceMarginTopBottom * factor;
+		marginLeftRight = referenceMarginLeftRight * factor;
         AutoDetect();
         CleanUpOldPings();
         CheckForPing();
