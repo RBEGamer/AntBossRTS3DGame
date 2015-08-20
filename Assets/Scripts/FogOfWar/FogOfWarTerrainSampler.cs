@@ -9,8 +9,8 @@ public class FogOfWarTerrainSampler : FogOfWarHeightSampler
     {
         if (terrain != null)
         {
-			if(terrain.SampleHeight(worldPosition) > 1) {
-				return 5;
+			if(terrain.SampleHeight(worldPosition) > 0.1f) {
+				return terrain.SampleHeight(worldPosition)- 1.5f;
 			} else {
 				return -1.5f;
 			}

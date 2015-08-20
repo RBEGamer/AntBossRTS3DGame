@@ -1,14 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Shaders\FogOfWarIndieSoft.shader">
     <Files>
-      <File FileName="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerManager.cs" Line="30" Column="45" />
-      <File FileName="Assets\Scripts\Unsorted\ressource.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\HealthScript.cs" Line="35" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroups\UnitGroupFriendlyScript.cs" Line="243" Column="4" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupScript.cs" Line="208" Column="3" />
-      <File FileName="Assets\Scripts\Unit Scripts\WorkerScripts\WorkerScript.cs" Line="52" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\MovementScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Minimap\Map.cs" Line="125" Column="6" />
+      <File FileName="Assets\Shaders\FogOfWarIndieSoft.shader" Line="5" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

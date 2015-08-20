@@ -1,8 +1,8 @@
-Shader "Fog Of War/Soft (Indie)" {
+Shader "Fog Of War/Blocky (Indie)" {
 	Properties {
 		_FadeTime ("Fade Time", float) = 1
 		_WorldTime ("World Time", float) = 0
-		_Color ("Fog Color", Color) = (1, 0, 1, 1.0)
+		_Color ("Fog Color", Color) = (1, 1, 1, 0.5)
 	}
 
 	SubShader {
@@ -13,8 +13,7 @@ Shader "Fog Of War/Soft (Indie)" {
 
 		Pass {
 			ZWrite On
-			ZTest LEqual
-			//ZTest Always
+			ZTest Always
 			ColorMask 0
 			
 			CGPROGRAM
@@ -28,17 +27,16 @@ Shader "Fog Of War/Soft (Indie)" {
 				return mul(UNITY_MATRIX_MVP, v.vertex);
 			}
 
-			half4 frag (float4 	i : COLOR) : COLOR
+			half4 frag (float4 i : COLOR) : COLOR
 			{
-				return 1;
+				return 0;
 			}
 
 			ENDCG
 		}
 
 		Pass {
-			Blend SrcAlpha OneMinusSrcAlpha
-			
+			Blend DstColor Zero
 			ZWrite Off
 			ZTest Equal
 
@@ -54,26 +52,26 @@ Shader "Fog Of War/Soft (Indie)" {
 
 			struct output {
 				float4 pos : SV_POSITION;
-				half4 col : COLOR;
+				half2 texcoord : TEXCOORD0;
 			};
 
 			output vert (appdata_base v)
 			{
-				float t;
 				output o;
-				
-				t = clamp(1 - ((_WorldTime - v.texcoord.x) / _FadeTime), v.texcoord.y, 1);
 
 				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
-				//o.col = t + (t * _Color * abs(1 - t));
-				o.col = _Color;
-				o.col.w = 1-t;
+				o.texcoord = v.texcoord;
+				
 				return o;
 			}
 
-			half4 frag (output i) : COLOR
+			half4 frag (output v) : COLOR
 			{
-				return i.col;
+				float t;
+
+				t = clamp(1 - ((_WorldTime - v.texcoord.x) / 0.001f), v.texcoord.y, 1);
+
+				return t + (t * _Color * abs(1 - t));
 			}
 
 			ENDCG
