@@ -62,7 +62,7 @@ public class res_selection_ui_manager : MonoBehaviour {
 		Debug.Log(wp_id);
 		float x = wp_pos.x;
 		float z = wp_pos.z;
-
+		GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_ressource_select_sound();
 		GameObject.Find(vars.path_manager_name).GetComponent<wp_manager>().map_wp_to_ui(wp_id);
 
 			GameObject.Find(vars.main_camera_script_holder_name).GetComponent<camera_movement>().camera_offset = new Vector3(x,GameObject.Find(vars.main_camera_script_holder_name).GetComponent<camera_movement>().camera_offset.y,z);
