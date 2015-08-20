@@ -47,7 +47,7 @@ public class SkillResult : ScriptableObject {
 	// Flags
 	public static string flag_recentlyHealed = "RecentlyHealed";
 	public static string flag_movementspeedDecreased = "MovementspeedDecrased";
-
+	public static string flag_movementspeedIncreased = "MovementspeedIncreased";
 	// Skill Data
 	public SkillType skillType = SkillType.Heal;
 	public SkillAttribute skillAttribute = SkillAttribute.Health;

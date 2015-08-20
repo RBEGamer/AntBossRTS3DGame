@@ -33,9 +33,7 @@ public class LaserAttack : MonoBehaviour {
 				
 				skillResult.skillType = SkillResult.SkillType.Damage;
 				skillResult.skillPower = attackPower;
-				//if(unitScript.unitTargetScript.attackTarget != null) {
 				SkillCalculator.passSkillResult(transform.gameObject, hitColliders[i].gameObject, skillResult);
-				//}
 
 				break;
 			}
