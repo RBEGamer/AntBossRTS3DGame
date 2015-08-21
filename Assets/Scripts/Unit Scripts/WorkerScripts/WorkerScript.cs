@@ -30,9 +30,9 @@ public class WorkerScript : MonoBehaviour {
 
 	public bool retreat = false;
 
-	public float currentMovementOffset = 2.0f;
-	public float movementUpperOffset = 3.0f;
-	public float movementLowerOffset = 2.0f;
+	public float currentMovementOffset = 0.5f;
+	public float movementUpperOffset = 1.5f;
+	public float movementLowerOffset = 1.0f;
 
 	// Use this for initialization
 	void Start () {

@@ -1,9 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TooltipView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupCache.cs">
     <Files>
-      <File FileName="Assets\UpgradeUIManager.cs" Line="115" Column="25" />
-      <File FileName="Assets\TooltipView.cs" Line="45" Column="2" />
+      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupCache.cs" Line="165" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

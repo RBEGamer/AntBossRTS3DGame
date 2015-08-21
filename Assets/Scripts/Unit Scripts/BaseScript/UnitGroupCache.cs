@@ -36,7 +36,7 @@ public class UnitGroupCache : MonoBehaviour {
 		newUnitGroup.unitGroupName = "Standard Ants " + unitGroupCounter.ToString();
 		unitGroupCounter++;
 		newUnitGroup.normalUpgrades = new List<string>();
-		newUnitGroup.normalUpgrades.Add("Heal");
+		//newUnitGroup.normalUpgrades.Add("Heal");
 		//newUnitGroup.normalUpgrades.Add("Moral");
 		unitGroupsSaved.Add (newUnitGroup);
 		
