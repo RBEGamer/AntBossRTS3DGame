@@ -38,6 +38,7 @@ public class level_selecotr : MonoBehaviour {
 
 	public void select_level(int id){
 		selected_level = id;
+		if(GameObject.Find(vars.sound_manager_name) != null){GameObject.Find(vars.sound_manager_name).GetComponent<sound_manager>().create_audio_source(vars.audio_name.ui_click);}
 
 		if(selected_level == 1){
 			mission_one_desc.SetActive(true);
