@@ -43,10 +43,10 @@ public class vars : MonoBehaviour {
 	}
 	
 	public struct audio_clip_info_uiclick{
-		public static string audio_clip_path = "sound/buttons/Men_Button_converted";
+		public static string audio_clip_path = "sound/button-11";
 		public static audio_playback_type ptype = vars.audio_playback_type.effect;
-		public static float volume = 1.0f;
-		public static int priority = 128;
+		public static float volume = 0.6f;
+		public static int priority = 100;
 		public static float pitch = 1.0f;
 	}
 
