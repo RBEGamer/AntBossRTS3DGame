@@ -141,7 +141,6 @@ public class UnitGroupCache : MonoBehaviour {
 		}
 
 		deleteUnitGroup(group);
-		//setListGroupUnitsActive(listNewUnits);
 		StartCoroutine(setListGroupUnitsActive(listNewUnits));
 	}
 

@@ -17,6 +17,7 @@ public class FlagScript : MonoBehaviour {
 	public UnitFaction Faction;
 	public string skillFlags;
 	// Upgrade logic(all units)
+
 	[SerializeField]
 	public Dictionary<string, float> currentSkillFlags;
 
@@ -28,6 +29,7 @@ public class FlagScript : MonoBehaviour {
 		for (int index = 0; index < currentSkillFlags.Count; index++) {
 			var item = currentSkillFlags.ElementAt(index);
 			if(Time.time > item.Value) {
+				Debug.Log (item.Key+"REMOVED!");
 				currentSkillFlags.Remove(item.Key);
 			}
 		}

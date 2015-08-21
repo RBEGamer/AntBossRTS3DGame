@@ -12,8 +12,7 @@ public class upgrade_manager : MonoBehaviour {
 		foreach (GameObject item in GameObject.FindGameObjectsWithTag(vars.upgrade_tag_name)) {
 			upgrade_list.Add(item.GetComponent<upgrade_description>());
 		}
-
-		Debug.Log(upgrade_list.Count.ToString() + " UPGRADES LOADED");
+		
 	}
 	
 	// Update is called once per frame

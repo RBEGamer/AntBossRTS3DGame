@@ -50,8 +50,7 @@ public class AreaHeal : MonoBehaviour {
 				}
 			}
 		}
-
-		Debug.Log ("YAY" + targetUnits.Count);
+		
 		sortByLowestHealth(ref targetUnits);
 		SkillResult skillResult = new SkillResult();
 		
