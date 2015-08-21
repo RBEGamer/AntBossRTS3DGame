@@ -14,6 +14,10 @@ public class HealthScript : MonoBehaviour {
 
 
 	private UnitScript unitScript;
+
+
+	public GameObject shieldObject;
+	public float currentShieldCooldown;
 	void Awake() {
 		unitScript = GetComponent<UnitScript>();
 		resetHealth();
@@ -21,6 +25,12 @@ public class HealthScript : MonoBehaviour {
 
 	void Update() {
 		checkDeath();
+
+		if(currentShieldCooldown > 0.0f) {
+			currentShieldCooldown -= Time.deltaTime;
+		} else if(shieldObject != null && shieldObject.activeSelf) {
+			shieldObject.SetActive(false);
+		}
 	}
 
 	void OnSkillResult(SkillResult skillresult) {
@@ -29,6 +39,10 @@ public class HealthScript : MonoBehaviour {
 
 			if(CurrentShield > 0) {
 				removedFromShield = Mathf.Abs(CurrentShield - skillresult.skillPower);
+				if(shieldObject != null) {
+					shieldObject.SetActive(true);
+					currentShieldCooldown = 3.0f;
+				}
 			}
 
 			CurrentHealth = Mathf.Clamp(CurrentHealth - (skillresult.skillPower - removedFromShield), -1.0f, BaseHealth);
