@@ -5,6 +5,10 @@ public class base_manager : MonoBehaviour {
 
 	public GameObject click_collider;
 
+
+	public float add_a = 0.0f;
+	public float add_b = 0.0f;
+
 	public float res_a_storage;
 	public float res_b_storage;
 	public float res_c_storage;
@@ -119,8 +123,8 @@ public class base_manager : MonoBehaviour {
 	}
 
 	void Start(){
-		res_a_storage = vars.initial_res_a_storage;
-		res_b_storage = vars.initial_res_b_storage;
+		res_a_storage = vars.initial_res_a_storage + add_a;
+		res_b_storage = vars.initial_res_b_storage + add_b;
 		res_c_storage = vars.initial_res_c_storage;
 		bought_collector_ants = vars.initial_collector_ants;
 		bought_attack_ants = vars.initial_attack_ants;
