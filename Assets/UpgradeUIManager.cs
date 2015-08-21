@@ -57,39 +57,46 @@ public class UpgradeUIManager : MonoBehaviour {
 	
 
 	public void researchUpgrade()  {
+		if(baseManager.res_a_storage >= selectedUpgrade.GetComponent<Skill>().costA_research &&
+		   baseManager.res_b_storage >= selectedUpgrade.GetComponent<Skill>().costB_research) {
+			
 
-		Skill currentSkill = selectedUpgrade.GetComponent<Skill>();
-		if(numResearchedTiers >= currentSkill.skillTier && currentSkill.researched == false) {
-			baseManager.res_a_storage -= currentSkill.costA_research;
-			baseManager.res_b_storage -= currentSkill.costB_research;
+			Skill currentSkill = selectedUpgrade.GetComponent<Skill>();
+			if(numResearchedTiers >= currentSkill.skillTier && currentSkill.researched == false) {
+				baseManager.res_a_storage -= currentSkill.costA_research;
+				baseManager.res_b_storage -= currentSkill.costB_research;
 
-			currentSkill.researched = true;
-			numUpgradesOnCurrentTier++;
-			if(numUpgradesOnCurrentTier == 3) {
-				numResearchedTiers++;
-				numUpgradesOnCurrentTier = 0;
+				currentSkill.researched = true;
+				numUpgradesOnCurrentTier++;
+				if(numUpgradesOnCurrentTier == 3) {
+					numResearchedTiers++;
+					numUpgradesOnCurrentTier = 0;
+				}
 			}
 		}
 	}
 
 	public void equipUpgrade() {
-
+		if(baseManager.res_a_storage >= selectedUpgrade.GetComponent<Skill>().costA_equip &&
+		   baseManager.res_b_storage >= selectedUpgrade.GetComponent<Skill>().costB_equip && 
+		   selectedUpgrade.GetComponent<Skill>().researched) {
 		
 
 
-		switch(uiManager.ui_view_slot_0) {
-		case ui_manager.selected_ui_in_slot_0.base_ui:
-			addUpgradeToBase();
-			break;
-		case ui_manager.selected_ui_in_slot_0.ressource_ui:
-			addUpgradeToRessource();
-			break;
-		case ui_manager.selected_ui_in_slot_0.unit_ui:
-			addUpgradeToUnit();
-			break;
-		case ui_manager.selected_ui_in_slot_0.waypoint_ui:
-			addUpgradeToWaypoint();
-			break;
+			switch(uiManager.ui_view_slot_0) {
+			case ui_manager.selected_ui_in_slot_0.base_ui:
+				addUpgradeToBase();
+				break;
+			case ui_manager.selected_ui_in_slot_0.ressource_ui:
+				addUpgradeToRessource();
+				break;
+			case ui_manager.selected_ui_in_slot_0.unit_ui:
+				addUpgradeToUnit();
+				break;
+			case ui_manager.selected_ui_in_slot_0.waypoint_ui:
+				addUpgradeToWaypoint();
+				break;
+			}
 		}
 	}
 
