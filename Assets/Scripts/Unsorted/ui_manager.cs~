@@ -128,7 +128,7 @@ public class ui_manager : MonoBehaviour {
 		//	}
 		ant_produce_query_task();
 		manage_unit_ui();
-		manage_upgrade_ui();
+		//manage_upgrade_ui();
 	}
 	
 	
@@ -153,6 +153,7 @@ public class ui_manager : MonoBehaviour {
 		show_upgrade_ui = false;
 		vars.is_in_patheditmode = false;
 		show_upgrade_ui = false;
+		manage_upgrade_ui();
 		manage_view();
 	
 	}
@@ -160,11 +161,13 @@ public class ui_manager : MonoBehaviour {
 	public void slot_0_set_base(){
 		ui_view_slot_0 = selected_ui_in_slot_0.base_ui;
 		show_upgrade_ui = false;
+		manage_upgrade_ui();
 		manage_view();
 	}
 	
 	public void slot_0_set_ressource(){
 		show_upgrade_ui = false;
+		manage_upgrade_ui();
 		ui_view_slot_0 = selected_ui_in_slot_0.ressource_ui;
 		manage_view();
 		switched_view_to_ressource_ui();
@@ -172,19 +175,21 @@ public class ui_manager : MonoBehaviour {
 
 	public void slot_0_set_unit(){
 		show_upgrade_ui = false;
+		manage_upgrade_ui();
 		ui_view_slot_0 = selected_ui_in_slot_0.unit_ui;
 		manage_view();
 	}
 
 	public void slot_0_set_waypoint(){
 		show_upgrade_ui = false;
+		manage_upgrade_ui();
 		ui_view_slot_0 = selected_ui_in_slot_0.waypoint_ui;
 		manage_view();
 	}
 	
 	private void manage_view(){
-		show_upgrade_ui = false;
-		manage_upgrade_ui();
+		//show_upgrade_ui = false;
+		//manage_upgrade_ui();
 		switch (ui_view_slot_0) {
 			
 		case selected_ui_in_slot_0.empty_ui:
@@ -1104,7 +1109,9 @@ public class ui_manager : MonoBehaviour {
 	int btn_fill_counter = 0;
 
 	public void manage_upgrade_ui(){
+	
 		if(show_upgrade_ui){
+			Debug.Log("open");
 			if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
 				res_upgrade_ui.SetActive(false);
 				wp_upgrade_ui.SetActive(false);
@@ -1132,6 +1139,7 @@ public class ui_manager : MonoBehaviour {
 				unit_upgrade_ui.SetActive(false);
 			}
 		}else{
+			Debug.Log("close");
 			res_upgrade_ui.SetActive(false);
 			wp_upgrade_ui.SetActive(false);
 			base_upgrade_ui.SetActive(false);
@@ -1144,33 +1152,47 @@ public class ui_manager : MonoBehaviour {
 		//0-3
 		public void toggle_upgrade_window(int mapped_upgrade_slot){
 			show_upgrade_ui = !show_upgrade_ui;
-		manage_upgrade_ui();
+		if(show_upgrade_ui){
+			Debug.Log("open");
+			if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(true);
+				unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.empty_ui){
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+				res_upgrade_ui.SetActive(true);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(true);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.waypoint_ui){
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(true);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(false);
+			}
+		}else{
+			Debug.Log("close");
+			res_upgrade_ui.SetActive(false);
+			wp_upgrade_ui.SetActive(false);
+			base_upgrade_ui.SetActive(false);
+			unit_upgrade_ui.SetActive(false);
+		}
 		}
 
 
-	public void buy_selected_upgrade(){
-	
-		update_upgrade_ui = true;
-
-	}
-
-	public void research_selected_upgrade(){
-		
-		update_upgrade_ui = true;
-		
-	}
 
 
-	public void select_tier(int tier){
 
-
-		update_upgrade_ui = true;
-	}
-	//0-8
-	public void select_upgrade(int btn_id){
-
-	}
-		
 	
 
 
