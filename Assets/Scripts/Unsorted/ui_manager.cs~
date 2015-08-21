@@ -183,7 +183,8 @@ public class ui_manager : MonoBehaviour {
 	}
 	
 	private void manage_view(){
-		
+		show_upgrade_ui = false;
+		manage_upgrade_ui();
 		switch (ui_view_slot_0) {
 			
 		case selected_ui_in_slot_0.empty_ui:
@@ -1103,7 +1104,39 @@ public class ui_manager : MonoBehaviour {
 	int btn_fill_counter = 0;
 
 	public void manage_upgrade_ui(){
-
+		if(show_upgrade_ui){
+			if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(true);
+				unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.empty_ui){
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+				res_upgrade_ui.SetActive(true);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(true);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.waypoint_ui){
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(true);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(false);
+			}
+		}else{
+			res_upgrade_ui.SetActive(false);
+			wp_upgrade_ui.SetActive(false);
+			base_upgrade_ui.SetActive(false);
+			unit_upgrade_ui.SetActive(false);
+		}
 	}
 
 	//0-3
@@ -1111,39 +1144,7 @@ public class ui_manager : MonoBehaviour {
 		//0-3
 		public void toggle_upgrade_window(int mapped_upgrade_slot){
 			show_upgrade_ui = !show_upgrade_ui;
-			if(show_upgrade_ui){
-				if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-					res_upgrade_ui.SetActive(false);
-					wp_upgrade_ui.SetActive(false);
-					base_upgrade_ui.SetActive(true);
-					unit_upgrade_ui.SetActive(false);
-			}else if(ui_view_slot_0 == selected_ui_in_slot_0.empty_ui){
-					res_upgrade_ui.SetActive(false);
-					wp_upgrade_ui.SetActive(false);
-					base_upgrade_ui.SetActive(false);
-					unit_upgrade_ui.SetActive(false);
-			}else if(ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
-					res_upgrade_ui.SetActive(true);
-					wp_upgrade_ui.SetActive(false);
-					base_upgrade_ui.SetActive(false);
-					unit_upgrade_ui.SetActive(false);
-			}else if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
-					res_upgrade_ui.SetActive(false);
-					wp_upgrade_ui.SetActive(false);
-					base_upgrade_ui.SetActive(false);
-					unit_upgrade_ui.SetActive(true);
-			}else if(ui_view_slot_0 == selected_ui_in_slot_0.waypoint_ui){
-					res_upgrade_ui.SetActive(false);
-					wp_upgrade_ui.SetActive(true);
-					base_upgrade_ui.SetActive(false);
-					unit_upgrade_ui.SetActive(false);
-				}
-			}else{
-				res_upgrade_ui.SetActive(false);
-				wp_upgrade_ui.SetActive(false);
-				base_upgrade_ui.SetActive(false);
-				unit_upgrade_ui.SetActive(false);
-			}
+		manage_upgrade_ui();
 		}
 
 
