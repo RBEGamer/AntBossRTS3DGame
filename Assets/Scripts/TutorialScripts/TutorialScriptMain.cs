@@ -14,7 +14,9 @@ public class TutorialScriptMain : MonoBehaviour {
 	public List<string> tutorialTexts;
 
 	public void Start() {
+		if(text) {
 		text.text = tutorialTexts[tutorialStep];
+		}
 	}
 
 	public void updateStep() {
@@ -32,7 +34,9 @@ public class TutorialScriptMain : MonoBehaviour {
 
 
 	public void checkStepBoni() {
+		if(text) {
 		text.text = tutorialTexts[tutorialStep];
+		}
 
 		if(tutorialStep == 3) {
 			baseManager.bought_scout_ants += 3;
