@@ -1,11 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\wp_manager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UpgradeUIManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Casting\CastOnce.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\wp_manager.cs" Line="438" Column="6" />
-      <File FileName="Assets\Scripts\helper\Effects\WaypointLaserEffect.cs" Line="17" Column="22" />
-      <File FileName="Assets\Scripts\helper\Skills\LaserLookAt.cs" Line="29" Column="31" />
+      <File FileName="Assets\Scripts\Unsorted\ui_manager.cs" Line="97" Column="1" />
+      <File FileName="Assets\UpgradeUIManager.cs" Line="140" Column="49" />
+      <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Skill.cs" Line="5" Column="27" />
+      <File FileName="Assets\Scripts\wp_manager.cs" Line="61" Column="13" />
+      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupCache.cs" Line="25" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

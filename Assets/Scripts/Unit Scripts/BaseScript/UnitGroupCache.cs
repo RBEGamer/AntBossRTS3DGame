@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 
-public struct SavedUnitGroup {
+public class SavedUnitGroup : ScriptableObject {
 	public int numUnits;
 	public string unitGroupName;
 
@@ -19,8 +19,10 @@ public class UnitGroupCache : MonoBehaviour {
 	public GameObject unitGroupPrefab;
 	public GameObject unitPrefab;
 	public GameObject testPrefab;
-	
+
+	[SerializeField]
 	public List<SavedUnitGroup> unitGroupsSaved;
+
 	public static int unitGroupCounter = 1;
 
 	// Use this for initialization
@@ -35,7 +37,7 @@ public class UnitGroupCache : MonoBehaviour {
 		unitGroupCounter++;
 		newUnitGroup.normalUpgrades = new List<string>();
 		//newUnitGroup.normalUpgrades.Add("Heal");
-		newUnitGroup.normalUpgrades.Add("Moral");
+		//newUnitGroup.normalUpgrades.Add("Moral");
 		unitGroupsSaved.Add (newUnitGroup);
 		
 		return newUnitGroup;
