@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class level_selecotr : MonoBehaviour {
 
 
@@ -13,7 +13,12 @@ public class level_selecotr : MonoBehaviour {
 	public GameObject map_animation_prefab;
 
 
+	public Sprite btn1_normal, btn1_pushed, btn1_over;
+	public Sprite btn2_normal, btn2_pushed, btn2_over;
+	public Sprite btn3_normal, btn3_pushed, btn3_over;
 
+
+	public GameObject btn1,btn2,btn3;
 	public void load_level(){
 
 		Destroy(GameObject.Find(map_animation_prefab.name));
@@ -38,20 +43,60 @@ public class level_selecotr : MonoBehaviour {
 			mission_one_desc.SetActive(true);
 			mission_two_desc.SetActive(false);
 			mission_three_desc.SetActive(false);
+			btn1.GetComponent<Image>().sprite = btn1_pushed;
+			btn2.GetComponent<Image>().sprite = btn2_normal;
+			btn3.GetComponent<Image>().sprite = btn3_normal;
 		}else if(selected_level == 2){
 			mission_one_desc.SetActive(false);
 			mission_two_desc.SetActive(true);
 			mission_three_desc.SetActive(false);
+			btn2.GetComponent<Image>().sprite = btn2_pushed;
+			btn1.GetComponent<Image>().sprite = btn1_normal;
+			btn3.GetComponent<Image>().sprite = btn3_normal;
 		}else if(selected_level == 3){
 			mission_one_desc.SetActive(false);
 			mission_two_desc.SetActive(false);
 			mission_three_desc.SetActive(true);
+			btn3.GetComponent<Image>().sprite = btn3_pushed;
+			btn1.GetComponent<Image>().sprite = btn1_normal;
+			btn2.GetComponent<Image>().sprite = btn2_normal;
 		}
-
-
-
-
 	}
+
+
+
+
+	public void mouse_hover(int id){
+		if(selected_level == id){
+		}else{
+
+			if(id == 1){
+				btn1.GetComponent<Image>().sprite = btn1_over;
+			}else if(id == 2){
+				btn2.GetComponent<Image>().sprite = btn2_over;
+			}else if(id == 3){
+				btn3.GetComponent<Image>().sprite = btn3_over;
+			}
+		}
+	}
+
+
+	public void exit_mouse(int id){
+		if(selected_level == id){
+		}else{
+			if(id == 1){
+				btn1.GetComponent<Image>().sprite = btn1_normal;
+			}else if(id == 2){
+				btn2.GetComponent<Image>().sprite = btn2_normal;
+			}else if(id == 3){
+				btn3.GetComponent<Image>().sprite = btn3_normal;
+			}
+		}
+	}
+
+
+
+
 	// Use this for initialization
 	void Start () {
 		select_level(1);

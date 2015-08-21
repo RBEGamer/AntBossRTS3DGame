@@ -13,4 +13,4 @@ public class DestroyedReplace : MonoBehaviour {
 		gameObject.SetActive(false);
 		Destroy(gameObject, 0.1f);
 	}
-}
+}	

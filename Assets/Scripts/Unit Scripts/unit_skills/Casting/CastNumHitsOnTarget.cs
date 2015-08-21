@@ -5,6 +5,8 @@ public class CastNumHitsOnTarget : MonoBehaviour {
 	public Skill skill;
 	public WeaponScript weaponScript;
 	public int currentHits;
+
+	public ParticleSystem particleSystem;
 	// Use this for initialization
 	void Start () {
 		skill = GetComponent<Skill>();
@@ -25,5 +27,12 @@ public class CastNumHitsOnTarget : MonoBehaviour {
 			}
 			currentHits = weaponScript.numHitsOnCurrentTarget;
 		}
+
+		if(currentHits > 0) {
+			particleSystem.Play();
+		} else {
+			particleSystem.Stop();
+		}
+		
 	}
 }

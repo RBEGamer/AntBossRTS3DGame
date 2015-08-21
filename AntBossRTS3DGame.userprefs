@@ -1,15 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\HelpScript\DestroyedReplace.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\unit_skills\Casting\CastNumHitsOnTarget.cs">
     <Files>
-      <File FileName="Assets\Scripts\Unsorted\ui_manager.cs" Line="97" Column="1" />
-      <File FileName="Assets\UpgradeUIManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Skill.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\wp_manager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupCache.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FogOfWar\FogOfWarTerrainSampler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\HelpScript\DestroyedReplace.cs" Line="11" Column="66" />
-      <File FileName="Assets\Scripts\Unit Scripts\HelpScript\DestroyAfterXSeconds.cs" Line="6" Column="14" />
+      <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Casting\SporeAttack.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Casting\CastNumHitsOnTarget.cs" Line="29" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

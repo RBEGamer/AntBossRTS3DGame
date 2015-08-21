@@ -14,6 +14,7 @@ public class AreaHeal : MonoBehaviour {
 	public UnitFaction targetFaction;
 	public int numTargets;
 
+	public GameObject healEffect;
 	public void Start() {
 		skill = GetComponent<Skill>();
 	}
@@ -34,6 +35,23 @@ public class AreaHeal : MonoBehaviour {
 			}
 		}
 
+		if(targetUnits.Count < numTargets) {
+			for(int i = 0; i < skill.unitGroupScript.unitsInGroupScripts.Count; i++) {
+				if(i == numTargets) {
+					break;
+				}
+				UnitScript unit = skill.unitGroupScript.unitsInGroupScripts[i];
+				if(unit != null) {
+					if(unit.flagScript.Faction == targetFaction
+					   && !unit.flagScript.currentSkillFlags.ContainsKey(SkillResult.flag_recentlyHealed)
+					   && unit.healthScript.CurrentHealth < unit.healthScript.BaseHealth) {
+						targetUnits.Add(unit);
+					}
+				}
+			}
+		}
+
+		Debug.Log ("YAY" + targetUnits.Count);
 		sortByLowestHealth(ref targetUnits);
 		SkillResult skillResult = new SkillResult();
 		
@@ -45,6 +63,7 @@ public class AreaHeal : MonoBehaviour {
 		if(targetUnits.Count > 0 && numTargets > 0) {
 			for(int i = 0; i < numTargets; i++) {
 				SkillCalculator.passSkillResult(this.gameObject, targetUnits[i].gameObject, skillResult);
+				Instantiate(healEffect, targetUnits[i].transform.position, Quaternion.identity);
 			}
 		}
 	}
