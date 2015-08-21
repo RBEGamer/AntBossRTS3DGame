@@ -8,7 +8,7 @@ public class map_animation_loader : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if(GameObject.Find(map_animation_prefab.name) == null){
-			GameObject igo = (GameObject)Instantiate(map_animation_prefab, new Vector3(0.0f,0.0f,0.0f), new Quaternion(0.0f,0.0f,0.0f,1.0f));
+			GameObject igo = (GameObject)Instantiate(map_animation_prefab, new Vector3(-35.68f,-0.4569011f,72.96997f), new Quaternion(0.0f,0.0f,0.0f,1.0f));
 
 		}
 		DontDestroyOnLoad(GameObject.Find(map_animation_prefab.name));

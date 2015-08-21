@@ -1144,7 +1144,7 @@ public class ui_manager : MonoBehaviour {
 		//0-3
 		public void toggle_upgrade_window(int mapped_upgrade_slot){
 			show_upgrade_ui = !show_upgrade_ui;
-		manage_upgrade_ui();
+			manage_upgrade_ui();
 		}
 
 
