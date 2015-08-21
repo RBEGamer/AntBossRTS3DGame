@@ -8,7 +8,8 @@
       <File FileName="Assets\Scripts\wp_manager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitGroupCache.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\FogOfWar\FogOfWarTerrainSampler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\HelpScript\DestroyedReplace.cs" Line="12" Column="1" />
+      <File FileName="Assets\Scripts\Unit Scripts\HelpScript\DestroyedReplace.cs" Line="11" Column="66" />
+      <File FileName="Assets\Scripts\Unit Scripts\HelpScript\DestroyAfterXSeconds.cs" Line="6" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
