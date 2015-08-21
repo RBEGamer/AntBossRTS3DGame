@@ -1092,11 +1092,10 @@ public class ui_manager : MonoBehaviour {
 	public GameObject upgrad_ui_holder;
 	public Sprite empty_upgrad_ui_icon;
 
-	public GameObject upgrade_ui_headline_text;
-	public GameObject upgrade_ui_description_text;
-
-	private upgrade_description[] view_specific_upgrades = new upgrade_description[9];
-	private upgrade_description selected_upgrade = null;
+	public GameObject res_upgrade_ui;
+	public GameObject wp_upgrade_ui;
+	public GameObject base_upgrade_ui;
+	public GameObject unit_upgrade_ui;
 
 	private bool update_upgrade_ui = false;
 
@@ -1104,40 +1103,49 @@ public class ui_manager : MonoBehaviour {
 	int btn_fill_counter = 0;
 
 	public void manage_upgrade_ui(){
-		if(show_upgrade_ui){
-			upgrad_ui_holder.SetActive(true);
-		}else{
-			upgrad_ui_holder.SetActive(false);
-		}
 
-
-
-		if(show_upgrade_ui && update_upgrade_ui){
-
-		
-
-		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
-				for (int i = 0; i < 8; i++) {
-					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Image>().sprite = empty_upgrad_ui_icon;
-					GameObject.Find("select_upgrade_slot_btn_" + i.ToString()).GetComponent<Button>().interactable = false;
-					view_specific_upgrades[i] = null;
-					btn_fill_counter = 0;
-				}
-		
-
-			update_upgrade_ui = false;
-
-		}//ende if
-	}
 	}
 
 	//0-3
-	public void toggle_upgrade_window(int mapped_upgrade_slot){
-		show_upgrade_ui = !show_upgrade_ui;
-		if(show_upgrade_ui){
-		update_upgrade_ui = true;
+
+		//0-3
+		public void toggle_upgrade_window(int mapped_upgrade_slot){
+			show_upgrade_ui = !show_upgrade_ui;
+			if(show_upgrade_ui){
+				if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui){
+					res_upgrade_ui.SetActive(false);
+					wp_upgrade_ui.SetActive(false);
+					base_upgrade_ui.SetActive(true);
+					unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.empty_ui){
+					res_upgrade_ui.SetActive(false);
+					wp_upgrade_ui.SetActive(false);
+					base_upgrade_ui.SetActive(false);
+					unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.ressource_ui){
+					res_upgrade_ui.SetActive(true);
+					wp_upgrade_ui.SetActive(false);
+					base_upgrade_ui.SetActive(false);
+					unit_upgrade_ui.SetActive(false);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.unit_ui){
+					res_upgrade_ui.SetActive(false);
+					wp_upgrade_ui.SetActive(false);
+					base_upgrade_ui.SetActive(false);
+					unit_upgrade_ui.SetActive(true);
+			}else if(ui_view_slot_0 == selected_ui_in_slot_0.waypoint_ui){
+					res_upgrade_ui.SetActive(false);
+					wp_upgrade_ui.SetActive(true);
+					base_upgrade_ui.SetActive(false);
+					unit_upgrade_ui.SetActive(false);
+				}
+			}else{
+				res_upgrade_ui.SetActive(false);
+				wp_upgrade_ui.SetActive(false);
+				base_upgrade_ui.SetActive(false);
+				unit_upgrade_ui.SetActive(false);
+			}
 		}
-	}
+
 
 	public void buy_selected_upgrade(){
 	
