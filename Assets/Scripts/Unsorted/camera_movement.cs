@@ -241,6 +241,7 @@ public class camera_movement : MonoBehaviour {
     //now we calculate the slope form the center of the circle to the point on the circle(at the specific angle)
     slope_vector = circle_rotation_point - circle_middle_point;
     //so now we add a zoom wuhuuuu we move the object(camera) along the slope vector
+
     final_camera_transform.position = new Vector3(slope_vector.x * zoom_step, slope_vector.y * zoom_step, slope_vector.z * zoom_step) + camera_offset;
     //now we have the slopevector so we can calculate the angle of the slope relativ to the circle we need this to rotate the object(camera) into the right direction
     //slope_vector

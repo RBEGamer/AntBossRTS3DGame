@@ -1,17 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\CommandHandlers\UnitCommandHandler.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UpgradeUIManager.cs">
     <Files>
       <File FileName="Assets\Scripts\Unsorted\ui_manager.cs" Line="626" Column="39" />
-      <File FileName="Assets\UpgradeUIManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\UpgradeUIManager.cs" Line="7" Column="42" />
       <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UpgradeManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Casting\SpeedyGonzalesScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\path_point.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\wp_manager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Unit Scripts\HelpScript\SimpleDestroyed.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\HealthScript.cs" Line="72" Column="2" />
+      <File FileName="Assets\Scripts\Unit Scripts\BaseScript\HealthScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\TargetScripts\UnitTargetScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Unit Scripts\BaseScript\UnitComponents\CommandHandlers\UnitCommandHandler.cs" Line="127" Column="46" />
+      <File FileName="Assets\Scripts\Unsorted\base_manager.cs" Line="120" Column="30" />
+      <File FileName="Assets\Scripts\Unit Scripts\unit_skills\Skill.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
