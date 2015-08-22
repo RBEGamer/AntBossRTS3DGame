@@ -25,6 +25,7 @@ public class TooltipView : MonoBehaviour {
 		gameObject.SetActive(true);
 	}
 	
+
 	public void HideTooltip() {
 		gameObject.SetActive(false);
 	}

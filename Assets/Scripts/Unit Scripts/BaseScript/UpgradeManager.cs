@@ -4,16 +4,19 @@ using System.Collections.Generic;
 
 public class UpgradeManager : MonoBehaviour {
 	public List<GameObject> listUpgrades;
+	public List<Skill> listUpgradeSkills;
 	public List<string> listUpgradesNames;
 
+	public int numSkills = 10;
 	// Use this for initialization
 	void Start () {
-		Skill[] skillObjects = new Skill[10];
+		Skill[] skillObjects = new Skill[numSkills];
 		skillObjects = GetComponentsInChildren<Skill>(true);
 		foreach (Skill skill in skillObjects)
 		{
 			listUpgrades.Add (skill.gameObject);
 			listUpgradesNames.Add(skill.gameObject.name);
+			listUpgradeSkills.Add (skill);
 		}
 	}
 	
@@ -32,4 +35,14 @@ public class UpgradeManager : MonoBehaviour {
 	}
 
 
+	public List<Skill> getUpgradeListOfTier(int tier) {
+		List<Skill> resultList = new List<Skill>();
+		for(int i = 0; i < listUpgradeSkills.Count; i++) {
+			if(listUpgradeSkills[i].skillTier == tier) {
+				resultList.Add (listUpgradeSkills[i]);
+			}
+		}
+
+		return resultList;
+	}
 }

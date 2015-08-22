@@ -139,7 +139,11 @@ public class path_point : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-
+		if(is_selected && !circle_holder.activeSelf) {
+			circle_holder.SetActive(true);
+		} if(!is_selected && circle_holder.activeSelf) {
+			circle_holder.SetActive(false);
+		}
 
 
 	}

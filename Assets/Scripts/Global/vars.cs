@@ -386,6 +386,7 @@ public class vars : MonoBehaviour {
 	public static string sleep_pos_manager_name = "sleep_pos_manager";
 	public static string ressource_manager_name = "ressource_manager";
 	public static string base_name = "ant_base";
+	public static string tooltip_name = "ToolTipText";
 	public static string walk_way_manager_name = "walk_way_manager";
 	public static string ground_terrain_name = "ground";
 	public static string sound_manager_name = "sound_manager";

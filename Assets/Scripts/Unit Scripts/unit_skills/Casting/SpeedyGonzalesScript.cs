@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SpeedyGonzales : MonoBehaviour {
+public class SpeedyGonzalesScript : MonoBehaviour {
 	public UnitFaction targetFaction;
 	public float duration;
 	public float radius;
