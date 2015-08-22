@@ -95,7 +95,6 @@ public class HealthScript : MonoBehaviour {
 		if(CurrentHealth <= 0) {
 			hasHealth = false;
 			if(unitScript != null) {
-				unitScript.animator.SetTrigger("death");
 				unitScript.animator.SetBool("dead", true);
 				this.enabled = false;
 			} else {

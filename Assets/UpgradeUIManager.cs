@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class UpgradeUIManager : MonoBehaviour {
-	public static int numResearchedTiers = 0;
+	public static int numResearchedTiers = 1;
 	public static int numUpgradesOnCurrentTier = 0;
 
 	public GameObject selectedSlot;

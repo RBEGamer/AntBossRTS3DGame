@@ -112,8 +112,13 @@ public class base_manager : MonoBehaviour {
 
 
 
-
-
+	public void addResources() {
+		res_a_storage += 100;
+		res_b_storage += 100;
+		bought_attack_ants += 2;
+		bought_scout_ants += 2;
+		bought_collector_ants += 2;
+	}
 
 	public int avariable_collector_ants;
 	// Use this for initialization

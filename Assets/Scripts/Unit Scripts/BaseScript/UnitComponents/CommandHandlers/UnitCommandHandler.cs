@@ -102,6 +102,7 @@ public class UnitCommandHandler : MonoBehaviour {
 
 	public virtual void Attack() {
 		setRunning(true);
+		unitScript.unitTargetScript.UpdateTarget();
 		if(unitScript.unitTargetScript.attackTarget) {
 			//unitScript.movementScript.UpdateDestination(unitScript.unitTargetScript.attackTarget.transform.position);
 			Vector3 t = unitScript.unitTargetScript.attackTarget.gameObject.transform.position + 
