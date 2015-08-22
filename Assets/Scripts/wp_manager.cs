@@ -591,7 +591,7 @@ public class wp_manager : MonoBehaviour
 								}
 								sgo = null;
 								GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_add_succ_sound();
-							}else{
+							}else if(Input.GetMouseButtonDown (1)){
 								GameObject.Find("audio_playback_manager").GetComponent<audio_playback_manager>().play_wp_add_fail_sound();
 							} //ende mouse button
 							} //ende distance
