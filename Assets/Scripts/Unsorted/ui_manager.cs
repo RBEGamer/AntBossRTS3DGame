@@ -24,7 +24,7 @@ public class ui_manager : MonoBehaviour {
 	public GameObject toggle_waypoint_mode_button_holder;
 	public GameObject toggle_waypoint_mode_button_text_holder;
 
-	public int amount_ant_buttons = 12;
+	public int prodSlots.Count = 12;
 	Image[] cacheImages;
 	Image[] cacheImagesProd;
 	Button[] cacheButtons;
@@ -89,14 +89,15 @@ public class ui_manager : MonoBehaviour {
 
 
 
+	public List<GameObject> prodSlots;
 	void Start () {
-		cacheImagesProd = new Image[amount_ant_buttons];
-		cacheImages = new Image[amount_ant_buttons];
-		cacheButtons = new Button[amount_ant_buttons];
-		for(int i = 0; i < amount_ant_buttons; i++) {
-			cacheImagesProd[i] = GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>();
-			cacheImages[i] = GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>();
-			cacheButtons[i] = GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Button>();
+		cacheImagesProd = new Image[prodSlots.Count];
+		cacheImages = new Image[prodSlots.Count];
+		cacheButtons = new Button[prodSlots.Count];
+		for(int i = 0; i < prodSlots.Count; i++) {
+			cacheImagesProd[i] = prodSlots[i].gameObject.transform.FindChild("ant_prod_query_status_slot_progressbar").GetComponent<Image>();
+			cacheImages[i] = prodSlots[i].GetComponent<Image>();
+			cacheButtons[i] = prodSlots[i].GetComponent<Button>();
 		}
 		base_manager_cache = GameObject.Find(vars.base_name).GetComponent<base_manager>();
 		unit_group_chache_cache = GameObject.Find(vars.base_name).GetComponent<UnitGroupCache>();
@@ -622,7 +623,7 @@ public class ui_manager : MonoBehaviour {
 	
 		if(ui_view_slot_0 == selected_ui_in_slot_0.base_ui && ant_produce_query.Count > 0){
 			//alle btns weiss
-			for (int i = 0; i < amount_ant_buttons; i++) {
+			for (int i = 0; i < prodSlots.Count; i++) {
 		
 				if(i >= ant_produce_query.Count){
 					//GameObject.Find("ant_prod_query_status_slot_" + i.ToString()).GetComponent<Image>().sprite = none_ant_icon;

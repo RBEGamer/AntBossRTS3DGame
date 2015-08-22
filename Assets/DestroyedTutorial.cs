@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DestroyedTutorial : MonoBehaviour {
 
-	public static int countDestroyed;
+	public static int countDestroyed = 0;
 	// Use this for initialization
 	void Start () {
 	
