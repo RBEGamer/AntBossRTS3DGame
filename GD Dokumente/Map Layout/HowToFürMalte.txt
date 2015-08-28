@@ -1,0 +1,35 @@
+HowTo -
+
+
+Neue Gegnergruppe erstellen
+ -- Vorhandenes Prefab kopieren(am einfachsten) z.B. "Enemy Group 2"
+ -- Attribute anpassen
+   --- Einheiten überschreiben Einheitengruppe!
+   --- In der Einheit muss die neue Unit Group gesetzt werden!
+ -- Ggf. Modell anpassen
+ -- Ggf. neues Gegnerskript drüberziehen(Standard: UnitFighterFighter1)
+ -- Routennamen einfügen(Possible routes)
+ -- Ggf. Route bereits füllen und punkt in route(falls einheit bereits gespawnt sein soll)
+ -> als neues prefab speichern
+
+Bei eigenen Einheiten, die schon da sein sollen zum Testen, müssen
+immer die Einheitengruppen extra noch reingezogen werden(nicht als Child der Gruppe!)
+Das ist ein Workaround da sie zukünftig ja zur Laufzeit erstellt werden
+
+
+Neuen Spawner erstellen
+
+ -- "Spawner" Prefab kopieren
+ -- Spawner Routes = Routenobjekte füllen
+ -- Availalbe Unit Groups = Unit Group Prefabs füllen
+ -- Unit Spawn Chances = Unit Group Chancen füllen, wichtig: size muss immer = available unit groups sein!!
+ -- in der Welt lassen!
+
+Neue Route erstellen
+ -- "Route" Objekt/Prefab kopieren
+ -- Waypoints in die Liste einfügen(Objekte)
+ -- in der Welt lassen!
+
+Neuen Waypoint erstellen  
+ -- "Spawner_Waypoint" objekt erstellen und positioieren
+ -- in der Welt lassen!

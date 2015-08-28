@@ -1,0 +1,16 @@
+Hill/Paint Height:	3-5
+Größe der Plane:	20x20x20
+
+
+
+Photoshop Path Lenght:	300px bei 3500x3500
+
+Greyscale Image!
+RGB: 9 für ~3,5 Hill Height
+Vor Export um 90° drehen und horizontal spiegeln
+
+
+
+Terrain Größe:		200x200
+Terrain Height:		50
+Terrain Position:	-100, 0, -100

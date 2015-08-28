@@ -1,0 +1,32 @@
+In Map Framedrop ab und an
+Wenn Ressourcenqulle keine Ressouren mehr hat müssen die Sammler aufhören abzubauen
+Buttons für Wegpunktvergabe
+Ressourcenqulle B baut derzeit beiden ressourcentypen ab
+Späher müssen von Bergen blockiert werden / dürfen dort keine WP's setzen
+Im Wiki die Werte der Spielereinheiten auf die Kampfgruppe umlegen, und nur HP auf die Einheiten selbst. Dann verweis von Einheit zu Gruppe aufschreiben
+Feindgruppen Feindsichtung für B und C besser deklarieren. Wer kann sichten und wann hats prio (reichweite!)
+Priotirätenliste für B. Einheit die ihm Schaden zugefügt hat soll er bei 2 einheiten nicht ständig hin und her wechseln. DEKLARIEREN!!!
+Beim Map erstellen einfach duplicate szene und dann level 1 etc. bennenen wenn ich speichern will
+ in die obere leiste
+Kampfgruppe aus der base "ejecten" muss ins UI: wo auch kämpfer hinzufügen, gruppe füllen, kämpfer entziehen und gruppe auflösen drin is machen den balken einfach länger und packen das etwas abseits ans rechte ende + wenn der spieler auf den boden rechtsklicks verlässt die gruppe die base
+
+
+
+
+
+When you have familiarized yourself with the terrain system, you can look at modifying some of the values in the Set Resolution tab.
+
+For example :
+
+create a new terrain
+
+browse to Terrain > Set Resolution
+
+Set the Heightmap Resolution to 33. This number must be a power of 2 plus 1 (33, 65, 129, etc etc)
+
+Then you will find that you are creating a low-poly terrain.
+
+
+
+
+Neuen Wegpunkt: Stab der oben ne kugel hat die leuchtet und wegpunkte miteinander verbunden sind durch "laserstrahlen"
