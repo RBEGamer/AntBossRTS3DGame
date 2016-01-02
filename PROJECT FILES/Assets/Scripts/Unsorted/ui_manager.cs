@@ -1140,7 +1140,7 @@ public class ui_manager : MonoBehaviour {
 				unit_upgrade_ui.SetActive(false);
 			}
 		}else{
-			Debug.Log("close");
+			//Debug.Log("close");
 			res_upgrade_ui.SetActive(false);
 			wp_upgrade_ui.SetActive(false);
 			base_upgrade_ui.SetActive(false);

@@ -151,7 +151,9 @@ public class UIUnitFighterSelection : MonoBehaviour
 		
 		if (Physics.Raycast(ray, out hit))
 		{
-			while (!passables.Contains(hit.transform.gameObject.name))
+            // TEMPORARY FIX TO RIGHT SIDE CLICK BUG: REMOVE THIS CHECK
+            // RETUREND "BLOCK OBJECT(49)" SOMETIMES FOR NO APPARENT REASON
+			/*while (!passables.Contains(hit.transform.gameObject.name))
 			{
 				if (!Physics.Raycast(hit.transform.position, ray.direction, out hit))
 				{
@@ -159,13 +161,14 @@ public class UIUnitFighterSelection : MonoBehaviour
 				}
 				break;
 			}
-			
+			*/
 		}
 		if (hit.transform != null)
 		{
+            Debug.Log("I'VE HIT SOMETHING: " + hit.collider.gameObject.name);
 			return hit.point;
 		}
-		
+
 		return hit.point;
 	}
 }
