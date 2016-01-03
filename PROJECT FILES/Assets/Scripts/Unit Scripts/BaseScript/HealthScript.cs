@@ -19,23 +19,20 @@ public class HealthScript : MonoBehaviour {
 
 	public GameObject shieldObject;
 
-
-    public Canvas parentCanvas;
-    public GameObject healthBarGameobject;
-    public float healthPanelOffset = 2.0f;
-    public Text HealthText;
-    public Slider HealthSlider;
+    public HealthbarScript healthbarScript;
 
 	public float currentShieldCooldown;
+
 	void Awake() {
 		unitScript = GetComponent<UnitScript>();
 		resetHealth();
 
-        if (healthBarGameobject)
-        {
-            healthBarGameobject.transform.SetParent(script_cache.main_canvas.transform, false);
-        }
+       
 	}
+
+    void Start()
+    {
+    }
 
 	void Update() {
 		checkDeath();
@@ -45,7 +42,6 @@ public class HealthScript : MonoBehaviour {
 		} else if(shieldObject != null && shieldObject.activeSelf) {
 			shieldObject.SetActive(false);
 		}
-        updateVisual();
 	}
 
 	void OnSkillResult(SkillResult skillresult) {
@@ -89,7 +85,6 @@ public class HealthScript : MonoBehaviour {
 		}
 
 		checkDeath();
-        //updateVisual();
 	}
 
 	public void regenerate(float healthRegen, float shieldRegen) {
@@ -100,21 +95,8 @@ public class HealthScript : MonoBehaviour {
 		if(hasShield) {
 			CurrentShield = Mathf.Clamp(CurrentShield + shieldRegen * Time.deltaTime, 0.0f, BaseShield);
 		}
-
-       // updateVisual();
 	}
 
-    public void updateVisual()
-    {
-        if (HealthText && HealthSlider)
-        {
-            HealthText.text = unitScript.name;
-            HealthSlider.value = CurrentHealth / BaseHealth;
-            Vector3 worldPos = new Vector3(transform.position.x, transform.position.y + healthPanelOffset, transform.position.z);
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-            healthBarGameobject.transform.position = new Vector3(screenPos.x, screenPos.y, screenPos.z);
-        }
-    }
 
 	void resetHealth() {
 		CurrentShield = BaseShield;

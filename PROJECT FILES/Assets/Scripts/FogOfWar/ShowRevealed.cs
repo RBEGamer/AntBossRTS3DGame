@@ -6,7 +6,6 @@ public class ShowRevealed : MonoBehaviour
     [SerializeField]
     public static FogOfWar fogOfWar;
 
-
 	public Renderer[] thisRenderer;
 	public bool isVisible;
 

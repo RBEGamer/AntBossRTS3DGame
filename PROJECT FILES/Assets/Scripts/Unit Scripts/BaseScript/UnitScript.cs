@@ -24,7 +24,6 @@ public class UnitScript : MonoBehaviour {
 	public FlagScript flagScript;
 	public WeaponScript weaponScript;
 
-	public GameObject healthBar;
 
 
 	// General unit variables
@@ -46,6 +45,7 @@ public class UnitScript : MonoBehaviour {
 
 	public bool isInFight = false;
 	public float isOutFightTime;
+    public bool isVisible = true;
 
 	void Start() {
 		unitGroupScript.addUnit(this);
@@ -56,18 +56,9 @@ public class UnitScript : MonoBehaviour {
 			setIsInFight(false);
 		}
 		unitCommandHandler.HandleCommands();
-		if(flagScript.Faction == UnitFaction.PlayerFaction) {
-		//	setHealthVisual(healthScript.CurrentHealth / healthScript.BaseHealth);
-		}
 		currentTarget = unitTargetScript.attackTarget;
 
 		healthScript.regenerate(attributeScript.CurrentHealthRegeneration, attributeScript.CurrentShieldRegeneration);
-	}
-	
-	public void setHealthVisual(float healthNormalized){
-		healthBar.transform.localScale = new Vector3(healthNormalized,
-		                                             healthBar.transform.localScale.y,
-		                                             healthBar.transform.localScale.z);
 	}
 
 	public void setIsInFight(bool newstatus) {

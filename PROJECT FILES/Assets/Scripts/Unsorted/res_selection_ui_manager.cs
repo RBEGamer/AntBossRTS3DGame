@@ -16,7 +16,7 @@ public class res_selection_ui_manager : MonoBehaviour {
 
 
 	public void update_res_selection_ui(){
-    Debug.Log("res updated");
+    //Debug.Log("res updated");
 		for (int i = 0; i < 18; i++) {
 			GameObject.Find("res_selection_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = res_icon_ui_none;
 			GameObject.Find("res_selection_btn_" + (i+1).ToString()).GetComponent<Button>().interactable = false;

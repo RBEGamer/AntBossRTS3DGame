@@ -15,7 +15,8 @@ public enum UnitFaction
 
 public class FlagScript : MonoBehaviour {
 	public UnitFaction Faction;
-	public string skillFlags;
+    public string UnitName;
+    public string skillFlags;
 	// Upgrade logic(all units)
 
 	[SerializeField]

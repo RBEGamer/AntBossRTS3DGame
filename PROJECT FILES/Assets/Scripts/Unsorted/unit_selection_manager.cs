@@ -72,7 +72,7 @@ public class unit_selection_manager : MonoBehaviour {
 			//GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().connected_unit_to_ui = group_id;
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().slot_0_set_unit();
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().is_saved_group = true;
-			Debug.Log("group added");
+			//Debug.Log("group added");
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().show_upgrade_ui = false;
 			GameObject.Find(vars.ui_manager_name).GetComponent<ui_manager>().manage_upgrade_ui();
 		refresh_unit_group_selection_ui();

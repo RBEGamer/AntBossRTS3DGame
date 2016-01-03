@@ -8,7 +8,12 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		StartHover(new Vector3(eventData.position.x, eventData.position.y - 18f, 0f));
+        float offset = 36.0f;
+        if (eventData.position.y > Screen.height - 100)
+        {
+            offset *= -1;
+        }
+		StartHover(new Vector3(eventData.position.x, eventData.position.y + offset, 0f));
 	}   
 	public void OnSelect(BaseEventData eventData)
 	{

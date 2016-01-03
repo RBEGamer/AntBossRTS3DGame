@@ -29,9 +29,9 @@ public class UnitTargetScript : MonoBehaviour {
 			if(attackTarget.GetComponent<HealthScript>().hasHealth == false) {
 				resetTarget();
 			}
-			if(!attackTarget.activeSelf) {
+			/*if(!attackTarget.activeInHierarchy) {
 				resetTarget();
-			}
+			}*/
 		}
 
 		unitScript.unitVision.cleanUp();

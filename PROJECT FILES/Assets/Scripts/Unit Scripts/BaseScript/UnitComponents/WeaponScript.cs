@@ -12,6 +12,10 @@ public class WeaponScript : MonoBehaviour {
 	}
 
 	public void attackCurrentTarget() {
+        if (unitScript.unitTargetScript.attackTarget == null)
+        {
+            return;
+        }
 		SkillResult skillResult = new SkillResult();
 		GameObject weaponTarget = unitScript.unitTargetScript.attackTarget.gameObject;
 
