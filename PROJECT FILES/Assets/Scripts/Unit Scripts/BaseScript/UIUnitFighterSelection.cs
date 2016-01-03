@@ -165,7 +165,6 @@ public class UIUnitFighterSelection : MonoBehaviour
 		}
 		if (hit.transform != null)
 		{
-            Debug.Log("I'VE HIT SOMETHING: " + hit.collider.gameObject.name);
 			return hit.point;
 		}
 

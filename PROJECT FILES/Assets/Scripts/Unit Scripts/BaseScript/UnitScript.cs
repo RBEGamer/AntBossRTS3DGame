@@ -57,7 +57,7 @@ public class UnitScript : MonoBehaviour {
 		}
 		unitCommandHandler.HandleCommands();
 		if(flagScript.Faction == UnitFaction.PlayerFaction) {
-			setHealthVisual(healthScript.CurrentHealth / healthScript.BaseHealth);
+		//	setHealthVisual(healthScript.CurrentHealth / healthScript.BaseHealth);
 		}
 		currentTarget = unitTargetScript.attackTarget;
 
@@ -65,7 +65,7 @@ public class UnitScript : MonoBehaviour {
 	}
 	
 	public void setHealthVisual(float healthNormalized){
-		healthBar.transform.localScale = new Vector3( healthNormalized,
+		healthBar.transform.localScale = new Vector3(healthNormalized,
 		                                             healthBar.transform.localScale.y,
 		                                             healthBar.transform.localScale.z);
 	}

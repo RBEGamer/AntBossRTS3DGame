@@ -377,6 +377,7 @@ public class vars : MonoBehaviour {
 	public static string blockage_tag = "block";
 	public static string fogofwar_tag = "fogofwar";
 	/* --------------- NAMES -------------------------------: most cases <name> + "_" + <id> */
+    public static string main_canvas_name = "UI_MAIN_HOLDER";
 	public static string path_manager_name = "path_manager";
 	public static string worker_manager_name = "WorkerManager";
 	public static string res_name = "ressource";
