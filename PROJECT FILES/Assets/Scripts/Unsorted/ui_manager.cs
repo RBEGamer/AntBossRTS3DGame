@@ -358,7 +358,7 @@ public class ui_manager : MonoBehaviour {
 
 
 		for (int i = 0; i < 10; i++) {
-			GameObject.Find("ant_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = ant_icon_none;
+			//GameObject.Find("ant_destroy_btn_" + (i+1).ToString()).GetComponent<Image>().sprite = ant_icon_none;
 		}
 
 		//show ant ichons on buttons

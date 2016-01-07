@@ -106,12 +106,15 @@ public class HealthScript : MonoBehaviour {
 	void checkDeath() {
 		if(CurrentHealth <= 0) {
 			hasHealth = false;
-			if(unitScript != null) {
-				unitScript.animator.SetBool("dead", true);
-				this.enabled = false;
-			} else {
-				SendMessage("destroyObject", SendMessageOptions.DontRequireReceiver);
-			}
+            unitScript.animator.SetTrigger("death");
+
+            this.enabled = false;
+            if (unitScript.flagScript.Faction == UnitFaction.EnemyFaction)
+            {
+                SendMessage("destroyObject", SendMessageOptions.DontRequireReceiver);
+                Destroy(gameObject);
+            }
+            
 		}
 	}
 }
